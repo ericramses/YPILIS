@@ -105,6 +105,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_BackgroundWorker.ReportProgress(1, "Sending SVH Clinic Email: " + DateTime.Now.ToLongTimeString());
             int rowCount = Business.Billing.Model.SVHClinicMailMessage.SendMessage();
             this.m_BackgroundWorker.ReportProgress(1, "SVH Clinic Email Sent with " + rowCount.ToString() + " rows");
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "SendSVHClinicEmail");
         }
 
         private void MenuItemProcessPSAFiles_Click(object sender, RoutedEventArgs e)
@@ -186,6 +187,7 @@ namespace YellowstonePathology.UI.Billing
             }
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished Transfer of " + rowCount + " SVH Files");
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "TransferSVHFiles");
         }
 
         private void BackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
@@ -273,6 +275,7 @@ namespace YellowstonePathology.UI.Billing
             }
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished processing " + rowCount + " PSA Files");
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "ProcessPSAFiles");
         }
 
         private void ProcessSVHCDMFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -341,7 +344,8 @@ namespace YellowstonePathology.UI.Billing
             }
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
             this.m_BackgroundWorker.ReportProgress(1, "Wrote " + rowCount + " SVH CDM files.");
-        }                         
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "ProcessSVHCDMFiles");
+        }
 
         private void CreateXmlBillingDocument(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
         {
@@ -478,6 +482,7 @@ namespace YellowstonePathology.UI.Billing
             }
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished with transfer of " + rowCount + " PSA Files: " + DateTime.Now.ToLongTimeString());
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "TransferPSAFiles");
         }
 
         private void SshFileTransfer_Failed(object sender, string message)
@@ -561,6 +566,7 @@ namespace YellowstonePathology.UI.Billing
             this.m_BackgroundWorker.ReportProgress(1, "Starting Updating MRN/ACCT: " + DateTime.Now.ToLongTimeString());
             Business.Gateway.BillingGateway.UpdateMRNACCT();
             this.m_BackgroundWorker.ReportProgress(1, "Finished Updating MRN/ACCT: " + DateTime.Now.ToLongTimeString());
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "MRNAcctUpdate");
         }
 
         private void FaxTheReport(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -573,6 +579,7 @@ namespace YellowstonePathology.UI.Billing
                 Business.Helper.FileConversionHelper.SaveFixedDocumentAsTiff(clientBillingDetailReport.FixedDocument, tifPath);
                 Business.ReportDistribution.Model.FaxSubmission.Submit("4062378090", "SVH Billing Report", tifPath);
                 this.m_BackgroundWorker.ReportProgress(1, "Completed faxing report: " + DateTime.Now.ToLongTimeString());
+                Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "FaxTheReport");
             });            
         }
 
@@ -629,6 +636,7 @@ namespace YellowstonePathology.UI.Billing
                 }
             }
             this.m_BackgroundWorker.ReportProgress(1, "Completed SVH ADT Matching: " + DateTime.Now.ToLongTimeString());
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "ADTMatch");
         }
 
         private void MenuItemMatchSVHADT_Click(object sender, RoutedEventArgs e)
