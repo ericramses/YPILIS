@@ -58,7 +58,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             EPICFT1View epicFT1View = new EPICFT1View(cptCode, transactionDate, transactionPostingDate, this.m_PanelSetOrderCPTCodeBill.Quantity.ToString(), orderingPhysician, this.m_AccessionOrder.MasterAccessionNo);
             epicFT1View.ToXml(document, 1);
                         
-            string fileName = System.IO.Path.Combine(basePath, this.m_PanelSetOrderCPTCodeBill.PanelSetOrderCPTCodeBillId + ".hl7.xml");
+            string fileName = System.IO.Path.Combine(basePath, this.m_PanelSetOrderCPTCodeBill.PanelSetOrderCPTCodeBillId + "." + cptCode.Code + ".hl7.xml");
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(fileName))
             {
                 document.Save(sw);

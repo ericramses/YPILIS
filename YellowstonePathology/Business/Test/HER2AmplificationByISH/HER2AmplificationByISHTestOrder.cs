@@ -708,21 +708,10 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
         public void SetResults(AccessionOrder accessionOrder)
         {
-            if (this.m_Indicator == HER2AmplificationByISHIndicatorCollection.BreastIndication)
-            {
-                if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2NeuSignal.HasValue)
-                {
-                    if ((this.AverageHer2Chr17SignalAsDouble >= 2.0 && this.AverageHer2NeuSignal < 4.0) ||
-                        (this.AverageHer2Chr17SignalAsDouble < 2.0 && this.AverageHer2NeuSignal >= 4.0)) this.Result = HER2AmplificationResultEnum.Equivocal.ToString();
-                }
-            }
-            else
-            {
-                HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection, this.m_ReportNo);
-                HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
-                YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.OrderedOn, this.OrderedOnId);
-                her2AmplificationResult.SetResults(specimenOrder);
-            }
+            HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection, this.m_ReportNo);
+            HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
+            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.OrderedOn, this.OrderedOnId);
+            her2AmplificationResult.SetResults(specimenOrder);            
         }
 
         public override AuditResult IsOkToAccept(AccessionOrder accessionOrder)

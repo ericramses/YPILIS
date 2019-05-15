@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>27</ApplicationRevision>
     <ApplicationVersion>10.1.15.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1112,6 +1112,7 @@
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultBreast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultCollection.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGastric.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultEquivocalBreast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup2Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup3Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup4Breast.cs" />
@@ -3049,6 +3050,7 @@
     <Compile Include="UI\Billing\AddFISHCPTCodePage.xaml.cs">
       <DependentUpon>AddFISHCPTCodePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Billing\HRHCDMList.cs" />
     <Compile Include="UI\Billing\SimulationDialog.xaml.cs">
       <DependentUpon>SimulationDialog.xaml</DependentUpon>
     </Compile>
@@ -7000,12 +7002,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
