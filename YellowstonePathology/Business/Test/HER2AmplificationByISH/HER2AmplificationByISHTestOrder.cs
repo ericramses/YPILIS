@@ -8,7 +8,7 @@ using YellowstonePathology.Business.Persistence;
 namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
 	[PersistentClass("tblHER2AmplificationByISHTestOrder", "tblPanelSetOrder", "YPIDATA")]
-	public class HER2AmplificationByISHTestOrder : YellowstonePathology.Business.Test.PanelSetOrder, Interface.IHER2ISH
+	public class HER2AmplificationByISHTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
     {
 		public static string PositiveResult = "POSITIVE (amplified)";
 		public static string NegativeResult = "NEGATIVE (not amplified)";
@@ -768,7 +768,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
             if (result.Status == AuditStatusEnum.OK)
             {
-                if (this.IsHER2ByIHCRequired() == true)
+                if (this.m_Result == HER2AmplificationResultEnum.Equivocal.ToString())
                 {
                     Test.Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
                     HER2AnalysisSummary.HER2AnalysisSummaryTest her2AmplificationSummaryTest = new HER2AnalysisSummary.HER2AnalysisSummaryTest();
@@ -793,27 +793,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
             }
             return base.Finish(accessionOrder);
-        }
-
-        private bool CheckTestIsAccepted(AccessionOrder accessionOrder, int panelSetId)
-        {
-            bool result = accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetId, this.OrderedOnId, true).Accepted;
-            return result;
-        }
-
-        public bool IsHER2ByIHCRequired()
-        {
-            bool result = false;
-            if (this.m_Indicator == HER2AmplificationByISHIndicatorCollection.BreastIndication)
-            {
-                if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2NeuSignal.HasValue)
-                {
-                    if (this.AverageHer2Chr17SignalAsDouble >= 2.0 && this.AverageHer2NeuSignal < 4.0) result = true;
-                    else if (this.AverageHer2Chr17SignalAsDouble < 2.0 && this.AverageHer2NeuSignal >= 4.0) result = true;
-                }
-            }
-            if (result == false) this.m_RecountRequired = false;
-            return result;
         }
     }
 }
