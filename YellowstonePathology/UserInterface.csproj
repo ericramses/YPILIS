@@ -3115,6 +3115,9 @@
     <Compile Include="UI\Login\ClientFaxPage.xaml.cs">
       <DependentUpon>ClientFaxPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Monitor\BillingEODProcessingPage.xaml.cs">
+      <DependentUpon>BillingEODProcessingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
@@ -5265,6 +5268,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Monitor\AutopsyRequestMonitorPage.xaml" />
+    <Page Include="UI\Monitor\BillingEODProcessingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Monitor\DashboardPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
