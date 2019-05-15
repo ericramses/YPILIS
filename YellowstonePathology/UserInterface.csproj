@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>25</ApplicationRevision>
+    <ApplicationRevision>26</ApplicationRevision>
     <ApplicationVersion>10.1.15.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -1112,6 +1112,7 @@
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultBreast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultCollection.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGastric.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultEquivocalBreast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup2Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup3Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup4Breast.cs" />
