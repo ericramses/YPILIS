@@ -364,7 +364,6 @@
     <Compile Include="Business\EthContract.cs" />
     <Compile Include="Business\EthContractCollection.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicHRHClient.cs" />
-    <Compile Include="Business\Interface\IHER2ISH.cs" />
     <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV3.cs" />
     <Compile Include="Business\Label.Model\StorageSlideLabel.cs" />
     <Compile Include="Business\Label.Model\HologicSlideLabelPrinter.cs" />
@@ -1113,18 +1112,22 @@
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultCollection.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGastric.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultEquivocalBreast.cs" />
-    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup2Breast.cs" />
-    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup3Breast.cs" />
-    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup4Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup5Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup1Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultEnum.cs" />
     <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTest.cs" />
     <Compile Include="Business\Test\HER2AmplificationRecount\HER2AmplificationRecountTestOrder.cs" />
+    <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryCMMCNTEView.cs" />
     <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryEPICOBXView.cs" />
+    <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryResult.cs" />
+    <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryResultCollection.cs" />
+    <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryResultGroup2Breast.cs" />
+    <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryResultGroup3Breast.cs" />
+    <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryResultGroup4Breast.cs" />
     <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryTest.cs" />
     <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryTestOrder.cs" />
     <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryWordDocument.cs" />
+    <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryWPHOBXView.cs" />
     <Compile Include="Business\Test\HoldForFlow\CultureAndHoldForCytogeneticsTest.cs" />
     <Compile Include="Business\Test\HoldForFlow\DirectHarvestForFISHTest.cs" />
     <Compile Include="Business\Test\HPV1618\HPV1618WPHOBXView.cs" />
@@ -2308,16 +2311,12 @@
     <Compile Include="Business\Test\Her2AmplificationByIHC\Her2AmplificationByIHCTest.cs" />
     <Compile Include="Business\Test\Her2AmplificationByIHC\Her2AmplificationByIHCWordDocument.cs" />
     <Compile Include="Business\Test\Her2AmplificationByIHC\PanelSetOrderHer2AmplificationByIHC.cs" />
-    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHBreastResult.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHCMMCNteView.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHEpicObxView.cs" />
-    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHGastricAdenocarcinomaResult.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHGeneticHeterogeneityCollection.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHIndicatorCollection.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHPanel.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHProbeSignalIntensityCollection.cs" />
-    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHResult.cs" />
-    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHResultCollection.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHSampleAdequacyCollection.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHSystemGeneratedAmendmentText.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationByISHTest.cs" />
@@ -3116,6 +3115,9 @@
     </Compile>
     <Compile Include="UI\Login\ClientFaxPage.xaml.cs">
       <DependentUpon>ClientFaxPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Monitor\BillingEODProcessingPage.xaml.cs">
+      <DependentUpon>BillingEODProcessingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Monitor\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
@@ -5267,6 +5269,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Monitor\AutopsyRequestMonitorPage.xaml" />
+    <Page Include="UI\Monitor\BillingEODProcessingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Monitor\DashboardPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

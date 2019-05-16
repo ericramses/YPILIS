@@ -1165,7 +1165,7 @@ namespace YellowstonePathology.Business.Test
             result.Add(212);
 
             result.Add(136);  // MPN Standard Reflex
-            result.Add(137);  // MPN Extended Reflex
+            //result.Add(137);  // MPN Extended Reflex
             return result;
         }
 

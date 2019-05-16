@@ -126,6 +126,9 @@ namespace YellowstonePathology.Business.HL7View.CMMC
                 case 274:
                     view = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisCMMCNTEView(accessionOrder, reportNo);
                     break;
+                case 313:
+                    view = new YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryCMMCNTEView(accessionOrder, reportNo);
+                    break;
                 case 338:
                     view = new YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2.ThrombocytopeniaProfileV2CMMCNTEView(accessionOrder, reportNo);
                     break;
