@@ -21,9 +21,7 @@
         <TextBlock Grid.Column="0" Grid.Row="0" Margin="20,2,2,2" Text="{Binding Path=PageHeaderText}" VerticalAlignment="Center" Foreground="White" FontSize="16" FontWeight="Bold"></TextBlock>
 
         <StackPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" Text="{Binding Path=MessageLine1}" ></TextBlock>
-            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" Text="{Binding Path=MessageLine2}" ></TextBlock>
-            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" Text="{Binding Path=MessageLine3}" ></TextBlock>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" Text="{Binding Path=Message}" ></TextBlock>
         </StackPanel>
         
         <Border Grid.Column="0" Grid.Row="2" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>

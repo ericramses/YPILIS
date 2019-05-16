@@ -182,7 +182,7 @@
                 <TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2" HorizontalAlignment="Right">Fixation Duration:</TextBlock>
                 <TextBox Grid.Column="1" Grid.Row="18" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.FixationDurationString, Mode=OneWay}" FontSize="14" IsEnabled="False"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="19" Margin="2,2,2,2" FontSize="14">Specimen Adequacy:</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="19" Margin="2,2,2,2" HorizontalAlignment="Right">Specimen Adequacy:</TextBlock>
                 <ComboBox Grid.Column="1" Grid.Row="19" Margin="2,2,2,2" HorizontalAlignment="Stretch"
                               ItemsSource="{Binding Path=SpecimenAdequacyTypes}" SelectedValue="{Binding Path=SpecimenOrder.SpecimenAdequacy}" />
                 

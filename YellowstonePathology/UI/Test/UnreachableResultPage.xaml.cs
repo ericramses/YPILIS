@@ -26,13 +26,14 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
 
         private string m_PageHeaderText;
+        private string m_Message;
 
         public UnreachableResultPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
         {
             this.m_PanelSetOrder = panelSetOrder;
-
-            this.m_PageHeaderText = "Result not available for: " + accessionOrder.PatientDisplayName;
+            this.m_PageHeaderText = "Result for: " + accessionOrder.PatientDisplayName;
+            this.m_Message = "Results for " + panelSetOrder.PanelSetName + " are not available here.";
 
             InitializeComponent();
 
@@ -44,20 +45,11 @@ namespace YellowstonePathology.UI.Test
             get { return this.m_PageHeaderText; }
         }
 
-        public string MessageLine1
+        public string Message
         {
-            get { return "The"; }
+            get { return this.m_Message; }
         }
-
-        public string MessageLine2
-        {
-            get { return this.m_PanelSetOrder.PanelSetName; }
-        }
-
-        public string MessageLine3
-        {
-            get { return "result is not available from here."; }
-        }
+        
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {

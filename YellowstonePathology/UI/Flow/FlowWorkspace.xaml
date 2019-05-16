@@ -208,50 +208,45 @@
                 </TabItem>
 
                 <TabItem Name="TabItemSpecimen" Header="Specimen">
-                    <Grid>
+                    <Grid Margin="5,5,5,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="20"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource HeadingTextBlock}">Date/Time Received:</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" FontWeight="Bold">Date/Time Received:</TextBlock>
                         <TextBox Name="textBoxDateTimeReceived" Grid.Column="1" Grid.Row="1" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
-                                  HorizontalAlignment="Left" Width="150"
+                                  HorizontalAlignment="Stretch" Margin="2,2,2,2"
                                  Text="{Binding Path=AccessionOrder.SpecimenOrderCollection[0].DateReceived, Converter={StaticResource MilitaryDateTimeConverter}}">
                         </TextBox>
 
-
-                        <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource HeadingTextBlock}" VerticalAlignment="Center">Specimen:</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right" FontWeight="Bold" Margin="2,2,2,2">Specimen:</TextBlock>
 
                         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-                            <Button Name="ButtonShowSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSpecimenDialog_Click">Details</Button>
-                            <Button Name="ButtonShowSelectSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSelectSpecimenDialog_Click">Selection</Button>
+                            <TextBlock Margin="2,2,2,2">
+                                <Hyperlink Click="HyperLinkShowSpecimenDialog_Click">Details</Hyperlink>
+                            </TextBlock>
+                            <TextBlock Margin="2,2,2,2">
+                                <Hyperlink Click="HyperLinkShowSelectSpecimenDialog_Click">Selection</Hyperlink>
+                            </TextBlock>
                         </StackPanel>
 
-                        <TextBlock Grid.Column="0" Grid.Row="3" Style="{StaticResource HeadingTextBlock}">Specimen Viability</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="3" TextAlignment="Right" FontWeight="Bold" Margin="2,2,2,2">Specimen Viability:</TextBlock>
                         <TextBox Grid.Column="1" Grid.Row="3" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
-                                  HorizontalAlignment="Left" Width="150"
+                                  HorizontalAlignment="Stretch"
                                  Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent, UpdateSourceTrigger=PropertyChanged}">
                         </TextBox>
 
-                        <TextBlock Grid.Column="0" Grid.Row="4" Style="{StaticResource HeadingTextBlock}">Gross Description:</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="4" FontWeight="Bold" Margin="2,2,2,2">Gross Description:</TextBlock>
                         <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
                                  TextWrapping="Wrap" AcceptsReturn="True"
                                  Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.GrossX, UpdateSourceTrigger=PropertyChanged}">

@@ -1028,8 +1028,8 @@ namespace YellowstonePathology.UI
             {
                 Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetCPTCodeByCDM(cdm);
                 Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.GetNextItem("19-12484.S");
-                panelSetOrderCPTCodeBill.Quantity = 1;
-                panelSetOrderCPTCodeBill.PostDate = DateTime.Parse("05/14/2019");
+                panelSetOrderCPTCodeBill.Quantity = -1;
+                panelSetOrderCPTCodeBill.PostDate = DateTime.Parse("05/15/2019");
                 panelSetOrderCPTCodeBill.CPTCode = cptCode.Code;
                 panelSetOrderCPTCodeBill.MedicalRecord = ao.SvhMedicalRecord;
                 panelSetOrderCPTCodeBill.Account = ao.SvhAccount;
