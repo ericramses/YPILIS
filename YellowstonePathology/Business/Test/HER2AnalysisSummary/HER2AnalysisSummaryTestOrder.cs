@@ -9,7 +9,7 @@ using YellowstonePathology.Business.Audit.Model;
 namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
 {
     [PersistentClass("tblHER2AmplificationSummaryTestOrder", "tblPanelSetOrder", "YPIDATA")]
-    public class HER2AnalysisSummaryTestOrder : PanelSetOrder, Interface.IHER2ISH
+    public class HER2AnalysisSummaryTestOrder : PanelSetOrder
     {
         protected string m_Result;
         protected int m_CellsCounted;
@@ -809,10 +809,10 @@ namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
 
         public void SetResults(AccessionOrder accessionOrder)
         {
-            HER2AmplificationByISH.HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationByISH.HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection, this.m_ReportNo);
-            HER2AmplificationByISH.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
+            HER2AnalysisSummaryResultCollection her2AnalysisSummaryResultCollection = new HER2AnalysisSummaryResultCollection(accessionOrder.PanelSetOrderCollection, this.m_ReportNo);
+            HER2AnalysisSummaryResult her2AnalysisSummaryResult = her2AnalysisSummaryResultCollection.FindMatch();
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.OrderedOn, this.OrderedOnId);
-            her2AmplificationResult.SetResults(specimenOrder);
+            her2AnalysisSummaryResult.SetResults(specimenOrder);
         }
 
         public override AuditResult IsOkToAccept(AccessionOrder accessionOrder)
@@ -912,21 +912,6 @@ namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
             }
 
             this.m_Distribute = true;
-        }
-
-        public bool IsHER2ByIHCRequired()
-        {
-            bool result = false;
-            if (this.m_Indicator == HER2AmplificationByISH.HER2AmplificationByISHIndicatorCollection.BreastIndication)
-            {
-                if (this.AverageHer2Chr17SignalAsDouble.HasValue && this.AverageHer2NeuSignal.HasValue)
-                {
-                    if (this.AverageHer2Chr17SignalAsDouble >= 2.0 && this.AverageHer2NeuSignal < 4.0) result = true;
-                    else if (this.AverageHer2Chr17SignalAsDouble < 2.0 && this.AverageHer2NeuSignal >= 4.0) result = true;
-                }
-            }
-            if (result == false) this.m_RecountRequired = false;
-            return result;
         }
     }
 }

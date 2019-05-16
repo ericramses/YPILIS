@@ -292,6 +292,9 @@ namespace YellowstonePathology.Business.HL7View.WPH
                 case 274:
                     view = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
+                case 313:
+                    view = new YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryWPHOBXView(accessionOrder, reportNo, obxCount);
+                    break;
             }
             return view;
         }
