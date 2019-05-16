@@ -80,19 +80,7 @@ namespace YellowstonePathology.UI.Monitor
             this.m_BackgroundWorker.ReportProgress(1, "Sending SVH Clinic Email: " + DateTime.Now.ToLongTimeString());
             int rowCount = Business.Billing.Model.SVHClinicMailMessage.SendMessage();
             this.m_BackgroundWorker.ReportProgress(1, "SVH Clinic Email Sent with " + rowCount.ToString() + " rows");
-            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "SendSVHClinicEmail");
-        }
-
-        private void TransferPSAFiles()
-        {
-            this.m_StatusMessageList.Clear();
-            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
-            this.m_BackgroundWorker.WorkerReportsProgress = true;
-            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
-            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(TransferPSAFiles);
-            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
-            this.m_BackgroundWorker.RunWorkerAsync();
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(this.m_PostDate, "SendSVHClinicEmail");
         }
 
         private void TransferSVHFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -121,24 +109,7 @@ namespace YellowstonePathology.UI.Monitor
             }
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished Transfer of " + rowCount + " SVH Files");
-            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "TransferSVHFiles");
-        }
-
-        private void BackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
-            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {
-                this.m_StatusCount += 1;
-                string message = (string)e.UserState;
-                this.m_StatusMessageList.Insert(0, message);
-                this.m_StatusCountMessage = this.m_StatusCount.ToString();
-                this.NotifyPropertyChanged("StatusCountMessage");
-            }));
-        }
-
-        private void BackgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            MessageBox.Show("Processing has completed.");
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(this.m_PostDate, "TransferSVHFiles");
         }
 
         private string GetUnconfirmedReportNumbers(List<string> reportNumbersProcessed)
@@ -209,7 +180,7 @@ namespace YellowstonePathology.UI.Monitor
             }
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished processing " + rowCount + " PSA Files");
-            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "ProcessPSAFiles");
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(this.m_PostDate, "ProcessPSAFiles");
         }
 
         private void ProcessSVHCDMFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -278,7 +249,7 @@ namespace YellowstonePathology.UI.Monitor
             }
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
             this.m_BackgroundWorker.ReportProgress(1, "Wrote " + rowCount + " SVH CDM files.");
-            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "ProcessSVHCDMFiles");
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(this.m_PostDate, "ProcessSVHCDMFiles");
         }
 
         private void CreateXmlBillingDocument(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo)
@@ -411,7 +382,7 @@ namespace YellowstonePathology.UI.Monitor
             }
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished with transfer of " + rowCount + " PSA Files: " + DateTime.Now.ToLongTimeString());
-            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "TransferPSAFiles");
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(this.m_PostDate, "TransferPSAFiles");
         }
 
         private void SshFileTransfer_Failed(object sender, string message)
@@ -494,24 +465,12 @@ namespace YellowstonePathology.UI.Monitor
             MessageBox.Show("All done.");
         }
 
-        private void MenuItemFaxReport_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_StatusMessageList.Clear();
-            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
-            this.m_BackgroundWorker.WorkerReportsProgress = true;
-            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(AllProcessBackgroundWorker_ProgressChanged);
-            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(FaxTheReport);
-            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(AllProcessBackgroundWorker_RunWorkerCompleted);
-            this.m_BackgroundWorker.RunWorkerAsync();
-        }
-
         private void RunUpdateMRNAcct(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             this.m_BackgroundWorker.ReportProgress(1, "Starting Updating MRN/ACCT: " + DateTime.Now.ToLongTimeString());
             Business.Gateway.BillingGateway.UpdateMRNACCT();
             this.m_BackgroundWorker.ReportProgress(1, "Finished Updating MRN/ACCT: " + DateTime.Now.ToLongTimeString());
-            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "MRNAcctUpdate");
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(this.m_PostDate, "MRNAcctUpdate");
         }
 
         private void FaxTheReport(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -525,20 +484,8 @@ namespace YellowstonePathology.UI.Monitor
                 Business.Helper.FileConversionHelper.SaveFixedDocumentAsTiff(clientBillingDetailReport.FixedDocument, tifPath);
                 Business.ReportDistribution.Model.FaxSubmission.Submit("4062378090", "SVH Billing Report", tifPath);
                 this.m_BackgroundWorker.ReportProgress(1, "Completed faxing report: " + DateTime.Now.ToLongTimeString());
-                Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "FaxTheReport");
+                Business.Gateway.BillingGateway.UpdateBillingEODProcess(this.m_PostDate, "FaxTheReport");
             });
-        }
-
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
-        {
-            this.PostDate = this.m_PostDate.AddDays(-1);
-            this.NotifyPropertyChanged("PostDate");
-        }
-
-        private void ButtonForward_Click(object sender, RoutedEventArgs e)
-        {
-            this.PostDate = this.m_PostDate.AddDays(1);
-            this.NotifyPropertyChanged("PostDate");
         }
 
         public void MatchAccessionOrdersToADT(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -582,31 +529,7 @@ namespace YellowstonePathology.UI.Monitor
                 }
             }
             this.m_BackgroundWorker.ReportProgress(1, "Completed SVH ADT Matching: " + DateTime.Now.ToLongTimeString());
-            Business.Gateway.BillingGateway.UpdateBillingEODProcess(DateTime.Today, "ADTMatch");
-        }
-
-        private void MenuItemMatchSVHADT_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_StatusMessageList.Clear();
-            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
-            this.m_BackgroundWorker.WorkerReportsProgress = true;
-            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
-            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(MatchAccessionOrdersToADT);
-            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
-            this.m_BackgroundWorker.RunWorkerAsync();
-        }
-
-        private void MenuItemUpdateMRNACT_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_StatusMessageList.Clear();
-            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
-            this.m_BackgroundWorker.WorkerReportsProgress = true;
-            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(BackgroundWorker_ProgressChanged);
-            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(RunUpdateMRNAcct);
-            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
-            this.m_BackgroundWorker.RunWorkerAsync();
+            Business.Gateway.BillingGateway.UpdateBillingEODProcess(this.m_PostDate, "ADTMatch");
         }
 
         private void HandleProcessStatus()
