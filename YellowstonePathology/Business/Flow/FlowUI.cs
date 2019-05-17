@@ -282,7 +282,16 @@ namespace YellowstonePathology.Business.Flow
                     methodResult.Success = false;
                     methodResult.Message = "The specimen adequacy for the specimen is not set.";
                 }
-            }            
+            }
+
+            if (methodResult.Success == true)
+            {
+                if (string.IsNullOrEmpty(this.m_PanelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent) == true)
+                {
+                    methodResult.Success = false;
+                    methodResult.Message += Environment.NewLine + "The specimen viability is not set.";
+                }
+            }
 
             return methodResult;
         }
