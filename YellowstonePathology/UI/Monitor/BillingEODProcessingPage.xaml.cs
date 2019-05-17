@@ -76,9 +76,9 @@ namespace YellowstonePathology.UI.Monitor
             }
         }
 
-        public void  Refresh()
+        public void Refresh()
         {
-
+            this.Start();
         }
 
         public void Start()
@@ -462,8 +462,8 @@ namespace YellowstonePathology.UI.Monitor
 
         private void HandleProcessStatus()
         {
-            YellowstonePathology.Business.Gateway.BillingGateway.CreateBillingEODProcess(DateTime.Today);
-            this.m_EODProcessStatus = YellowstonePathology.Business.Gateway.BillingGateway.GetBillingEODProcessStatus(DateTime.Today);
+            YellowstonePathology.Business.Gateway.BillingGateway.CreateBillingEODProcess(this.m_PostDate);
+            this.m_EODProcessStatus = YellowstonePathology.Business.Gateway.BillingGateway.GetBillingEODProcessStatus(this.m_PostDate);
         }
 
         private void ListViewStatus_SizeChanged(object sender, SizeChangedEventArgs e)
