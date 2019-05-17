@@ -875,6 +875,12 @@ namespace YellowstonePathology.UI
             monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.DashboardMonitor);
         }
 
+        private void MenuItemShowBillingEOD_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();
+            monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.BillingEODProcess);
+        }
+
         private void MenuItemAcidWashOrders_Click(object sender, RoutedEventArgs e)
         {
             Test.AcidWashOrdersDialog acidWashOrdersDialog = new Test.AcidWashOrdersDialog();

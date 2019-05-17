@@ -23,7 +23,7 @@ namespace YellowstonePathology.UI.Monitor
     /// <summary>
     /// Interaction logic for BillingEODProcessingPage.xaml
     /// </summary>
-    public partial class BillingEODProcessingPage : UserControl
+    public partial class BillingEODProcessingPage : UserControl, IMonitorPage
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -50,13 +50,6 @@ namespace YellowstonePathology.UI.Monitor
             this.m_PostDate = DateTime.Today;
             InitializeComponent();
             this.DataContext = this;
-
-            //Closing += PSATransferDialog_Closing;
-        }
-
-        private void PSATransferDialog_Closing(object sender, CancelEventArgs e)
-        {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         public string StatusCountMessage
@@ -73,6 +66,96 @@ namespace YellowstonePathology.UI.Monitor
         {
             get { return this.m_PostDate; }
             set { this.m_PostDate = value; }
+        }
+
+        public void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        public void  Refresh()
+        {
+
+        }
+
+        public void Start()
+        {
+            this.m_StatusMessageList.Clear();
+            this.HandleProcessStatus();
+            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
+            this.m_BackgroundWorker.WorkerReportsProgress = true;
+            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(AllProcessBackgroundWorker_ProgressChanged);
+            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(RunAllProcesses);
+            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(AllProcessBackgroundWorker_RunWorkerCompleted);
+            this.m_BackgroundWorker.RunWorkerAsync();
+        }
+
+        private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            try
+            {
+                if (this.m_EODProcessStatus.MRNAcctUpdate.HasValue == false) this.RunUpdateMRNAcct(sender, e);
+                else this.m_BackgroundWorker.ReportProgress(1, "Updating MRN/ACCT Already Performed: " + this.m_EODProcessStatus.MRNAcctUpdate.Value.ToLongTimeString());
+
+                if (this.m_EODProcessStatus.ADTMatch.HasValue == false) this.MatchAccessionOrdersToADT(sender, e);
+                else this.m_BackgroundWorker.ReportProgress(1, "Matching SVH ADT Already Performed: " + this.m_EODProcessStatus.ADTMatch.Value.ToLongTimeString());
+
+                if (this.m_EODProcessStatus.ProcessSVHCDMFiles.HasValue == false) this.ProcessSVHCDMFiles(sender, e);
+                else this.m_BackgroundWorker.ReportProgress(1, "SVH CDM files Already Performed: " + this.m_EODProcessStatus.ProcessSVHCDMFiles.Value.ToLongTimeString());
+
+                if (this.m_EODProcessStatus.TransferSVHFiles.HasValue == false) this.TransferSVHFiles(sender, e);
+                else this.m_BackgroundWorker.ReportProgress(1, "Transfer SVH Files Already Performed: " + this.m_EODProcessStatus.TransferSVHFiles.Value.ToLongTimeString());
+
+                if (this.m_EODProcessStatus.SendSVHClinicEmail.HasValue == false) this.SendSVHClinicEmail(sender, e);
+                else this.m_BackgroundWorker.ReportProgress(1, "Send SVH Clinic Email Already Performed: " + this.m_EODProcessStatus.SendSVHClinicEmail.Value.ToLongTimeString());
+
+                if (this.m_EODProcessStatus.ProcessPSAFiles.HasValue == false) this.ProcessPSAFiles(sender, e);
+                else this.m_BackgroundWorker.ReportProgress(1, "Process PSA Files Already Performed: " + this.m_EODProcessStatus.ProcessPSAFiles.Value.ToLongTimeString());
+
+                if (this.m_EODProcessStatus.TransferPSAFiles.HasValue == false) this.TransferPSAFiles(sender, e);
+                else this.m_BackgroundWorker.ReportProgress(1, "Transfer PSA Files Already Performed: " + this.m_EODProcessStatus.TransferPSAFiles.Value.ToLongTimeString());
+
+                if (this.m_EODProcessStatus.FaxTheReport.HasValue == false) this.FaxTheReport(sender, e);
+                else this.m_BackgroundWorker.ReportProgress(1, "Fax The Report Already Performed: " + this.m_EODProcessStatus.FaxTheReport.Value.ToLongTimeString());
+            }
+            catch(Exception execption)
+            {
+                this.m_BackgroundWorker.ReportProgress(1, execption.Message);
+
+            }
+        }
+
+        private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                this.m_StatusCount += 1;
+                string message = (string)e.UserState;
+                this.m_StatusMessageList.Insert(0, message);
+                this.m_StatusCountMessage = this.m_StatusCount.ToString();
+                this.NotifyPropertyChanged("StatusCountMessage");
+            }));
+        }
+
+        private void AllProcessBackgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            var date = new DateTime(1970, 1, 1, 0, 0, 0, DateTime.Today.Kind);
+            var unixTimestamp = System.Convert.ToInt64((DateTime.Today - date).TotalSeconds);
+
+            string logFileName = @"C:\ProgramData\ypi\BillingProcess" + unixTimestamp.ToString() + ".log";
+            System.IO.StreamWriter streamWriter = new StreamWriter(logFileName);
+            foreach (string line in this.ListViewStatus.Items)
+            {
+                streamWriter.WriteLine(line);
+            }
+            streamWriter.Flush();
+            streamWriter.Close();
+
+            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
         }
 
         private void SendSVHClinicEmail(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -110,39 +193,6 @@ namespace YellowstonePathology.UI.Monitor
 
             this.m_BackgroundWorker.ReportProgress(1, "Finished Transfer of " + rowCount + " SVH Files");
             Business.Gateway.BillingGateway.UpdateBillingEODProcess(this.m_PostDate, "TransferSVHFiles");
-        }
-
-        private string GetUnconfirmedReportNumbers(List<string> reportNumbersProcessed)
-        {
-            StringBuilder result = new StringBuilder();
-            foreach (string reportNumber in this.m_ReportNumbersToProcess)
-            {
-                if (reportNumbersProcessed.Exists(x => x == reportNumber) == false)
-                {
-                    result.Append(reportNumber + " ");
-                }
-            }
-            return result.ToString();
-        }
-
-        private void CheckPatientTifFiles()
-        {
-            YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbersByPostDate(this.m_PostDate);
-            foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
-            {
-                YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo.Value);
-                string patientTifFilePath = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNamePatientTif(orderIdParser);
-                string patientTifFileName = System.IO.Path.GetFileName(patientTifFilePath);
-                string workingFolderPath = System.IO.Path.Combine(this.m_BaseWorkingFolderPathPSA, this.m_PostDate.ToString("MMddyyyy"));
-                if (System.IO.File.Exists(patientTifFilePath) == true)
-                {
-                    string psaFileName = workingFolderPath + @"\" + orderIdParser.MasterAccessionNo + ".Patient.tif";
-                    if (System.IO.File.Exists(psaFileName) == false)
-                    {
-                        MessageBox.Show(psaFileName);
-                    }
-                }
-            }
         }
 
         private void ProcessPSAFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -290,59 +340,6 @@ namespace YellowstonePathology.UI.Monitor
             }
         }
 
-        private void RenameReqFiles(string reportNo, string reportNoLetter, int startFileNumber)
-        {
-            int fileCount = startFileNumber;
-            string wrongName = "." + reportNoLetter + ".REQ." + fileCount.ToString() + ".TIF";
-            string correctName = ".REQ." + fileCount.ToString() + ".TIF";
-            YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo);
-            string wrongFile = System.IO.Path.Combine(YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser), orderIdParser.MasterAccessionNo + wrongName);
-            string correctFile = System.IO.Path.Combine(YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser), orderIdParser.MasterAccessionNo + correctName);
-
-            if (System.IO.File.Exists(wrongFile) == true)
-            {
-                if (System.IO.File.Exists(correctFile) == false)
-                {
-                    System.IO.File.Move(wrongFile, correctFile);
-                }
-                else
-                {
-                    fileCount += 1;
-                    this.RenameReqFiles(reportNo, reportNoLetter, fileCount);
-                }
-            }
-        }
-
-        public List<string> GetReportNoListFromFolder()
-        {
-            string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathPSA, this.m_PostDate.ToString("MMddyyyy"));
-            List<string> result = new List<string>();
-            string[] files = System.IO.Directory.GetFiles(workingFolder);
-            foreach (string file in files)
-            {
-                string fileName = System.IO.Path.GetFileNameWithoutExtension(file);
-                string[] splitFile = fileName.Split('.');
-
-                if (splitFile.Length == 3)
-                {
-                    if (splitFile[2] == "BillingDetails")
-                    {
-                        string reportNo = splitFile[0] + '.' + splitFile[1];
-                        result.Add(reportNo);
-                    }
-                }
-            }
-            return result;
-        }
-
-        public void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
         private void TransferPSAFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             int rowCount = 0;
@@ -394,75 +391,6 @@ namespace YellowstonePathology.UI.Monitor
         {
             this.m_StatusCount = count;
             this.m_BackgroundWorker.ReportProgress(1, message);
-        }
-
-        private void ButtonStart_Click(object sender, RoutedEventArgs e)
-        {
-            this.m_StatusMessageList.Clear();
-            this.HandleProcessStatus();
-            this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.m_BackgroundWorker.WorkerSupportsCancellation = false;
-            this.m_BackgroundWorker.WorkerReportsProgress = true;
-            this.m_BackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(AllProcessBackgroundWorker_ProgressChanged);
-            this.m_BackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(RunAllProcesses);
-            this.m_BackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(AllProcessBackgroundWorker_RunWorkerCompleted);
-            this.m_BackgroundWorker.RunWorkerAsync();
-        }
-
-        private void RunAllProcesses(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            if (this.m_EODProcessStatus.MRNAcctUpdate.HasValue == false) this.RunUpdateMRNAcct(sender, e);
-            else this.m_BackgroundWorker.ReportProgress(1, "Updating MRN/ACCT Already Performed: " + this.m_EODProcessStatus.MRNAcctUpdate.Value.ToLongTimeString());
-
-            if (this.m_EODProcessStatus.ADTMatch.HasValue == false) this.MatchAccessionOrdersToADT(sender, e);
-            else this.m_BackgroundWorker.ReportProgress(1, "Matching SVH ADT Already Performed: " + this.m_EODProcessStatus.ADTMatch.Value.ToLongTimeString());
-
-            if (this.m_EODProcessStatus.ProcessSVHCDMFiles.HasValue == false) this.ProcessSVHCDMFiles(sender, e);
-            else this.m_BackgroundWorker.ReportProgress(1, "SVH CDM files Already Performed: " + this.m_EODProcessStatus.ProcessSVHCDMFiles.Value.ToLongTimeString());
-
-            if (this.m_EODProcessStatus.TransferSVHFiles.HasValue == false) this.TransferSVHFiles(sender, e);
-            else this.m_BackgroundWorker.ReportProgress(1, "Transfer SVH Files Already Performed: " + this.m_EODProcessStatus.TransferSVHFiles.Value.ToLongTimeString());
-
-            if (this.m_EODProcessStatus.SendSVHClinicEmail.HasValue == false) this.SendSVHClinicEmail(sender, e);
-            else this.m_BackgroundWorker.ReportProgress(1, "Send SVH Clinic Email Already Performed: " + this.m_EODProcessStatus.SendSVHClinicEmail.Value.ToLongTimeString());
-
-            if (this.m_EODProcessStatus.ProcessPSAFiles.HasValue == false) this.ProcessPSAFiles(sender, e);
-            else this.m_BackgroundWorker.ReportProgress(1, "Process PSA Files Already Performed: " + this.m_EODProcessStatus.ProcessPSAFiles.Value.ToLongTimeString());
-
-            if (this.m_EODProcessStatus.TransferPSAFiles.HasValue == false) this.TransferPSAFiles(sender, e);
-            else this.m_BackgroundWorker.ReportProgress(1, "Transfer PSA Files Already Performed: " + this.m_EODProcessStatus.TransferPSAFiles.Value.ToLongTimeString());
-
-            if (this.m_EODProcessStatus.FaxTheReport.HasValue == false) this.FaxTheReport(sender, e);
-            else this.m_BackgroundWorker.ReportProgress(1, "Fax The Report Already Performed: " + this.m_EODProcessStatus.FaxTheReport.Value.ToLongTimeString());
-        }
-
-        private void AllProcessBackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
-            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
-            {
-                this.m_StatusCount += 1;
-                string message = (string)e.UserState;
-                this.m_StatusMessageList.Insert(0, message);
-                this.m_StatusCountMessage = this.m_StatusCount.ToString();
-                this.NotifyPropertyChanged("StatusCountMessage");
-            }));
-        }
-
-        private void AllProcessBackgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            var date = new DateTime(1970, 1, 1, 0, 0, 0, DateTime.Today.Kind);
-            var unixTimestamp = System.Convert.ToInt64((DateTime.Today - date).TotalSeconds);
-
-            string logFileName = @"C:\ProgramData\ypi\BillingProcess" + unixTimestamp.ToString() + ".log";
-            System.IO.StreamWriter streamWriter = new StreamWriter(logFileName);
-            foreach (string line in this.ListViewStatus.Items)
-            {
-                streamWriter.WriteLine(line);
-            }
-            streamWriter.Flush();
-            streamWriter.Close();
-
-            MessageBox.Show("All done.");
         }
 
         private void RunUpdateMRNAcct(object sender, System.ComponentModel.DoWorkEventArgs e)

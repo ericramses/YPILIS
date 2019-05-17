@@ -105,6 +105,7 @@
                     <MenuItem Name="MenuItemMonitorPendingTests" Header="Pending Tests" Click="MenuItemShowPendingTestMonitor_Click"></MenuItem>
                     <MenuItem Name="MenuItemMonitorMissingInformation" Header="Missing Information" Click="MenuItemShowMissingInformationMonitor_Click"></MenuItem>
                     <MenuItem Name="MenuItemDashboard" Header="Dashboard" Click="MenuItemShowDashboardMonitor_Click"></MenuItem>
+                    <MenuItem Name="MenuItemBillingEOD" Header="Billing EOD Process" Click="MenuItemShowBillingEOD_Click"></MenuItem>
                 </MenuItem>
                 
             </Menu>

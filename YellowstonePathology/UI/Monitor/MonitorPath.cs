@@ -12,7 +12,7 @@ using Microsoft.Exchange.WebServices.Data;
 namespace YellowstonePathology.UI.Monitor
 {
 	public class MonitorPath
-	{        
+	{
         private static double TimerInterval = 1000 * 20;
         private static double AfterHoursTimerInterval = 1000 * 60 * 10;
         private static double InitialTimerInterval = 1000;
@@ -73,6 +73,11 @@ namespace YellowstonePathology.UI.Monitor
                     dashboardPage.Refresh();
                     this.m_MonitorPageWindow.PageNavigator.Navigate(dashboardPage);
                     break;
+                case MonitorPageLoadEnum.BillingEODProcess:
+                    BillingEODProcessingPage billingEODProcessingPage = new BillingEODProcessingPage();
+                    billingEODProcessingPage.Refresh();
+                    this.m_MonitorPageWindow.PageNavigator.Navigate(billingEODProcessingPage);
+                    break;
             }
             this.m_MonitorPageWindow.Show();
         }
@@ -132,20 +137,14 @@ namespace YellowstonePathology.UI.Monitor
                         }
                         else
                         {
-                            DateTime billingEODWidowOpen = DateTime.Parse(DateTime.Today.ToShortDateString() + " 20:00");
-                            DateTime billingEODWidowClose = DateTime.Parse(DateTime.Today.ToShortDateString() + " 21:01");
-                            if (DateTime.Now >= billingEODWidowOpen && DateTime.Now <= billingEODWidowClose && this.m_LastBillingEODProcessRun < DateTime.Today)
-                            {
-                                this.ShowBillingEODProcessingPage();
-                            }
-                            else
-                            {
+                            //if (this.ShowBillingEODProcessingPage() == false)
+                            //{
                                 this.m_Timer.Interval = AfterHoursTimerInterval;
                                 this.m_Timer.Start();
 
                                 GoodNightPage goodNightPage = new GoodNightPage();
                                 this.m_MonitorPageWindow.PageNavigator.Navigate(goodNightPage);
-                            }
+                            //}
                         }
 
                     })); 
@@ -204,17 +203,22 @@ namespace YellowstonePathology.UI.Monitor
             this.m_Timer.Start();
         }
 
-        private void ShowBillingEODProcessingPage()
+        private bool ShowBillingEODProcessingPage()
         {
+            bool result = false;
             DateTime billingEODWidowOpen = DateTime.Parse(DateTime.Today.ToShortDateString() + " 20:00");
             DateTime billingEODWidowClose = DateTime.Parse(DateTime.Today.ToShortDateString() + " 21:01");
             if (DateTime.Now >= billingEODWidowOpen && DateTime.Now <= billingEODWidowClose && this.m_LastBillingEODProcessRun < DateTime.Today)
             {
+                result = true;
                 this.m_LastBillingEODProcessRun = DateTime.Today;
                 BillingEODProcessingPage billingEODProcessingPage = new Monitor.BillingEODProcessingPage();
                 this.m_MonitorPageWindow.PageNavigator.Navigate(billingEODProcessingPage);
+                billingEODProcessingPage.Start();
                 this.m_Timer.Start();
             }
+
+            return result;
         }
 
         private static bool RedirectionUrlValidationCallback(string redirectionUrl)
