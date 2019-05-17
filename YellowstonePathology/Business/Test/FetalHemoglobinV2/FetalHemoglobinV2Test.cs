@@ -16,6 +16,8 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterF();
             this.m_CaseType = this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
             this.m_Active = true;
+            this.m_HasTechnicalComponent = true;
+            this.m_HasProfessionalComponent = false;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FetalHemoglobinV2.FetalHemoglobinV2TestOrder).AssemblyQualifiedName;
@@ -28,7 +30,6 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
             this.m_TechnicalComponentFacility = ypi;
             this.m_TechnicalComponentBillingFacility = ypi;
 
-            this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86356", null), 1);
