@@ -11,6 +11,7 @@ namespace YellowstonePathology.UI.Monitor
         CytologyScreeningMonitor,
         PendingTestMonitor,
         MissingInformationMonitor,
-        DashboardMonitor
+        DashboardMonitor,
+        BillingEODProcess
     }
 }
