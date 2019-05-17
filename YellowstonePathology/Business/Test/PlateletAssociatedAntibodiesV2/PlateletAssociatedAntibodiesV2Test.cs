@@ -16,6 +16,8 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodiesV2
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterF();
             this.m_CaseType = this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
+            this.m_HasTechnicalComponent = true;
+            this.m_HasProfessionalComponent = false;
             this.m_Active = true;
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.PlateletAssociatedAntibodiesV2.PlateletAssociatedAntibodiesV2WordDocument).AssemblyQualifiedName;
@@ -24,7 +26,6 @@ namespace YellowstonePathology.Business.Test.PlateletAssociatedAntibodiesV2
             string taskDescription = "Perform PAA testing.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 
-            this.m_HasProfessionalComponent = false;
             this.m_ProfessionalComponentFacility = null;
 
             YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
