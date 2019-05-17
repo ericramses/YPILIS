@@ -39,6 +39,7 @@ namespace YellowstonePathology.UI.Monitor
         private List<string> m_ReportNumbersToProcess;
 
         private YellowstonePathology.Business.Billing.Model.EODProcessStatus m_EODProcessStatus;
+        private bool m_IsStartedManually;
 
         public BillingEODProcessingPage()
         {
@@ -76,13 +77,33 @@ namespace YellowstonePathology.UI.Monitor
             }
         }
 
+        private void ButtonStart_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_IsStartedManually = true;
+            this.Start();
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.PostDate = this.m_PostDate.AddDays(-1);
+            this.TextBoxStartDate.Text = this.m_PostDate.ToShortDateString();
+            this.NotifyPropertyChanged("PostDate");
+        }
+
+        private void ButtonForward_Click(object sender, RoutedEventArgs e)
+        {
+            this.PostDate = this.m_PostDate.AddDays(1);
+            this.TextBoxStartDate.Text = this.m_PostDate.ToShortDateString();
+            this.NotifyPropertyChanged("PostDate");
+        }
+
         public void Refresh()
         {
-            this.Start();
         }
 
         public void Start()
         {
+            this.SetButtonVisibility();
             this.m_StatusMessageList.Clear();
             this.HandleProcessStatus();
             this.m_BackgroundWorker = new System.ComponentModel.BackgroundWorker();
@@ -464,6 +485,17 @@ namespace YellowstonePathology.UI.Monitor
         {
             YellowstonePathology.Business.Gateway.BillingGateway.CreateBillingEODProcess(this.m_PostDate);
             this.m_EODProcessStatus = YellowstonePathology.Business.Gateway.BillingGateway.GetBillingEODProcessStatus(this.m_PostDate);
+        }
+
+        private void SetButtonVisibility()
+        {
+            if (this.m_IsStartedManually == false)
+            {
+                this.ButtonBack.Visibility = Visibility.Hidden;
+                this.ButtonForward.Visibility = Visibility.Hidden;
+                this.ButtonStart.Visibility = Visibility.Hidden;
+            }
+
         }
 
         private void ListViewStatus_SizeChanged(object sender, SizeChangedEventArgs e)
