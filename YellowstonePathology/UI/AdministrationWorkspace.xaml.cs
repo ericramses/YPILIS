@@ -1041,7 +1041,15 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            this.WriteCDM();
+            Business.PanelSet.Model.PanelSetCollection pc = Business.PanelSet.Model.PanelSetCollection.GetAll();
+            foreach(Business.PanelSet.Model.PanelSet ps in pc)
+            {
+                if(ps.CaseType == "FISH" && ps.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase)
+                {
+                    Console.WriteLine(ps.PanelSetName);
+                }                
+            }
+            //this.WriteCDM();
             return;
 
             Business.Stain.Model.StainCollection stainCollection = Business.Stain.Model.StainCollection.Instance;
