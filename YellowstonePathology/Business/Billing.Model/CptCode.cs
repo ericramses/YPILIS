@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.Billing.Model
@@ -220,6 +222,14 @@ namespace YellowstonePathology.Business.Billing.Model
                 cptCodeModifier.Modifier = modifier;
                 this.Modifier = cptCodeModifier;
             }
+        }
+
+        public string ToJSON()
+        {
+            var camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
+            return result;
         }
     }
 }
