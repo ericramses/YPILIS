@@ -3050,6 +3050,12 @@
     <Compile Include="UI\Billing\AddFISHCPTCodePage.xaml.cs">
       <DependentUpon>AddFISHCPTCodePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Billing\CPTCodeEditDialog.xaml.cs">
+      <DependentUpon>CPTCodeEditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Billing\CPTCodeListDialog.xaml.cs">
+      <DependentUpon>CPTCodeListDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Billing\HRHCDMList.cs" />
     <Compile Include="UI\Billing\SimulationDialog.xaml.cs">
       <DependentUpon>SimulationDialog.xaml</DependentUpon>
@@ -5012,6 +5018,14 @@
     <Page Include="UI\Billing\ADTPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Billing\CPTCodeEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Billing\CPTCodeListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Billing\SimulationDialog.xaml">
       <SubType>Designer</SubType>

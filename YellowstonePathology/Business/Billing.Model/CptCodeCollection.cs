@@ -8,6 +8,8 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
@@ -161,13 +163,23 @@ namespace YellowstonePathology.Business.Billing.Model
 
         public void Load()
         {
-            this.ClearItems();              
-            Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.CPTCode);
-            foreach (string jString in (string[])cptDb.GetAllJSONKeys())
-            {                
-                CptCode cptCode = CptCodeFactory.FromJson(jString);
-                this.Add(cptCode);                
-            }            
+            this.ClearItems();
+            MySqlCommand cmd = new MySqlCommand("Select JSONValue from tblCPTCode;");
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Billing.Model.CptCode cptCode = YellowstonePathology.Business.Billing.Model.CptCodeFactory.FromJson(dr[0].ToString());
+                        this.Add(cptCode);
+                    }
+                }
+            }
         }
     }
 }

@@ -1045,5 +1045,11 @@ namespace YellowstonePathology.UI
             UI.Billing.SimulationDialog simulationDialog = new Billing.SimulationDialog();
             simulationDialog.Show();
         }
+
+        private void MenuItemBillingCPTCodes_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Billing.CPTCodeListDialog cptCodeListDialog = new UI.Billing.CPTCodeListDialog();
+            cptCodeListDialog.Show();
+        }
     }
 }
