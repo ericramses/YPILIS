@@ -70,7 +70,8 @@ namespace YellowstonePathology.UI.Client
 
         private void ClientEntry_Closing(object sender, CancelEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+            if (this.CanSave() == true) YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+            else e.Cancel = true;
         }
 
         public void NotifyPropertyChanged(String info)
