@@ -148,6 +148,11 @@ namespace YellowstonePathology.UI.Client
         {
             bool result = this.MaskNumberIsValid(this.MaskedTextBoxTelephone);
             if(result == true) result = this.MaskNumberIsValid(this.MaskedTextBoxFax);
+            if (result == true && string.IsNullOrEmpty(this.m_Client.ClientName) == true)
+            {
+                result = false;
+                MessageBox.Show("The Client name may not be blank.");
+            }
             return result;
         }
 
