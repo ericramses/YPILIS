@@ -809,10 +809,10 @@ namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
 
         public void SetResults(AccessionOrder accessionOrder)
         {
-            HER2AnalysisSummaryResultCollection her2AnalysisSummaryResultCollection = new HER2AnalysisSummaryResultCollection(accessionOrder.PanelSetOrderCollection, this.m_ReportNo);
-            HER2AnalysisSummaryResult her2AnalysisSummaryResult = her2AnalysisSummaryResultCollection.FindMatch();
+            HER2AmplificationByISH.HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationByISH.HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection, this);
+            HER2AmplificationByISH.HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.OrderedOn, this.OrderedOnId);
-            her2AnalysisSummaryResult.SetResults(specimenOrder);
+            her2AmplificationResult.SetSummaryResults(specimenOrder);
         }
 
         public override AuditResult IsOkToAccept(AccessionOrder accessionOrder)
