@@ -1112,6 +1112,9 @@
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultCollection.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGastric.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultEquivocalBreast.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup2Breast.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup3Breast.cs" />
+    <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup4Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup5Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultGroup1Breast.cs" />
     <Compile Include="Business\Test\HER2AmplificationByISH\HER2AmplificationResultEnum.cs" />
@@ -7016,12 +7019,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

@@ -12,9 +12,13 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected HER2AmplificationByISHTestOrder m_HER2AmplificationByISHTestOrder;
+        protected HER2AnalysisSummary.HER2AnalysisSummaryTestOrder m_HER2AnalysisSummaryTestOrder;
         protected Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC m_PanelSetOrderHer2AmplificationByIHC;
         protected HER2AmplificationRecount.HER2AmplificationRecountTestOrder m_HER2AmplificationRecountTestOrder;
         protected HER2AmplificationResultEnum m_Result;
+        protected string m_Indicator;
+        protected double? m_AverageHer2Chr17SignalAsDouble;
+        protected double? m_AverageHer2NeuSignal;
 
         protected string m_InterpretiveComment;
         protected string m_ResultComment;
@@ -27,12 +31,13 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             "one hour, which may cause false negative results.  Repeat testing on an alternate specimen that meets ASCO CAP guidelines for cold " +
             "ischemia time is recommended, if available.";
 
-        public HER2AmplificationResult(PanelSetOrderCollection panelSetOrderCollection, string reportNo)
+        public HER2AmplificationResult(PanelSetOrderCollection panelSetOrderCollection, HER2AmplificationByISHTestOrder panelSetOrder)
         {
             Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
             HER2AmplificationRecount.HER2AmplificationRecountTest her2AmplificationRecountTest = new HER2AmplificationRecount.HER2AmplificationRecountTest();
 
-            this.m_HER2AmplificationByISHTestOrder = (HER2AmplificationByISHTestOrder)panelSetOrderCollection.GetPanelSetOrder(reportNo);
+            this.m_HER2AmplificationByISHTestOrder = panelSetOrder;
+            this.m_Indicator = this.m_HER2AmplificationByISHTestOrder.Indicator;
 
             if (panelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId) == true)
             {
@@ -54,6 +59,27 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        protected void HandleIHC()
+        {
+            if (this.m_PanelSetOrderHer2AmplificationByIHC != null && this.m_PanelSetOrderHer2AmplificationByIHC.Final == true)
+            {
+                if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("0") || this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("1+"))
+                {
+                    this.m_Result = HER2AmplificationByISH.HER2AmplificationResultEnum.Negative;
+                    this.m_HER2AnalysisSummaryTestOrder.RecountRequired = false;
+                }
+                else if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("2+"))
+                {
+                    this.m_HER2AnalysisSummaryTestOrder.RecountRequired = true;
+                }
+                else if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("3+"))
+                {
+                    this.m_Result = HER2AmplificationByISH.HER2AmplificationResultEnum.Positive;
+                    this.m_HER2AnalysisSummaryTestOrder.RecountRequired = false;
+                }
             }
         }
 

@@ -9,14 +9,14 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
     public class HER2AmplificationResultGroup5Breast : HER2AmplificationResultBreast
     {
 
-        public HER2AmplificationResultGroup5Breast(PanelSetOrderCollection panelSetOrderCollection, string reportNo) : base(panelSetOrderCollection, reportNo)
+        public HER2AmplificationResultGroup5Breast(PanelSetOrderCollection panelSetOrderCollection, HER2AmplificationByISHTestOrder panelSetOrder) : base(panelSetOrderCollection, panelSetOrder)
         {
         }
 
         public override bool IsAMatch()
         {
             bool result = false;
-            if (this.m_HER2AmplificationByISHTestOrder.Indicator == HER2AmplificationByISHIndicatorCollection.BreastIndication &&
+            if (this.m_Indicator == HER2AmplificationByISHIndicatorCollection.BreastIndication &&
                 this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble.HasValue &&
                 this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble < 2.0)
             {

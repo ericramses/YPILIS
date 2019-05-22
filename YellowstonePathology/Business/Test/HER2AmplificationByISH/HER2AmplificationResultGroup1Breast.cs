@@ -10,7 +10,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
     public class HER2AmplificationResultGroup1Breast : HER2AmplificationResultBreast
     {
 
-        public HER2AmplificationResultGroup1Breast(PanelSetOrderCollection panelSetOrderCollection, string reportNo) : base(panelSetOrderCollection, reportNo)
+        public HER2AmplificationResultGroup1Breast(PanelSetOrderCollection panelSetOrderCollection, HER2AmplificationByISHTestOrder panelSetOrder) : base(panelSetOrderCollection, panelSetOrder)
         {
         }
 
