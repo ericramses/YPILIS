@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ListView Name="ListBoxCPTCodes" Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" MouseDoubleClick="ListBoxCPTCodes_MouseDoubleClick"
+        <ListView Name="ListBoxCPTCodes" Grid.Column="0" Grid.Row="0" Margin="10" MouseDoubleClick="ListBoxCPTCodes_MouseDoubleClick"
 							 ItemsSource="{Binding Path=CptCodeCollection}" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
             <ListView.View>
                 <GridView>

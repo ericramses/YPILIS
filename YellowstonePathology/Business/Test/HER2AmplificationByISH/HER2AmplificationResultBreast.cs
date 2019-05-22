@@ -14,18 +14,30 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 "accordance with current ASCO/CAP guidelines. For this patient, the HER2:Chr17 ratio was *RATIO* and average HER2 copy number per cell " +
                 "was *HER2COPY* (*CELLSCOUNTED* nuclei examined).  Therefore, HER2 status is *HER2STATUS*.";
 
-        public HER2AmplificationResultBreast(PanelSetOrderCollection panelSetOrderCollection, string reportNo) : base(panelSetOrderCollection, reportNo)
+        public HER2AmplificationResultBreast(PanelSetOrderCollection panelSetOrderCollection, HER2AmplificationByISHTestOrder panelSetOrder) : base(panelSetOrderCollection, panelSetOrder)
         {
             this.m_ReportReference = "Wolff AC, Hammond MEH, Hicks DG, et al. Recommendations for Human Epidermal Growth Factor Receptor 2 Testing in " +
                 "Breast Cancer. Arch Pathol Lab Med. doi: 10.5858/arpa.2013-0953-SA.";
         }
 
-        public override void SetResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
+        public HER2AmplificationResultBreast(PanelSetOrderCollection panelSetOrderCollection, HER2AnalysisSummary.HER2AnalysisSummaryTestOrder panelSetOrder) : base(panelSetOrderCollection, panelSetOrder)
+        {
+            this.m_ReportReference = "Wolff AC, Hammond MEH, Hicks DG, et al. Recommendations for Human Epidermal Growth Factor Receptor 2 Testing in " +
+                "Breast Cancer. Arch Pathol Lab Med. doi: 10.5858/arpa.2013-0953-SA.";
+        }
+
+        public override void SetISHResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
             this.m_ResultComment = null;
             this.m_ResultDescription = "Ratio = " + this.m_HER2AmplificationByISHTestOrder.Her2Chr17Ratio;
+            base.SetISHResults(specimenOrder);
+        }
 
-            base.SetResults(specimenOrder);
+        public override void SetSummaryResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            this.m_ResultComment = null;
+            this.m_ResultDescription = "Ratio = " + this.m_HER2AnalysisSummaryTestOrder.Her2Chr17Ratio;
+            base.SetSummaryResults(specimenOrder);
         }
     }
 }

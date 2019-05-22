@@ -50,7 +50,7 @@
 					<TextBlock Grid.Column="1" Grid.Row="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.ClientId}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Client Name:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.ClientName}" />
+					<TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.ClientName, UpdateSourceTrigger=PropertyChanged}"  />
 
 					<TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Address:</TextBlock>
 					<TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="{Binding Path=Client.Address}" />
