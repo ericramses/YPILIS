@@ -19,11 +19,20 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             bool result = false;
             if (this.m_HER2AmplificationByISHTestOrder.Indicator == HER2AmplificationByISHIndicatorCollection.BreastIndication)
             {
+                if (this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble < 2.0)                        
+                {
+                    if(this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal >= 4.0 && this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal < 6.0)
+                    {
+                        result = true;
+                    }                    
+                }
+                /*
                 if ((this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble >= 2.0 && this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal < 4.0) ||
                         (this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble < 2.0 && this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal >= 4.0))
                 {
                     result = true;
                 }
+                */
             }
             return result;            
         }
