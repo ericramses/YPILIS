@@ -711,7 +711,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             HER2AmplificationResultCollection her2AmplificationResultCollection = new HER2AmplificationResultCollection(accessionOrder.PanelSetOrderCollection, this);
             HER2AmplificationResult her2AmplificationResult = her2AmplificationResultCollection.FindMatch();
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.OrderedOn, this.OrderedOnId);
-            her2AmplificationResult.SetResults(specimenOrder);            
+            her2AmplificationResult.SetISHResults(specimenOrder);            
         }
 
         public override AuditResult IsOkToAccept(AccessionOrder accessionOrder)

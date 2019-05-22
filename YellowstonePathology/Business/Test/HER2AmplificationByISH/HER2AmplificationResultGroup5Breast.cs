@@ -17,27 +17,27 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
         {
             bool result = false;
             if (this.m_Indicator == HER2AmplificationByISHIndicatorCollection.BreastIndication &&
-                this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble.HasValue &&
-                this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble < 2.0)
+                this.m_AverageHer2Chr17SignalAsDouble.HasValue &&
+                this.m_AverageHer2Chr17SignalAsDouble < 2.0)
             {
                 result = true;
             }
             return result;
         }
 
-        public override void SetResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
+        public override void SetISHResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
             this.m_Result = HER2AmplificationResultEnum.Negative;
             this.m_InterpretiveComment = InterpretiveComment;
             this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*RATIO*", this.m_HER2AmplificationByISHTestOrder.Her2Chr17Ratio.Value.ToString());
             this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*CELLSCOUNTED*", this.m_HER2AmplificationByISHTestOrder.CellCountToUse.ToString());
             this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*HER2STATUS*", this.m_Result.ToString());
-            if (this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal.HasValue == true)
+            if (this.m_AverageHer2NeuSignal.HasValue == true)
             {
-                this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*HER2COPY*", this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal.Value.ToString());
+                this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*HER2COPY*", this.m_AverageHer2NeuSignal.Value.ToString());
             }
 
-            base.SetResults(specimenOrder);
+            base.SetISHResults(specimenOrder);
         }
     }
 }

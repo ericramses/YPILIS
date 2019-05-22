@@ -38,12 +38,34 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
             this.m_HER2AmplificationByISHTestOrder = panelSetOrder;
             this.m_Indicator = this.m_HER2AmplificationByISHTestOrder.Indicator;
+            this.m_AverageHer2Chr17SignalAsDouble = this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble;
+            this.m_AverageHer2NeuSignal = this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal;
 
             if (panelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId) == true)
             {
                 this.m_PanelSetOrderHer2AmplificationByIHC = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)panelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId);
             }
             if(panelSetOrderCollection.Exists(her2AmplificationRecountTest.PanelSetId) == true)
+            {
+                this.m_HER2AmplificationRecountTestOrder = (HER2AmplificationRecount.HER2AmplificationRecountTestOrder)panelSetOrderCollection.GetPanelSetOrder(her2AmplificationRecountTest.PanelSetId);
+            }
+        }
+
+        public HER2AmplificationResult(PanelSetOrderCollection panelSetOrderCollection, HER2AnalysisSummary.HER2AnalysisSummaryTestOrder panelSetOrder)
+        {
+            Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
+            HER2AmplificationRecount.HER2AmplificationRecountTest her2AmplificationRecountTest = new HER2AmplificationRecount.HER2AmplificationRecountTest();
+
+            this.m_HER2AnalysisSummaryTestOrder = panelSetOrder;
+            this.m_Indicator = this.m_HER2AnalysisSummaryTestOrder.Indicator;
+            this.m_AverageHer2Chr17SignalAsDouble = this.m_HER2AnalysisSummaryTestOrder.AverageHer2Chr17SignalAsDouble;
+            this.m_AverageHer2NeuSignal = this.m_HER2AnalysisSummaryTestOrder.AverageHer2NeuSignal;
+
+            if (panelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId) == true)
+            {
+                this.m_PanelSetOrderHer2AmplificationByIHC = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)panelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId);
+            }
+            if (panelSetOrderCollection.Exists(her2AmplificationRecountTest.PanelSetId) == true)
             {
                 this.m_HER2AmplificationRecountTestOrder = (HER2AmplificationRecount.HER2AmplificationRecountTestOrder)panelSetOrderCollection.GetPanelSetOrder(her2AmplificationRecountTest.PanelSetId);
             }
@@ -83,7 +105,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
         }
 
-        public virtual void SetResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
+        public virtual void SetISHResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
             this.m_HER2AmplificationByISHTestOrder.Result = this.m_Result.ToString();
             if (this.m_HER2AmplificationByISHTestOrder.Result == HER2AmplificationResultEnum.Equivocal.ToString())
@@ -132,7 +154,56 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
         }
 
-        public static void AcceptResults(HER2AmplificationByISHTestOrder testOrder)
+        public virtual void SetSummaryResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            this.m_HER2AnalysisSummaryTestOrder.Result = this.m_Result.ToString();
+            if (this.m_HER2AnalysisSummaryTestOrder.Result == HER2AmplificationResultEnum.Equivocal.ToString())
+            {
+                this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine + "HER2 immunohistochemistry will be performed and " +
+                    "results will be issued in an addendum to the original surgical pathology report.";
+            }
+
+            if (this.m_HER2AnalysisSummaryTestOrder.GeneticHeterogeneity == HER2AmplificationByISHGeneticHeterogeneityCollection.GeneticHeterogeneityPresentInCells)
+            {
+                this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine +
+                    "However, this tumor exhibits genetic heterogeneity in HER2 gene amplification in scattered individual cells.  The " +
+                    "clinical significance and potential clinical benefit of trastuzumab is uncertain when " +
+                    this.m_HER2AnalysisSummaryTestOrder.Indicator.ToLower() +
+                    " carcinoma demonstrates genetic heterogeneity." + Environment.NewLine + Environment.NewLine;
+                this.m_ResultComment = "This tumor exhibits genetic heterogeneity in HER2 gene amplification in scattered individual cells.  The clinical " +
+                    "significance and potential clinical benefit of trastuzumab is uncertain when " +
+                    this.m_HER2AnalysisSummaryTestOrder.Indicator.ToLower() +
+                    " carcinoma demonstrates genetic heterogeneity";
+            }
+            else if (this.m_HER2AnalysisSummaryTestOrder.GeneticHeterogeneity == HER2AmplificationByISHGeneticHeterogeneityCollection.GeneticHeterogeneityPresentInClusters)
+            {
+                this.m_InterpretiveComment += Environment.NewLine + Environment.NewLine +
+                    "However, this tumor exhibits genetic heterogeneity in HER2 gene amplification in small cell clusters. The HER2/Chr17 " +
+                    "ratio in the clusters is " +
+                    this.m_HER2AnalysisSummaryTestOrder.Her2Chr17ClusterRatio +
+                    ".  The clinical significance and potential clinical benefit of trastuzumab is uncertain when " +
+                    this.m_HER2AnalysisSummaryTestOrder.Indicator.ToLower() +
+                    " carcinoma demonstrates genetic heterogeneity." + Environment.NewLine + Environment.NewLine;
+                this.m_ResultComment = "This tumor exhibits genetic heterogeneity in HER2 gene amplification in small cell clusters.  The clinical significance " +
+                    "and potential clinical benefit of trastuzumab is uncertain when " +
+                    this.m_HER2AnalysisSummaryTestOrder.Indicator.ToLower() +
+                    " carcinoma demonstrates genetic heterogeneity.";
+            }
+
+            this.m_HER2AnalysisSummaryTestOrder.ResultComment = this.m_ResultComment;
+            this.m_HER2AnalysisSummaryTestOrder.InterpretiveComment = this.m_InterpretiveComment.TrimEnd();
+            this.m_HER2AnalysisSummaryTestOrder.ResultDescription = this.m_ResultDescription;
+            this.m_HER2AnalysisSummaryTestOrder.CommentLabel = null;
+            this.m_HER2AnalysisSummaryTestOrder.ReportReference = this.m_ReportReference;
+            this.m_HER2AnalysisSummaryTestOrder.NoCharge = false;
+
+            if (specimenOrder.FixationDuration > 72 || specimenOrder.FixationDuration < 6)
+            {
+                specimenOrder.FixationComment = m_FixationOutOfBoundsComment;
+            }
+        }
+
+        public static void AcceptResults(PanelSetOrder testOrder)
         {
             testOrder.Accept();
             if (testOrder.PanelOrderCollection.GetUnacceptedPanelCount() > 0)
@@ -142,7 +213,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
         }
 
-        public static void UnacceptResults(HER2AmplificationByISHTestOrder testOrder)
+        public static void UnacceptResults(PanelSetOrder testOrder)
         {
             testOrder.Unaccept();
             if (testOrder.PanelOrderCollection.GetAcceptedPanelCount() > 0)

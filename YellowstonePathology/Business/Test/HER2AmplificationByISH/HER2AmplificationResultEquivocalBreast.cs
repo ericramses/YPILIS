@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             return result;            
         }
 
-        public override void SetResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
+        /*public override void SetResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
             this.m_Result = HER2AmplificationResultEnum.Equivocal;
             this.m_InterpretiveComment = InterpretiveComment;
@@ -41,6 +41,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
 
             base.SetResults(specimenOrder);
-        }
+        }*/
     }
 }

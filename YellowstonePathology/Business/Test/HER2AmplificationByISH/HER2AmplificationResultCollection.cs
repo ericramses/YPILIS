@@ -16,8 +16,14 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.Add(new HER2AmplificationResultGroup3Breast(panelSetOrderCollection, panelSetOrder));
             this.Add(new HER2AmplificationResultGroup4Breast(panelSetOrderCollection, panelSetOrder));
             this.Add(new HER2AmplificationResultGroup5Breast(panelSetOrderCollection, panelSetOrder));
-            //this.Add(new HER2AmplificationResultEquivocalBreast(panelSetOrderCollection, reportNo));
             this.Add(new HER2AmplificationResultGastric(panelSetOrderCollection, panelSetOrder));
+        }
+
+        public HER2AmplificationResultCollection(PanelSetOrderCollection panelSetOrderCollection, HER2AnalysisSummary.HER2AnalysisSummaryTestOrder panelSetOrder)
+        {
+            this.Add(new HER2AmplificationResultGroup2Breast(panelSetOrderCollection, panelSetOrder));
+            this.Add(new HER2AmplificationResultGroup3Breast(panelSetOrderCollection, panelSetOrder));
+            this.Add(new HER2AmplificationResultGroup4Breast(panelSetOrderCollection, panelSetOrder));
         }
 
         public HER2AmplificationResult FindMatch()

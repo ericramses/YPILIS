@@ -8,7 +8,12 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
     public class HER2AmplificationResultGroup2Breast : HER2AmplificationResultBreast
     {
+
         public HER2AmplificationResultGroup2Breast(PanelSetOrderCollection panelSetOrderCollection, HER2AmplificationByISHTestOrder panelSetOrder) : base(panelSetOrderCollection, panelSetOrder)
+        {
+        }
+
+        public HER2AmplificationResultGroup2Breast(PanelSetOrderCollection panelSetOrderCollection, HER2AnalysisSummary.HER2AnalysisSummaryTestOrder panelSetOrder) : base(panelSetOrderCollection, panelSetOrder)
         {
             this.m_InterpretiveComment = "Evidence is limited on the efficacy of human epidermal growth factor 2 (HER2)-targeted therapy in the " +
             "small subset of cases with a HER2/chromosome enumeration probe 17 (CEP17) ratio ≥ 2.0 and an average HER2 copy number " +
@@ -22,18 +27,33 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
         public override bool IsAMatch()
         {
             bool result = false;
-            if (this.m_HER2AnalysisSummaryTestOrder.Indicator == HER2AmplificationByISH.HER2AmplificationByISHIndicatorCollection.BreastIndication &&
-                this.m_HER2AnalysisSummaryTestOrder.AverageHer2Chr17SignalAsDouble.HasValue &&
-                this.m_HER2AnalysisSummaryTestOrder.AverageHer2Chr17SignalAsDouble >= 2.0 &&
-                this.m_HER2AnalysisSummaryTestOrder.AverageHer2NeuSignal.HasValue &&
-                this.m_HER2AnalysisSummaryTestOrder.AverageHer2NeuSignal < 4.0)
+            if (this.m_Indicator == HER2AmplificationByISH.HER2AmplificationByISHIndicatorCollection.BreastIndication &&
+                this.m_AverageHer2Chr17SignalAsDouble.HasValue &&
+                this.m_AverageHer2Chr17SignalAsDouble >= 2.0 &&
+                this.m_AverageHer2NeuSignal.HasValue &&
+                this.m_AverageHer2NeuSignal < 4.0)
             {
                 result = true;
             }
             return result;
         }
 
-        public override void SetResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
+        public override void SetISHResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
+        {
+            this.m_Result = HER2AmplificationResultEnum.Equivocal;
+            this.m_InterpretiveComment = InterpretiveComment;
+            this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*RATIO*", this.m_HER2AmplificationByISHTestOrder.Her2Chr17Ratio.Value.ToString());
+            this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*CELLSCOUNTED*", this.m_HER2AmplificationByISHTestOrder.CellCountToUse.ToString());
+            this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*HER2STATUS*", this.m_Result.ToString());
+            if (this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal.HasValue == true)
+            {
+                this.m_InterpretiveComment = this.m_InterpretiveComment.Replace("*HER2COPY*", this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal.Value.ToString());
+            }
+
+            base.SetISHResults(specimenOrder);
+        }
+
+        public override void SetSummaryResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
             this.HandleIHC();
 
@@ -46,7 +66,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 }
             }
 
-            base.SetResults(specimenOrder);
+            base.SetSummaryResults(specimenOrder);
         }
     }
 }
