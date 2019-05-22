@@ -25,29 +25,6 @@ namespace YellowstonePathology.Business.Facility.Model
             
             this.Add(new ClientBillingFacility(ypii, ypii, clientGroupAllClients, "Technical"));
             this.Add(new ClientBillingFacility(ypii, ypii, clientGroupAllClients, "Professional"));
-        }
-
-        /*
-        public YellowstonePathology.Business.Rules.MethodResult FindMatch(string performingFacilityId, string billingFacilityId, int clientId, string facilityComponent)
-        {
-            YellowstonePathology.Business.Rules.MethodResult result = new Business.Rules.MethodResult();
-            foreach (ClientBillingFacility clientBillingFacility in this)
-            {
-                if (clientBillingFacility.IsMatch(performingFacilityId, clientId, facilityComponent) == true)
-                {
-                    if (clientBillingFacility.DefaultBillingFacility.FacilityId == billingFacilityId)
-                    {
-                        result.Success = true;
-                    }
-                    else
-                    {
-                        result.Success = false;
-                        result.Message = "The default billing facility for the " + facilityComponent + " component is " + clientBillingFacility.DefaultBillingFacility.FacilityName;
-                    }
-                }
-            }
-            return result;
-        }
-        */
+        }        
     }
 }
