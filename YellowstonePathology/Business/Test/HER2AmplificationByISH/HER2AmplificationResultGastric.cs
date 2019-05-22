@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
     public class HER2AmplificationResultGastric : HER2AmplificationResult
     {
 
-        public HER2AmplificationResultGastric(PanelSetOrderCollection panelSetOrderCollection, string reportNo) : base(panelSetOrderCollection, reportNo)
+        public HER2AmplificationResultGastric(PanelSetOrderCollection panelSetOrderCollection, HER2AmplificationByISHTestOrder panelSetOrder) : base(panelSetOrderCollection, panelSetOrder)
         {
             this.m_InterpretiveComment = "Human epidermal growth factor receptor 2 gene (HER2) is amplified in up to 25% of gastric cancers, " +
                 "particularly those that arise at the gastroesophageal junction.  Amplification of the HER2 gene in gastric tumors is associated with " +
@@ -27,7 +27,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             return result;
         }
 
-        public override void SetResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
+        public override void SetISHResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
             this.m_ResultComment = null;
             this.m_ResultDescription = "Ratio = " + this.m_HER2AmplificationByISHTestOrder.Her2Chr17Ratio;
@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 }
             }
 
-            base.SetResults(specimenOrder);
+            base.SetISHResults(specimenOrder);
         }
     }
 }

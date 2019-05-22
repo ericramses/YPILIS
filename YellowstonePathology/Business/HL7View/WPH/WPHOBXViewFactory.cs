@@ -65,7 +65,7 @@ namespace YellowstonePathology.Business.HL7View.WPH
 					//view = new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 61:
-					//view = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasWPHOBXView(accessionOrder, reportNo, obxCount);
+					view = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasWPHOBXView(accessionOrder, reportNo, obxCount);
                     break;
                 case 62:
 					view = new YellowstonePathology.Business.Test.HPV1618.HPV1618WPHOBXView(accessionOrder, reportNo, obxCount);
