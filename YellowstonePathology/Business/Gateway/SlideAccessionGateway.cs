@@ -324,6 +324,7 @@ namespace YellowstonePathology.Business.Gateway
                 "mtb.MaterialTrackingBatchId AS MaterialTrackingBatchId, " +
                 "mtl.MaterialTrackingLogId AS MaterialTrackingLogId, " +
                 "ao.MasterAccessionNo AS MasterAccessionNo, " +
+                "ao.ClientAccessionNo AS ClientAccessionNo, " +
                 "ao.PLastName AS PLastName, " +
                 "ao.PFirstName AS PFirstName, " +
                 "mtl.MaterialType AS MaterialType, " +

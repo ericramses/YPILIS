@@ -17,7 +17,7 @@ namespace YellowstonePathology.UI.MaterialTracking
         {            
             if (this.Count > 0)
             {                
-                MaterialTrackingSummary materialTrackingSummaryTotals = new MaterialTrackingSummary(null, true);
+                MaterialTrackingSummary materialTrackingSummaryTotals = new MaterialTrackingSummary(null, null, true);
                 MaterialTrackingSummary materialTrackingSummaryFirst = this[0];
 
                 foreach (MaterialTrackingSummaryColumn materialTrackingSummaryColumnFirst in materialTrackingSummaryFirst.ColumnList)
