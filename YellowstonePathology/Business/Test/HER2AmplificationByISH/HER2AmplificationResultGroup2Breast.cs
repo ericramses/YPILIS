@@ -55,21 +55,5 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 
             base.SetISHResults(specimenOrder);
         }
-
-        public override void SetSummaryResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
-        {
-            this.HandleIHC();
-
-            if (this.m_HER2AmplificationRecountTestOrder != null && this.m_HER2AmplificationRecountTestOrder.Accepted == true &&
-                this.m_PanelSetOrderHer2AmplificationByIHC != null && this.m_PanelSetOrderHer2AmplificationByIHC.Accepted == true)
-            {
-                if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("2+"))
-                {
-                    this.m_Result = HER2AmplificationByISH.HER2AmplificationResultEnum.Negative;
-                }
-            }
-
-            base.SetSummaryResults(specimenOrder);
-        }
     }
 }
