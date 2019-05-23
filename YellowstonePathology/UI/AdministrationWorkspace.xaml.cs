@@ -1022,155 +1022,25 @@ namespace YellowstonePathology.UI
 
         private void WriteCDM()
         {
-            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-12484");
-            UI.Billing.HRHCDMList hrhCDMList = new Billing.HRHCDMList();
-            foreach(string cdm in hrhCDMList)
-            {
-                Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetCPTCodeByCDM(cdm);
-                Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.GetNextItem("19-12484.S");
-                panelSetOrderCPTCodeBill.Quantity = -1;
-                panelSetOrderCPTCodeBill.PostDate = DateTime.Parse("05/15/2019");
-                panelSetOrderCPTCodeBill.CPTCode = cptCode.Code;
-                panelSetOrderCPTCodeBill.MedicalRecord = ao.SvhMedicalRecord;
-                panelSetOrderCPTCodeBill.Account = ao.SvhAccount;
-                Business.HL7View.EPIC.EPICFT1ResultView result = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill);
-                result.Publish("d:\\testing");
-                ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);
-            }            
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-13926");
+            
+            Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetCPTCode("88305");
+            Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.GetNextItem("19-13926.S");
+            panelSetOrderCPTCodeBill.Quantity = -1;
+            panelSetOrderCPTCodeBill.PostDate = DateTime.Parse("05/22/2019");
+            panelSetOrderCPTCodeBill.CPTCode = cptCode.Code;
+            panelSetOrderCPTCodeBill.MedicalRecord = ao.SvhMedicalRecord;
+            panelSetOrderCPTCodeBill.Account = ao.SvhAccount;
+            Business.HL7View.EPIC.EPICFT1ResultView result = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill);
+            result.Publish("d:\\testing");
+            ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);            
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            List<int> psoList = new List<int>();            
-            psoList.Add(60);
-            psoList.Add(245);
-            psoList.Add(52);
-            psoList.Add(178);
-            psoList.Add(253);
-            psoList.Add(305);
-            psoList.Add(299);
-            psoList.Add(144);
-            psoList.Add(239);
-            psoList.Add(218);
-            psoList.Add(156);
-            psoList.Add(301);
-            psoList.Add(145);
-            psoList.Add(190);
-            psoList.Add(164);
-            psoList.Add(1);
-            psoList.Add(141);
-            psoList.Add(181);
-            psoList.Add(162);
-            psoList.Add(92);
-            psoList.Add(151);
-            psoList.Add(140);
-            psoList.Add(159);
-            psoList.Add(148);
-            psoList.Add(176);
-            psoList.Add(204);
-            psoList.Add(131);
-            psoList.Add(147);
-            psoList.Add(160);
-            psoList.Add(149);
-            psoList.Add(281);
-            psoList.Add(273);
-            psoList.Add(221);
-            psoList.Add(150);
-            psoList.Add(153);
-            psoList.Add(155);
-            psoList.Add(119);
-            psoList.Add(279);
-            psoList.Add(168);
-            psoList.Add(137);
-            psoList.Add(189);
-            psoList.Add(274);
-            psoList.Add(249);
-            psoList.Add(158);
-            psoList.Add(264);
-            psoList.Add(86);
-            psoList.Add(157);
-            psoList.Add(171);
-            psoList.Add(136);
-            psoList.Add(226);
-            psoList.Add(152);
-            psoList.Add(124);
-            psoList.Add(125);
-            psoList.Add(230);
-            psoList.Add(161);
-            psoList.Add(173);
-            psoList.Add(234);
-            psoList.Add(304);
-            psoList.Add(120);
-            psoList.Add(63);
-            psoList.Add(186);
-            psoList.Add(138);
-            psoList.Add(248);
-            psoList.Add(169);
-            psoList.Add(135);
-            psoList.Add(163);
-            psoList.Add(192);
-            psoList.Add(307);
-            psoList.Add(196);
-            psoList.Add(205);
-            psoList.Add(177);
-            psoList.Add(237);
-            psoList.Add(172);
-            psoList.Add(66);
-            psoList.Add(233);
-            psoList.Add(99);
-            psoList.Add(315);
-            psoList.Add(310);
-            psoList.Add(79);
-            psoList.Add(312);
-            psoList.Add(154);
-            psoList.Add(220);
-            psoList.Add(206);
-            psoList.Add(319);
-            psoList.Add(317);
-            psoList.Add(293);
-            psoList.Add(320);
-            psoList.Add(277);
-            psoList.Add(83);
-            psoList.Add(108);
-            psoList.Add(229);
-            psoList.Add(321);
-            psoList.Add(184);
-            psoList.Add(322);
-            psoList.Add(280);
-            psoList.Add(187);
-            psoList.Add(243);
-            psoList.Add(211);
-            psoList.Add(336);
-            psoList.Add(132);
-            psoList.Add(286);
-            psoList.Add(195);
-            psoList.Add(284);
-            psoList.Add(323);
-            psoList.Add(278);
-            psoList.Add(324);
-            psoList.Add(309);
-            psoList.Add(167);
-            psoList.Add(235);
-            psoList.Add(326);
-            psoList.Add(27);
-            psoList.Add(87);
-            psoList.Add(331);
-            psoList.Add(332);
-            psoList.Add(335);
-            psoList.Add(170);
-            psoList.Add(288);
-
-            Business.PanelSet.Model.PanelSetCollection panelSets = Business.PanelSet.Model.PanelSetCollection.GetAll();
-            foreach(int i in psoList)
-            {
-                Business.PanelSet.Model.PanelSet panelSet = panelSets.GetPanelSet(i);
-                if(panelSet.PanelSetCptCodeCollection.Count == 0)
-                {
-                    Console.WriteLine(panelSet.PanelSetId + ", " + panelSet.PanelSetName);
-                }
-            }
-            return;
-
+            this.WriteCDM();
+            
+            /*            
             Business.Stain.Model.StainCollection stainCollection = Business.Stain.Model.StainCollection.Instance;
             StringBuilder result = new StringBuilder();
             foreach (Business.Stain.Model.Stain stain in stainCollection)
@@ -1183,6 +1053,7 @@ namespace YellowstonePathology.UI
                 }                
             }
             Console.WriteLine(result.ToString());
+            */
 
             /*
             for(int i=1; i<7; i++)

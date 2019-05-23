@@ -11,6 +11,27 @@ namespace YellowstonePathology.Business.Billing.Model
 		public PanelSetCptCodeCollection()
 		{
 
-		}        
+		}  
+        
+        public string GetCommaSeparatedString()
+        {
+            string result = null;
+            foreach(PanelSetCptCode panelSetCptCode in this)
+            {
+                if(result == null)
+                {
+                    result = panelSetCptCode.Quantity + " - " + panelSetCptCode.CptCode.Code;
+                }
+                else
+                {
+                    result = result + ", " + panelSetCptCode.Quantity + " - " + panelSetCptCode.CptCode.Code;
+                }
+            }
+            if(result == null)
+            {
+                result = "No CPT Codes have been defined.";
+            }
+            return result;
+        }      
 	}
 }
