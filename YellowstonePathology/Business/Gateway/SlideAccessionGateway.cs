@@ -225,7 +225,7 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection GetMaterialTrackingBatchCollection()
         {
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblMaterialTrackingBatch order by OpenDate desc limit 200;";
+            cmd.CommandText = "Select * from tblMaterialTrackingBatch where OpenDate >= date_add(curdate(), interval -90 day) order by OpenDate desc;";
             cmd.CommandType = System.Data.CommandType.Text;
             return BuildMaterialTrackingBatchCollection(cmd);
         }
