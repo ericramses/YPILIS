@@ -176,22 +176,8 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             }
         }
 
-        public void SetSummaryResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
+        public virtual void SetSummaryResults(Business.Specimen.Model.SpecimenOrder specimenOrder)
         {
-            this.HandleIHC();
-
-            if (this.m_IsHER2AmplificationRecountRequired == true && this.m_IsHER2AmplificationRecountOrdered == true && this.m_HER2AmplificationRecountTestOrder.Accepted == true &&
-                this.m_IsHer2AmplificationByIHCRequired == true && this.m_IsHer2AmplificationByIHCOrdered == true && this.m_PanelSetOrderHer2AmplificationByIHC.Accepted == true)
-            {
-                if (this.m_PanelSetOrderHer2AmplificationByIHC.Score.Contains("2+"))
-                {
-                    this.m_Result = HER2AmplificationByISH.HER2AmplificationResultEnum.Negative;
-                }
-            }
-
-            this.m_ResultComment = null;
-            this.m_ResultDescription = "Ratio = " + this.m_HER2AnalysisSummaryTestOrder.Her2Chr17Ratio;
-
             this.m_HER2AnalysisSummaryTestOrder.Result = this.m_Result.ToString();
             if (this.m_HER2AnalysisSummaryTestOrder.Result == HER2AmplificationResultEnum.Equivocal.ToString())
             {
