@@ -199,6 +199,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.AmyloidAandAmyloidP.AmyloidAandAmyloidPTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NUT.NUTTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEMyeloidDisordersProfile.NeoTYPEMyeloidDisordersProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.CancerTYPEID.CancerTYPEIDTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetArupBraf());
