@@ -31,15 +31,14 @@ namespace YellowstonePathology.UI.MaterialTracking
             MaterialTrackingSummaryCollection materialTrackingSummaryCollection = new MaterialTrackingSummaryCollection();
 
             List<string> materialTypeList = this.m_MaterialTrackingLogViewCollection.GetDistinctMaterialTypes();
-            List<string> masterAccessionNoList = this.m_MaterialTrackingLogViewCollection.GetMasterAccessionNoList();
+            List<Tuple<string, string>> accessionList = this.m_MaterialTrackingLogViewCollection.GetAccessionList();
 
-            foreach (string masterAccessionNo in masterAccessionNoList)
+            foreach (Tuple<string, string> accession in accessionList)
             {
-                MaterialTrackingSummary materialTrackingSummary = new MaterialTrackingSummary(masterAccessionNo, false);
-                
+                MaterialTrackingSummary materialTrackingSummary = new MaterialTrackingSummary(accession.Item1, accession.Item2, false);                
                 foreach (string materialType in materialTypeList)
                 {
-                    int materialCount = this.m_MaterialTrackingLogViewCollection.GetMaterialCount(masterAccessionNo, materialType);
+                    int materialCount = this.m_MaterialTrackingLogViewCollection.GetMaterialCount(accession.Item1, materialType);
                     MaterialTrackingSummaryColumn materialTrackingSummaryColumn = new MaterialTrackingSummaryColumn(materialType, materialCount);
                     materialTrackingSummary.ColumnList.Add(materialTrackingSummaryColumn);
                     totalMaterialCount += materialCount;
@@ -151,7 +150,10 @@ namespace YellowstonePathology.UI.MaterialTracking
             grid.ColumnDefinitions.Add(columnDefinitionMA);
 
             TextBlock textBlockMA = new TextBlock();
-            textBlockMA.Text = materialTrackingSummary.MasterAccessionNo;
+            string accessionNoString = materialTrackingSummary.MasterAccessionNo;
+            if (string.IsNullOrEmpty(materialTrackingSummary.ClientAccessionNo) == false) accessionNoString += " (" + materialTrackingSummary.ClientAccessionNo + ")";
+
+            textBlockMA.Text = accessionNoString;
             textBlockMA.Margin = new Thickness(2, 10, 2, 0);
             textBlockMA.HorizontalAlignment = HorizontalAlignment.Left;
             textBlockMA.TextAlignment = TextAlignment.Right;

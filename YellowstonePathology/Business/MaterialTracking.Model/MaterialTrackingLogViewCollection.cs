@@ -13,17 +13,17 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         public MaterialTrackingLogViewCollection()
         {
 
-        }        
+        }
 
         public List<string> GetDistinctMaterialTypes()
         {
             List<string> result = new List<string>();
             foreach (MaterialTrackingLogView materialTrackingLogView in this)
-            {                
+            {
                 if (result.Contains(materialTrackingLogView.MaterialType) == false)
                 {
                     result.Add(materialTrackingLogView.MaterialType);
-                }             
+                }
             }
             return result;
         }
@@ -35,14 +35,28 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             return result;
         }
 
-        public List<string> GetMasterAccessionNoList()
+        public List<Tuple<string, string>> GetAccessionList()
         {
-            List<string> result = new List<string>();
+            List<Tuple<string, string>> result = new List<Tuple<string, string>>();
             foreach (MaterialTrackingLogView materialTrackingLogView in this)
             {
-                if (result.Contains(materialTrackingLogView.MasterAccessionNo) == false)
+                if (DoesMasterAccessionExist(materialTrackingLogView.MasterAccessionNo, result) == false)
                 {
-                    result.Add(materialTrackingLogView.MasterAccessionNo);
+                    result.Add(Tuple.Create(materialTrackingLogView.MasterAccessionNo, materialTrackingLogView.ClientAccessionNo));
+                }
+            }
+            return result;
+        }
+
+        public bool DoesMasterAccessionExist(string masterAccessionNo, List<Tuple<string, string>> list)
+        {
+            bool result = false;
+            foreach(Tuple<string, string> tpl in list)
+            {
+                if(tpl.Item1 == masterAccessionNo)
+                {
+                    result = true;
+                    break;
                 }
             }
             return result;
