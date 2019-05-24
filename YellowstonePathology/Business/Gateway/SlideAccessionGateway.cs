@@ -349,10 +349,7 @@ namespace YellowstonePathology.Business.Gateway
                 "Left JOIN tblAccessionOrder ao ON mtl.MasterAccessionNo = ao.MasterAccessionNo " +
                 "where mtb.MaterialTrackingBatchId = @MaterialTrackingBatchId order by mtl.LogDate desc";
 
-            MySqlCommand cmd = new MySqlCommand();
-            //cmd.CommandText = "Select * from ViewMaterialTrackingLog where ViewMaterialTrackingLog.MaterialTrackingBatchId = " +
-            //    "@MaterialTrackingBatchId order by LogDate desc;";
-
+            MySqlCommand cmd = new MySqlCommand();            
             cmd.CommandText = sql;
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.AddWithValue("@MaterialTrackingBatchId", materialTrackingBatchId);

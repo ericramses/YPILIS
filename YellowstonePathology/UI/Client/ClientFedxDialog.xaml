@@ -91,17 +91,21 @@
 
                         <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="4" Margin="10,10,10,10">
 
-                            <TextBlock Margin="2,2,2,2">
-                                <Hyperlink Click="HyperLinkGetTrackingNumber_Click" Tag="{Binding Path=.}">Get Tracking Number</Hyperlink>
-                            </TextBlock>
+                        <TextBlock Margin="2,2,2,2">
+                            <Hyperlink Click="HyperLinkOptiFreight_Click" Tag="{Binding Path=.}">OptiFreight</Hyperlink>
+                        </TextBlock>
 
-                            <TextBlock Margin="2,2,2,2">
-                                <Hyperlink Click="HyperLinkPrintLabel_Click" Tag="{Binding Path=.}">Print Label</Hyperlink>
-                            </TextBlock>
+                        <TextBlock Margin="2,2,2,2">
+                            <Hyperlink Click="HyperLinkGetTrackingNumber_Click" Tag="{Binding Path=.}">Get Tracking Number</Hyperlink>
+                        </TextBlock>
 
-                            <TextBlock Margin="2,2,2,2">
-                                <Hyperlink Click="HyperLinkCancelShipment_Click" Tag="{Binding Path=.}">Cancel Shipment</Hyperlink>
-                            </TextBlock>
+                        <TextBlock Margin="2,2,2,2">
+                            <Hyperlink Click="HyperLinkPrintLabel_Click" Tag="{Binding Path=.}">Print Label</Hyperlink>
+                        </TextBlock>
+
+                        <TextBlock Margin="2,2,2,2">
+                            <Hyperlink Click="HyperLinkCancelShipment_Click" Tag="{Binding Path=.}">Cancel Shipment</Hyperlink>
+                        </TextBlock>
 
                         </StackPanel>
 

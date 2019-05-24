@@ -276,5 +276,13 @@ namespace YellowstonePathology.UI.Client
         {
             Close();
         }
+
+        private void HyperLinkOptiFreight_Click(object sender, RoutedEventArgs e)
+        {
+            Business.MaterialTracking.Model.FedexAccountProduction fedexAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
+            this.m_AccountNo = fedexAccount.OptiFreightAccountNo;
+            this.m_PaymentType = "THIRD_PARTY";
+            this.NotifyPropertyChanged(string.Empty);
+        }
     }
 }

@@ -2400,7 +2400,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select ao.AliquotOrderId MaterialId, ao.AliquotType MaterialType, a.MasterAccessionNo, a.PLastName, " +
-                "a.PFirstName, ao.Label MaterialLabel " +
+                "a.PFirstName, ao.Label MaterialLabel, a.ClientAccessionNo " +
                 "from tblAliquotOrder ao " +
                 "join tblSpecimenOrder so on ao.SpecimenOrderId = so.SpecimenOrderId " +
                 "join tblAccessionOrder a on so.MasterAccessionNo = a.MasterAccessionNo " +
@@ -2430,7 +2430,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select so.ContainerId MaterialId, 'Container' MaterialType, ao.MasterAccessionNo, ao.PLastName, " +
-                "ao.PFirstName, so.Description MaterialLabel " +
+                "ao.PFirstName, so.Description MaterialLabel, ao.ClientAccessionNo " +
                 "from tblAccessionOrder ao " +
                 "join tblSpecimenOrder so on ao.MasterAccessionNo = so.MasterAccessionNo " +
                 "where so.ContainerId = @ContainerId ;";
@@ -2460,7 +2460,7 @@ namespace YellowstonePathology.Business.Gateway
 
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select s.SlideOrderId MaterialId, 'Slide' MaterialType, a.MasterAccessionNo, a.PLastName, " +
-                "a.PFirstName, s.Label MaterialLabel, s.TestName " +
+                "a.PFirstName, s.Label MaterialLabel, s.TestName. ao.ClientAccessionNo " +
                 "from tblSlideOrder s " +
                 "join tblAliquotOrder ao on s.AliquotOrderId = ao.AliquotOrderId " +
                 "join tblSpecimenOrder so on ao.SpecimenOrderId = so.SpecimenOrderId " +

@@ -388,7 +388,7 @@ namespace YellowstonePathology.UI.MaterialTracking
             printDialog.PrintDocument(materialTrackingBatchSummary.FixedDocument.DocumentPaginator, "Material Tracking Batch Summary");                                     
         }
 
-        private void ButtonPrintUpdateScans_Click(object sender, RoutedEventArgs e)
+        private void ButtonUpdateScans_Click(object sender, RoutedEventArgs e)
         {
             if (this.m_MaterialTrackingBatch.ToFacilityId != null)
             {
@@ -451,7 +451,6 @@ namespace YellowstonePathology.UI.MaterialTracking
 
             foreach (YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog in this.m_MaterialTrackingBatch.MaterialTrackingLogCollection)
             {
-
                 switch (materialTrackingLog.MaterialType)
                 {
                     case "PSLD":
