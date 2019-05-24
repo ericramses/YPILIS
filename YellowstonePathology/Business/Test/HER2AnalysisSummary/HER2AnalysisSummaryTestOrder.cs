@@ -804,6 +804,48 @@ namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
                     }
                 }
             }
+
+            if(result.Status == AuditStatusEnum.OK)
+            {
+                Her2AmplificationByIHC.Her2AmplificationByIHCTest ihcTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
+                HER2AmplificationRecount.HER2AmplificationRecountTest recountTest = new HER2AmplificationRecount.HER2AmplificationRecountTest();
+
+                if(accessionOrder.PanelSetOrderCollection.Exists(ihcTest.PanelSetId, this.OrderedOnId, true) == true)
+                {
+                    Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC testOrder = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ihcTest.PanelSetId, this.OrderedOnId, true);
+                    if(testOrder.Final == false)
+                    {
+                        result.Status = AuditStatusEnum.Failure;
+                        result.Message += "The " + ihcTest.PanelSetName + " must be final before results can be set." + Environment.NewLine;
+                    }
+                    else
+                    {
+                        if (testOrder.Score == "2+")
+                        {
+                            if (accessionOrder.PanelSetOrderCollection.Exists(recountTest.PanelSetId, this.OrderedOnId, true) == true)
+                            {
+                                HER2AmplificationRecount.HER2AmplificationRecountTestOrder recountTestOrder = (HER2AmplificationRecount.HER2AmplificationRecountTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(recountTest.PanelSetId, this.OrderedOnId, true);
+                                if(recountTestOrder.Final == false)
+                                {
+                                    result.Status = AuditStatusEnum.Failure;
+                                    result.Message += "The " + recountTest.PanelSetName + " must be final before results can be set." + Environment.NewLine;
+                                }
+                            }
+                            else
+                            {
+                                result.Status = AuditStatusEnum.Failure;
+                                result.Message += "A " + recountTest.PanelSetName + " must be ordered and final before results can be set." + Environment.NewLine;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    result.Status = AuditStatusEnum.Failure;
+                    result.Message += "A " + ihcTest.PanelSetName + " must be ordered and final before results can be set." + Environment.NewLine;
+                }
+            }
+
             return result;
         }
 

@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.m_AverageHer2Chr17SignalAsDouble = this.m_HER2AmplificationByISHTestOrder.AverageHer2Chr17SignalAsDouble;
             this.m_AverageHer2NeuSignal = this.m_HER2AmplificationByISHTestOrder.AverageHer2NeuSignal;
 
-            if (this.m_HER2AmplificationByISHTestOrder.Accepted == true)
+            if (this.m_HER2AmplificationByISHTestOrder.Final == true)
             {
                 if (this.m_HER2AmplificationByISHTestOrder.Result == HER2AmplificationResultEnum.Equivocal.ToString()) this.m_IsHer2AmplificationByIHCRequired = true;
             }
@@ -54,7 +54,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             {
                 this.m_IsHer2AmplificationByIHCOrdered = true;
                 this.m_PanelSetOrderHer2AmplificationByIHC = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)panelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId);
-                if(this.m_PanelSetOrderHer2AmplificationByIHC.Accepted == true)
+                if(this.m_PanelSetOrderHer2AmplificationByIHC.Final == true)
                 {
                     if (this.m_PanelSetOrderHer2AmplificationByIHC.Score == "2+") this.m_IsHER2AmplificationRecountRequired = true;
                 }
@@ -81,7 +81,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             {
                 this.m_IsHer2AmplificationByIHCOrdered = true;
                 this.m_PanelSetOrderHer2AmplificationByIHC = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)panelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId);
-                if (this.m_PanelSetOrderHer2AmplificationByIHC.Accepted == true)
+                if (this.m_PanelSetOrderHer2AmplificationByIHC.Final == true)
                 {
                     if (this.m_PanelSetOrderHer2AmplificationByIHC.Score == "2+") this.m_IsHER2AmplificationRecountRequired = true;
                 }
