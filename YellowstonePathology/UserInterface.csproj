@@ -1091,6 +1091,7 @@
     <Compile Include="Business\Test\ALLPediatricFISHPanel\ALLPediatricFISHPanelTest.cs" />
     <Compile Include="Business\Test\AMLPrognosticProfile\AMLPrognosticProfileTestOrder.cs" />
     <Compile Include="Business\Test\API2MALT1ByFISH\API2MALT1ByFISHWPHOBXView.cs" />
+    <Compile Include="Business\Test\CancerTYPEID\CancerTYPEIDTest.cs" />
     <Compile Include="Business\Test\CarbonicAnhydraseIXCAIX\CarbonicAnhydraseIXCAIXTest.cs" />
     <Compile Include="Business\Test\CheckResultsActionEnum.cs" />
     <Compile Include="Business\Test\ChimerismStudyByDNAMarkers\ChimerismStudyByDNAMarkersTest.cs" />
@@ -7014,12 +7015,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
