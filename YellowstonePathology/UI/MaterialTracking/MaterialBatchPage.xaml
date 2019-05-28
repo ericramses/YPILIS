@@ -84,7 +84,8 @@
                 </ListView.ContextMenu>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Path=MaterialId}" Width="150"/>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Path=MaterialId}" Width="100"/>
+                        <GridViewColumn Header="Client No" DisplayMemberBinding="{Binding Path=ClientAccessionNo}" Width="100"/>
                         <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Path=PLastName}" Width="150"/>
                         <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding Path=PFirstName}" Width="150"/>
                         <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Path=MaterialType}" Width="150"/>
@@ -136,7 +137,7 @@
 			</StackPanel>
 
 			<StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Name="ButtonPrintUpdateScans" Margin="5,5,30,5" Click="ButtonPrintUpdateScans_Click" Width="200" Height="40">Update Scans</Button>
+                <Button Name="ButtonUpdateScans" Margin="5,5,30,5" Click="ButtonUpdateScans_Click" Width="200" Height="40">Update Scans</Button>
                 <Button Name="ButtonPrintTrackingDocument" Margin="5,5,30,5" Click="ButtonPrintTrackingDocument_Click" Width="200" Height="40">Print Tracking Document</Button>
 				<Button Name="ButtonShowTrackingDocument" Margin="5,5,30,5" Click="ButtonShowTrackingDocument_Click" Width="200" Height="40">Show Tracking Document</Button>
 				<Button Name="ButtonFinish" Margin="5,5,5,5" Click="ButtonFinish_Click" Width="100" Height="40" Visibility="{Binding Path=FinishButtonVisible, Converter={StaticResource BooleanVisibilityConverter}}">Finish</Button>

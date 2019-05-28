@@ -499,5 +499,15 @@ namespace YellowstonePathology.UI.Login.Receiving
                 MessageBox.Show("The fax was successfully published.");
             }
         }
+
+        private void HyperLinkOptiFreight_Click(object sender, RoutedEventArgs e)
+        {
+            Hyperlink hyperlink = (Hyperlink)sender;
+            YellowstonePathology.Business.Task.Model.TaskOrderDetailFedexShipment taskOrderDetailFedexShipment = (YellowstonePathology.Business.Task.Model.TaskOrderDetailFedexShipment)hyperlink.Tag;
+            Business.MaterialTracking.Model.FedexAccountProduction fedexAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
+            taskOrderDetailFedexShipment.AccountNoBinding = fedexAccount.OptiFreightAccountNo;
+            taskOrderDetailFedexShipment.PaymentType = "THIRD_PARTY";
+            this.NotifyPropertyChanged(string.Empty);
+        }
     }
 }
