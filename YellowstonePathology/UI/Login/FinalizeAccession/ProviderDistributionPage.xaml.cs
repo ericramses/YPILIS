@@ -157,13 +157,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void HyperLinkAddCopyTo_Click(object sender, RoutedEventArgs e)
         {
-            //if (this.m_PanelSetOrder.Distribute == true)
-            //{
             PhysicianClientSearchPage physicianClientSearchPage = new PhysicianClientSearchPage(this.m_AccessionOrder, this.m_AccessionOrder.ClientId, true);
             physicianClientSearchPage.Back += new PhysicianClientSearchPage.BackEventHandler(CopyTo_PhysicianClientSearchPage_Back);
             physicianClientSearchPage.Next += new PhysicianClientSearchPage.NextEventHandler(CopyTo_PhysicianClientSearchPage_Next);
             this.m_PageNavigator.Navigate(physicianClientSearchPage);
-            //}
         }
 
         private void CopyTo_PhysicianClientSearchPage_Back(object sender, EventArgs e)
@@ -172,6 +169,28 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         }
 
         private void CopyTo_PhysicianClientSearchPage_Next(object sender, CustomEventArgs.PhysicianClientDistributionReturnEventArgs e)
+        {
+            bool isDuplicateHL7 = this.CanAddCopyTo();
+            if (isDuplicateHL7 == false)
+            {
+                e.PhysicianClientDistribution.SetDistribution(this.m_AccessionOrder);
+                this.m_PageNavigator.Navigate(this);
+            }
+            else
+            {
+                HL7CopyPage hl7CopyPage = new FinalizeAccession.HL7CopyPage(e.PhysicianClientDistribution);
+                hl7CopyPage.Distribute += Hl7CopyPage_Distribute;
+                hl7CopyPage.DoNotDistribute += Hl7CopyPage_DoNotDistribute;
+                this.m_PageNavigator.Navigate(hl7CopyPage);
+            }
+        }
+
+        private void Hl7CopyPage_DoNotDistribute(object sender, EventArgs e)
+        {
+            this.m_PageNavigator.Navigate(this);
+        }
+
+        private void Hl7CopyPage_Distribute(object sender, CustomEventArgs.PhysicianClientDistributionReturnEventArgs e)
         {
             e.PhysicianClientDistribution.SetDistribution(this.m_AccessionOrder);
             this.m_PageNavigator.Navigate(this);
@@ -654,6 +673,22 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 this.m_PanelSetOrder.TestOrderReportDistributionLogCollection.Remove(rdl);
                 this.NotifyPropertyChanged("TestOrderReportDistributionLogCollection");
             }
+        }
+
+        private bool CanAddCopyTo()
+        {
+            bool result = false;
+
+            foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
+            {
+                if (panelSetOrder.TestOrderReportDistributionCollection.DistributionTypeExists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC) == true)
+                {
+                    result = true;
+                    break;
+                }
+            }
+
+            return result;
         }
     }
 }

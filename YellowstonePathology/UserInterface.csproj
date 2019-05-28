@@ -3124,6 +3124,9 @@
     <Compile Include="UI\Login\ClientFaxPage.xaml.cs">
       <DependentUpon>ClientFaxPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Login\FinalizeAccession\HL7CopyPage.xaml.cs">
+      <DependentUpon>HL7CopyPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Monitor\BillingEODProcessingPage.xaml.cs">
       <DependentUpon>BillingEODProcessingPage.xaml</DependentUpon>
     </Compile>
@@ -5233,6 +5236,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Login\DeleteAccessionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Login\FinalizeAccession\HL7CopyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
