@@ -363,6 +363,7 @@
     <Compile Include="Business\EthBlock.cs" />
     <Compile Include="Business\EthContract.cs" />
     <Compile Include="Business\EthContractCollection.cs" />
+    <Compile Include="Business\Helper\JSONHelper.cs" />
     <Compile Include="Business\HL7View\EPIC\EpicHRHClient.cs" />
     <Compile Include="Business\Label.Model\HistologySlidePaperZPLLabelV3.cs" />
     <Compile Include="Business\Label.Model\StorageSlideLabel.cs" />
