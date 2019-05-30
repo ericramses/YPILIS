@@ -56,43 +56,53 @@ namespace YellowstonePathology.UI.Billing
         {
             if (this.CanSave() == true)
             {
-                if (this.m_HoldToCompareString == this.m_CptCodeString)
+                if (this.m_HoldToCompareString != this.m_CptCodeString)
                 {
-                    MessageBoxResult result = MessageBox.Show("There are no changes to the CPT Code. Do you  want to remain and make changes?", "Nothing to save", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                    if (result == MessageBoxResult.No) this.Close();
+                    MessageBoxResult result = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        YellowstonePathology.Business.Billing.Model.CptCode codeToSave = YellowstonePathology.Business.Billing.Model.CptCodeFactory.FromJson(this.m_CptCodeString);
+                        codeToSave.Save();
+                    }
                 }
-                else
-                {
-                    YellowstonePathology.Business.Billing.Model.CptCode codeToSave = YellowstonePathology.Business.Billing.Model.CptCodeFactory.FromJson(this.m_CptCodeString);
-                    codeToSave.Save();
-                    this.Close();
-                }
+
+                this.Close();
             }
         }
 
         private bool CanSave()
         {
             Business.Rules.MethodResult result = YellowstonePathology.Business.Helper.JSONHelper.IsValidJSONString(this.m_CptCodeString);
+
+            if (result.Success == true)
+            {
+                JObject jObject = JsonConvert.DeserializeObject<JObject>(this.m_CptCodeString);
+                if(jObject["code"] == null)
+                {
+                    result.Success = false;
+                    result.Message = "The Code must be present.";
+                }
+                else
+                {
+                    string codeToCompare = jObject["code"].ToString();
+                    if (string.IsNullOrEmpty(codeToCompare) == true)
+                    {
+                        result.Success = false;
+                        result.Message = "The Code must be present.";
+                    }
+                    else if (this.m_CptCode.Code != codeToCompare)
+                    {
+                        result.Success = false;
+                        result.Message = "The Codes must be the same.";
+                    }
+                }
+            }
+
             if(result.Success == false)
             {
                 MessageBox.Show(result.Message);
             }
 
-            if (result.Success == true)
-            {
-                JObject jObject = JsonConvert.DeserializeObject<JObject>(this.m_CptCodeString);
-                string codeToCompare = jObject["code"].ToString();
-                if(string.IsNullOrEmpty(codeToCompare) == true)
-                {
-                    result.Success = false;
-                    result.Message = "The Code must be present.";
-                }
-                else if (this.m_CptCode.Code != codeToCompare)
-                {
-                    result.Success = false;
-                    result.Message = "The Codes must be the same.";
-                }
-            }
             return result.Success;
         }
     }
