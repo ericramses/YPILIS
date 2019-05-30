@@ -170,6 +170,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void CopyTo_PhysicianClientSearchPage_Next(object sender, CustomEventArgs.PhysicianClientDistributionReturnEventArgs e)
         {
+            /*
             bool isDuplicateHL7 = this.CanAddCopyTo();
             if (isDuplicateHL7 == false)
             {
@@ -183,6 +184,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 hl7CopyPage.DoNotDistribute += Hl7CopyPage_DoNotDistribute;
                 this.m_PageNavigator.Navigate(hl7CopyPage);
             }
+            */
+            
+            e.PhysicianClientDistribution.SetDistribution(this.m_AccessionOrder);
+            this.m_PageNavigator.Navigate(this);            
         }
 
         private void Hl7CopyPage_DoNotDistribute(object sender, EventArgs e)
