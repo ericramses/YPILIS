@@ -31,12 +31,6 @@
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
 
-                                <!--
-                                <Button Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
-                                    <Ellipse Width="50" Height="50" Fill="Blue"></Ellipse>
-                                </Button>
-                                -->
-                                
                                 <TextBlock Text="Requested By:" Margin="2,2,2,2" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0"></TextBlock>
                                 <TextBlock Text="{Binding Path=ExtensionDocument.Element[ProspectiveReview].Element[RequestedByName].Value}" Margin="2,2,2,2" Grid.Column="1" Grid.Row="0"></TextBlock>
 
