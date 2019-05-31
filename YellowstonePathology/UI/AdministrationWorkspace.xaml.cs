@@ -1038,7 +1038,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            this.WriteCDM();
+            //this.WriteCDM();
             
             /*            
             Business.Stain.Model.StainCollection stainCollection = Business.Stain.Model.StainCollection.Instance;
@@ -1055,7 +1055,7 @@ namespace YellowstonePathology.UI
             Console.WriteLine(result.ToString());
             */
 
-            /*
+            
             for(int i=1; i<7; i++)
             {
                 Business.BarcodeScanning.SlideStorage slideStorageBarcode = new Business.BarcodeScanning.SlideStorage("Main Slide Storage", "mnsldstrg", "1", i.ToString(), "YPIBLGS", "2015", "3500", "4500");
@@ -1065,8 +1065,7 @@ namespace YellowstonePathology.UI
                 slideStorageLabel.AppendCommands(zplCmds, 0, 0);
                 zplCmds.Append("^XZ");
                 Business.Label.Model.RawPrinterHelper.SendStringToPrinter("ZDesigner GX430t", zplCmds.ToString());
-            } 
-            */
+            }             
 
             //Business.Label.Model.StorageSlideLabel storageSlideLabel = new Business.Label.Model.StorageSlideLabel()
             /*
