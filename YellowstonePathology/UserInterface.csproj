@@ -3125,8 +3125,8 @@
     <Compile Include="UI\Login\ClientFaxPage.xaml.cs">
       <DependentUpon>ClientFaxPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Login\FinalizeAccession\HL7CopyPage.xaml.cs">
-      <DependentUpon>HL7CopyPage.xaml</DependentUpon>
+    <Compile Include="UI\Login\FinalizeAccession\UnableToAddEpicDistributionDialog.xaml.cs">
+      <DependentUpon>UnableToAddEpicDistributionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Monitor\BillingEODProcessingPage.xaml.cs">
       <DependentUpon>BillingEODProcessingPage.xaml</DependentUpon>
@@ -5246,7 +5246,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Login\FinalizeAccession\HL7CopyPage.xaml">
+    <Page Include="UI\Login\FinalizeAccession\UnableToAddEpicDistributionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -7039,12 +7039,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
