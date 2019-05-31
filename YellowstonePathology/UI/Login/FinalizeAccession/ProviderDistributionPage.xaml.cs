@@ -170,34 +170,26 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void CopyTo_PhysicianClientSearchPage_Next(object sender, CustomEventArgs.PhysicianClientDistributionReturnEventArgs e)
         {
-            /*
-            bool isDuplicateHL7 = this.CanAddCopyTo();
-            if (isDuplicateHL7 == false)
+            bool canDistribute = true;
+            if(e.PhysicianClientDistribution.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC ||
+                e.PhysicianClientDistribution.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPICANDFAX)
+            {
+                if(this.CanAddEpicDistribution() == false)
+                {
+                    UnableToAddEpicDistributionDialog unableToAddEpicDistributionDialog = new FinalizeAccession.UnableToAddEpicDistributionDialog(e.PhysicianClientDistribution);
+                    unableToAddEpicDistributionDialog.ShowDialog();
+
+                    if(e.PhysicianClientDistribution.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.DONOTDISTRIBUTE)
+                    {
+                        canDistribute = false;
+                    }
+                }
+            }
+
+            if (canDistribute == true)
             {
                 e.PhysicianClientDistribution.SetDistribution(this.m_AccessionOrder);
-                this.m_PageNavigator.Navigate(this);
             }
-            else
-            {
-                HL7CopyPage hl7CopyPage = new FinalizeAccession.HL7CopyPage(e.PhysicianClientDistribution);
-                hl7CopyPage.Distribute += Hl7CopyPage_Distribute;
-                hl7CopyPage.DoNotDistribute += Hl7CopyPage_DoNotDistribute;
-                this.m_PageNavigator.Navigate(hl7CopyPage);
-            }
-            */
-            
-            e.PhysicianClientDistribution.SetDistribution(this.m_AccessionOrder);
-            this.m_PageNavigator.Navigate(this);            
-        }
-
-        private void Hl7CopyPage_DoNotDistribute(object sender, EventArgs e)
-        {
-            this.m_PageNavigator.Navigate(this);
-        }
-
-        private void Hl7CopyPage_Distribute(object sender, CustomEventArgs.PhysicianClientDistributionReturnEventArgs e)
-        {
-            e.PhysicianClientDistribution.SetDistribution(this.m_AccessionOrder);
             this.m_PageNavigator.Navigate(this);
         }
 
@@ -680,16 +672,39 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
         }
 
-        private bool CanAddCopyTo()
+        private bool CanAddEpicDistribution()
         {
             bool result = false;
-
-            foreach (YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder in this.m_AccessionOrder.PanelSetOrderCollection)
+            if (this.m_PanelSetOrder.TestOrderReportDistributionCollection.DistributionTypeExists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC) == false)
             {
-                if (panelSetOrder.TestOrderReportDistributionCollection.DistributionTypeExists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC) == true)
+                List<string> clientGroupIds = new List<string>();
+                clientGroupIds.Add("1");
+                clientGroupIds.Add("2");
+
+                YellowstonePathology.Business.Client.Model.ClientGroupClientCollection stVincentAndHRHGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(clientGroupIds);
+                if (stVincentAndHRHGroup.ClientIdExists(this.m_AccessionOrder.ClientId) == true)
                 {
-                    result = true;
-                    break;
+                    if (string.IsNullOrEmpty(this.m_AccessionOrder.SvhAccount) == true || string.IsNullOrEmpty(this.m_AccessionOrder.SvhMedicalRecord) == true)
+                    {
+                        result = false;
+                    }
+                    else
+                    {
+                        YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+                        YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(this.m_PanelSetOrder.PanelSetId);
+                        if (panelSet.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase)
+                        {
+                            result = true;
+                        }
+                        else
+                        {
+                            result = false;
+                        }
+                    }
+                }
+                else
+                {
+                    result = false;
                 }
             }
 

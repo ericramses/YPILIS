@@ -184,33 +184,14 @@ namespace YellowstonePathology.Business.Client.Model
         private bool HandleAddEPICDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             bool result = true;
-            if (panelSetOrder.TestOrderReportDistributionCollection.DistributionTypeExists(YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC) == false)
+            if (panelSetOrder.TestOrderReportDistributionCollection.Exists(this.m_PhysicianId, this.m_ClientId, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC) == false)
             {
-                List<string> clientGroupIds = new List<string>();
-                clientGroupIds.Add("1");
-                clientGroupIds.Add("2");
-
-                YellowstonePathology.Business.Client.Model.ClientGroupClientCollection stVincentAndHRHGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId(clientGroupIds);
-                if (stVincentAndHRHGroup.ClientIdExists(accessionOrder.ClientId) == true)
+                YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+                YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
+                if (panelSet.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase)
                 {
-                    if (string.IsNullOrEmpty(accessionOrder.SvhAccount) == true || string.IsNullOrEmpty(accessionOrder.SvhMedicalRecord) == true)
-                    {
-                        this.HandleAddFaxDistribution(panelSetOrder);
-                    }
-                    else
-                    {
-                        YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
-                        YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(panelSetOrder.PanelSetId);
-                        if (panelSet.ResultDocumentSource == YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase)
-                        {
-                            this.AddTestOrderReportDistribution(panelSetOrder, accessionOrder.PhysicianId, accessionOrder.PhysicianName, accessionOrder.ClientId, accessionOrder.ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC, this.FaxNumber);
-                        }
-                        else
-                        {
-                            this.HandleAddFaxDistribution(panelSetOrder);
-                        }
-                    }
-                }                
+                    this.AddTestOrderReportDistribution(panelSetOrder, accessionOrder.PhysicianId, accessionOrder.PhysicianName, accessionOrder.ClientId, accessionOrder.ClientName, YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC, this.FaxNumber);
+                }
                 else
                 {
                     this.HandleAddFaxDistribution(panelSetOrder);
