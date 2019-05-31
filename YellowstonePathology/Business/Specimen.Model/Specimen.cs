@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Linq;
 using YellowstonePathology.Business.Persistence;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Specimen.Model
 {
@@ -101,8 +104,39 @@ namespace YellowstonePathology.Business.Specimen.Model
         {
             var camelCaseFormatter = new JsonSerializerSettings();
             camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
+            string jString = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
+
+            JObject jObject = JObject.Parse(jString);
+            jObject.Remove("typeId");
+
+            if (this.m_CPTCode != null)
+            {
+                jObject.Property("cptCode").AddAfterSelf(new JProperty("cptCodeId", this.m_CPTCode.Code));
+            }
+            else
+            {
+                jObject.Property("cptCode").AddAfterSelf(new JProperty("cptCodeId", null));
+            }
+            jObject.Remove("cptCode");
+
+            string result = JsonConvert.SerializeObject(jObject, Formatting.Indented, camelCaseFormatter);
             return result;
+        }
+
+        public void Save()
+        {
+            string jString = this.ToJSON();
+            MySqlCommand cmd = new MySqlCommand("Update tblSpecimen set JSONValue = @JSONValue where SpecimenId = @SpecimenId;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@JSONValue", jString);
+            cmd.Parameters.AddWithValue("@SpecimenId", this.m_SpecimenId);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

@@ -1803,7 +1803,7 @@ namespace YellowstonePathology.UI
 
         private void ButtonPublishThrombo_Click(object sender, RoutedEventArgs e)
         {
-            string message = string.Empty;
+            /*string message = string.Empty;
             List<string> reportNos = new List<string>();
             MySqlCommand cmdl = new MySqlCommand();
             cmdl.CommandText = "select ReportNo from tblPanelSetOrder where PanelSetId = 21 and OrderDate <= '2009-08-28' order by OrderDate;";
@@ -1851,7 +1851,7 @@ namespace YellowstonePathology.UI
                 }
             }
 
-            MessageBox.Show("Done" +Environment.NewLine + message);
+            MessageBox.Show("Done" +Environment.NewLine + message);*/
         }
     }
 }

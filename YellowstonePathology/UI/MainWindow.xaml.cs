@@ -1051,5 +1051,11 @@ namespace YellowstonePathology.UI
             UI.Billing.CPTCodeListDialog cptCodeListDialog = new UI.Billing.CPTCodeListDialog();
             cptCodeListDialog.Show();
         }
+
+        private void MenuItemSpecimen_Click(object sender, RoutedEventArgs e)
+        {
+            UI.SpecimenListDialog specimenListDialog = new UI.SpecimenListDialog();
+            specimenListDialog.ShowDialog();
+        }
     }
 }
