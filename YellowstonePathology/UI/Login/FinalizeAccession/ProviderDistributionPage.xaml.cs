@@ -323,7 +323,14 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void HyperLinkSetDistribution_Click(object sender, RoutedEventArgs e)
         {
-            this.SetDistribution();
+            if (this.IsOKToSetDistribution() == true)
+            {
+                this.SetDistribution();
+            }
+            else
+            {
+                MessageBox.Show("Unable to set Distribution as the MRN or Account Number is missing and there is a distribution to an EPIC recipient.");
+            }
         }
 
         private void HyperLinkPhysicianNotFound_Click(object sender, RoutedEventArgs e)
@@ -708,6 +715,24 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 }
             }
 
+            return result;
+        }
+
+        private bool IsOKToSetDistribution()
+        {
+            bool result = true;
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
+            foreach (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistributionListItem in physicianClientDistributionCollection)
+            {
+                if (physicianClientDistributionListItem.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC)
+                {
+                    if (string.IsNullOrEmpty(this.m_AccessionOrder.SvhAccount) == true || string.IsNullOrEmpty(this.m_AccessionOrder.SvhMedicalRecord) == true)
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
             return result;
         }
     }
