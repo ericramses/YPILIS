@@ -46,7 +46,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private void AssignmentPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.m_IsLoaded = true;
-             
         }
 
         private void AssignmentPage_Unloaded(object sender, RoutedEventArgs e)
@@ -149,6 +148,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                         panelSetOrder.ProfessionalComponentBillingFacilityId = null;
                     }                    
                 }
+                /*
                 else
                 {                         
                     if(systemUser.UserId == 5061) //Dr Clegg
@@ -181,6 +181,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                         }                        
                     }
                 }
+                */
             }
         }
 
