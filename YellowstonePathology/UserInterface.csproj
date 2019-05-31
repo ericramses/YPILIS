@@ -3455,6 +3455,12 @@
     </Compile>
     <Compile Include="UI\ScreenHandler.cs" />
     <Compile Include="UI\SortDirectionAdorner.cs" />
+    <Compile Include="UI\SpecimenEditDialog.xaml.cs">
+      <DependentUpon>SpecimenEditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\SpecimenListDialog.xaml.cs">
+      <DependentUpon>SpecimenListDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\SpellCheckAccessionOrder.cs" />
     <Compile Include="UI\SpellCheckProperty.cs" />
     <Compile Include="UI\Stain\PathologistsScanDialog.xaml.cs">
@@ -5430,6 +5436,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\RetrospectiveReviews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SpecimenEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\SpecimenListDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
