@@ -75,10 +75,21 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             }
             else
             {
-                YellowstonePathology.Business.Audit.Model.ComprehensiveColonCancerProfileFinalAudit comprehensiveColonCancerProfileFinalAudit = new ComprehensiveColonCancerProfileFinalAudit(accessionOrder);
-                comprehensiveColonCancerProfileFinalAudit.Run();
-                result.Status = comprehensiveColonCancerProfileFinalAudit.Status;
-                result.Message = comprehensiveColonCancerProfileFinalAudit.Message.ToString();
+                Audit.Model.DistributionNotSetAudit distributionNotSetAudit = new Audit.Model.DistributionNotSetAudit(this);
+                distributionNotSetAudit.Run();
+                if (distributionNotSetAudit.Status == Audit.Model.AuditStatusEnum.Failure)
+                {
+                    result.Status = AuditStatusEnum.Failure; ;
+                    result.Message = distributionNotSetAudit.Message.ToString();
+                }
+
+                if (result.Status == AuditStatusEnum.OK)
+                {
+                    YellowstonePathology.Business.Audit.Model.ComprehensiveColonCancerProfileFinalAudit comprehensiveColonCancerProfileFinalAudit = new ComprehensiveColonCancerProfileFinalAudit(accessionOrder);
+                    comprehensiveColonCancerProfileFinalAudit.Run();
+                    result.Status = comprehensiveColonCancerProfileFinalAudit.Status;
+                    result.Message = comprehensiveColonCancerProfileFinalAudit.Message.ToString();
+                }
             }
             return result;
         }
