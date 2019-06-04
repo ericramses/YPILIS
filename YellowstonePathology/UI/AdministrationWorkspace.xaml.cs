@@ -148,7 +148,7 @@ namespace YellowstonePathology.UI
             {
                 //bool result = YellowstonePathology.Business.Helper.FileConversionHelper.ConvertXPSToPDF(reportNo.Value);
                 Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo.Value);
-                YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xps, Business.Document.CaseDocumentFileTypeEnnum.pdf);
+                YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnum.xps, Business.Document.CaseDocumentFileTypeEnum.pdf);
                 YellowstonePathology.Business.DataContext.YpiData dataContext = new Business.DataContext.YpiData();
             }
         }
@@ -205,7 +205,7 @@ namespace YellowstonePathology.UI
                 string xpsDoc = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
                 if (System.IO.File.Exists(xpsDoc) == false)
                 {
-                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xps);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnum.doc, Business.Document.CaseDocumentFileTypeEnum.xps);
                 }
             }
         }
@@ -1830,19 +1830,19 @@ namespace YellowstonePathology.UI
                 {
                     if(File.Exists(filePath + ".xml") == false)
                     {
-                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xml);
+                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnum.doc, Business.Document.CaseDocumentFileTypeEnum.xml);
                     }
                     if(File.Exists(filePath + ".xps") == false)
                     {
-                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.doc, Business.Document.CaseDocumentFileTypeEnnum.xps);
+                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnum.doc, Business.Document.CaseDocumentFileTypeEnum.xps);
                     }
                     if (File.Exists(filePath + ".tif") == false)
                     {
-                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xps, Business.Document.CaseDocumentFileTypeEnnum.tif);
+                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnum.xps, Business.Document.CaseDocumentFileTypeEnum.tif);
                     }
                     if (File.Exists(filePath + ".pdf") == false)
                     {
-                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnnum.xml, Business.Document.CaseDocumentFileTypeEnnum.pdf);
+                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnum.xml, Business.Document.CaseDocumentFileTypeEnum.pdf);
                     }
                 }
                 else
