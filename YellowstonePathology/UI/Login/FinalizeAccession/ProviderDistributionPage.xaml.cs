@@ -340,9 +340,19 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void SetDistribution()
         {
-            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
-            physicianClientDistributionCollection.SetDistribution(this.m_PanelSetOrder, this.m_AccessionOrder);
-            this.NotifyPropertyChanged("");
+            YellowstonePathology.Business.Audit.Model.CanSetDistributionAudit canSetDistributionAudit = new Business.Audit.Model.CanSetDistributionAudit(this.m_AccessionOrder);
+            canSetDistributionAudit.Run();
+            if (canSetDistributionAudit.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
+                physicianClientDistributionCollection.SetDistribution(this.m_PanelSetOrder, this.m_AccessionOrder);
+                this.NotifyPropertyChanged("");
+            }
+            else
+            {
+                MessageBox.Show(canSetDistributionAudit.Message.ToString());
+            }
+
         }
 
         private void HyperLinkScheduleDistributionImmediate_Click(object sender, RoutedEventArgs e)
@@ -710,5 +720,23 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
             return result;
         }
+
+        /*private bool IsOKToSetDistribution()
+        {
+            bool result = true;
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
+            foreach (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistributionListItem in physicianClientDistributionCollection)
+            {
+                if (physicianClientDistributionListItem.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC)
+                {
+                    if (string.IsNullOrEmpty(this.m_AccessionOrder.SvhAccount) == true || string.IsNullOrEmpty(this.m_AccessionOrder.SvhMedicalRecord) == true)
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }*/
     }
 }

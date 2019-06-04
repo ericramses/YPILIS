@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Margin="10" VerticalAlignment="Center" TextWrapping="Wrap" 
-                       Text="An HL7 distribution already exists for this case and a second may not be added.  You can add a Fax or a Web Service distribution or continue without adding the distribution." />
+                       Text="An EPIC distribution may not be added to this case.  You can add a Fax or a Web Service distribution or continue without adding the distribution." />
 
         <Button Grid.Column="1" Grid.Row="2" Name="ButtonFax" Margin="5,5,5,5" Click="ButtonFax_Click" Width="150" Height="40" HorizontalAlignment="Left">Change to Fax</Button>
         <Button Grid.Column="1" Grid.Row="2" Name="ButtonWeb" Margin="5,5,5,5" Click="ButtonWeb_Click" Width="150" Height="40" HorizontalAlignment="Center">Change To Web Service</Button>

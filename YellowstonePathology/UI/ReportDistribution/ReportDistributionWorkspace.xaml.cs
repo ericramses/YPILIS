@@ -172,19 +172,27 @@ namespace YellowstonePathology.UI.ReportDistribution
                             if (panelSetOrder.TestOrderReportDistributionCollection.Count == 0)
                             {
                                 YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
-
+                                bool canSetDistribution = false;
+                                string reason = "No Distribution Defined";
                                 if (physicianClientDistributionCollection.Count != 0)
                                 {
-                                    physicianClientDistributionCollection.SetDistribution(panelSetOrder, accessionOrder);
-                                    this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Handle Unset Distribution", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
-                                        accessionOrder.PhysicianName, accessionOrder.ClientName, "Distribution Set");
+                                    YellowstonePathology.Business.Audit.Model.CanSetDistributionAudit canSetDistributionAudit = new Business.Audit.Model.CanSetDistributionAudit(accessionOrder);
+                                    canSetDistributionAudit.Run();
+                                    if (canSetDistributionAudit.Status == YellowstonePathology.Business.Audit.Model.AuditStatusEnum.OK)
+                                    {
+                                        physicianClientDistributionCollection.SetDistribution(panelSetOrder, accessionOrder);
+                                        this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Handle Unset Distribution", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
+                                            accessionOrder.PhysicianName, accessionOrder.ClientName, "Distribution Set");
+                                        canSetDistribution = true;
+                                        reason = "Missing MRN and/or AccountNo.";
+                                    }
                                 }
-                                else
+                                if(canSetDistribution == false)
                                 {
                                     this.m_ReportDistributionLogEntryCollection.AddEntry("ERROR", "Handle Unset Distribution", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
-                                        accessionOrder.PhysicianName, accessionOrder.ClientName, "No Distribution Defined");
+                                        accessionOrder.PhysicianName, accessionOrder.ClientName, reason);
 
-                                    System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Support@ypii.com", "Support@ypii.com", System.Windows.Forms.SystemInformation.UserName, "No Distribution Defined: " + panelSetOrder.ReportNo);
+                                    System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage("Support@ypii.com", "Support@ypii.com", System.Windows.Forms.SystemInformation.UserName, reason + ": " + panelSetOrder.ReportNo);
                                     System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("10.1.2.111");
 
                                     Uri uri = new Uri("http://tempuri.org/");
