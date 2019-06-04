@@ -11,7 +11,8 @@ namespace YellowstonePathology.Business.Test.MultipleMyelomaMGUSByFish
 		{
 			this.Add(new MultipleMyelomaMGUSByFishNormalResult());
 			this.Add(new MultipleMyelomaMGUSByFishAbnormalResult());
-			this.Add(new YellowstonePathology.Business.Test.TestResultNoResult());
+            this.Add(new MultipleMyelomaMGUSByFishInconclusiveResult());
+            this.Add(new YellowstonePathology.Business.Test.TestResultNoResult());
 		}
 	}
 }

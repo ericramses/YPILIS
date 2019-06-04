@@ -60,8 +60,8 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
         public override void Publish()
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);            
-            Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Document.CaseDocumentTypeEnum.CaseReport, Document.CaseDocumentFileTypeEnnum.xml, Document.CaseDocumentFileTypeEnnum.pdf);
-            Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Document.CaseDocumentTypeEnum.CaseReport, Document.CaseDocumentFileTypeEnnum.xps, Document.CaseDocumentFileTypeEnnum.tif);
+            Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Document.CaseDocumentTypeEnum.CaseReport, Document.CaseDocumentFileTypeEnum.xml, Document.CaseDocumentFileTypeEnum.pdf);
+            Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Document.CaseDocumentTypeEnum.CaseReport, Document.CaseDocumentFileTypeEnum.xps, Document.CaseDocumentFileTypeEnum.tif);
 
             //YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
             //YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);

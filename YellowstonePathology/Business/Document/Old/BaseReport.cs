@@ -364,8 +364,8 @@ namespace YellowstonePathology.Business.Document.Old
                     break;
                 case YellowstonePathology.Business.Document.ReportSaveModeEnum.Normal:
                     this.m_ReportXml.Save(this.m_SaveFileName);
-                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.xml, CaseDocumentFileTypeEnnum.doc);
-                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnnum.doc, CaseDocumentFileTypeEnnum.xps);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnum.xml, CaseDocumentFileTypeEnum.doc);
+                    Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.CaseReport, CaseDocumentFileTypeEnum.doc, CaseDocumentFileTypeEnum.xps);
                     break;
             }            
         }        

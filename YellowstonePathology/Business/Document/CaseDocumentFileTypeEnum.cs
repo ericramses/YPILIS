@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YellowstonePathology.Business.Document
 {
-    public enum CaseDocumentFileTypeEnnum
+    public enum CaseDocumentFileTypeEnum
     {
         doc,
         pdf,

@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>55</ApplicationRevision>
+    <ApplicationRevision>58</ApplicationRevision>
     <ApplicationVersion>10.1.15.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -359,7 +359,7 @@
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIds.cs" />
     <Compile Include="Business\ClientOrder.Model\ExternalOrderIdsCollection.cs" />
     <Compile Include="Business\Common\Block.cs" />
-    <Compile Include="Business\Document\CaseDocumentFileTypeEnnum.cs" />
+    <Compile Include="Business\Document\CaseDocumentFileTypeEnum.cs" />
     <Compile Include="Business\Document\CaseDocumentTypeEnum.cs" />
     <Compile Include="Business\EthBlock.cs" />
     <Compile Include="Business\EthContract.cs" />
@@ -1186,6 +1186,7 @@
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishCMMCNTEView.cs" />
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\MicrobiologyByPCR\MicrobiologyByPCRTest.cs" />
+    <Compile Include="Business\Test\MultipleMyelomaMGUSByFish\MultipleMyelomaMGUSByFishInconclusiveResult.cs" />
     <Compile Include="Business\Test\MyeloidMalignanciesMutationPanel\MyeloidMalignanciesMutationPanelTest.cs" />
     <Compile Include="Business\Test\NeoLABMyeloidDisordersProfile\NeoLABMyeloidDisordersProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEBrainTumorProfile\NeoTYPEBrainTumorProfileTest.cs" />
@@ -1215,8 +1216,9 @@
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
     <Compile Include="Business\Test\PrealbuminTTR\PrealbuminTTRTest.cs" />
     <Compile Include="Business\Test\AmyloidAandAmyloidP\AmyloidAandAmyloidPTest.cs" />
-    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
+    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\RBCBand3ProteinReduction\RBCBand3ProteinReductionTest.cs" />
+    <Compile Include="Business\Test\ResultType.cs" />
     <Compile Include="Business\Test\ReticulatedPlateletAnalysisV2\ReticulatedPlateletAnalysisV2EPICOBXView.cs" />
     <Compile Include="Business\Test\ReticulatedPlateletAnalysisV2\ReticulatedPlateletAnalysisV2Test.cs" />
     <Compile Include="Business\Test\ReticulatedPlateletAnalysisV2\ReticulatedPlateletAnalysisV2TestOrder.cs" />
@@ -1402,7 +1404,7 @@
     <Compile Include="Business\Test\PlasmaCellMyelomaPrognosticFISHPanel\PlasmaCellMyelomaPrognosticFISHPanelTest.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
     <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTestOrderDetail.cs" />
-    <Compile Include="Business\Test\RASRAFPanel\RASRAFCMMCNTEView.cs" />
+    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFCMMCNTEView.cs" />
     <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTest.cs" />
     <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTestOrder.cs" />
     <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTestOrderDetailCollection.cs" />
@@ -2675,14 +2677,14 @@
     <Compile Include="Business\Test\Prothrombin\ProthrombinTest.cs" />
     <Compile Include="Business\Test\Prothrombin\ProthrombinTestOrder.cs" />
     <Compile Include="Business\Test\Prothrombin\ProthrombinWordDocument.cs" />
-    <Compile Include="Business\Test\RASRAFPanel\DetectedResult.cs" />
-    <Compile Include="Business\Test\RASRAFPanel\NotDetectedResult.cs" />
-    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelEpicObxView.cs" />
-    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelResult.cs" />
-    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelTest.cs" />
-    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelTestOrder.cs" />
-    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWordDocument.cs" />
-    <Compile Include="Business\Test\RASRAFPanel\ResultCollection.cs" />
+    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\DetectedResult.cs" />
+    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\NotDetectedResult.cs" />
+    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelEpicObxView.cs" />
+    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelResult.cs" />
+    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelTest.cs" />
+    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelTestOrder.cs" />
+    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelWordDocument.cs" />
+    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\ResultCollection.cs" />
     <Compile Include="Business\Test\ReflexTesting\ReflexTestingOkToOrderResult.cs" />
     <Compile Include="Business\Test\ReflexTesting\ReflexTestingPlan.cs" />
     <Compile Include="Business\Test\ReflexTesting\ReflexTestingPlanStateEnum.cs" />

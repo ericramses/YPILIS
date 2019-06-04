@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.PanelSet.Model
@@ -44,6 +46,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
         protected bool m_ResearchTesting;
         protected bool m_ReportAsAdditionalTesting;
 
+        protected List<string> m_ImplementedResultTypes;
+
         protected YellowstonePathology.Business.Specimen.Model.Aliquot m_AliquotToAddOnOrder;        
 
         protected YellowstonePathology.Business.OrderTargetTypeCollection m_OrderTargetTypeCollectionExclusions;
@@ -65,7 +69,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
         protected bool m_CMMCDistributionIsImplemented;
 
         public PanelSet()
-        {            
+        {
+            this.m_ImplementedResultTypes = new List<string>();
+
             this.m_IsBillable = true;
             this.m_NeverDistribute = false;            
             this.m_Active = true;

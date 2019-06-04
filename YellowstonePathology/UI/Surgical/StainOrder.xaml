@@ -323,7 +323,7 @@
                     <CheckBox Name="StainOrder15" Tag="elstc" Grid.Column="0" Grid.Row="5" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="5" Margin="2,2,2,2">Elastic</TextBlock>
 
-                    <CheckBox Name="StainOrder16" Tag="fts" Grid.Column="0" Grid.Row="6" Margin="2,2,2,2"></CheckBox>
+                    <CheckBox Name="StainOrder16" Tag="Fites" Grid.Column="0" Grid.Row="6" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="6" Margin="2,2,2,2">Fites</TextBlock>
 
                     <CheckBox Name="StainOrder17" Tag="gt" Grid.Column="0" Grid.Row="7" Margin="2,2,2,2"></CheckBox>

@@ -42,9 +42,9 @@ namespace YellowstonePathology.Business.Test.AdditionalTestingNotification
         public override void Publish()
         {            
             YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);            
-            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.AdditionalTestingNotification, CaseDocumentFileTypeEnnum.xml, CaseDocumentFileTypeEnnum.doc);
-            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.AdditionalTestingNotification, CaseDocumentFileTypeEnnum.doc, CaseDocumentFileTypeEnnum.xps);
-            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.AdditionalTestingNotification, CaseDocumentFileTypeEnnum.xps, CaseDocumentFileTypeEnnum.tif);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.AdditionalTestingNotification, CaseDocumentFileTypeEnum.xml, CaseDocumentFileTypeEnum.doc);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.AdditionalTestingNotification, CaseDocumentFileTypeEnum.doc, CaseDocumentFileTypeEnum.xps);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.AdditionalTestingNotification, CaseDocumentFileTypeEnum.xps, CaseDocumentFileTypeEnum.tif);
         }
     }
 }

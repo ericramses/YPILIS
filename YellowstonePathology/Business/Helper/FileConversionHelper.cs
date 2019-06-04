@@ -56,7 +56,7 @@ namespace YellowstonePathology.Business.Helper
         }
 
         public static void ConvertDocumentTo(YellowstonePathology.Business.OrderIdParser orderIdParser, CaseDocumentTypeEnum caseDocumentType,
-            CaseDocumentFileTypeEnnum fromType, CaseDocumentFileTypeEnnum toType)
+            CaseDocumentFileTypeEnum fromType, CaseDocumentFileTypeEnum toType)
         {            
             string filePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo;
 
@@ -73,23 +73,23 @@ namespace YellowstonePathology.Business.Helper
                     break;
             }
 
-            if (fromType == CaseDocumentFileTypeEnnum.xml && toType == CaseDocumentFileTypeEnnum.doc)
+            if (fromType == CaseDocumentFileTypeEnum.xml && toType == CaseDocumentFileTypeEnum.doc)
             {
                 ConvertXMLToDoc(filePath + ".xml", filePath + ".doc");
             }
-            else if (fromType == CaseDocumentFileTypeEnnum.doc && toType == CaseDocumentFileTypeEnnum.xps)
+            else if (fromType == CaseDocumentFileTypeEnum.doc && toType == CaseDocumentFileTypeEnum.xps)
             {
                 ConvertDocToXPS(filePath + ".doc", filePath + ".xps");
             }
-            else if (fromType == CaseDocumentFileTypeEnnum.xps && toType == CaseDocumentFileTypeEnnum.tif)
+            else if (fromType == CaseDocumentFileTypeEnum.xps && toType == CaseDocumentFileTypeEnum.tif)
             {
                 ConvertXPSToTIF(filePath + ".xps", filePath + ".tif");
             }
-            else if (fromType == CaseDocumentFileTypeEnnum.xml && toType == CaseDocumentFileTypeEnnum.pdf)
+            else if (fromType == CaseDocumentFileTypeEnum.xml && toType == CaseDocumentFileTypeEnum.pdf)
             {
                 ConvertXMLToPDF(filePath + ".xml", filePath + ".pdf");
             }
-            else if(fromType == CaseDocumentFileTypeEnnum.doc && toType == CaseDocumentFileTypeEnnum.xml)
+            else if(fromType == CaseDocumentFileTypeEnum.doc && toType == CaseDocumentFileTypeEnum.xml)
             {
                 ConvertDocToXML(filePath + ".doc", filePath + ".xml");
             }
@@ -162,10 +162,10 @@ namespace YellowstonePathology.Business.Helper
                 ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                 ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
 
-            CaseDocument.ReleaseComObject(oFmt);
-            CaseDocument.ReleaseComObject(doc);
+            //CaseDocument.ReleaseComObject(oFmt);
+            //CaseDocument.ReleaseComObject(doc);
             oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
-            CaseDocument.ReleaseComObject(oWord);
+            //CaseDocument.ReleaseComObject(oWord);
         }
 
         public static void ConvertDocToXPS(object docFileName, object xpsFileName)
