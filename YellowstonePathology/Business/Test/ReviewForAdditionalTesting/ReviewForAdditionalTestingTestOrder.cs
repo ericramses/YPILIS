@@ -77,21 +77,5 @@ namespace YellowstonePathology.Business.Test.ReviewForAdditionalTesting
 			}
 			return result;
 		}
-
-		public override YellowstonePathology.Business.Rules.MethodResult IsOkToFinalize()
-		{
-			YellowstonePathology.Business.Rules.MethodResult result = new YellowstonePathology.Business.Rules.MethodResult();
-			if (this.Final == true)
-			{
-				result.Success = false;
-				result.Message = "This case cannot be finalized because it is already finalized.";
-			}
-			else if (string.IsNullOrEmpty(this.Result) == true)
-			{
-				result.Success = false;
-				result.Message = "This case cannot be finalized because the results have not been set.";
-			}
-			return result;
-		}
 	}
 }
