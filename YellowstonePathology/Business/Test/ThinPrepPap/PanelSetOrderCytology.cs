@@ -483,7 +483,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
         {
             Audit.Model.AuditCollection auditCollection = new Audit.Model.AuditCollection();
-            auditCollection.Add(new Audit.Model.DistributionCanBeSetAudit(accessionOrder));
+            auditCollection.Add(new Audit.Model.DistributionAvailableAudit(accessionOrder));
+            auditCollection.Add(new Audit.Model.DistributionNotSetAudit(this));
             auditCollection.Add(new Audit.Model.CanFinalizeCytologyPanelOrderAudit(panelOrderToFinalize, this, accessionOrder, systemIdentity, executionStatus));
             Audit.Model.AuditResult auditResult = auditCollection.Run2();
 

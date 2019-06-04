@@ -1390,7 +1390,8 @@ namespace YellowstonePathology.Business.Test
             auditCollection.Add(new Audit.Model.FinalizedAudit(this));
             auditCollection.Add(new Audit.Model.MRNAudit(accessionOrder));
             auditCollection.Add(new Audit.Model.AccountNoAudit(accessionOrder));
-            auditCollection.Add(new Audit.Model.DistributionCanBeSetAudit(accessionOrder));
+            auditCollection.Add(new Audit.Model.DistributionAvailableAudit(accessionOrder));
+            auditCollection.Add(new Audit.Model.DistributionNotSetAudit(this));
             result = auditCollection.Run2();
 
             return result;
@@ -1408,6 +1409,17 @@ namespace YellowstonePathology.Business.Test
             {
                 result.Success = false;
                 result.Message = "This case cannot be finalized because the results have not been accepted.";
+            }
+            else
+            {
+                Audit.Model.DistributionNotSetAudit distributionNotSetAudit = new Audit.Model.DistributionNotSetAudit(this);
+                distributionNotSetAudit.Run();
+                if (distributionNotSetAudit.Status == Audit.Model.AuditStatusEnum.Failure)
+                {
+                    result.Success = false;
+                    result.Message = distributionNotSetAudit.Message.ToString();
+                }
+
             }
             return result;
         }
@@ -1441,8 +1453,13 @@ namespace YellowstonePathology.Business.Test
                 this.m_AssignedToId = Business.User.SystemIdentity.Instance.User.UserId;
             }
 
-            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
-            physicianClientDistributionCollection.SetDistribution(this, accessionOrder);
+            Audit.Model.CanSetDistributionAudit canSetDistributionAudit = new Audit.Model.CanSetDistributionAudit(accessionOrder);
+            canSetDistributionAudit.Run();
+            if (canSetDistributionAudit.Status == Audit.Model.AuditStatusEnum.OK)
+            {
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
+                physicianClientDistributionCollection.SetDistribution(this, accessionOrder);
+            }
 
             accessionOrder.SetCaseOwnerId();
 
