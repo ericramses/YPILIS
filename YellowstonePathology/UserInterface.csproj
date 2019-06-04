@@ -210,6 +210,7 @@
     <Compile Include="Business\Audit.Model\AliquotAndStainOrderAuditCollection.cs" />
     <Compile Include="Business\Audit.Model\BoneMarrowSummaryAudit.cs" />
     <Compile Include="Business\Audit.Model\CanSaveFacilityAudit.cs" />
+    <Compile Include="Business\Audit.Model\CanSetDistributionAudit.cs" />
     <Compile Include="Business\Audit.Model\CellBlockWarningAudit.cs" />
     <Compile Include="Business\Audit.Model\AncillaryStudiesAreHandledAudit.cs" />
     <Compile Include="Business\Audit.Model\AreAllWHPTestsFinalAudit.cs" />
@@ -229,7 +230,7 @@
     <Compile Include="Business\Audit.Model\CodyCassetteColorAudit.cs" />
     <Compile Include="Business\Audit.Model\ComprehensiveColonCancerProfileFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\CouldBenefitFromCCCPAudit.cs" />
-    <Compile Include="Business\Audit.Model\DistributionCanBeSetAudit.cs" />
+    <Compile Include="Business\Audit.Model\DistributionAvailableAudit.cs" />
     <Compile Include="Business\Audit.Model\DistributionNotSetAudit.cs" />
     <Compile Include="Business\Audit.Model\FinalizedAudit.cs" />
     <Compile Include="Business\Audit.Model\FNAHasIntraOpAudit.cs" />

@@ -323,14 +323,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void HyperLinkSetDistribution_Click(object sender, RoutedEventArgs e)
         {
-            if (this.IsOKToSetDistribution() == true)
-            {
-                this.SetDistribution();
-            }
-            else
-            {
-                MessageBox.Show("Unable to set Distribution as the MRN or Account Number is missing and there is a distribution to an EPIC recipient.");
-            }
+            this.SetDistribution();
         }
 
         private void HyperLinkPhysicianNotFound_Click(object sender, RoutedEventArgs e)
@@ -347,9 +340,19 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void SetDistribution()
         {
-            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
-            physicianClientDistributionCollection.SetDistribution(this.m_PanelSetOrder, this.m_AccessionOrder);
-            this.NotifyPropertyChanged("");
+            YellowstonePathology.Business.Audit.Model.CanSetDistributionAudit canSetDistributionAudit = new Business.Audit.Model.CanSetDistributionAudit(this.m_AccessionOrder);
+            canSetDistributionAudit.Run();
+            if (canSetDistributionAudit.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            {
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
+                physicianClientDistributionCollection.SetDistribution(this.m_PanelSetOrder, this.m_AccessionOrder);
+                this.NotifyPropertyChanged("");
+            }
+            else
+            {
+                MessageBox.Show(canSetDistributionAudit.Message.ToString());
+            }
+
         }
 
         private void HyperLinkScheduleDistributionImmediate_Click(object sender, RoutedEventArgs e)
@@ -718,7 +721,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             return result;
         }
 
-        private bool IsOKToSetDistribution()
+        /*private bool IsOKToSetDistribution()
         {
             bool result = true;
             YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
@@ -734,6 +737,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 }
             }
             return result;
-        }
+        }*/
     }
 }

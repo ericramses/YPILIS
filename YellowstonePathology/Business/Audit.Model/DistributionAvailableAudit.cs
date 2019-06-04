@@ -5,10 +5,10 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Audit.Model
 {
-    public class DistributionCanBeSetAudit : AccessionOrderAudit
+    public class DistributionAvailableAudit : AccessionOrderAudit
     {
 
-        public DistributionCanBeSetAudit(Test.AccessionOrder accessionOrder) : base(accessionOrder)
+        public DistributionAvailableAudit(Test.AccessionOrder accessionOrder) : base(accessionOrder)
         { }
 
         public override void Run()
