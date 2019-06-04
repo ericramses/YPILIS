@@ -205,7 +205,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     YellowstonePathology.Business.Test.PanelSetOrder surgicalPanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
                     this.m_AccessionOrder.UpdateCaseAssignment(surgicalPanelSetOrder);
                 }
-                this.SetDistribution();
             }
         }
 

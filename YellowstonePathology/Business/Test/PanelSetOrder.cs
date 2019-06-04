@@ -1453,14 +1453,6 @@ namespace YellowstonePathology.Business.Test
                 this.m_AssignedToId = Business.User.SystemIdentity.Instance.User.UserId;
             }
 
-            Audit.Model.CanSetDistributionAudit canSetDistributionAudit = new Audit.Model.CanSetDistributionAudit(accessionOrder);
-            canSetDistributionAudit.Run();
-            if (canSetDistributionAudit.Status == Audit.Model.AuditStatusEnum.OK)
-            {
-                YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
-                physicianClientDistributionCollection.SetDistribution(this, accessionOrder);
-            }
-
             accessionOrder.SetCaseOwnerId();
 
             FinalizeTestResult result = this.HandleBoneMarrowSummaryOnFinal(accessionOrder);
