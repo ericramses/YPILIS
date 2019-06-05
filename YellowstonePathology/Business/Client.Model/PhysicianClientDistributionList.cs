@@ -50,6 +50,21 @@ namespace YellowstonePathology.Business.Client.Model
                 PhysicianClientDistributionListItem physicianClientDistribution = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(client.ReferringProviderClientId);
                 this.Add(physicianClientDistribution);
             }
-        }    
+        }
+
+        public bool DoesEpicDistributionExist()
+        {
+            bool result = false;
+            foreach (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistributionListItem in this)
+            {
+                if (physicianClientDistributionListItem.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC ||
+                    physicianClientDistributionListItem.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPICANDFAX)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
     }
 }

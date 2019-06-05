@@ -176,7 +176,7 @@ namespace YellowstonePathology.UI.ReportDistribution
                                 string reason = "No Distribution Defined";
                                 if (physicianClientDistributionCollection.Count != 0)
                                 {
-                                    YellowstonePathology.Business.Audit.Model.CanSetDistributionAudit canSetDistributionAudit = new Business.Audit.Model.CanSetDistributionAudit(accessionOrder);
+                                    YellowstonePathology.Business.Audit.Model.CanSetDistributionAudit canSetDistributionAudit = new Business.Audit.Model.CanSetDistributionAudit(accessionOrder, physicianClientDistributionCollection);
                                     canSetDistributionAudit.Run();
                                     if (canSetDistributionAudit.Status == YellowstonePathology.Business.Audit.Model.AuditStatusEnum.OK)
                                     {
