@@ -130,7 +130,6 @@ namespace YellowstonePathology.Business.HL7View
             orderRequest.Pid = new Ventana.pid();
             orderRequest.Pid.FirstName = accessionOrder.PFirstName;
             orderRequest.Pid.LastName = accessionOrder.PLastName;
-
             orderRequest.Pid.MiddleInitial = string.IsNullOrEmpty(accessionOrder.PMiddleInitial) ? string.Empty: accessionOrder.PMiddleInitial;
             orderRequest.Pid.Birthdate = accessionOrder.PBirthdate.Value.ToString("yyyyMMdd");
             orderRequest.Pid.Sex = accessionOrder.PSex;

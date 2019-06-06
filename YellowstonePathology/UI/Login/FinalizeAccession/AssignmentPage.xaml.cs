@@ -147,41 +147,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                         panelSetOrder.ProfessionalComponentFacilityId = null;
                         panelSetOrder.ProfessionalComponentBillingFacilityId = null;
                     }                    
-                }
-                /*
-                else
-                {                         
-                    if(systemUser.UserId == 5061) //Dr Clegg
-                    {
-                        YellowstonePathology.Business.Facility.Model.Facility ypCody = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPCDY");
-                        YellowstonePathology.Business.Facility.Model.Facility ypiCody = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPICDY");
-
-                        if (panelSetOrder.HasProfessionalComponent == true)
-                        {
-                            panelSetOrder.ProfessionalComponentFacilityId = ypCody.FacilityId;
-                            panelSetOrder.ProfessionalComponentBillingFacilityId = ypiCody.FacilityId;
-                        }
-                        else
-                        {
-                            panelSetOrder.ProfessionalComponentFacilityId = null;
-                            panelSetOrder.ProfessionalComponentBillingFacilityId = null;
-                        }
-                    }
-                    else
-                    {
-                        if(panelSetOrder.HasProfessionalComponent == true)
-                        {
-                            panelSetOrder.ProfessionalComponentFacilityId = ypBLGS.FacilityId;
-                            panelSetOrder.ProfessionalComponentBillingFacilityId = ypiBLGS.FacilityId;
-                        }
-                        else
-                        {
-                            panelSetOrder.ProfessionalComponentFacilityId = null;
-                            panelSetOrder.ProfessionalComponentBillingFacilityId = null;
-                        }                        
-                    }
-                }
-                */
+                }                
             }
         }
 
