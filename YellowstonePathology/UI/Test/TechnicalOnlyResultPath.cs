@@ -24,8 +24,21 @@ namespace YellowstonePathology.UI.Test
 		{
 			this.m_ResultPage = new YellowstonePathology.UI.Surgical.PublishedDocumentFinalPage(this.m_TestOrder, this.m_AccessionOrder, this.m_SystemIdentity);
             this.m_ResultPage.Close += ResultPage_Close;
+            this.m_ResultPage.ShowDocument += ResultPage_ShowDocument;
             this.m_PageNavigator.Navigate(this.m_ResultPage);
 		}
+
+        private void ResultPage_ShowDocument(object sender, EventArgs e)
+        {
+            PublishedDocumentResultPage publishedDocumentResultPage = new PublishedDocumentResultPage(this.m_AccessionOrder, this.m_TestOrder);
+            publishedDocumentResultPage.Next += PublishedDocumentResultPage_Next;
+            this.m_PageNavigator.Navigate(publishedDocumentResultPage);
+        }
+
+        private void PublishedDocumentResultPage_Next(object sender, EventArgs e)
+        {
+            this.ShowResultPage();
+        }
 
         private void ResultPage_Close(object sender, EventArgs e)
         {
