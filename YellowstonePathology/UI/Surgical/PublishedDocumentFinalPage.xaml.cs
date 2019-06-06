@@ -95,14 +95,15 @@ namespace YellowstonePathology.UI.Surgical
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-			if (this.m_PanelSetOrder.Final == false)
+            YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
+            if (result.Success == true)
 			{
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
             }
             else
 			{
-				MessageBox.Show("This case cannot be finalized because it is already final.");
+				MessageBox.Show(result.Message);
 			}
 		}
 
@@ -123,8 +124,15 @@ namespace YellowstonePathology.UI.Surgical
 			YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToAccept();
 			if (result.Success == true)
 			{
-				this.m_PanelSetOrder.Accept();
-			}
+                if (this.HasCaseBeenPublished() == true)
+                {
+                    this.m_PanelSetOrder.Accept();
+                }
+                else
+                {
+                    MessageBox.Show("This report cannot be accepted until it has been published.");
+                }
+            }
 			else
 			{
 				MessageBox.Show(result.Message);
@@ -151,18 +159,12 @@ namespace YellowstonePathology.UI.Surgical
 
         private void HyperLinkPublish_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-            string reportDocumentName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
-            if (System.IO.File.Exists(reportDocumentName) == true)
+            if (this.DoesXPSDocumentExist() == true)
             {
-                string publishedDocumentName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
-                if (System.IO.File.Exists(publishedDocumentName) == false)
-                {
-                    YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
-                    caseDocument.Render();
-                    caseDocument.Publish();
-                    MessageBox.Show("The case was successfully published.");
-                }
+                YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
+                caseDocument.Render();
+                caseDocument.Publish();
+                MessageBox.Show("The case was successfully published.");
             }
             else
             {
@@ -182,5 +184,29 @@ namespace YellowstonePathology.UI.Surgical
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
-	}
+
+        private bool DoesXPSDocumentExist()
+        {
+            bool result = true;
+            YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
+            string xpsFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
+            if (System.IO.File.Exists(xpsFileName) == false)
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        private bool HasCaseBeenPublished()
+        {
+            bool result = true;
+            YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
+            string tifFileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
+            if (System.IO.File.Exists(tifFileName) == false)
+            {
+                result = false;
+            }
+            return result;
+        }
+    }
 }
