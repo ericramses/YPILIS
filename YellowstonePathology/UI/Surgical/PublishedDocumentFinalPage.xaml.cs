@@ -22,7 +22,10 @@ namespace YellowstonePathology.UI.Surgical
 		public delegate void CloseEventHandler(object sender, EventArgs e);
         public event CloseEventHandler Close;
 
-		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
+        public delegate void ShowDocumentEventHandler(object sender, EventArgs e);
+        public event ShowDocumentEventHandler ShowDocument;
+
+        private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private string m_PageHeaderText;
 
@@ -46,6 +49,7 @@ namespace YellowstonePathology.UI.Surgical
             Unloaded += PublishedDocumentFinalPage_Unloaded;
 
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonClose);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
 		}
 
@@ -140,7 +144,33 @@ namespace YellowstonePathology.UI.Surgical
 			}
 		}
 
-		private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
+        {
+            this.ShowDocument(this, new EventArgs());
+        }
+
+        private void HyperLinkPublish_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
+            string reportDocumentName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameXPS(orderIdParser);
+            if (System.IO.File.Exists(reportDocumentName) == true)
+            {
+                string publishedDocumentName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameTif(orderIdParser);
+                if (System.IO.File.Exists(publishedDocumentName) == false)
+                {
+                    YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
+                    caseDocument.Render();
+                    caseDocument.Publish();
+                    MessageBox.Show("The case was successfully published.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Cannot publish this case until the XPS document is present.");
+            }
+        }
+
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
 		{
             if (this.Close != null) this.Close(this, new EventArgs());
 		}
