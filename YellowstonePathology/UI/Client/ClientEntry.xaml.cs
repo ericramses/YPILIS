@@ -25,7 +25,7 @@ namespace YellowstonePathology.UI.Client
 		private Business.Billing.Model.InsuranceTypeCollection m_InsuranceTypeCollection;
 		private List<string> m_FacilityTypes;
 		private Business.ReportDistribution.Model.DistributionTypeList m_DistributionTypeList;
-		private Business.View.ClientPhysicianView m_ClientPhysicianView;
+        private Business.View.ClientPhysicianView m_ClientPhysicianView;
 		private Business.Domain.PhysicianCollection m_PhysicianCollection;
 		private Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
 		private Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
@@ -107,7 +107,7 @@ namespace YellowstonePathology.UI.Client
             get { return this.m_DistributionTypeList; }
 		}
 
-		public YellowstonePathology.Business.Billing.Model.InsuranceTypeCollection InsuranceTypeCollection
+        public YellowstonePathology.Business.Billing.Model.InsuranceTypeCollection InsuranceTypeCollection
 		{
 			get { return this.m_InsuranceTypeCollection; }
 		}
@@ -153,6 +153,22 @@ namespace YellowstonePathology.UI.Client
             {
                 result = false;
                 MessageBox.Show("The Client name may not be blank.");
+            }
+            if (result == true)
+            {
+                if (string.IsNullOrEmpty(this.m_Client.DistributionType) == true)
+                {
+                    result = false;
+                    MessageBox.Show("The Client Distribution Type may not be blank.");
+                }
+                else if(this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC)
+                {
+                    if (string.IsNullOrEmpty(this.m_Client.AlternateDistributionType) == true)
+                    {
+                        result = false;
+                        MessageBox.Show("The Client Alternate Distribution Type must be set when the Distribution Type is " + YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC + ".");
+                    }
+                }
             }
             return result;
         }
