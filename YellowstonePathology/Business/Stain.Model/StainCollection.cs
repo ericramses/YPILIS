@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Stain.Model
 {
@@ -19,7 +21,7 @@ namespace YellowstonePathology.Business.Stain.Model
             {
                 if (instance == null)
                 {
-                    instance = LoadFromRedis();
+                    instance = Load();
                 }
                 return instance;
             }
@@ -57,23 +59,45 @@ namespace YellowstonePathology.Business.Stain.Model
             return result;
         }
 
-        private static StainCollection LoadFromRedis()
-        {
-            StainCollection result = new Model.StainCollection();
-            Store.RedisDB stainDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain);
-            foreach (string jString in stainDb.GetAllJSONKeys())
-            {
-                Stain stain = JsonStainFactory.FromJson(jString);
-                result.Add(stain);
-            }            
-            return result;
-        }
-
         public static void Save(Stain stain)
         {
-            Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain).DataBase.Execute("json.set", new string[] { stain.StainId, ".", stain.ToJSON() });
+            string jString = stain.ToJSON();
+            MySqlCommand cmd = new MySqlCommand("Insert tblStain(StainId, JSONValue) values(@StainId, @JSONValue) ON DUPLICATE KEY UPDATE StainId = @StainId, JSONValue = @JSONValue;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@JSONValue", jString);
+            cmd.Parameters.AddWithValue("@StainId", stain.StainId);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
             Test.Model.TestCollectionInstance.Reload();
-        }                
+        }
+
+        private static StainCollection Load()
+        {
+            StainCollection result = new StainCollection();
+            MySqlCommand cmd = new MySqlCommand("Select JSONValue from tblStain;");
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string jString = dr[0].ToString();
+                        Stain stain = JsonStainFactory.FromJson(jString);
+                        result.Add(stain);
+                    }
+                }
+            }
+            return (result);
+        }
 
         public static string GetQuotedTestIds()
         {
@@ -89,7 +113,17 @@ namespace YellowstonePathology.Business.Stain.Model
         public static void DeleteStain(Stain stain)
         {
             StainCollection.Instance.Remove(stain);
-            Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Stain).DataBase.Execute("json.del", new string[] { stain.StainId, "." });
+
+            MySqlCommand cmd = new MySqlCommand("Delete from tblStain where StainId = @StainId;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@StainId", stain.StainId);
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+
             Test.Model.TestCollectionInstance.Reload();
         }
 
