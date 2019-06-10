@@ -1209,6 +1209,7 @@
     <Compile Include="Business\Test\ParvovirusB19ByIHC\ParvovirusB19ByIHCTest.cs" />
     <Compile Include="Business\Test\PDL122C3\PDL22C3CMMCNTEView.cs" />
     <Compile Include="Business\Test\PDL1288\PDL1288Test.cs" />
+    <Compile Include="Business\Test\PDL1SP142FDA\PDL1SP142FDATest.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodiesV2\PlateletAssociatedAntibodiesV2EPICOBXView.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodiesV2\PlateletAssociatedAntibodiesV2Test.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodiesV2\PlateletAssociatedAntibodiesV2TestOrder.cs" />
