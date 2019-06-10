@@ -1033,11 +1033,21 @@ namespace YellowstonePathology.UI
             panelSetOrderCPTCodeBill.Account = ao.SvhAccount;
             Business.HL7View.EPIC.EPICFT1ResultView result = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill);
             result.Publish("d:\\testing");
-            ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);            
+            ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection.Add(panelSetOrderCPTCodeBill);        
         }
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+
+            Billing.HRHCDMList lst = new Billing.HRHCDMList();
+            foreach(string cdm in lst)
+            {
+                Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetCPTCodeByCDM(cdm);
+                if (cptCode == null)
+                    MessageBox.Show("CDM not found");
+            }
+            MessageBox.Show("All CDM's exist");
+
             //this.WriteCDM();
             
             /*            
