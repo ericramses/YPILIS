@@ -351,7 +351,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 MessageBox.Show(canSetDistributionAudit.Message.ToString());
             }
-
         }
 
         private void HyperLinkScheduleDistributionImmediate_Click(object sender, RoutedEventArgs e)

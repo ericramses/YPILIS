@@ -316,7 +316,7 @@ namespace YellowstonePathology.UI.Billing
                             {
                                 if(string.IsNullOrEmpty(panelSetOrderCPTCodeBill.MedicalRecord) == false && string.IsNullOrEmpty(panelSetOrderCPTCodeBill.Account) == false)
                                 {
-                                    if (panelSetOrderCPTCodeBill.MedicalRecord.StartsWith("V") == true)
+                                    if (panelSetOrderCPTCodeBill.MedicalRecord.StartsWith("V") == true || panelSetOrderCPTCodeBill.MedicalRecord.StartsWith("R") == true)
                                     {
                                         this.m_BackgroundWorker.ReportProgress(1, "Writing File: " + reportNo.Value + " - " + panelSetOrderCPTCodeBill.CPTCode);
                                         Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(accessionOrder, panelSetOrderCPTCodeBill);
@@ -591,12 +591,28 @@ namespace YellowstonePathology.UI.Billing
         {
             Application.Current.Dispatcher.Invoke((Action)delegate {
                 this.m_BackgroundWorker.ReportProgress(1, "Starting faxing report: " + DateTime.Now.ToLongTimeString());
+
                 Business.XPSDocument.Result.ClientBillingDetailReportResult.ClientBillingDetailReportData clientBillingDetailReportData = YellowstonePathology.Business.Gateway.XmlGateway.GetClientBillingDetailReport(this.m_PostDate, this.m_PostDate, "1");
                 YellowstonePathology.Document.ClientBillingDetailReportV2 clientBillingDetailReport = new Document.ClientBillingDetailReportV2(clientBillingDetailReportData, this.m_PostDate, this.m_PostDate);
                 string tifPath = @"C:\ProgramData\ypi\SVH_BILLING_" + this.m_PostDate.Year + "_" + this.m_PostDate.Month + "_" + this.m_PostDate.Day + ".tif";
                 Business.Helper.FileConversionHelper.SaveFixedDocumentAsTiff(clientBillingDetailReport.FixedDocument, tifPath);
                 Business.ReportDistribution.Model.FaxSubmission.Submit("4062378090", "SVH Billing Report", tifPath);
                 this.m_BackgroundWorker.ReportProgress(1, "Completed faxing report: " + DateTime.Now.ToLongTimeString());
+
+                clientBillingDetailReportData = YellowstonePathology.Business.Gateway.XmlGateway.GetClientBillingDetailReport(this.m_PostDate, this.m_PostDate, "2");
+                clientBillingDetailReport = new Document.ClientBillingDetailReportV2(clientBillingDetailReportData, this.m_PostDate, this.m_PostDate);
+                tifPath = @"C:\ProgramData\ypi\HRH_BILLING_" + this.m_PostDate.Year + "_" + this.m_PostDate.Month + "_" + this.m_PostDate.Day + ".tif";
+                Business.Helper.FileConversionHelper.SaveFixedDocumentAsTiff(clientBillingDetailReport.FixedDocument, tifPath);
+                Business.ReportDistribution.Model.FaxSubmission.Submit("4062332714", "HRH Billing Report", tifPath);
+                this.m_BackgroundWorker.ReportProgress(1, "Completed faxing report: " + DateTime.Now.ToLongTimeString());
+
+                clientBillingDetailReportData = YellowstonePathology.Business.Gateway.XmlGateway.GetClientBillingDetailReport(this.m_PostDate, this.m_PostDate, "2");
+                clientBillingDetailReport = new Document.ClientBillingDetailReportV2(clientBillingDetailReportData, this.m_PostDate, this.m_PostDate);
+                tifPath = @"C:\ProgramData\ypi\HRH_TOSVH_BILLING_" + this.m_PostDate.Year + "_" + this.m_PostDate.Month + "_" + this.m_PostDate.Day + ".tif";
+                Business.Helper.FileConversionHelper.SaveFixedDocumentAsTiff(clientBillingDetailReport.FixedDocument, tifPath);
+                Business.ReportDistribution.Model.FaxSubmission.Submit("4062378090", "HRH Billing Report", tifPath);
+                this.m_BackgroundWorker.ReportProgress(1, "Completed faxing report: " + DateTime.Now.ToLongTimeString());
+
                 Business.Gateway.BillingGateway.UpdateBillingEODProcess(this.m_PostDate, "FaxTheReport");
             });            
         }

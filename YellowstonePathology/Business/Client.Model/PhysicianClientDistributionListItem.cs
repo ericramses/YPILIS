@@ -155,7 +155,6 @@ namespace YellowstonePathology.Business.Client.Model
 
         private void AddTestOrderReportDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, int physicianId, string physicianName, int clientId, string clientName, string distributionType, string faxNumber)
         {
-
             string testOrderReportDistributionId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution =
                 new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution(testOrderReportDistributionId, testOrderReportDistributionId, panelSetOrder.ReportNo, physicianId, physicianName,

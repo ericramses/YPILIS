@@ -1405,7 +1405,7 @@ namespace YellowstonePathology.Business.Gateway
                 "join tblPanelSetOrder pso on bll.ReportNo = pso.ReportNo " +
                 "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo " +
                 "where postdate = @PostDate and bll.BillTo = 'Client' " +
-                "and ao.ClientId in (select clientId from tblClientGroupClient where ClientGroupId = 1)";
+                "and ao.ClientId in (select clientId from tblClientGroupClient where ClientGroupId in (1,2))";
             cmd.Parameters.AddWithValue("@PostDate", postDate);
 
             YellowstonePathology.Business.ReportNoCollection reportNoCollection = new ReportNoCollection();

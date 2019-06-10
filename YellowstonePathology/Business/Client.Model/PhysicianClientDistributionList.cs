@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Client.Model
         public void SetDistribution(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.HandleReferringProvider(accessionOrder);
-            this.HandlePathGroup(accessionOrder);
+            this.HandlePathGroup(accessionOrder);            
             foreach (PhysicianClientDistributionListItem physicianClientDistribution in this)
             {
                 physicianClientDistribution.SetDistribution(panelSetOrder, accessionOrder);
