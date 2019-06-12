@@ -45,6 +45,7 @@ namespace YellowstonePathology.Business.Client.Model
         private bool m_SendAdditionalTestingNotifications;
         private string m_AdditionalTestingNotificationContact;
         private string m_AdditionalTestingNotificationFax;
+        private string m_AlternateDistributionType;
 
         public Client()
         {
@@ -468,6 +469,21 @@ namespace YellowstonePathology.Business.Client.Model
                 {
                     this.m_AdditionalTestingNotificationFax= value;
                     this.NotifyPropertyChanged("AdditionalTestingNotificationFax");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string AlternateDistributionType
+        {
+            get { return this.m_AlternateDistributionType; }
+            set
+            {
+                if (this.m_AlternateDistributionType != value)
+                {
+                    this.m_AlternateDistributionType = value;
+                    this.NotifyPropertyChanged("AlternateDistributionType");
                 }
             }
         }

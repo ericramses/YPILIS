@@ -1200,6 +1200,8 @@
     <Compile Include="Business\Test\NeoTYPELungTumorProfile\NeoTYPELungTumorProfileTestOrder.cs" />
     <Compile Include="Business\Test\NeoTYPEMyeloidDisordersProfile\NeoTYPEMyeloidDisordersProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
+    <Compile Include="Business\Test\NRASEXON4MutationAnalysis\NRASEXON4MutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\NTRKNGSFusionProfile\NTRKNGSFusionProfileTest.cs" />
     <Compile Include="Business\Test\NUT\NUTTest.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationEpicObxView.cs" />
     <Compile Include="Business\Test\OrderAssociation\OrderAssociationTest.cs" />
