@@ -171,6 +171,8 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private void CopyTo_PhysicianClientSearchPage_Next(object sender, CustomEventArgs.PhysicianClientDistributionReturnEventArgs e)
         {
             bool canDistribute = true;
+
+            //this.ResetDistributionWhenIncompatible(e.PhysicianClientDistribution);
             if(e.PhysicianClientDistribution.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC ||
                 e.PhysicianClientDistribution.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPICANDFAX)
             {
@@ -719,22 +721,19 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             return result;
         }
 
-        /*private bool IsOKToSetDistribution()
+        /*private void ResetDistributionWhenIncompatible(YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution)
         {
-            bool result = true;
             YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
-            foreach (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistributionListItem in physicianClientDistributionCollection)
+            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem primaryDistribution = physicianClientDistributionCollection.GetPrimaryDistribution(this.m_AccessionOrder);
+            YellowstonePathology.Business.ReportDistribution.Model.IncompatibleDistributionTypeCollection incompatibleDistributionTypeCollection = new Business.ReportDistribution.Model.IncompatibleDistributionTypeCollection();
+            bool distributionsAreIncompatible = incompatibleDistributionTypeCollection.TypesAreIncompatible(primaryDistribution.DistributionType, physicianClientDistribution.DistributionType);
+            if (distributionsAreIncompatible == true)
             {
-                if (physicianClientDistributionListItem.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC)
-                {
-                    if (string.IsNullOrEmpty(this.m_AccessionOrder.SvhAccount) == true || string.IsNullOrEmpty(this.m_AccessionOrder.SvhMedicalRecord) == true)
-                    {
-                        result = false;
-                        break;
-                    }
-                }
+                string distributionTypeSelected = physicianClientDistribution.DistributionType;
+                YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(physicianClientDistribution.ClientId);
+                physicianClientDistribution.DistributionType = client.AlternateDistributionType;
+                MessageBox.Show("The selected distribution is incompatible with the case client distribution and is being reset from " + distributionTypeSelected + " to " + client.AlternateDistributionType + ".");
             }
-            return result;
         }*/
     }
 }
