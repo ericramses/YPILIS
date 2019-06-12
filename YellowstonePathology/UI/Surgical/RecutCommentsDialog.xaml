@@ -1,0 +1,56 @@
+﻿<Window x:Class="YellowstonePathology.UI.Surgical.RecutCommentsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YellowstonePathology.UI.Surgical"
+        mc:Ignorable="d"
+        Title="Reasons for recuts" Height="400" Width="1000">
+    <Grid Margin="5,5,5,5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" Margin="2,2,2,2">Clinical Reasons</TextBlock>
+        <StackPanel Grid.Column="0" Grid.Row="1" Margin="5,5,5,5" HorizontalAlignment="Center">
+            <RadioButton GroupName="Comment" Content="Better evaluation of possible carcinoma" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Clinical need to look for viable tissue deeper in block" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Deeper - no correlation with cytology" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Evaluate for folliculitis/rupture" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Evaluating for invasive carcinoma" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Levels to evaluate the melanocytic proliferation" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Looking deeper for goblet cells" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Looking for a mass" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Looking for dysplasia" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Looking for lesion" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Looking for reson for hypopigmentation" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Looking for viral inclusions" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Needed to assess margins" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Clinical" Content="Need to assess deeper tissue" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Clinical" Content="Recut for our records" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Clinical" Content="To have slides available for review (consultation case for Patient transferring to Billings for medical care)" Margin="2,2,2,2"/>
+        </StackPanel>
+
+        <TextBlock Grid.Column="1" Grid.Row="0" FontWeight="Bold" Margin="2,2,2,2">Technical Reasons</TextBlock>
+        <StackPanel Name="StackPanelTechnical" Grid.Column="1" Grid.Row="1" Margin="5,5,5,5">
+            <RadioButton GroupName="Comment" Content="Poor fixation " Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Need to see complete sections of epidermis" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Need a complete cross section of the fallopian tube" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Need to see transition zone" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="No urothelium present" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Not seeing lesion/just getting into lesion" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Specimen orientation" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Comment" Content="Tissue defect - hole" Margin="2,2,2,2"/>
+            <RadioButton GroupName="Clinical" Content="Tissue folding" Margin="2,2,2,2"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Width="100" Height="30" Click="ButtonOK_Click">OK</Button>
+        </StackPanel>
+    </Grid>
+</Window>

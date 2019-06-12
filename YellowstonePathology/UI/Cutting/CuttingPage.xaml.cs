@@ -352,6 +352,18 @@ namespace YellowstonePathology.UI.Cutting
         public override void BeforeNavigatingAway()
         {
             
-        }        
+        }
+
+        private void ButtonAddUnstainedSlide_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.Model.UnstainedSlide unstainedSlide = new Business.Test.Model.UnstainedSlide();
+            Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, unstainedSlide, null, null, false, this.m_AliquotOrder, true, false, this.m_AccessionOrder.TaskOrderCollection);            
+            orderTestVisitor.Visit(this.m_PanelSetOrder);
+
+            Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, orderTestVisitor.TestOrder);
+            addSlideOrderVisitor.Visit(this.m_AccessionOrder);
+            addSlideOrderVisitor.NewSlideOrder.LabelType = "DirectPrint";
+            this.NotifyPropertyChanged(string.Empty);
+        }
     }
 }

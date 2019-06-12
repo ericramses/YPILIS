@@ -30,8 +30,8 @@
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Width="200" Height="60" Click="ButtonPrintPaperLabels_Click" Margin="2,2,2,2">Print</Button>
-            <Button Width="200" Height="60" Click="ButtonBack_Click" Margin="2,2,2,2">Back</Button>
+            <Button Width="150" Height="60" Click="ButtonPrintPaperLabels_Click" Margin="2,2,2,2">Print</Button>
+            <Button Width="150" Height="60" Click="ButtonBack_Click" Margin="2,2,2,2">Back</Button>
         </StackPanel>
         
 
