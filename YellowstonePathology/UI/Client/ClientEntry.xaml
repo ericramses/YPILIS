@@ -96,8 +96,12 @@
 					<ComboBox Grid.Column="1" Grid.Row="9" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=DistributionTypeList}"
 							  SelectedValue="{Binding Path=Client.DistributionType}" />
 
-					<TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Facility Type:</TextBlock>
-					<ComboBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=FacilityTypes}"
+                    <TextBlock Grid.Column="0" Grid.Row="10" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Alternate Distribution Type:</TextBlock>
+                    <ComboBox Grid.Column="1" Grid.Row="10" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=DistributionTypeList}"
+							  SelectedValue="{Binding Path=Client.AlternateDistributionType}" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Facility Type:</TextBlock>
+					<ComboBox Grid.Column="1" Grid.Row="11" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=FacilityTypes}"
 							  SelectedValue="{Binding Path=Client.FacilityType}" />
 
 					<TextBlock Grid.Column="0" Grid.Row="12" Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Right" >Billing Rule Set:</TextBlock>

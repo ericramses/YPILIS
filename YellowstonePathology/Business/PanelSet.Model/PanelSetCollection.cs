@@ -202,6 +202,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.CancerTYPEID.CancerTYPEIDTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ParvovirusB19ByIHC.ParvovirusB19ByIHCTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.PDL1SP142FDA.PDL1SP142FDATest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NRASEXON4MutationAnalysis.NRASEXON4MutationAnalysisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NTRKNGSFusionProfile.NTRKNGSFusionProfileTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetArupBraf());
