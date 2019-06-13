@@ -10,17 +10,19 @@ namespace YellowstonePathology.Business.Client.Model
 		private int m_PhysicianClientDistributionID;
 		private string m_PhysicianClientID;
 		private string m_DistributionID;
+        private string m_DistributionType;
 
         public PhysicianClientDistribution()
         {
 
         }
 
-		public PhysicianClientDistribution(string objectId, string physicianClientID, string distributionID)
+		public PhysicianClientDistribution(string objectId, string physicianClientID, string distributionID, string distributionType)
 		{
 			this.m_ObjectId = objectId;
 			this.m_PhysicianClientID = physicianClientID;
 			this.m_DistributionID = distributionID;
+            this.m_DistributionType = distributionType;
 		}
 
 		[PersistentDocumentIdProperty()]
@@ -54,5 +56,13 @@ namespace YellowstonePathology.Business.Client.Model
 			get { return this.m_DistributionID; }
 			set { this.m_DistributionID = value; }
 		}
-	}
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "nvarchar")]
+        public string DistributionType
+        {
+            get { return this.m_DistributionType; }
+            set { this.m_DistributionType = value; }
+        }
+    }
 }

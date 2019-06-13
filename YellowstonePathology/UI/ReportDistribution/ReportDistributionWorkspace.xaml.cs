@@ -184,6 +184,9 @@ namespace YellowstonePathology.UI.ReportDistribution
                                         this.m_ReportDistributionLogEntryCollection.AddEntry("INFO", "Handle Unset Distribution", null, panelSetOrder.ReportNo, panelSetOrder.MasterAccessionNo,
                                             accessionOrder.PhysicianName, accessionOrder.ClientName, "Distribution Set");
                                         canSetDistribution = true;
+                                    }
+                                    else
+                                    {
                                         reason = "Missing MRN and/or AccountNo.";
                                     }
                                 }
