@@ -163,7 +163,8 @@ namespace YellowstonePathology.UI.Client
                 }
                 else if(this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC ||
                     this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA ||
-                    this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH)
+                    this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH ||
+                    this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW)
                 {
                     if (string.IsNullOrEmpty(this.m_Client.AlternateDistributionType) == true)
                     {

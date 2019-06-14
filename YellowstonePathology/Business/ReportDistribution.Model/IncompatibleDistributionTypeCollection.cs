@@ -18,6 +18,10 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             this.Add(new Model.IncompatibleDistributionType(DistributionType.ATHENA, DistributionType.ECW));
             this.Add(new Model.IncompatibleDistributionType(DistributionType.ATHENA, DistributionType.MEDITECH));
 
+            this.Add(new Model.IncompatibleDistributionType(DistributionType.ECW, DistributionType.EPIC));
+            this.Add(new Model.IncompatibleDistributionType(DistributionType.ECW, DistributionType.ATHENA));
+            this.Add(new Model.IncompatibleDistributionType(DistributionType.ECW, DistributionType.MEDITECH));
+
             this.Add(new Model.IncompatibleDistributionType(DistributionType.MEDITECH, DistributionType.EPIC));
             this.Add(new Model.IncompatibleDistributionType(DistributionType.MEDITECH, DistributionType.ECW));
             this.Add(new Model.IncompatibleDistributionType(DistributionType.MEDITECH, DistributionType.ATHENA));
