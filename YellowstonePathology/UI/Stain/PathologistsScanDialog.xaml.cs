@@ -32,6 +32,7 @@ namespace YellowstonePathology.UI.Stain
             this.m_BarcodeScanPort.HistologySlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologySlideScanReceivedHandler(HistologySlideScanReceived);
             this.m_BarcodeScanPort.ThinPrepSlideScanReceived += new Business.BarcodeScanning.BarcodeScanPort.ThinPrepSlideScanReceivedHandler(BarcodeScanPort_ThinPrepSlideScanReceived);
             this.m_BarcodeScanPort.CytologySlideScanReceived += new YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.CytologySlideScanReceivedHandler(CytologySlideScanReceived);
+            this.m_BarcodeScanPort.HistologyBlockScanReceived += new Business.BarcodeScanning.BarcodeScanPort.HistologyBlockScanReceivedHandler(HistologyBlockScanReceived);
         }
 
         public void NotifyPropertyChanged(String info)
@@ -45,6 +46,24 @@ namespace YellowstonePathology.UI.Stain
         public YellowstonePathology.Business.Surgical.AssignmentScanCollection AssignmentScanCollection
         {
             get { return this.m_AssignmentScanCollection; }
+        }
+
+        private void HistologyBlockScanReceived(YellowstonePathology.Business.BarcodeScanning.Barcode barcode)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                    delegate ()
+                    {
+
+                        if (barcode.IsValidated == true)
+                        {
+                            this.ChangeListing(barcode.ID);
+                        }
+                        else
+                        {
+                            MessageBox.Show("The scanner did not read the barcode correctly.  Please try again.", "Invalid Scan", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
+                    }));
         }
 
         private void HistologySlideScanReceived(YellowstonePathology.Business.BarcodeScanning.Barcode barcode)

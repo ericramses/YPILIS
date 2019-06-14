@@ -352,9 +352,9 @@ namespace YellowstonePathology.UI.Surgical
 							System.Windows.MessageBox.Show("The scan did not result in a valid case, please try again.", "Invalid Scan", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 						}
 					}));
-		}
+		}        
 
-		private void HistologySlideScanReceived(YellowstonePathology.Business.BarcodeScanning.Barcode barcode)
+        private void HistologySlideScanReceived(YellowstonePathology.Business.BarcodeScanning.Barcode barcode)
 		{
 			this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
 				new Action(
@@ -943,7 +943,7 @@ namespace YellowstonePathology.UI.Surgical
 
             this.m_BarcodeScanPort.HistologySlideScanReceived += HistologySlideScanReceived;
             this.m_BarcodeScanPort.ThinPrepSlideScanReceived += BarcodeScanPort_ThinPrepSlideScanReceived;
-            this.m_BarcodeScanPort.CytologySlideScanReceived += CytologySlideScanReceived;
-        }
+            this.m_BarcodeScanPort.CytologySlideScanReceived += CytologySlideScanReceived;            
+        }        
     }
 }
