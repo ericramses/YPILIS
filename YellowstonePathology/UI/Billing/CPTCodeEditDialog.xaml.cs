@@ -24,7 +24,14 @@ namespace YellowstonePathology.UI.Billing
 
         public CPTCodeEditDialog(YellowstonePathology.Business.Billing.Model.CptCode cptCode)
         {
-            this.m_CptCode = cptCode;
+            if (cptCode == null)
+            {
+                this.m_CptCode = new Business.Billing.Model.CptCode();
+            }
+            else
+            {
+                this.m_CptCode = cptCode;
+            }
 
             this.m_CptCodeString = this.m_CptCode.ToJSON();
             this.m_HoldToCompareString = this.m_CptCode.ToJSON();
@@ -44,6 +51,7 @@ namespace YellowstonePathology.UI.Billing
         public string Code
         {
             get { return this.m_CptCode.Code; }
+            set { this.m_CptCode.Code = value; }
         }
 
         public string CptCodeString
@@ -54,23 +62,33 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
-            if (this.CanSave() == true)
+            Business.Rules.MethodResult result = this.CanSave();
+            if (result.Success == true)
             {
                 if (this.m_HoldToCompareString != this.m_CptCodeString)
                 {
-                    MessageBoxResult result = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                    if (result == MessageBoxResult.Yes)
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (messageBoxResult == MessageBoxResult.Yes)
                     {
                         YellowstonePathology.Business.Billing.Model.CptCode codeToSave = YellowstonePathology.Business.Billing.Model.CptCodeFactory.FromJson(this.m_CptCodeString);
-                        codeToSave.Save();
+                        YellowstonePathology.Business.Billing.Model.CptCodeCollection.Save(codeToSave);
+                        this.DialogResult = true;
+                    }
+                    else
+                    {
+                        this.DialogResult = false;
                     }
                 }
 
                 this.Close();
             }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
         }
 
-        private bool CanSave()
+        private Business.Rules.MethodResult CanSave()
         {
             Business.Rules.MethodResult result = YellowstonePathology.Business.Helper.JSONHelper.IsValidJSONString(this.m_CptCodeString);
 
@@ -90,20 +108,16 @@ namespace YellowstonePathology.UI.Billing
                         result.Success = false;
                         result.Message = "The Code must be present.";
                     }
-                    else if (this.m_CptCode.Code != codeToCompare)
-                    {
-                        result.Success = false;
-                        result.Message = "The Codes must be the same.";
-                    }
                 }
             }
 
-            if(result.Success == false)
-            {
-                MessageBox.Show(result.Message);
-            }
+            return result;
+        }
 
-            return result.Success;
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            Close();
         }
     }
 }

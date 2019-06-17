@@ -50,7 +50,21 @@ namespace YellowstonePathology.UI.Billing
             {
                 YellowstonePathology.Business.Billing.Model.CptCode cptCode = (YellowstonePathology.Business.Billing.Model.CptCode)this.ListBoxCPTCodes.SelectedItem;
                 CPTCodeEditDialog dlg = new CPTCodeEditDialog(cptCode);
-                dlg.ShowDialog();
+                bool? dialogResult = dlg.ShowDialog();
+                if (dialogResult.HasValue && dialogResult.Value == true)
+                {
+                    YellowstonePathology.Store.AppDataStore.Instance.CPTCodeCollection.Load();
+                    this.NotifyPropertyChanged("CptCodeCollection");
+                }
+            }
+        }
+
+        private void ButtonNewCode_Click(object sender, RoutedEventArgs e)
+        {
+            CPTCodeEditDialog dlg = new CPTCodeEditDialog(null);
+            bool? dialogResult = dlg.ShowDialog();
+            if (dialogResult.HasValue && dialogResult.Value == true)
+            {
                 YellowstonePathology.Store.AppDataStore.Instance.CPTCodeCollection.Load();
                 this.NotifyPropertyChanged("CptCodeCollection");
             }
