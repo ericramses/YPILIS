@@ -97,11 +97,14 @@ namespace YellowstonePathology.Business.Typing
             string upper = searchText.ToUpper();
             foreach(TypingShortcut typingShortcut in this)
             {
-                string matchUpper = typingShortcut.Text.ToUpper();
-                if(matchUpper.Contains(upper))
+                if(string.IsNullOrEmpty(typingShortcut.Text) == false)
                 {
-                    result.Add(typingShortcut);
-                }
+                    string matchUpper = typingShortcut.Text.ToUpper();
+                    if (matchUpper.Contains(upper))
+                    {
+                        result.Add(typingShortcut);
+                    }
+                }                
             }
             return result;
         }
