@@ -1067,6 +1067,8 @@
     <Compile Include="Business\Persistence\WebServiceAccountDocumentBuilder.cs" />
     <Compile Include="Business\PreviousResult.cs" />
     <Compile Include="Business\PreviousResultCollection.cs" />
+    <Compile Include="Business\ReportDistribution.Model\IncompatibleDistributionType.cs" />
+    <Compile Include="Business\ReportDistribution.Model\IncompatibleDistributionTypeCollection.cs" />
     <Compile Include="Business\ReportDistribution.Model\MeditechDistribution.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerNoWHP.cs" />
     <Compile Include="Business\ReportDistribution.Model\MultiTestDistributionHandlerWHPHold.cs" />
@@ -3131,9 +3133,6 @@
     <Compile Include="UI\Login\ClientFaxPage.xaml.cs">
       <DependentUpon>ClientFaxPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Login\FinalizeAccession\UnableToAddEpicDistributionDialog.xaml.cs">
-      <DependentUpon>UnableToAddEpicDistributionDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Monitor\BillingEODProcessingPage.xaml.cs">
       <DependentUpon>BillingEODProcessingPage.xaml</DependentUpon>
     </Compile>
@@ -3146,6 +3145,9 @@
     </Compile>
     <Compile Include="Policy\PolicyExplorer.xaml.cs">
       <DependentUpon>PolicyExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ReportDistribution\Hl7ResultDialog.xaml.cs">
+      <DependentUpon>Hl7ResultDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\RetrospectiveReviewListItem.cs" />
     <Compile Include="UI\RetrospectiveReviewList.cs" />
@@ -4249,9 +4251,6 @@
     </Compile>
     <Compile Include="UI\MainWindowCommandButtonHandler.cs" />
     <Compile Include="UI\PageNavigationModeEnum.cs" />
-    <Compile Include="UI\ReportDistribution\Hl7ResultDialog.xaml.cs">
-      <DependentUpon>Hl7ResultDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Flow\PageScanningWindow.xaml.cs">
       <DependentUpon>PageScanningWindow.xaml</DependentUpon>
     </Compile>
@@ -5255,10 +5254,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Login\FinalizeAccession\UnableToAddEpicDistributionDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\Login\MissingInformationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5417,6 +5412,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Policy\PolicyExplorer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ReportDistribution\Hl7ResultDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -6223,10 +6222,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Login\Receiving\ViewClientOrderPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\ReportDistribution\Hl7ResultDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

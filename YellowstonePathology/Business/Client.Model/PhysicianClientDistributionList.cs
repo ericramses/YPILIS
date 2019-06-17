@@ -66,5 +66,22 @@ namespace YellowstonePathology.Business.Client.Model
             }
             return result;
         }
+
+        public PhysicianClientDistributionListItem GetPrimaryDistribution(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
+        {
+            PhysicianClientDistributionListItem result = null;
+            YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(accessionOrder.ClientId);
+            foreach (PhysicianClientDistributionListItem physicianClientDistributionListItem in this)
+            {
+                if(physicianClientDistributionListItem.ClientId == accessionOrder.ClientId && 
+                    physicianClientDistributionListItem.PhysicianId == accessionOrder.PhysicianId)
+                {
+                    result = physicianClientDistributionListItem;
+                    break;
+                }
+            }
+
+            return result;
+        }
     }
 }
