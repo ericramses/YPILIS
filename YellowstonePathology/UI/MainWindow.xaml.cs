@@ -1052,6 +1052,12 @@ namespace YellowstonePathology.UI
             cptCodeListDialog.Show();
         }
 
+        private void MenuItemBillingICDCodes_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Billing.ICDCodeListDialog icdCodeListDialog = new UI.Billing.ICDCodeListDialog();
+            icdCodeListDialog.Show();
+        }
+
         private void MenuItemSpecimen_Click(object sender, RoutedEventArgs e)
         {
             UI.SpecimenListDialog specimenListDialog = new UI.SpecimenListDialog();

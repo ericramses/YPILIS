@@ -5,6 +5,8 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
@@ -22,7 +24,7 @@ namespace YellowstonePathology.Business.Billing.Model
                     lock (syncRoot)
                     {
                         if (instance == null)
-                            instance = FromRedis();
+                            instance = Load();
                     }
                 }
 
@@ -136,18 +138,25 @@ namespace YellowstonePathology.Business.Billing.Model
             return result;
         }
 
-        private static ICDCodeCollection FromRedis()
+        private static ICDCodeCollection Load()
         {
-            ICDCodeCollection result = new ICDCodeCollection();
-                        
-            Store.RedisDB cptDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.ICDCode);
-            foreach (string jString in (string[])cptDb.GetAllJSONKeys())
-            {
-                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
-                ICDCode icdCode = ICDCodeFactory.FromJson(jObject);
-                result.Add(icdCode);
-            }            
+            ICDCodeCollection result = new Model.ICDCodeCollection();
+            MySqlCommand cmd = new MySqlCommand("Select JSONValue from tblICDCode;");
+            cmd.CommandType = CommandType.Text;
 
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Billing.Model.ICDCode icdCode = YellowstonePathology.Business.Billing.Model.ICDCodeFactory.FromJson(dr[0].ToString());
+                        result.Add(icdCode);
+                    }
+                }
+            }
             return result;
         }
     }

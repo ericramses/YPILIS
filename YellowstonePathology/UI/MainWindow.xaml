@@ -74,6 +74,7 @@
                     <MenuItem Header="Parse PSA Data" Click="MenuItemParsePSAData_Click"></MenuItem>
                     <MenuItem Header="Simulation" Click="MenuItemBillingSimulation_Click"></MenuItem>
                     <MenuItem Header="CPT Codes" Click="MenuItemBillingCPTCodes_Click"></MenuItem>
+                    <MenuItem Header="ICD Codes" Click="MenuItemBillingICDCodes_Click"></MenuItem>
                 </MenuItem>
 
 			    <MenuItem Header="_Scan Processing" Name="MenuItemScanProcessing">
