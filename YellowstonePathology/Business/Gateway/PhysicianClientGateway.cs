@@ -453,8 +453,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> result = new List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView>();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select pcd.*, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId as ProviderId, ph.DisplayName " +
-                "PhysicianName, c.DistributionType " +
+            cmd.CommandText = "Select pcd.*, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId as ProviderId, ph.DisplayName PhysicianName " +
                 "from tblPhysicianClient pc " +
                 "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
                 "join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +

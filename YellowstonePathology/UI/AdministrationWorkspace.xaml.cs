@@ -1862,33 +1862,33 @@ namespace YellowstonePathology.UI
             }
 
             MessageBox.Show("Done" +Environment.NewLine + message);*/
-/*
-            string message = string.Empty;
-            YellowstonePathology.Business.Stain.Model.StainCollection myStainCollection = YellowstonePathology.Business.Stain.Model.StainCollection.Load();
-            if(YellowstonePathology.Business.Stain.Model.StainCollection.Instance.Count != myStainCollection.Count)
-            {
-                MessageBox.Show("Counts not the same Instance = " + YellowstonePathology.Business.Stain.Model.StainCollection.Instance.Count.ToString() +
-                    "MySql = " + myStainCollection.Count.ToString());
-            }
-            else
-            {
-                foreach(YellowstonePathology.Business.Stain.Model.Stain instanceStain in YellowstonePathology.Business.Stain.Model.StainCollection.Instance)
-                {
-                    foreach(YellowstonePathology.Business.Stain.Model.Stain myStain in myStainCollection)
-                    {
-                        if(myStain.StainId == instanceStain.StainId)
+            /*
+                        string message = string.Empty;
+                        YellowstonePathology.Business.Stain.Model.StainCollection myStainCollection = YellowstonePathology.Business.Stain.Model.StainCollection.Load();
+                        if(YellowstonePathology.Business.Stain.Model.StainCollection.Instance.Count != myStainCollection.Count)
                         {
-                            string myStainString = myStain.ToJSON();
-                            string instanceStainString = instanceStain.ToJSON();
-                            if(myStainString != instanceStainString)
+                            MessageBox.Show("Counts not the same Instance = " + YellowstonePathology.Business.Stain.Model.StainCollection.Instance.Count.ToString() +
+                                "MySql = " + myStainCollection.Count.ToString());
+                        }
+                        else
+                        {
+                            foreach(YellowstonePathology.Business.Stain.Model.Stain instanceStain in YellowstonePathology.Business.Stain.Model.StainCollection.Instance)
                             {
-                                message += myStain.StainId;
+                                foreach(YellowstonePathology.Business.Stain.Model.Stain myStain in myStainCollection)
+                                {
+                                    if(myStain.StainId == instanceStain.StainId)
+                                    {
+                                        string myStainString = myStain.ToJSON();
+                                        string instanceStainString = instanceStain.ToJSON();
+                                        if(myStainString != instanceStainString)
+                                        {
+                                            message += myStain.StainId;
+                                        }
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-            }
-            MessageBox.Show("Done" + Environment.NewLine + message);*/
+                        MessageBox.Show("Done" + Environment.NewLine + message);*/
         }
     }
 }

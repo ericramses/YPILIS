@@ -231,10 +231,12 @@ namespace YellowstonePathology.UI.Client
 		{
 			if (this.ListBoxNewDistributionSelection.SelectedItem != null)
 			{
-				YellowstonePathology.Business.Client.Model.Client client = (YellowstonePathology.Business.Client.Model.Client)this.ListBoxNewDistributionSelection.SelectedItem;
+				YellowstonePathology.Business.Client.Model.Client clientToAdd = (YellowstonePathology.Business.Client.Model.Client)this.ListBoxNewDistributionSelection.SelectedItem;
 				if (this.ListBoxClientMembership.SelectedItems.Count != 0)
 				{
-					YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.ObjectId, client.ClientId);
+                    YellowstonePathology.Business.Client.Model.Client clientExisting = (Business.Client.Model.Client)this.ListBoxClientMembership.SelectedItem;
+
+                    YellowstonePathology.Business.Domain.PhysicianClient physicianClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClient(this.m_Physician.ObjectId, clientToAdd.ClientId);
 					string physicianClientId = physicianClient.PhysicianClientId;
 					foreach (YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView physicianClientDistributionView in this.m_PhysicianClientDistributionViewList)
 					{
@@ -245,8 +247,14 @@ namespace YellowstonePathology.UI.Client
 						}
 					}
 
-					string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-					YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, this.m_PhysicianClientId, physicianClientId);
+                    string distributionType = clientToAdd.DistributionType;
+                    if (AreDistributionTypesIncompatible(clientExisting.DistributionType, clientToAdd.DistributionType) == true)
+                    {
+                        distributionType = clientToAdd.AlternateDistributionType;
+                    }
+
+                    string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+					YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, this.m_PhysicianClientId, physicianClientId, distributionType);
 					YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClientDistribution, this);					
 
 					this.m_PhysicianClientDistributionViewList = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetPhysicianClientDistributionsV2(this.m_PhysicianClientId);
@@ -255,7 +263,14 @@ namespace YellowstonePathology.UI.Client
 			}
 		}
 
-		private void ButtonRemoveFromDistribution_Click(object sender, RoutedEventArgs e)
+        private bool AreDistributionTypesIncompatible(string existingDistributionType, string distributionTypeToAdd)
+        {
+            YellowstonePathology.Business.ReportDistribution.Model.IncompatibleDistributionTypeCollection incompatibleDistributionTypeCollection = new Business.ReportDistribution.Model.IncompatibleDistributionTypeCollection();
+            bool result = incompatibleDistributionTypeCollection.TypesAreIncompatible(existingDistributionType, distributionTypeToAdd);
+            return result;
+        }
+
+        private void ButtonRemoveFromDistribution_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.ListBoxDistributionSelection.SelectedItem != null)
 			{

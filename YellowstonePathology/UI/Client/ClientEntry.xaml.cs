@@ -159,14 +159,31 @@ namespace YellowstonePathology.UI.Client
                 if (string.IsNullOrEmpty(this.m_Client.DistributionType) == true)
                 {
                     result = false;
-                    MessageBox.Show("The Client Distribution Type may not be blank.");
+                    MessageBox.Show("The Distribution Type may not be blank.");
                 }
-                else if(this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC)
+                else if(this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC ||
+                    this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA ||
+                    this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH ||
+                    this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW)
                 {
                     if (string.IsNullOrEmpty(this.m_Client.AlternateDistributionType) == true)
                     {
                         result = false;
-                        MessageBox.Show("The Client Alternate Distribution Type must be set when the Distribution Type is " + YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC + ".");
+                        MessageBox.Show("The Alternate Distribution Type must be set when the Distribution Type is " + this.m_Client.DistributionType + ".");
+                    }
+                }
+            }
+
+            if(result == true)
+            {
+                if (string.IsNullOrEmpty(this.m_Client.AlternateDistributionType) == false)
+                {
+                    YellowstonePathology.Business.ReportDistribution.Model.IncompatibleDistributionTypeCollection incompatibleDistributionTypeCollection = new Business.ReportDistribution.Model.IncompatibleDistributionTypeCollection();
+                    if(incompatibleDistributionTypeCollection.TypesAreIncompatible(this.m_Client.DistributionType, this.m_Client.AlternateDistributionType) == true)
+                    {
+                        result = false;
+                        MessageBox.Show("The Alternate Distribution Type may not be " + this.m_Client.AlternateDistributionType + " when the Distribution Type is " + 
+                            this.m_Client.DistributionType + ".");
                     }
                 }
             }
@@ -413,7 +430,7 @@ namespace YellowstonePathology.UI.Client
             if(oktoAdd == true)
             {
                 string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, newPhysicianClient.PhysicianClientId, newPhysicianClient.PhysicianClientId);
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, newPhysicianClient.PhysicianClientId, newPhysicianClient.PhysicianClientId, this.m_Client.DistributionType);
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClientDistribution, this);
             }
         }
