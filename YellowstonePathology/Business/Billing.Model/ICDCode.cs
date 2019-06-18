@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
@@ -45,6 +48,14 @@ namespace YellowstonePathology.Business.Billing.Model
         public static ICDCode Clone(ICDCode icdCodeIn)
         {
             return (ICDCode)icdCodeIn.MemberwiseClone();
+        }
+
+        public string ToJSON()
+        {
+            var camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
+            return result;
         }
     }
 }

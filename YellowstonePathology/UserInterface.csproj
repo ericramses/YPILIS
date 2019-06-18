@@ -3067,6 +3067,12 @@
       <DependentUpon>CPTCodeListDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Billing\HRHCDMList.cs" />
+    <Compile Include="UI\Billing\ICDCodeEditDialog.xaml.cs">
+      <DependentUpon>ICDCodeEditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Billing\ICDCodeListDialog.xaml.cs">
+      <DependentUpon>ICDCodeListDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Billing\SimulationDialog.xaml.cs">
       <DependentUpon>SimulationDialog.xaml</DependentUpon>
     </Compile>
@@ -5043,6 +5049,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Billing\CPTCodeListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Billing\ICDCodeEditDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Billing\ICDCodeListDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

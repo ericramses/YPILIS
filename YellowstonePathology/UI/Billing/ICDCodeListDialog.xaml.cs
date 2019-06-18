@@ -13,13 +13,13 @@ using System.ComponentModel;
 namespace YellowstonePathology.UI.Billing
 {
     /// <summary>
-    /// Interaction logic for CPTCodeListDialog.xaml
+    /// Interaction logic for ICDCodeListDialog.xaml
     /// </summary>
-    public partial class CPTCodeListDialog : Window, INotifyPropertyChanged
+    public partial class ICDCodeListDialog : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public CPTCodeListDialog()
+        public ICDCodeListDialog()
         {
             InitializeComponent();
 
@@ -34,9 +34,9 @@ namespace YellowstonePathology.UI.Billing
             }
         }
 
-        public YellowstonePathology.Business.Billing.Model.CptCodeCollection CptCodeCollection
+        public YellowstonePathology.Business.Billing.Model.ICDCodeCollection ICDCodeCollection
         {
-            get { return YellowstonePathology.Store.AppDataStore.Instance.CPTCodeCollection; }
+            get { return YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Instance; }
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
@@ -44,29 +44,29 @@ namespace YellowstonePathology.UI.Billing
             Close();
         }
 
-        private void ListBoxCPTCodes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ListBoxICDCodes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (this.ListBoxCPTCodes.SelectedItem != null)
+            if (this.ListBoxICDCodes.SelectedItem != null)
             {
-                YellowstonePathology.Business.Billing.Model.CptCode cptCode = (YellowstonePathology.Business.Billing.Model.CptCode)this.ListBoxCPTCodes.SelectedItem;
-                CPTCodeEditDialog dlg = new CPTCodeEditDialog(cptCode);
+                YellowstonePathology.Business.Billing.Model.ICDCode icdCode = (YellowstonePathology.Business.Billing.Model.ICDCode)this.ListBoxICDCodes.SelectedItem;
+                ICDCodeEditDialog dlg = new ICDCodeEditDialog(icdCode);
                 bool? dialogResult = dlg.ShowDialog();
                 if (dialogResult.HasValue && dialogResult.Value == true)
                 {
-                    YellowstonePathology.Store.AppDataStore.Instance.CPTCodeCollection.Load();
-                    this.NotifyPropertyChanged("CptCodeCollection");
+                    YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Refresh();
+                    this.NotifyPropertyChanged("ICDCodeCollection");
                 }
             }
         }
 
         private void ButtonNewCode_Click(object sender, RoutedEventArgs e)
         {
-            CPTCodeEditDialog dlg = new CPTCodeEditDialog(null);
+            ICDCodeEditDialog dlg = new ICDCodeEditDialog(null);
             bool? dialogResult = dlg.ShowDialog();
             if (dialogResult.HasValue && dialogResult.Value == true)
             {
-                YellowstonePathology.Store.AppDataStore.Instance.CPTCodeCollection.Load();
-                this.NotifyPropertyChanged("CptCodeCollection");
+                YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Refresh();
+                this.NotifyPropertyChanged("ICDCodeCollection");
             }
         }
     }

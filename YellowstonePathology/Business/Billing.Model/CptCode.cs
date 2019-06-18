@@ -5,8 +5,6 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using YellowstonePathology.Business.Persistence;
-using System.Data;
-using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
@@ -232,22 +230,6 @@ namespace YellowstonePathology.Business.Billing.Model
             camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
             string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
             return result;
-        }
-
-        public void Save()
-        {
-            string jString = this.ToJSON();
-            MySqlCommand cmd = new MySqlCommand("Update tblCPTCode set JSONValue = @JSONValue where CPTCode = @CPTCode;");
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@JSONValue", jString);
-            cmd.Parameters.AddWithValue("@CPTCode", this.m_Code);
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                cmd.ExecuteNonQuery();
-            }
         }
     }
 }

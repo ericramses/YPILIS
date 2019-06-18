@@ -1811,84 +1811,35 @@ namespace YellowstonePathology.UI
             MessageBox.Show("Done");
         }*/
 
-        private void ButtonPublishThrombo_Click(object sender, RoutedEventArgs e)
+        private void ButtonRedisToMySql_Click(object sender, RoutedEventArgs e)
         {
             /*string message = string.Empty;
-            List<string> reportNos = new List<string>();
-            MySqlCommand cmdl = new MySqlCommand();
-            cmdl.CommandText = "select ReportNo from tblPanelSetOrder where PanelSetId = 21 and OrderDate <= '2009-08-28' order by OrderDate;";
-            cmdl.CommandType = CommandType.Text;
-
-            using (MySqlConnection cnl = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            YellowstonePathology.Business.Billing.Model.ICDCodeCollection myCollection = Business.Billing.Model.ICDCodeCollection.Load();
+            if(YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Instance.Count != myCollection.Count)
             {
-                cnl.Open();
-                cmdl.Connection = cnl;
-                using (MySqlDataReader dr = cmdl.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        reportNos.Add(dr[0].ToString());
-                    }
-                }
+                MessageBox.Show("Counts not the same Instance = " + YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Instance.Count.ToString() +
+                    " MySql = " + myCollection.Count.ToString());
             }
-
-            foreach(string reportNo in reportNos)
+            else
             {
-                YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(reportNo);
-                string filePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + orderIdParser.ReportNo;
-                if(File.Exists(filePath + ".doc"))
+                foreach(YellowstonePathology.Business.Billing.Model.ICDCode instanceItem in YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Instance)
                 {
-                    if(File.Exists(filePath + ".xml") == false)
+                    foreach(Business.Billing.Model.ICDCode myItem in myCollection)
                     {
-                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnum.doc, Business.Document.CaseDocumentFileTypeEnum.xml);
-                    }
-                    if(File.Exists(filePath + ".xps") == false)
-                    {
-                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnum.doc, Business.Document.CaseDocumentFileTypeEnum.xps);
-                    }
-                    if (File.Exists(filePath + ".tif") == false)
-                    {
-                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnum.xps, Business.Document.CaseDocumentFileTypeEnum.tif);
-                    }
-                    if (File.Exists(filePath + ".pdf") == false)
-                    {
-                        Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Business.Document.CaseDocumentTypeEnum.CaseReport, Business.Document.CaseDocumentFileTypeEnum.xml, Business.Document.CaseDocumentFileTypeEnum.pdf);
-                    }
-                }
-                else
-                {
-                    message += reportNo + ", ";
-                }
-            }
-
-            MessageBox.Show("Done" +Environment.NewLine + message);*/
-            /*
-                        string message = string.Empty;
-                        YellowstonePathology.Business.Stain.Model.StainCollection myStainCollection = YellowstonePathology.Business.Stain.Model.StainCollection.Load();
-                        if(YellowstonePathology.Business.Stain.Model.StainCollection.Instance.Count != myStainCollection.Count)
+                        if(myItem.Code == instanceItem.Code)
                         {
-                            MessageBox.Show("Counts not the same Instance = " + YellowstonePathology.Business.Stain.Model.StainCollection.Instance.Count.ToString() +
-                                "MySql = " + myStainCollection.Count.ToString());
-                        }
-                        else
-                        {
-                            foreach(YellowstonePathology.Business.Stain.Model.Stain instanceStain in YellowstonePathology.Business.Stain.Model.StainCollection.Instance)
+                            string myString = myItem.ToJSON();
+                            string instanceString = instanceItem.ToJSON();
+                            if(myString != instanceString)
                             {
-                                foreach(YellowstonePathology.Business.Stain.Model.Stain myStain in myStainCollection)
-                                {
-                                    if(myStain.StainId == instanceStain.StainId)
-                                    {
-                                        string myStainString = myStain.ToJSON();
-                                        string instanceStainString = instanceStain.ToJSON();
-                                        if(myStainString != instanceStainString)
-                                        {
-                                            message += myStain.StainId;
-                                        }
-                                    }
-                                }
+                                message += myItem.Code + ", ";
                             }
+                            break;
                         }
-                        MessageBox.Show("Done" + Environment.NewLine + message);*/
+                    }
+                }
+            }
+            MessageBox.Show("Done" + Environment.NewLine + message);*/
         }
     }
 }
