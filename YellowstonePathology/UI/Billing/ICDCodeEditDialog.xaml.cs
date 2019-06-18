@@ -12,29 +12,29 @@ using Newtonsoft.Json.Linq;
 namespace YellowstonePathology.UI.Billing
 {
     /// <summary>
-    /// Interaction logic for CPTCodeEditDialog.xaml
+    /// Interaction logic for ICDCodeEditDialog.xaml
     /// </summary>
-    public partial class CPTCodeEditDialog : Window, INotifyPropertyChanged
+    public partial class ICDCodeEditDialog : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private string m_CptCodeString;
+        private string m_ICDCodeString;
         private string m_HoldToCompareString;
-        private YellowstonePathology.Business.Billing.Model.CptCode m_CptCode;
+        private YellowstonePathology.Business.Billing.Model.ICDCode m_ICDCode;
 
-        public CPTCodeEditDialog(YellowstonePathology.Business.Billing.Model.CptCode cptCode)
+        public ICDCodeEditDialog(YellowstonePathology.Business.Billing.Model.ICDCode icdCode)
         {
-            if (cptCode == null)
+            if(icdCode == null)
             {
-                this.m_CptCode = new Business.Billing.Model.CptCode();
+                this.m_ICDCode = new Business.Billing.Model.ICDCode();
             }
             else
             {
-                this.m_CptCode = cptCode;
+                this.m_ICDCode = icdCode;
             }
 
-            this.m_CptCodeString = this.m_CptCode.ToJSON();
-            this.m_HoldToCompareString = this.m_CptCode.ToJSON();
+            this.m_ICDCodeString = this.m_ICDCode.ToJSON();
+            this.m_HoldToCompareString = this.m_ICDCode.ToJSON();
             InitializeComponent();
 
             DataContext = this;
@@ -50,14 +50,13 @@ namespace YellowstonePathology.UI.Billing
 
         public string Code
         {
-            get { return this.m_CptCode.Code; }
-            set { this.m_CptCode.Code = value; }
+            get { return this.m_ICDCode.Code; }
         }
 
-        public string CptCodeString
+        public string ICDCodeString
         {
-            get { return this.m_CptCodeString; }
-            set { this.m_CptCodeString = value; }
+            get { return this.m_ICDCodeString; }
+            set { this.m_ICDCodeString = value; }
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
@@ -65,13 +64,13 @@ namespace YellowstonePathology.UI.Billing
             Business.Rules.MethodResult result = this.CanSave();
             if (result.Success == true)
             {
-                if (this.m_HoldToCompareString != this.m_CptCodeString)
+                if (this.m_HoldToCompareString != this.m_ICDCodeString)
                 {
                     MessageBoxResult messageBoxResult = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
-                        YellowstonePathology.Business.Billing.Model.CptCode codeToSave = YellowstonePathology.Business.Billing.Model.CptCodeFactory.FromJson(this.m_CptCodeString);
-                        YellowstonePathology.Business.Billing.Model.CptCodeCollection.Save(codeToSave);
+                        YellowstonePathology.Business.Billing.Model.ICDCode codeToSave = YellowstonePathology.Business.Billing.Model.ICDCodeFactory.FromJson(this.m_ICDCodeString);
+                        YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Save(codeToSave);
                         this.DialogResult = true;
                     }
                     else
@@ -90,12 +89,12 @@ namespace YellowstonePathology.UI.Billing
 
         private Business.Rules.MethodResult CanSave()
         {
-            Business.Rules.MethodResult result = YellowstonePathology.Business.Helper.JSONHelper.IsValidJSONString(this.m_CptCodeString);
+            Business.Rules.MethodResult result = YellowstonePathology.Business.Helper.JSONHelper.IsValidJSONString(this.m_ICDCodeString);
 
             if (result.Success == true)
             {
-                JObject jObject = JsonConvert.DeserializeObject<JObject>(this.m_CptCodeString);
-                if(jObject["code"] == null)
+                JObject jObject = JsonConvert.DeserializeObject<JObject>(this.m_ICDCodeString);
+                if (jObject["code"] == null)
                 {
                     result.Success = false;
                     result.Message = "The Code must be present.";

@@ -8,10 +8,9 @@ namespace YellowstonePathology.Business.Billing.Model
     {
         public ICDCodeFactory() { }
 
-        public static ICDCode FromJson(JObject jObject)
+        public static ICDCode FromJson(string jString)
         {
-            string jsonString = jObject.ToString();
-            ICDCode result = JsonConvert.DeserializeObject<ICDCode>(jsonString, new JsonSerializerSettings
+            ICDCode result = JsonConvert.DeserializeObject<ICDCode>(jString, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All,
                 ObjectCreationHandling = ObjectCreationHandling.Replace,
