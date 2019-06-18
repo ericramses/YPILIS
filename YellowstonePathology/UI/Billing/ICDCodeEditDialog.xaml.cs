@@ -24,7 +24,14 @@ namespace YellowstonePathology.UI.Billing
 
         public ICDCodeEditDialog(YellowstonePathology.Business.Billing.Model.ICDCode icdCode)
         {
-            this.m_ICDCode = icdCode;
+            if(icdCode == null)
+            {
+                this.m_ICDCode = new Business.Billing.Model.ICDCode();
+            }
+            else
+            {
+                this.m_ICDCode = icdCode;
+            }
 
             this.m_ICDCodeString = this.m_ICDCode.ToJSON();
             this.m_HoldToCompareString = this.m_ICDCode.ToJSON();
@@ -54,23 +61,33 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
-            if (this.CanSave() == true)
+            Business.Rules.MethodResult result = this.CanSave();
+            if (result.Success == true)
             {
                 if (this.m_HoldToCompareString != this.m_ICDCodeString)
                 {
-                    MessageBoxResult result = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                    if (result == MessageBoxResult.Yes)
+                    MessageBoxResult messageBoxResult = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                    if (messageBoxResult == MessageBoxResult.Yes)
                     {
                         YellowstonePathology.Business.Billing.Model.ICDCode codeToSave = YellowstonePathology.Business.Billing.Model.ICDCodeFactory.FromJson(this.m_ICDCodeString);
-                        codeToSave.Save();
+                        YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Save(codeToSave);
+                        this.DialogResult = true;
+                    }
+                    else
+                    {
+                        this.DialogResult = false;
                     }
                 }
 
                 this.Close();
             }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
         }
 
-        private bool CanSave()
+        private Business.Rules.MethodResult CanSave()
         {
             Business.Rules.MethodResult result = YellowstonePathology.Business.Helper.JSONHelper.IsValidJSONString(this.m_ICDCodeString);
 
@@ -90,20 +107,16 @@ namespace YellowstonePathology.UI.Billing
                         result.Success = false;
                         result.Message = "The Code must be present.";
                     }
-                    else if (this.m_ICDCode.Code != codeToCompare)
-                    {
-                        result.Success = false;
-                        result.Message = "The Codes must be the same.";
-                    }
                 }
             }
 
-            if (result.Success == false)
-            {
-                MessageBox.Show(result.Message);
-            }
+            return result;
+        }
 
-            return result.Success;
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            Close();
         }
     }
 }

@@ -25,6 +25,7 @@
             </ListView.View>
         </ListView>
 
+        <Button Name="ButtonNewCode" Grid.Row="1" Grid.Column="0" Margin="5" Height="30" Width="100" HorizontalAlignment="Left" Content="New" Click="ButtonNewCode_Click" />
         <Button Grid.Row="1" Grid.Column="0" Margin="5" Height="30" Width="100" HorizontalAlignment="Right" Content="OK" Click="ButtonOK_Click" />
 
     </Grid>

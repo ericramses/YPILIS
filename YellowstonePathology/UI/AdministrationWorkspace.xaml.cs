@@ -1814,25 +1814,25 @@ namespace YellowstonePathology.UI
         private void ButtonRedisToMySql_Click(object sender, RoutedEventArgs e)
         {
             /*string message = string.Empty;
-            YellowstonePathology.UI.Gross.DictationTemplateCollection myCollection = Gross.DictationTemplateCollection.Load();
-            if(YellowstonePathology.UI.Gross.DictationTemplateCollection.Instance.Count != myCollection.Count)
+            YellowstonePathology.Business.Billing.Model.ICDCodeCollection myCollection = Business.Billing.Model.ICDCodeCollection.Load();
+            if(YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Instance.Count != myCollection.Count)
             {
-                MessageBox.Show("Counts not the same Instance = " + YellowstonePathology.UI.Gross.DictationTemplateCollection.Instance.Count.ToString() +
+                MessageBox.Show("Counts not the same Instance = " + YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Instance.Count.ToString() +
                     " MySql = " + myCollection.Count.ToString());
             }
             else
             {
-                foreach(YellowstonePathology.UI.Gross.DictationTemplate instanceItem in YellowstonePathology.UI.Gross.DictationTemplateCollection.Instance)
+                foreach(YellowstonePathology.Business.Billing.Model.ICDCode instanceItem in YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Instance)
                 {
-                    foreach(YellowstonePathology.UI.Gross.DictationTemplate myItem in myCollection)
+                    foreach(Business.Billing.Model.ICDCode myItem in myCollection)
                     {
-                        if(myItem.TemplateId == instanceItem.TemplateId)
+                        if(myItem.Code == instanceItem.Code)
                         {
                             string myString = myItem.ToJSON();
                             string instanceString = instanceItem.ToJSON();
                             if(myString != instanceString)
                             {
-                                message += myItem.TemplateId + ", ";
+                                message += myItem.Code + ", ";
                             }
                             break;
                         }

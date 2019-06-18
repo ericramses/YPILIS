@@ -50,8 +50,22 @@ namespace YellowstonePathology.UI.Billing
             {
                 YellowstonePathology.Business.Billing.Model.ICDCode icdCode = (YellowstonePathology.Business.Billing.Model.ICDCode)this.ListBoxICDCodes.SelectedItem;
                 ICDCodeEditDialog dlg = new ICDCodeEditDialog(icdCode);
-                dlg.ShowDialog();
-                YellowstonePathology.Store.AppDataStore.Instance.CPTCodeCollection.Load();
+                bool? dialogResult = dlg.ShowDialog();
+                if (dialogResult.HasValue && dialogResult.Value == true)
+                {
+                    YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Refresh();
+                    this.NotifyPropertyChanged("ICDCodeCollection");
+                }
+            }
+        }
+
+        private void ButtonNewCode_Click(object sender, RoutedEventArgs e)
+        {
+            ICDCodeEditDialog dlg = new ICDCodeEditDialog(null);
+            bool? dialogResult = dlg.ShowDialog();
+            if (dialogResult.HasValue && dialogResult.Value == true)
+            {
+                YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Refresh();
                 this.NotifyPropertyChanged("ICDCodeCollection");
             }
         }

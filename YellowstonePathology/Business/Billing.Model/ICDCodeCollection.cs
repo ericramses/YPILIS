@@ -159,5 +159,27 @@ namespace YellowstonePathology.Business.Billing.Model
             }
             return result;
         }
+
+        public static void Save(ICDCode icdCode)
+        {
+            string jString = icdCode.ToJSON();
+            MySqlCommand cmd = new MySqlCommand("Insert tblICDCode (ICDCode, JSONValue) values (@ICDCode, @JSONValue) ON DUPLICATE KEY UPDATE ICDCode = @ICDCode, JSONValue = @JSONValue;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@JSONValue", jString);
+            cmd.Parameters.AddWithValue("@ICDCode", icdCode.Code);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static void Refresh()
+        {
+            instance = null;
+            ICDCodeCollection tmp = ICDCodeCollection.Instance;
+        }
     }
 }
