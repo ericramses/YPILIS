@@ -102,6 +102,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     this.Return(this, args);
                 }
             }
+            /* removed by SH on 6/17 to see what happens.
             else if (this.m_AccessionOrder.PanelSetOrderCollection.HasUnassignedPanelSetOrder(panelSetTechnicalOnly.PanelSetId) == true)
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("There is an order that has not been assigned are you sure you want to continue?", "Assignement", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
@@ -112,6 +113,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     this.Return(this, args);
                 }
             }
+            */
             else
             {
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();

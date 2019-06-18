@@ -24,9 +24,7 @@ namespace YellowstonePathology.Business.Reports
         public SurgicalSpecimenDisposalReportV2(DateTime disposalDate)
         {
             this.m_DisposalReportData = YellowstonePathology.Business.Gateway.SlideDisposalReportGateway.GetSpecimenDisposalReport_1(disposalDate);
-
             InitializeComponent();
-
             this.DataContext = this;
         }
 

@@ -357,10 +357,14 @@ namespace YellowstonePathology.UI.Billing
             {
                 Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_AccessionOrder.MasterAccessionNo);
                 YellowstonePathology.Business.Document.ADTInsuranceDocument adtInsuranceDocument = new Business.Document.ADTInsuranceDocument(adtMessages);
-                adtInsuranceDocument.SaveAsTIF(orderIdParser);
-                this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_ReportNo);
-                this.NotifyPropertyChanged("CaseDocumentCollection");
-                MessageBox.Show("The insurance card was successfully created.");
+                System.Windows.Controls.PrintDialog printDialog2 = new System.Windows.Controls.PrintDialog();
+                printDialog2.ShowDialog();
+                printDialog2.PrintDocument(adtInsuranceDocument.Document.DocumentPaginator, "BLA BLA: ");
+
+                //adtInsuranceDocument.SaveAsTIF(orderIdParser);
+                //this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_ReportNo);
+                //this.NotifyPropertyChanged("CaseDocumentCollection");
+                //MessageBox.Show("The insurance card was successfully created.");
             }
             else
             {

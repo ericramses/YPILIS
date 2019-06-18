@@ -73,6 +73,9 @@ namespace YellowstonePathology.Business.View
             YellowstonePathology.Business.View.ClientLocationView ypi = new Business.View.ClientLocationView(280, 137, "Yellowstone Pathologists, P.C.", "Medical Records");
             result.Add(ypi);
 
+            YellowstonePathology.Business.View.ClientLocationView nm = new Business.View.ClientLocationView(587, 228, "Northern Montana Healthcare", "Medical Records");
+            result.Add(nm);
+
             return Sort(result);
         }
 
