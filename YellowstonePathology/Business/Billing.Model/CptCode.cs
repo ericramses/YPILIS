@@ -5,6 +5,8 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using YellowstonePathology.Business.Persistence;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Billing.Model
 {
@@ -30,6 +32,7 @@ namespace YellowstonePathology.Business.Billing.Model
         public CptCode()
         {            
             this.m_HasMedicareQuantityLimit = false;
+            this.m_Modifiers = new List<CptCodeModifier>();
         }
 
         public string DisplayCode
@@ -230,6 +233,31 @@ namespace YellowstonePathology.Business.Billing.Model
             camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
             string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
             return result;
+        }
+
+        public void Save()
+        {
+            MySqlCommand cmd = null;
+            string jString = this.ToJSON();
+            if(YellowstonePathology.Store.AppDataStore.Instance.CPTCodeCollection.Exists(this.m_Code) == true)
+            {
+                cmd = new MySqlCommand("UPDATE tblCPTCode set JSONValue = @JSONValue where CPTCode = @CPTCode;");
+            }
+            else
+            {
+                cmd = new MySqlCommand("Insert tblCPTCode (CPTCode, JSONValue) values (@CPTCode, @JSONValue);");
+            }
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@JSONValue", jString);
+            cmd.Parameters.AddWithValue("@CPTCode", this.m_Code);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

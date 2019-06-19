@@ -181,21 +181,5 @@ namespace YellowstonePathology.Business.Billing.Model
                 }
             }
         }
-
-        public static void Save(CptCode cptCode)
-        {
-            string jString = cptCode.ToJSON();
-            MySqlCommand cmd = new MySqlCommand("Insert tblCPTCode (CPTCode, JSONValue) values (@CPTCode, @JSONValue) ON DUPLICATE KEY UPDATE CPTCode = @CPTCode, JSONValue = @JSONValue;");
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@JSONValue", jString);
-            cmd.Parameters.AddWithValue("@CPTCode", cptCode.Code);
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                cmd.ExecuteNonQuery();
-            }
-        }
     }
 }
