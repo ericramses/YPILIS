@@ -109,7 +109,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
             if (isValidDate == false)
             {
-                MessageBox.Show("Enter a valid Birthdate.");
+                MessageBox.Show("Please enter a valid Birthdate.");
+                result = false;
+            }
+
+            if (string.IsNullOrEmpty(this.m_AccessionOrder.PSex) == true)
+            {
+                MessageBox.Show("Please enter the patient sex.");
                 result = false;
             }
 

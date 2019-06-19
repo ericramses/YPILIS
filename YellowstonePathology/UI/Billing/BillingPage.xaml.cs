@@ -356,7 +356,7 @@ namespace YellowstonePathology.UI.Billing
             if (adtMessages.Messages.Count > 0)
             {
                 Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_AccessionOrder.MasterAccessionNo);
-                YellowstonePathology.Business.Document.ADTInsuranceDocument adtInsuranceDocument = new Business.Document.ADTInsuranceDocument(adtMessages);
+                YellowstonePathology.Business.Document.ADTInsuranceDocument adtInsuranceDocument = new Business.Document.ADTInsuranceDocument(adtMessages);                
                 adtInsuranceDocument.SaveAsTIF(orderIdParser);
                 this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_ReportNo);
                 this.NotifyPropertyChanged("CaseDocumentCollection");

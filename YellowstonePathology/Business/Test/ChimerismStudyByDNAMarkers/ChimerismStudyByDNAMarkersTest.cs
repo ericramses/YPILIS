@@ -28,7 +28,7 @@ namespace YellowstonePathology.Business.Test.ChimerismStudyByDNAMarkers
 
             string taskDescription = "Gather materials and send to Children’s Hospital Colorado Laboratory.";
 
-        YellowstonePathology.Business.Facility.Model.Facility childrensFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("CHHOSCO");
+            YellowstonePathology.Business.Facility.Model.Facility childrensFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("CHHOSCO");
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.TaskFedexShipment(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription, childrensFacility));
 
             this.m_TechnicalComponentFacility = childrensFacility;
@@ -36,6 +36,9 @@ namespace YellowstonePathology.Business.Test.ChimerismStudyByDNAMarkers
 
             this.m_TechnicalComponentBillingFacility = childrensFacility;
             this.m_ProfessionalComponentBillingFacility = childrensFacility;
+
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("81267", null), 1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
         }

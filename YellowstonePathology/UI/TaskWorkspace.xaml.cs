@@ -191,18 +191,18 @@ namespace YellowstonePathology.UI
                 {
                     if (taskOrder.TaskId == taskCytologySlideDisposal.TaskId)
                     {                        
-                        YellowstonePathology.Business.Reports.CytologySlideDisposalReportV2 report1 = new YellowstonePathology.Business.Reports.CytologySlideDisposalReportV2(taskOrder.TaskDate.Value);
+                        YellowstonePathology.Business.Reports.CytologySlideDisposalReport report1 = new YellowstonePathology.Business.Reports.CytologySlideDisposalReport(taskOrder.TaskDate.Value);
                         System.Windows.Controls.PrintDialog printDialog1 = new System.Windows.Controls.PrintDialog();
 
                         printDialog1.ShowDialog();
-                        printDialog1.PrintDocument(report1.DocumentPaginator, "Cytology Slide Disposal");
+                        printDialog1.PrintDocument(report1.Document.DocumentPaginator, "Cytology Slide Disposal");
                     }
                     else if (taskOrder.TaskId == taskSurgicalSpecimenDisposal.TaskId)
                     {                     
-                        YellowstonePathology.Business.Reports.SurgicalSpecimenDisposalReportV2 report2 = new YellowstonePathology.Business.Reports.SurgicalSpecimenDisposalReportV2(taskOrder.TaskDate.Value);
+                        YellowstonePathology.Business.Reports.SurgicalSpecimenDisposalReport report2 = new YellowstonePathology.Business.Reports.SurgicalSpecimenDisposalReport(taskOrder.TaskDate.Value);
                         System.Windows.Controls.PrintDialog printDialog2 = new System.Windows.Controls.PrintDialog();
                         printDialog2.ShowDialog();
-                        printDialog2.PrintDocument(report2.DocumentPaginator, "Surgical Specimen Disposal Report for: ");
+                        printDialog2.PrintDocument(report2.Document.DocumentPaginator, "Surgical Specimen Disposal Report for: ");
                     }
                     else if (taskOrder.TaskId == taskRetrospectiveReview.TaskId)
                     {                     
