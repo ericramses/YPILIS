@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Stain.Model
 {
@@ -60,6 +62,23 @@ namespace YellowstonePathology.Business.Stain.Model
             camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
             string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
             return result;
+        }
+
+        public void Save()
+        {
+            string jString = this.ToJSON();
+            MySqlCommand cmd = new MySqlCommand("Insert tblStain(StainId, JSONValue) values(@StainId, @JSONValue) ON DUPLICATE KEY UPDATE StainId = @StainId, JSONValue = @JSONValue;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@JSONValue", jString);
+            cmd.Parameters.AddWithValue("@StainId", this.m_StainId);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+            Test.Model.TestCollectionInstance.Reload();
         }
 
         public string StainId

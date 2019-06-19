@@ -23,23 +23,20 @@ namespace YellowstonePathology.UI
 
         public SpecimenEditDialog(YellowstonePathology.Business.Specimen.Model.Specimen specimen)
         {
-            this.m_Specimen = specimen;
+            if(specimen == null)
+            {
+                this.m_Specimen = new Business.Specimen.Model.Specimen();
+            }
+            else
+            {
+                this.m_Specimen = specimen;
+            }
 
             this.m_SpecimenString = this.m_Specimen.ToJSON();
             this.m_HoldToCompareString = this.m_Specimen.ToJSON();
             InitializeComponent();
 
             DataContext = this;
-            Loaded += SpecimenEditDialog_Loaded;
-        }
-
-        private void SpecimenEditDialog_Loaded(object sender, RoutedEventArgs e)
-        {
-           if(this.m_Specimen.SpecimenId == null)
-            {
-                MessageBox.Show("The Null Specimen may not be altered.  This edit window will close.");
-                Close();
-            }
         }
 
         public void NotifyPropertyChanged(String info)
@@ -63,23 +60,29 @@ namespace YellowstonePathology.UI
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
-            if (this.CanSave() == true)
+            Business.Rules.MethodResult result = this.CanSave();
+            if (result.Success == true)
             {
                 if (this.m_HoldToCompareString != this.m_SpecimenString)
                 {
-                    MessageBoxResult result = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        YellowstonePathology.Business.Specimen.Model.Specimen specimenToSave = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.FromJSON(this.m_SpecimenString);
-                        specimenToSave.Save();
-                    }
+                    YellowstonePathology.Business.Specimen.Model.Specimen specimenToSave = YellowstonePathology.Business.Specimen.Model.SpecimenCollection.FromJSON(this.m_SpecimenString);
+                    specimenToSave.Save();
+                    this.DialogResult = true;
+                }
+                else
+                {
+                    this.DialogResult = false;
                 }
 
                 this.Close();
             }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
         }
 
-        private bool CanSave()
+        private Business.Rules.MethodResult CanSave()
         {
             Business.Rules.MethodResult result = YellowstonePathology.Business.Helper.JSONHelper.IsValidJSONString(this.m_SpecimenString);
 
@@ -99,20 +102,28 @@ namespace YellowstonePathology.UI
                         result.Success = false;
                         result.Message = "The Specimen Id must have a value.";
                     }
-                    else if (this.m_Specimen.SpecimenId != specimenIdToCompare)
-                    {
-                        result.Success = false;
-                        result.Message = "The Specimen Ids must be the same.";
-                    }
                 }
             }
 
-            if (result.Success == false)
-            {
-                MessageBox.Show(result.Message);
-            }
+            return result;
+        }
 
-            return result.Success;
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.m_HoldToCompareString != this.m_SpecimenString)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.No)
+                {
+                    this.DialogResult = false;
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.DialogResult = false;
+                this.Close();
+            }
         }
     }
 }

@@ -59,23 +59,6 @@ namespace YellowstonePathology.Business.Stain.Model
             return result;
         }
 
-        public static void Save(Stain stain)
-        {
-            string jString = stain.ToJSON();
-            MySqlCommand cmd = new MySqlCommand("Insert tblStain(StainId, JSONValue) values(@StainId, @JSONValue) ON DUPLICATE KEY UPDATE StainId = @StainId, JSONValue = @JSONValue;");
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@JSONValue", jString);
-            cmd.Parameters.AddWithValue("@StainId", stain.StainId);
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                cmd.ExecuteNonQuery();
-            }
-            Test.Model.TestCollectionInstance.Reload();
-        }
-
         private static StainCollection Load()
         {
             StainCollection result = new StainCollection();

@@ -126,10 +126,10 @@ namespace YellowstonePathology.Business.Specimen.Model
         public void Save()
         {
             string jString = this.ToJSON();
-            MySqlCommand cmd = new MySqlCommand("Update tblSpecimen set JSONValue = @JSONValue where SpecimenId = @SpecimenId;");
+            MySqlCommand cmd = new MySqlCommand("Insert tblSpecimen (SpecimenId, JSONValue) values (@SpecimenId, @JSONValue) ON DUPLICATE KEY UPDATE SpecimenId = @SpecimenId, JSONValue = @JSONValue;");
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@JSONValue", jString);
             cmd.Parameters.AddWithValue("@SpecimenId", this.m_SpecimenId);
+            cmd.Parameters.AddWithValue("@JSONValue", jString);
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
