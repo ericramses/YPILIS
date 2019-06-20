@@ -80,14 +80,6 @@ namespace YellowstonePathology.Business.Specimen.Model
             return Sort(result);
         }
 
-        public string ToJSON()
-        {
-            var camelCaseFormatter = new JsonSerializerSettings();
-            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
-            return result;
-        }
-
         private static SpecimenCollection Load()
         {
             SpecimenCollection result = new SpecimenCollection();

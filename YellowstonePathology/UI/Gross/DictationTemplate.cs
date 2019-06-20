@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using YellowstonePathology.Business.Persistence;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.UI.Gross
 {
@@ -478,6 +480,22 @@ namespace YellowstonePathology.UI.Gross
             DictationTemplateRedis dictationTemplateRedis = new Gross.DictationTemplateRedis(this);
             string result = dictationTemplateRedis.ToJSON();
             return result;
+        }
+
+        public void Save()
+        {
+            string jString = this.ToJSON();
+            MySqlCommand cmd = new MySqlCommand("Insert tblDictationTemplate(TemplateId, JSONValue) values(@TemplateId, @JSONValue) ON DUPLICATE KEY UPDATE TemplateId = @TemplateId, JSONValue = @JSONValue;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@TemplateId", this.m_TemplateId);
+            cmd.Parameters.AddWithValue("@JSONValue", jString);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

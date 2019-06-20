@@ -49,8 +49,29 @@ namespace YellowstonePathology.UI
             if (this.ListBoxSpecimen.SelectedItem != null)
             {
                 YellowstonePathology.Business.Specimen.Model.Specimen specimen = (YellowstonePathology.Business.Specimen.Model.Specimen)this.ListBoxSpecimen.SelectedItem;
-                SpecimenEditDialog dlg = new SpecimenEditDialog(specimen);
-                dlg.ShowDialog();
+                if (string.IsNullOrEmpty(specimen.SpecimenId) == false)
+                {
+                    SpecimenEditDialog dlg = new SpecimenEditDialog(specimen);
+                    bool? dialogResult = dlg.ShowDialog();
+                    if (dialogResult.HasValue && dialogResult.Value == true)
+                    {
+                        YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Refresh();
+                        this.NotifyPropertyChanged("SpecimenCollection");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("The Null Specimen may not be altered.");
+                }
+            }
+        }
+
+        private void ButtonNewSpecimen_Click(object sender, RoutedEventArgs e)
+        {
+            SpecimenEditDialog dlg = new SpecimenEditDialog(null);
+            bool? dialogResult = dlg.ShowDialog();
+            if (dialogResult.HasValue && dialogResult.Value == true)
+            {
                 YellowstonePathology.Business.Specimen.Model.SpecimenCollection.Refresh();
                 this.NotifyPropertyChanged("SpecimenCollection");
             }

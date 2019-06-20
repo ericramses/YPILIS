@@ -110,22 +110,6 @@ namespace YellowstonePathology.UI.Gross
             return result;
         }
 
-        public static void Save(DictationTemplate dictationTemplate)
-        {
-            string jString = dictationTemplate.ToJSON();
-            MySqlCommand cmd = new MySqlCommand("Insert tblDictationTemplate(TemplateId, JSONValue) values(@TemplateId, @JSONValue) ON DUPLICATE KEY UPDATE TemplateId = @TemplateId, JSONValue = @JSONValue;");
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@TemplateId", dictationTemplate.TemplateId);
-            cmd.Parameters.AddWithValue("@JSONValue", jString);
-
-            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
-            {
-                cn.Open();
-                cmd.Connection = cn;
-                cmd.ExecuteNonQuery();
-            }
-        }
-
         public static DictationTemplateCollection Refresh()
         {
             instance = null;

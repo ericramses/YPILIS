@@ -66,17 +66,13 @@ namespace YellowstonePathology.UI.Billing
             {
                 if (this.m_HoldToCompareString != this.m_ICDCodeString)
                 {
-                    MessageBoxResult messageBoxResult = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                    if (messageBoxResult == MessageBoxResult.Yes)
-                    {
-                        YellowstonePathology.Business.Billing.Model.ICDCode codeToSave = YellowstonePathology.Business.Billing.Model.ICDCodeFactory.FromJson(this.m_ICDCodeString);
-                        YellowstonePathology.Business.Billing.Model.ICDCodeCollection.Save(codeToSave);
-                        this.DialogResult = true;
-                    }
-                    else
-                    {
-                        this.DialogResult = false;
-                    }
+                    YellowstonePathology.Business.Billing.Model.ICDCode codeToSave = YellowstonePathology.Business.Billing.Model.ICDCodeFactory.FromJson(this.m_ICDCodeString);
+                    codeToSave.Save();
+                    this.DialogResult = true;
+                }
+                else
+                {
+                    this.DialogResult = false;
                 }
 
                 this.Close();
@@ -115,8 +111,20 @@ namespace YellowstonePathology.UI.Billing
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
-            Close();
+            if (this.m_HoldToCompareString != this.m_ICDCodeString)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.No)
+                {
+                    this.DialogResult = false;
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.DialogResult = false;
+                this.Close();
+            }
         }
     }
 }

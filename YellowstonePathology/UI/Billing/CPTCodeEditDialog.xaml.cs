@@ -122,22 +122,7 @@ namespace YellowstonePathology.UI.Billing
             if (this.m_HoldToCompareString != this.m_CptCodeString)
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-                if (messageBoxResult == MessageBoxResult.Yes)
-                {
-                    Business.Rules.MethodResult result = this.CanSave();
-                    if (result.Success == true)
-                    {
-                        YellowstonePathology.Business.Billing.Model.CptCode codeToSave = YellowstonePathology.Business.Billing.Model.CptCodeFactory.FromJson(this.m_CptCodeString);
-                        codeToSave.Save();
-                        this.DialogResult = true;
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show(result.Message);
-                    }
-                }
-                else
+                if (messageBoxResult == MessageBoxResult.No)
                 {
                     this.DialogResult = false;
                     this.Close();

@@ -97,7 +97,7 @@ namespace YellowstonePathology.UI.Stain
                 {
                     YellowstonePathology.Business.Stain.Model.StainCollection.Instance.Add(this.m_Stain);
                 }
-                Business.Stain.Model.StainCollection.Save(this.m_Stain);
+                this.m_Stain.Save();
                 string stainText = this.m_Stain.ToJSON();
                 Close();
             }

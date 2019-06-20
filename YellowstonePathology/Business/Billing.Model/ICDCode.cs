@@ -57,5 +57,21 @@ namespace YellowstonePathology.Business.Billing.Model
             string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
             return result;
         }
+
+        public void Save()
+        {
+            string jString = this.ToJSON();
+            MySqlCommand cmd = new MySqlCommand("Insert tblICDCode (ICDCode, JSONValue) values (@ICDCode, @JSONValue) ON DUPLICATE KEY UPDATE ICDCode = @ICDCode, JSONValue = @JSONValue;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@JSONValue", jString);
+            cmd.Parameters.AddWithValue("@ICDCode", this.m_Code);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
