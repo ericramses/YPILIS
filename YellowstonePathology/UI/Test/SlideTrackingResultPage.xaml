@@ -68,14 +68,14 @@
 
 		<Border Grid.Row="0" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource {x:Static SystemColors.InactiveCaptionBrushKey}}"></Border>
 
-        <Button Grid.Column="0" Grid.Row="0" Content="●" Background="Transparent" Foreground="Black" Click="HyperLinkSimulateScan_Click" HorizontalAlignment="Left" VerticalAlignment="Center"
+        <!--<Button Grid.Column="0" Grid.Row="0" Content="●" Background="Transparent" Foreground="Black" Click="HyperLinkSimulateScan_Click" HorizontalAlignment="Left" VerticalAlignment="Center"
                             FontFamily="Tw Cen MT Condensed" Margin="5,5,2,2" Width="20" Height="20" BorderBrush="Transparent" BorderThickness="0">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <ContentPresenter Content="{TemplateBinding Content}"/>
                 </ControlTemplate>
             </Button.Template>
-        </Button>
+        </Button>-->
         
         <TextBlock Grid.Column="0" Grid.Row="0" Margin="20,2,2,2" Text="{Binding Path=PageHeaderText}" VerticalAlignment="Center" Foreground="White" FontSize="16" FontWeight="Bold"></TextBlock>
 

@@ -3486,9 +3486,6 @@
     <Compile Include="UI\Stain\StainListDialog.xaml.cs">
       <DependentUpon>StainListDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Redis\StoreSelection.xaml.cs">
-      <DependentUpon>StoreSelection.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\Surgical\RecutCommentsDialog.xaml.cs">
       <DependentUpon>RecutCommentsDialog.xaml</DependentUpon>
     </Compile>
@@ -3673,6 +3670,10 @@
       <DependentUpon>HER2AmplificationSummaryResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\HER2AmplificationSummaryResultPath.cs" />
+    <Compile Include="UI\Test\SlideTrackingResultPage.xaml.cs">
+      <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\SlideTrackingResultPath.cs" />
     <Compile Include="UI\Test\UnreachableResultPage.xaml.cs">
       <DependentUpon>UnreachableResultPage.xaml</DependentUpon>
     </Compile>
@@ -3761,10 +3762,6 @@
       <DependentUpon>ReticulatedPlateletAnalysisV2ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\ReticulatedPlateletAnalysisV2ResultPath.cs" />
-    <Compile Include="UI\Test\SlideTrackingResultPage.xaml.cs">
-      <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Test\SlideTrackingResultPath.cs" />
     <Compile Include="UI\Test\GrossOnlyResultPage.xaml.cs">
       <DependentUpon>GrossOnlyResultPage.xaml</DependentUpon>
     </Compile>
@@ -5481,10 +5478,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Redis\StoreSelection.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\Surgical\RecutCommentsDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -5666,6 +5659,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UI\Test\SlideTrackingResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Test\UnreachableResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -5753,10 +5750,6 @@
     <Page Include="UI\Test\ReticulatedPlateletAnalysisV2ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Test\SlideTrackingResultPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Test\GrossOnlyResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -7160,7 +7153,9 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UI\Redis\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -718,15 +718,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void ResetDistributionWhenIncompatible(YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem physicianClientDistribution)
         {
-            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
-            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionListItem primaryDistribution = physicianClientDistributionCollection.GetPrimaryDistribution(this.m_AccessionOrder);
+            YellowstonePathology.Business.Client.Model.Client accessionClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_AccessionOrder.ClientId);
             YellowstonePathology.Business.ReportDistribution.Model.IncompatibleDistributionTypeCollection incompatibleDistributionTypeCollection = new Business.ReportDistribution.Model.IncompatibleDistributionTypeCollection();
-            bool distributionsAreIncompatible = incompatibleDistributionTypeCollection.TypesAreIncompatible(primaryDistribution.DistributionType, physicianClientDistribution.DistributionType);
+            bool distributionsAreIncompatible = incompatibleDistributionTypeCollection.TypesAreIncompatible(accessionClient.DistributionType, physicianClientDistribution.DistributionType);
             if (distributionsAreIncompatible == true)
             {
-                string distributionTypeSelected = physicianClientDistribution.DistributionType;
-                YellowstonePathology.Business.Client.Model.Client client = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(physicianClientDistribution.ClientId);
-                physicianClientDistribution.DistributionType = client.AlternateDistributionType;
+                YellowstonePathology.Business.Client.Model.Client distributionClient = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientByClientId(physicianClientDistribution.ClientId);
+                physicianClientDistribution.DistributionType = distributionClient.AlternateDistributionType;
             }
         }
     }
