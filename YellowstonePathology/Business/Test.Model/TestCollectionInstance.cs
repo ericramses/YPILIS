@@ -130,7 +130,6 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new BartonellaHenselae());
             result.Add(new Uroplakin());
 
-
             result.Add(new Surfactant());
             result.Add(new PAX2());
             result.Add(new CD235a());
@@ -150,6 +149,7 @@ namespace YellowstonePathology.Business.Test.Model
             result.Add(new ERV3CT());
 
             result.Add(new ParoxysmalNocturnalHemoglobinuria());
+            result.Add(new UnstainedSlide());
 
 
             foreach (Stain.Model.Stain stain in Stain.Model.StainCollection.Instance)

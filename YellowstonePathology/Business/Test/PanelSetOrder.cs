@@ -1434,8 +1434,13 @@ namespace YellowstonePathology.Business.Test
             this.m_FinaledById = Business.User.SystemIdentity.Instance.User.UserId;
             this.m_Signature = Business.User.SystemIdentity.Instance.User.Signature;
             if (panelSet.HasProfessionalComponent)
-            {
-                this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+            {                
+                // if there is a reference lab signature then don't change th professional billing
+                if(string.IsNullOrEmpty(this.ReferenceLabSignature) == true)
+                {
+                    this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+                    this.m_ProfessionalComponentBillingFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+                }                
             }
 
             if (panelSet.AcceptOnFinal == true)

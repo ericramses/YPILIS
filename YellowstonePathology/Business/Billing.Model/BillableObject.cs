@@ -91,7 +91,6 @@ namespace YellowstonePathology.Business.Billing.Model
                 foreach (YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode in panelSetOrderCPTCodeSummaryCollection)
 				{
                     YellowstonePathology.Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(panelSetOrderCPTCode.CPTCode, panelSetOrderCPTCode.Modifier);
-
 					YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill item = this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.GetNextItem(this.m_PanelSetOrder.ReportNo);
 					item.FromPanelSetOrderCPTCode(panelSetOrderCPTCode);
 					item.BillTo = billTo;
@@ -316,12 +315,10 @@ namespace YellowstonePathology.Business.Billing.Model
                 BillingComponent billingComponent = BillingComponent.GetBillingComponent(this.m_PanelSetOrder);
                 billingComponent.Post(this);
 
-                this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SetPostDate(DateTime.Today);
-                //this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SetPostDate(DateTime.Parse("11/27/2018"));
+                this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection.SetPostDate(DateTime.Today);                
                 if (this.IsOkToSetPostDate() == true)
                 {
-                    this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Today);                    
-                    //this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Parse("11/27/2018"));
+                    this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.SetPostDate(DateTime.Today);                                        
                 }
                                                 
                 this.m_PanelSetOrder.IsPosted = true;                
@@ -346,6 +343,11 @@ namespace YellowstonePathology.Business.Billing.Model
                     {
                         result = false;
                     }
+
+                    //if(this.m_AccessionOrder.HoldBilling == true)
+                    //{
+                    //   result = false;
+                    //}
                 }                
             }            
             return result;
