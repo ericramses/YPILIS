@@ -62,7 +62,9 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
         public bool TypesAreIncompatible(string primaryDistributionType, string checkingingDistributionType)
         {
-            bool result = false;
+            IncompatibleDistributionType incompatibleDistributionType = this.FirstOrDefault(i => i.PrimaryDistributionType == primaryDistributionType && i.SecondaryDistributionType == checkingingDistributionType);
+            return incompatibleDistributionType != null ? true : false;
+            /*bool result = false;
             foreach(IncompatibleDistributionType incompatibleDistributionType in this)
             {
                 if(incompatibleDistributionType.PrimaryDistributionType == primaryDistributionType && 
@@ -72,7 +74,7 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                     break;
                 }
             }
-            return result;
+            return result;*/
         }
     }
 }
