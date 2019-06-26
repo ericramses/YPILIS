@@ -1010,12 +1010,6 @@ namespace YellowstonePathology.UI
             stainOrder.ShowDialog();
         }
 
-        private void MenuItemRedis_Click(object sender, RoutedEventArgs e)
-        {
-            Redis.StoreSelection dlg = new Redis.StoreSelection();
-            dlg.ShowDialog();
-        }
-
         private void MenuItemChainExplorer_Click(object sender, RoutedEventArgs e)
         {
             ChainExplorer chainExplorer = new ChainExplorer();

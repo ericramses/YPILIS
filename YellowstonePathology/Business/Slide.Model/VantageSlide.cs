@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Slide.Model
 {
@@ -58,12 +60,12 @@ namespace YellowstonePathology.Business.Slide.Model
             }
         }
 
-        public string GetRedisKey()
+        public string GetKey()
         {
             return this.m_MasterAccessionNo + ":" + this.m_VantageSlideId;
         }
 
-        public string ToJson()
+        public string ToJSON()
         {            
             return JsonConvert.SerializeObject(this);            
         }
@@ -72,5 +74,55 @@ namespace YellowstonePathology.Business.Slide.Model
         {
             return JsonConvert.DeserializeObject<VantageSlide>(json);
         }
+
+        public void Save()
+        {
+            string key = this.GetKey();
+            string jString = this.ToJSON();
+            MySqlCommand cmd = new MySqlCommand("Insert tblVantageSlide (VantageSlideId, JSONValue) values (@VantageSlideId, @JSONValue) ON DUPLICATE KEY UPDATE VantageSlideId = @VantageSlideId, JSONValue = @JSONValue;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@JSONValue", jString);
+            cmd.Parameters.AddWithValue("@VantageSlideId", key);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static List<string> GetBySlideId(string slideId)
+        {
+            return GetByKey("'%:" + slideId + "'");
+        }
+
+        public static List<string> GetByMasterAccessionNo(string masterAccessionNo)
+        {
+            return GetByKey("'" + masterAccessionNo + "%'");
+        }
+
+        private static List<string> GetByKey(string idString)
+        {
+            List<string> result = new List<string>();
+            MySqlCommand cmd = new MySqlCommand("Select JSONValue from tblVantageSlide where VantageSlideId Like " + idString + ";");
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string jString = dr[0].ToString();
+                        result.Add(jString);
+                    }
+                }
+            }
+            return result;
+        }
+
     }
 }

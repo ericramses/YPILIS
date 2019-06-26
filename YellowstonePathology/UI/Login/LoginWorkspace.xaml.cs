@@ -949,16 +949,13 @@ namespace YellowstonePathology.UI.Login
             this.m_BarcodeScanPort.VantageSlideScanReceived -= BarcodeScanPort_VantageSlideScanReceived;
             string masterAccessionNo = null;
 
-            string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeysBySlideId(scanData);
+            List<string> results = Business.Slide.Model.VantageSlide.GetBySlideId(scanData);
             foreach (string result in results)
             {
                 Business.Slide.Model.VantageSlide vantageSlide = Business.Slide.Model.VantageSlide.FromJson(result);
                 masterAccessionNo = vantageSlide.MasterAccessionNo;
                 break;
             }
-
-            //Business.Slide.Model.VantageSlideCollection vantageSlideCollection = new Business.Slide.Model.VantageSlideCollection(masterAccessionNo);
-            //vantageSlideCollection.HandleSlideScan(scanData);
 
             this.m_LoginUI.GetReportSearchListByMasterAccessionNo(masterAccessionNo);
             this.ListViewAccessionOrders.SelectedIndex = 0;
