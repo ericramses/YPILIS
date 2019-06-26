@@ -36,8 +36,14 @@ namespace YellowstonePathology.Business.Test.NeoTYPEColorectalTumorProfile
             this.m_ProfessionalComponentFacility = neogenomicsIrvine;
             this.m_ProfessionalComponentBillingFacility = neogenomicsIrvine;
 
-            //this.m_HasSplitCPTCode = false;
-            //this.m_RequiresAssignment = true;
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("81445", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode2 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88377", null), 2);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode3 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88360", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode4 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88342", null), 1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode2);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode3);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode4);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
         }
