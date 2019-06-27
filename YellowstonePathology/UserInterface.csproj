@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>80</ApplicationRevision>
+    <ApplicationRevision>83</ApplicationRevision>
     <ApplicationVersion>10.1.15.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -353,6 +353,7 @@
     <Compile Include="Business\Client.Model\HPVStandingOrderCollection.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderRule141.cs" />
     <Compile Include="Business\Client.Model\HPVStandingOrderRule51.cs" />
+    <Compile Include="Business\Client.Model\HRHClinics.cs" />
     <Compile Include="Business\Client.Model\IdahoClientIdList.cs" />
     <Compile Include="Business\Client.Model\PlaceOfService.cs" />
     <Compile Include="Business\Client.Model\PlaceOfServiceCollection.cs" />

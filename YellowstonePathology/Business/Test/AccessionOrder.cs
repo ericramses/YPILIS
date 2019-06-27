@@ -102,6 +102,7 @@ namespace YellowstonePathology.Business.Test
         private int m_CaseOwnerId;
         private bool m_ITAuditRequired;
         private bool m_ITAudited;
+        private bool m_HoldBilling;
         private int m_ITAuditPriority;
         private string m_CaseDialog;
         private string m_PlaceOfService;              
@@ -1222,6 +1223,21 @@ namespace YellowstonePathology.Business.Test
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool HoldBilling
+        {
+            get { return this.m_HoldBilling; }
+            set
+            {
+                if (this.m_HoldBilling != value)
+                {
+                    this.m_HoldBilling = value;
+                    this.NotifyPropertyChanged("HoldBilling");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ITAuditRequired
         {
             get { return this.m_ITAuditRequired; }
@@ -1365,8 +1381,24 @@ namespace YellowstonePathology.Business.Test
 					this.PhysicianId = physician.PhysicianId;
 					this.PhysicianName = physician.DisplayName;
 				}
-			}			
-		}        
+			}
+            if (ShouldBillingBeHeld() == true) this.m_HoldBilling = true;
+		}  
+        
+        public bool ShouldBillingBeHeld()
+        {
+            bool result = false;
+            if(string.IsNullOrEmpty(this.m_SvhMedicalRecord) == false && this.m_SvhMedicalRecord.StartsWith("A"))
+            {
+                result = true;    
+            }
+            Business.Client.Model.HRHClinics hrhClinics = new Client.Model.HRHClinics();
+            if(hrhClinics.Exists(this.m_ClientId))
+            {
+                result = true;
+            }
+            return result;
+        }      
 
 		public string PhysicianClientName
         {

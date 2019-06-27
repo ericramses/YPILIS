@@ -141,13 +141,16 @@ namespace YellowstonePathology.Business.Helper
             oWord = new Microsoft.Office.Interop.Word.Application();
             oWord.Visible = false;
 
-            try
-            {
-                File.Delete(docFileName.ToString());
-            }
-            catch (Exception)
-            {
-                oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
+            if(File.Exists(docFileName.ToString()))
+            {              
+                try
+                {
+                    File.Delete(docFileName.ToString());
+                }
+                catch (Exception)
+                {
+                    oWord.Quit(ref oFalse, ref oMissing, ref oMissing);
+                }            
             }
 
             Object fileFormat = "wdFormatDocument";
