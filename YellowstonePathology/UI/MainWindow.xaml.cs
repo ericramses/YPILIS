@@ -1057,5 +1057,11 @@ namespace YellowstonePathology.UI
             UI.SpecimenListDialog specimenListDialog = new UI.SpecimenListDialog();
             specimenListDialog.ShowDialog();
         }
+
+        private void MenuItemPrintZPLLAbels_Click(object sender, RoutedEventArgs e)
+        {
+            LabelPrintDialog dlg = new UI.LabelPrintDialog();
+            dlg.ShowDialog();
+        }
     }
 }

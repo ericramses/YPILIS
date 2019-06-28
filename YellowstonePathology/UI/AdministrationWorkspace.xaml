@@ -26,12 +26,6 @@
         <Button Click="ButtonOpenVerificationWindow_Click" Width="200" Height="30" Margin="5,5,5,5">Open Verification Window</Button>
         <Button Click="ButtonProcessBillingFile_Click" Width="200" Height="30" Margin="5,5,5,5">Process Billing data file</Button>
 		<Button Click="ButtonIncomingBillingData_Click" Width="200" Height="30" Margin="5,5,5,5">View Incoming Billing Data</Button>
-
-
-        <Button Click="ButtonSerumLabels_Click" Width="200" Height="30" Margin="5,5,5,5">Serum Labels</Button>
-        <Button Click="ButtonUrineLabels_Click" Width="200" Height="30" Margin="5,5,5,5">Urine Labels</Button>
-        <Button Click="ButtonIFLabels_Click" Width="200" Height="30" Margin="5,5,5,5">IFLabels</Button>
-        <Button Click="ButtonFormalinAddedLabels_Click" Width="200" Height="30" Margin="5,5,5,5">Formalin Added Labels</Button>
         
 		<Button Click="ButtonAccessionSlideOrderTracking_Click" Width="200" Height="30" Margin="5,5,5,5">Slide Order tracking</Button>
         <Button Click="ButtonSpellCheckTesting_Click" Width="200" Height="30" Margin="5,5,5,5">Spell Check Testing</Button>
