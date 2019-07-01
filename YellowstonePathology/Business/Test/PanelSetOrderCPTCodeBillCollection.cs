@@ -137,17 +137,7 @@ namespace YellowstonePathology.Business.Test
                 }
             }
             return result;
-        }
-
-        /*public void Add(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection summaryCollection)
-        {
-            foreach (PanelSetOrderCPTCodeBill item in summaryCollection)
-            {
-                PanelSetOrderCPTCodeBill newItem = this.GetNextItem(item.ReportNo);
-                newItem.From(item);
-                this.Add(newItem);
-            }
-        }*/
+        }        
 
         public void ReplaceCode(string codeToReplace, string newCode)
         {
@@ -214,6 +204,23 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public bool IsHRHClientClinic()
+        {
+            bool result = false;
+            foreach (PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
+            {
+                Business.Client.Model.HRHClinics hrhClinics = new Client.Model.HRHClinics();
+                if(hrhClinics.Exists(panelSetOrderCPTCodeBill.ClientId) && panelSetOrderCPTCodeBill.BillTo == "Client")
+                {
+                    panelSetOrderCPTCodeBill.MedicalRecord = "*" + panelSetOrderCPTCodeBill.MedicalRecord;
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        
         public bool HasMRNStartingWithA()
         {
             bool result = false;
