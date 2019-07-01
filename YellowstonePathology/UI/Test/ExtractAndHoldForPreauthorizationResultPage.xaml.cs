@@ -64,9 +64,14 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}		
+		}
+        
+        public YellowstonePathology.Business.PanelSet.Model.PanelSetCollection PanelSetCollection
+        {
+            get { return YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll(); }
+        }
 
-		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument report = new Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
@@ -149,6 +154,21 @@ namespace YellowstonePathology.UI.Test
 
                 pageNavigationWindow.PageNavigator.Navigate(dictationTemplatePage);
             }            
+        }
+
+        private void ComboBoxTests_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.ComboBoxTests.SelectedItem != null)
+            {
+                YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = (YellowstonePathology.Business.PanelSet.Model.PanelSet)this.ComboBoxTests.SelectedItem;
+                string cpts = panelSet.PanelSetCptCodeCollection.GetCommaSeparatedString();
+                if(cpts == YellowstonePathology.Business.Billing.Model.PanelSetCptCodeCollection.NoCodes)
+                {
+                    cpts = null;
+                }
+                this.m_PanelSetOrder.CPTCodes = cpts;
+                this.NotifyPropertyChanged("PanelSetOrder.CPTCodes");
+            }
         }
     }
 }

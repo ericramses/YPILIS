@@ -322,6 +322,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             //Genomic Health
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetOncoTypeDX());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.SF3B1MutationAnalysis.SF3B1MutationAnalysisTest());
 
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetAnatomicPathologyConsultation());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTest());

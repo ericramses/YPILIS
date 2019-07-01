@@ -1222,6 +1222,7 @@
     <Compile Include="Business\Test\PNH\PNHWPHOBXView.cs" />
     <Compile Include="Business\Test\PrealbuminTTR\PrealbuminTTRTest.cs" />
     <Compile Include="Business\Test\AmyloidAandAmyloidP\AmyloidAandAmyloidPTest.cs" />
+    <Compile Include="Business\Test\SF3B1MutationAnalysis\SF3B1MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\RBCBand3ProteinReduction\RBCBand3ProteinReductionTest.cs" />
     <Compile Include="Business\Test\ResultType.cs" />

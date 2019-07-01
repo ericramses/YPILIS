@@ -202,8 +202,12 @@ namespace YellowstonePathology.UI.Client
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClient, this);                    
 					this.m_ClientPhysicianView.Physicians.Add(physician);
 					this.NotifyPropertyChanged("Physicians");
-				}
-			}
+
+                    string distributionObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                    YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(distributionObjectId, physicianClient.PhysicianClientId, physicianClient.PhysicianClientId, this.m_Client.DistributionType);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClientDistribution, this);
+                }
+            }
 		}
 
 		private void ButtonRemoveFromClient_Click(object sender, RoutedEventArgs e)
@@ -237,7 +241,7 @@ namespace YellowstonePathology.UI.Client
             if (physicianClientDistributionCollection.Count > 0)
             {
                 result.Success = false;
-                result.Message = "This provider has distributions for this client.  These distributions must be removed before the provider can be removed from the client membership.";
+                result.Message = "This provider has distributions set up for this client.  These distributions must be removed before the provider can be removed from the client membership.";
             }
             return result;
         }
