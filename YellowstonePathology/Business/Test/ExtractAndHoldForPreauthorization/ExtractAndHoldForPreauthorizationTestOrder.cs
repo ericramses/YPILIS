@@ -7,6 +7,8 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
     public class ExtractAndHoldForPreauthorizationTestOrder : YellowstonePathology.Business.Test.PanelSetOrder
     {
         private string m_Comment;
+        private int? m_TestId;
+        private string m_CPTCodes;
 
         public ExtractAndHoldForPreauthorizationTestOrder()
         { }
@@ -29,6 +31,34 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
                 {
                     this.m_Comment = value;
                     this.NotifyPropertyChanged("Comment");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string CPTCodes
+        {
+            get { return this.m_CPTCodes; }
+            set
+            {
+                if (this.m_CPTCodes != value)
+                {
+                    this.m_CPTCodes = value;
+                    this.NotifyPropertyChanged("CPTCodes");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public int? TestId
+        {
+            get { return this.m_TestId; }
+            set
+            {
+                if (this.m_TestId != value)
+                {
+                    this.m_TestId = value;
+                    this.NotifyPropertyChanged("TestId");
                 }
             }
         }

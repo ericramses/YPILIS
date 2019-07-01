@@ -7,8 +7,10 @@ using System.Collections.ObjectModel;
 namespace YellowstonePathology.Business.Billing.Model
 {
 	public class PanelSetCptCodeCollection : ObservableCollection<PanelSetCptCode>
-	{        
-		public PanelSetCptCodeCollection()
+	{
+        public static string NoCodes = "No CPT Codes have been defined.";
+
+        public PanelSetCptCodeCollection()
 		{
 
 		}  
@@ -29,7 +31,7 @@ namespace YellowstonePathology.Business.Billing.Model
             }
             if(result == null)
             {
-                result = "No CPT Codes have been defined.";
+                result = NoCodes;
             }
             return result;
         }      
