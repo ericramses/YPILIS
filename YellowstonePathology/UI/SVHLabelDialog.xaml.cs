@@ -24,7 +24,7 @@ namespace YellowstonePathology.UI
 
         public SVHLabelDialog()
         {
-            this.m_Year = DateTime.Today.ToString("yy");
+            this.m_Year = DateTime.Today.ToString("yyyy");
             this.m_Rows = 50;
             InitializeComponent();
 
@@ -47,11 +47,10 @@ namespace YellowstonePathology.UI
         {
             if(this.IsValidYear() == true && this.RowCountIsAcceptable() == true)
             {
-                string year = this.GetTwoDigitYear();
                 Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.21");
                 for (int x = 0; x < this.m_Rows; x++)
                 {
-                    string commands = Business.Label.Model.IFEZPLLabel.GetCommands(year);
+                    string commands = Business.Label.Model.IFEZPLLabel.GetCommands(this.m_Year);
                     printer.Print(commands);
                 }
             }
@@ -61,7 +60,6 @@ namespace YellowstonePathology.UI
         {
             if (this.IsValidYear() == true && this.RowCountIsAcceptable() == true)
             {
-                string year = this.GetTwoDigitYear();
                 Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.21");
                 for (int x = 0; x < this.m_Rows; x++)
                 {
@@ -75,11 +73,10 @@ namespace YellowstonePathology.UI
         {
             if (this.IsValidYear() == true && this.RowCountIsAcceptable() == true)
             {
-                string year = this.GetTwoDigitYear();
                 Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.21");
                 for (int x = 0; x < this.m_Rows; x++)
                 {
-                    string commands = Business.Label.Model.SerumZPLLabel.GetCommands(year);
+                    string commands = Business.Label.Model.SerumZPLLabel.GetCommands(this.m_Year);
                     printer.Print(commands);
                 }
             }
@@ -89,11 +86,10 @@ namespace YellowstonePathology.UI
         {
             if (this.IsValidYear() == true && this.RowCountIsAcceptable() == true)
             {
-                string year = this.GetTwoDigitYear();
                 Business.Label.Model.ZPLPrinterTCP printer = new Business.Label.Model.ZPLPrinterTCP("10.1.1.21");
                 for (int x = 0; x < this.m_Rows; x++)
                 {
-                    string commands = Business.Label.Model.UrineZPLLabel.GetCommands(year);
+                    string commands = Business.Label.Model.UrineZPLLabel.GetCommands(this.m_Year);
                     printer.Print(commands);
                 }
             }
@@ -106,32 +102,32 @@ namespace YellowstonePathology.UI
 
         private bool IsValidYear()
         {
-            DateTime date;
-            string testDate = "1/1/" + this.m_Year;
-            bool result = DateTime.TryParse(testDate, out date);
-            if(result == false)
+            bool result = true;
+            if (this.m_Year.Length != 4)
             {
-                MessageBox.Show("Enter a valid 2 digit year.");
-
+                result = false;
+                MessageBox.Show("Enter a valid 4 digit year.");
+            }
+            else
+            {
+                DateTime date;
+                string testDate = "1/1/" + this.m_Year;
+                result = DateTime.TryParse(testDate, out date);
+                if (result == false)
+                {
+                    MessageBox.Show("Enter a valid 4 digit year.");
+                }
             }
             return result;
-        }
-
-        private string GetTwoDigitYear()
-        {
-            string testDate = "1/1/" + this.m_Year;
-            DateTime date = DateTime.Parse(testDate);
-            string result = date.ToString("yy");
-            return result;            
         }
 
         private bool RowCountIsAcceptable()
         {
             bool result = true;
-            if(this.m_Rows < 1 && this.m_Rows > 5)
+            if(this.m_Rows < 1 || this.m_Rows > 100)
             {
                 result = false;
-                MessageBox.Show("Enter a number less than 100.");
+                MessageBox.Show("Enter a row count between 1 and 100.");
             }
             return result;
         }
