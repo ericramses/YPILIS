@@ -17,12 +17,12 @@ namespace YellowstonePathology.UI
     /// <summary>
     /// Interaction logic for LabelPrintDialog.xaml
     /// </summary>
-    public partial class LabelPrintDialog : Window
+    public partial class SVHLabelDialog : Window
     {
         private string m_Year;
         private int m_Rows;
 
-        public LabelPrintDialog()
+        public SVHLabelDialog()
         {
             this.m_Year = DateTime.Today.ToString("yy");
             this.m_Rows = 50;
