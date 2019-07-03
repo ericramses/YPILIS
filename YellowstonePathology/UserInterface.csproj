@@ -3676,10 +3676,6 @@
       <DependentUpon>SlideTrackingResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\SlideTrackingResultPath.cs" />
-    <Compile Include="UI\Test\UnreachableResultPage.xaml.cs">
-      <DependentUpon>UnreachableResultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Test\UnreachableResultPath.cs" />
     <Compile Include="UI\Test\PlateletAssociatedAntibodiesV2ResultPage.xaml.cs">
       <DependentUpon>PlateletAssociatedAntibodiesV2ResultPage.xaml</DependentUpon>
     </Compile>
@@ -5665,10 +5661,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\Test\UnreachableResultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\Test\PlateletAssociatedAntibodiesV2ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -7052,12 +7044,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
