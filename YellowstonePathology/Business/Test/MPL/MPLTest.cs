@@ -21,7 +21,10 @@ namespace YellowstonePathology.Business.Test.MPL
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.MPL.MPLWordDocument).AssemblyQualifiedName;            
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = TimeSpan.FromDays(10);
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
 
             string taskDescription = "Collect (Peripheral blood: 2-5 mL in EDTA tube ONLY; " +
             "Bone marrow: 2 mL in EDTA tube ONLY) and send to Neogenomics.";

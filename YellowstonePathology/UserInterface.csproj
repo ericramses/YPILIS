@@ -1206,9 +1206,6 @@
     <Compile Include="Business\Test\NRASEXON4MutationAnalysis\NRASEXON4MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\NTRKNGSFusionProfile\NTRKNGSFusionProfileTest.cs" />
     <Compile Include="Business\Test\NUT\NUTTest.cs" />
-    <Compile Include="Business\Test\OrderAssociation\OrderAssociationEpicObxView.cs" />
-    <Compile Include="Business\Test\OrderAssociation\OrderAssociationTest.cs" />
-    <Compile Include="Business\Test\OrderAssociation\OrderAssociationTestOrder.cs" />
     <Compile Include="Business\Test\p57\p57Test.cs" />
     <Compile Include="Business\Test\ParvovirusB19ByPCR\ParvovirusB19ByPCRTest.cs" />
     <Compile Include="Business\Test\ParvovirusB19ByIHC\ParvovirusB19ByIHCTest.cs" />
@@ -1223,7 +1220,7 @@
     <Compile Include="Business\Test\PrealbuminTTR\PrealbuminTTRTest.cs" />
     <Compile Include="Business\Test\AmyloidAandAmyloidP\AmyloidAandAmyloidPTest.cs" />
     <Compile Include="Business\Test\SF3B1MutationAnalysis\SF3B1MutationAnalysisTest.cs" />
-    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
+    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWPHOBXView.cs" />
     <Compile Include="Business\Test\RBCBand3ProteinReduction\RBCBand3ProteinReductionTest.cs" />
     <Compile Include="Business\Test\ResultType.cs" />
     <Compile Include="Business\Test\ReticulatedPlateletAnalysisV2\ReticulatedPlateletAnalysisV2EPICOBXView.cs" />
@@ -1411,7 +1408,7 @@
     <Compile Include="Business\Test\PlasmaCellMyelomaPrognosticFISHPanel\PlasmaCellMyelomaPrognosticFISHPanelTest.cs" />
     <Compile Include="Business\Test\PlateletAssociatedAntibodies\PlateletAssociatedAntibodiesEPICOBXView.cs" />
     <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTestOrderDetail.cs" />
-    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFCMMCNTEView.cs" />
+    <Compile Include="Business\Test\RASRAFPanel\RASRAFCMMCNTEView.cs" />
     <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTest.cs" />
     <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTestOrder.cs" />
     <Compile Include="Business\Test\RestrospectiveReview\RetrospectiveReviewTestOrderDetailCollection.cs" />
@@ -2684,14 +2681,14 @@
     <Compile Include="Business\Test\Prothrombin\ProthrombinTest.cs" />
     <Compile Include="Business\Test\Prothrombin\ProthrombinTestOrder.cs" />
     <Compile Include="Business\Test\Prothrombin\ProthrombinWordDocument.cs" />
-    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\DetectedResult.cs" />
-    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\NotDetectedResult.cs" />
-    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelEpicObxView.cs" />
-    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelResult.cs" />
-    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelTest.cs" />
-    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelTestOrder.cs" />
-    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\RASRAFPanelWordDocument.cs" />
-    <Compile Include="Business\Test\SS18SYT\RASRAFPanel\ResultCollection.cs" />
+    <Compile Include="Business\Test\RASRAFPanel\DetectedResult.cs" />
+    <Compile Include="Business\Test\RASRAFPanel\NotDetectedResult.cs" />
+    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelEpicObxView.cs" />
+    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelResult.cs" />
+    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelTest.cs" />
+    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelTestOrder.cs" />
+    <Compile Include="Business\Test\RASRAFPanel\RASRAFPanelWordDocument.cs" />
+    <Compile Include="Business\Test\RASRAFPanel\ResultCollection.cs" />
     <Compile Include="Business\Test\ReflexTesting\ReflexTestingOkToOrderResult.cs" />
     <Compile Include="Business\Test\ReflexTesting\ReflexTestingPlan.cs" />
     <Compile Include="Business\Test\ReflexTesting\ReflexTestingPlanStateEnum.cs" />
@@ -3013,16 +3010,16 @@
     <Compile Include="Business\XPSDocument\Result\Xps\SurgicalPathologyReport.cs" />
     <Compile Include="Business\XPSDocument\Result\Xps\YpReportBase.cs" />
     <Compile Include="Business\XPSDocument\XMLHelper.cs" />
-    <Compile Include="Business\XPSDocument\Xps\HeaderFooterBase.cs" />
-    <Compile Include="Business\XPSDocument\Xps\MultiPageDocument.cs" />
-    <Compile Include="Business\XPSDocument\Xps\NoFooter.cs" />
-    <Compile Include="Business\XPSDocument\Xps\NoHeader.cs" />
-    <Compile Include="Business\XPSDocument\Xps\PageNumberFooter.cs" />
-    <Compile Include="Business\XPSDocument\Xps\PlainFooter.cs" />
-    <Compile Include="Business\XPSDocument\Xps\PlainHeader.cs" />
-    <Compile Include="Business\XPSDocument\Xps\ReportDocument.cs" />
-    <Compile Include="Business\XPSDocument\Xps\ReportPage.cs" />
-    <Compile Include="Business\XPSDocument\Xps\XPSHelper.cs" />
+    <Compile Include="Business\Xps\HeaderFooterBase.cs" />
+    <Compile Include="Business\Xps\MultiPageDocument.cs" />
+    <Compile Include="Business\Xps\NoFooter.cs" />
+    <Compile Include="Business\Xps\NoHeader.cs" />
+    <Compile Include="Business\Xps\PageNumberFooter.cs" />
+    <Compile Include="Business\Xps\PlainFooter.cs" />
+    <Compile Include="Business\Xps\PlainHeader.cs" />
+    <Compile Include="Business\Xps\ReportDocument.cs" />
+    <Compile Include="Business\Xps\ReportPage.cs" />
+    <Compile Include="Business\Xps\XPSHelper.cs" />
     <Compile Include="Store\AppDBNameEnum.cs" />
     <Compile Include="Store\IRedisServer.cs" />
     <Compile Include="Store\RedisDB.cs" />
@@ -3683,10 +3680,6 @@
       <DependentUpon>UnreachableResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\UnreachableResultPath.cs" />
-    <Compile Include="UI\Test\OrderAssociationResultPage.xaml.cs">
-      <DependentUpon>OrderAssociationResultPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Test\OrderAssociationResultPath.cs" />
     <Compile Include="UI\Test\PlateletAssociatedAntibodiesV2ResultPage.xaml.cs">
       <DependentUpon>PlateletAssociatedAntibodiesV2ResultPage.xaml</DependentUpon>
     </Compile>
@@ -4937,7 +4930,7 @@
     <Resource Include="Business\XMLTemplates\AccessionSummaryHematoPathology.xml" />
     <Resource Include="Business\XMLTemplates\CytologyOrderInstructions.xml" />
     <Resource Include="Business\XMLTemplates\DNADefaultExtension.xml" />
-    <Resource Include="Business\XPSDocument\Xps\ReportLogo.jpg" />
+    <Resource Include="Business\Xps\ReportLogo.jpg" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexProcessShipmentRequest.v15.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexDeleteShipmentRequest.v19.xml" />
     <EmbeddedResource Include="Business\MaterialTracking.Model\FedexTrackingRequest.v9.xml" />
@@ -5673,10 +5666,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\UnreachableResultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\Test\OrderAssociationResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

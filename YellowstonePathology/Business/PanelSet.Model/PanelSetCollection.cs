@@ -297,7 +297,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRMutationAnalysisPreliminary.EGFRMutationAnalysisPreliminaryTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.OrderAssociation.OrderAssociationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.FetalHemoglobinV2.FetalHemoglobinV2Test());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.StemCellCD34Enumeration.StemCellCD34EnumerationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2.ThrombocytopeniaProfileV2Test());

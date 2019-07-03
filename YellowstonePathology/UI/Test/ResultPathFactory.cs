@@ -351,9 +351,6 @@ namespace YellowstonePathology.UI.Test
                 case 314:
                     result = new HER2AmplificationRecountResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
-                case 316:
-                    result = new OrderAssociationResultPath(reportNo, accessionOrder, pageNavigator, window);
-                    break;
                 case 328:
                     result = new StemCellEnumerationResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;

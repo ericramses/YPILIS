@@ -19,7 +19,10 @@ namespace YellowstonePathology.Business.Test.LiposarcomaFusionProfile
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
             this.m_IsBillable = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+
             this.m_NeverDistribute = true;
             this.m_HasNoOrderTarget = false;
             this.m_ExpectedDuration = TimeSpan.FromDays(10);

@@ -24,7 +24,11 @@ namespace YellowstonePathology.Business.Test.RASRAFPanel
 
             this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = TimeSpan.FromDays(14);
-            this.m_EpicDistributionIsImplemented = true;            
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
 

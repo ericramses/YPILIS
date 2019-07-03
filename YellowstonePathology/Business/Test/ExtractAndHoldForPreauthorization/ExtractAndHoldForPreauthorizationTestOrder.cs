@@ -64,6 +64,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
             }
         }
 
+        [PersistentProperty()]
         public string Fax
         {
             get { return this.m_Fax; }

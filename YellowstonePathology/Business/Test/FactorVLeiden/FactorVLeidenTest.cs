@@ -22,7 +22,9 @@ namespace YellowstonePathology.Business.Test.FactorVLeiden
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.FactorVLeiden.FactorVLeidenWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
 
             string taskDescription = "Gather materials and send to St. V's Healthcare for testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, taskDescription));

@@ -27,8 +27,9 @@ namespace YellowstonePathology.Business.Test.KRASStandardReflex
 			this.m_AcceptOnFinal = true;
             this.m_ExpectedDuration = new TimeSpan(120, 0, 0);
             this.m_IsBillable = false;
-            this.m_EpicDistributionIsImplemented = true;
-            //updated 12.14.16 by MS
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
 
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
 

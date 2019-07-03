@@ -21,6 +21,8 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.IgHMFABByFish.IgHMFABByFishTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.IgHMFABByFish.IgHMFABByFishWordDocument).AssemblyQualifiedName;
 
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
 
             this.m_AllowMultiplePerAccession = true;
 

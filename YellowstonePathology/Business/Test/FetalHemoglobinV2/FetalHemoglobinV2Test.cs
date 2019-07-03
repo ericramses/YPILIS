@@ -23,6 +23,8 @@ namespace YellowstonePathology.Business.Test.FetalHemoglobinV2
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FetalHemoglobinV2.FetalHemoglobinV2TestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.FetalHemoglobinV2.FetalHemoglobinV2WordDocument).AssemblyQualifiedName;
 
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+
             string taskDescription = "Perform fetal hemoglobin testing.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 

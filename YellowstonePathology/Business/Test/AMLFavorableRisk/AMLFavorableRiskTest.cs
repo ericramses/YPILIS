@@ -21,7 +21,10 @@ namespace YellowstonePathology.Business.Test.AMLFavorableRisk
             this.m_ExpectedDuration = TimeSpan.FromDays(14);
 
             this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.AMLNonFavorableRisk.AMLNonFavorableRiskTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.AMLNonFavorableRisk.AMLNonFavorableRiskWordDocument).AssemblyQualifiedName;
 

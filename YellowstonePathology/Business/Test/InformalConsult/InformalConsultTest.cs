@@ -28,6 +28,8 @@ namespace YellowstonePathology.Business.Test.InformalConsult
             this.m_IsBillable = false;
             this.m_ShowResultPageOnOrder = true;
 
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+
             YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
             this.m_TechnicalComponentFacility = ypi;
             this.m_TechnicalComponentBillingFacility = ypi;

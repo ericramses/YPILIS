@@ -20,7 +20,11 @@ namespace YellowstonePathology.Business.Test.TestCancelled
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.TestCancelled.TestCancelledWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_IsBillable = false;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+
             this.m_ReportAsAdditionalTesting = false;
 
             YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
