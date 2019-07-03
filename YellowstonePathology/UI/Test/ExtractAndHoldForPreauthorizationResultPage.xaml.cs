@@ -170,5 +170,29 @@ namespace YellowstonePathology.UI.Test
                 this.NotifyPropertyChanged("PanelSetOrder.CPTCodes");
             }
         }
+
+        private void HyperLinkPublish_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument reportPreauth =
+                new YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
+            reportPreauth.Render();
+            reportPreauth.Publish();
+            MessageBox.Show("The document has been published.");
+        }
+
+        private void HyperLinkFax_Click(object sender, RoutedEventArgs e)
+        {
+            Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
+            string preauthFileName = Business.Document.CaseDocument.GetCaseFileNameTifPreAuth(orderIdParser);
+            if (System.IO.File.Exists(preauthFileName) == true)
+            {
+                Business.ReportDistribution.Model.FaxSubmission.Submit(this.m_PanelSetOrder.Fax, this.m_PanelSetOrder.ReportNo + "Preauthorization Notification", preauthFileName);
+                MessageBox.Show("The fax was successfully submitted.");
+            }
+            else
+            {
+                MessageBox.Show("The document must be published first.");
+            }
+        }
     }
 }

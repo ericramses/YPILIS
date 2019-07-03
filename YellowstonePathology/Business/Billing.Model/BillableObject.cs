@@ -343,11 +343,11 @@ namespace YellowstonePathology.Business.Billing.Model
                     {
                         result = false;
                     }
-
-                    //if(this.m_AccessionOrder.HoldBilling == true)
-                    //{
-                    //   result = false;
-                    //}
+                    
+                    if(this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.IsHRHClientClinic() == true)
+                    {
+                        result = false;
+                    }                    
                 }                
             }            
             return result;
