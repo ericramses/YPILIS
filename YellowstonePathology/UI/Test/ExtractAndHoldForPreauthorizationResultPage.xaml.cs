@@ -162,10 +162,6 @@ namespace YellowstonePathology.UI.Test
             {
                 YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = (YellowstonePathology.Business.PanelSet.Model.PanelSet)this.ComboBoxTests.SelectedItem;
                 string cpts = panelSet.PanelSetCptCodeCollection.GetCommaSeparatedString();
-                if(cpts == YellowstonePathology.Business.Billing.Model.PanelSetCptCodeCollection.NoCodes)
-                {
-                    cpts = null;
-                }
                 this.m_PanelSetOrder.CPTCodes = cpts;
                 this.NotifyPropertyChanged("PanelSetOrder.CPTCodes");
             }
