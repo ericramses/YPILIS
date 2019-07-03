@@ -93,7 +93,12 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.NothingToPublishReport).AssemblyQualifiedName;
-		}        
+		}
+
+        public List<string> ImplementedResultTypes
+        {
+            get { return this.m_ImplementedResultTypes; }
+        }
 
         public YellowstonePathology.Business.OrderTargetTypeCollection OrderTargetTypeCollectionExclusions
         {

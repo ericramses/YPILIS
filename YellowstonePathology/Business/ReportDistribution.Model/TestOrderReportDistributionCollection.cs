@@ -260,5 +260,53 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                 }
             }
         }
+
+        public YellowstonePathology.Business.Rules.MethodResult AreDistributionTypesHandled(YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet)
+        {
+            YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
+            result.Success = true;
+
+            foreach (TestOrderReportDistribution testOrderReportDistribution in this)
+            {
+                switch (testOrderReportDistribution.DistributionType)
+                {
+                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC:
+                        if (panelSet.ImplementedResultTypes.Contains(YellowstonePathology.Business.Test.ResultType.EPIC) == false)
+                        {
+                            result.Message = "Distribution Type " + testOrderReportDistribution.DistributionType + " not set for " + panelSet.PanelSetName + " - id " + panelSet.PanelSetId.ToString();
+                            result.Success = false;
+                        }
+                        break;
+                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH:
+                        if (panelSet.ImplementedResultTypes.Contains(YellowstonePathology.Business.Test.ResultType.WPH) == false)
+                        {
+                            result.Message = "Distribution Type " + testOrderReportDistribution.DistributionType + " not set for " + panelSet.PanelSetName + " - id " + panelSet.PanelSetId.ToString();
+                            result.Success = false;
+                        }
+                        break;
+                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA:
+                        if (panelSet.ImplementedResultTypes.Contains(YellowstonePathology.Business.Test.ResultType.CMMC) == false)
+                        {
+                            result.Message = "Distribution Type " + testOrderReportDistribution.DistributionType + " not set for " + panelSet.PanelSetName + " - id " + panelSet.PanelSetId.ToString();
+                            result.Success = false;
+                        }
+                        break;
+                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW:
+                        if (panelSet.ImplementedResultTypes.Contains(YellowstonePathology.Business.Test.ResultType.ECW) == false)
+                        {
+                            result.Message = "Distribution Type " + testOrderReportDistribution.DistributionType + " not set for " + panelSet.PanelSetName + " - id " + panelSet.PanelSetId.ToString();
+                            result.Success = false;
+                        }
+                        break;
+                }
+
+                if(result.Success == false)
+                {
+                    break;
+                }
+            }
+
+            return result;
+        }
     }
 }
