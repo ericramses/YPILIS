@@ -30,10 +30,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
 
             YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
             this.m_TechnicalComponentFacility = ypi;
-            this.m_TechnicalComponentBillingFacility = ypi;
-
-            YellowstonePathology.Business.Task.Model.TaskFax taskFax = new YellowstonePathology.Business.Task.Model.TaskFax(YellowstonePathology.Business.Task.Model.TaskAssignment.Molecular, "Preauthorization Fax", "PreauthorizationNotification");
-            this.m_TaskCollection.Add(taskFax);
+            this.m_TechnicalComponentBillingFacility = ypi;            
         }
     }
 }

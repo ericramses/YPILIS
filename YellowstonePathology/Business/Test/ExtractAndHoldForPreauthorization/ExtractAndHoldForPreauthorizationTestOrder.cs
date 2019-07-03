@@ -9,6 +9,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
         private string m_Comment;
         private int? m_TestId;
         private string m_CPTCodes;
+        private string m_Fax;
 
         public ExtractAndHoldForPreauthorizationTestOrder()
         { }
@@ -59,6 +60,19 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
                 {
                     this.m_TestId = value;
                     this.NotifyPropertyChanged("TestId");
+                }
+            }
+        }
+
+        public string Fax
+        {
+            get { return this.m_Fax; }
+            set
+            {
+                if (this.m_Fax != value)
+                {
+                    this.m_Fax = value;
+                    this.NotifyPropertyChanged("Fax");
                 }
             }
         }
