@@ -19,6 +19,12 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;
             this.m_NeverDistribute = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
+
             this.m_ExpectedDuration = new TimeSpan(2, 0, 0, 0);
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowWordDocument).AssemblyQualifiedName;

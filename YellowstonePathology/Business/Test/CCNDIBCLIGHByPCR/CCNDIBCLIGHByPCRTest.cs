@@ -23,7 +23,9 @@ namespace YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.CCNDIBCLIGHByPCR.CCNDIBCLIGHByPCRWordDocument).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
 
             string taskDescription = "Collect parafin block from Histology and send to Neo.";
 

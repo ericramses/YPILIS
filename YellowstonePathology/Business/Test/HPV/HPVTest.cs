@@ -26,7 +26,11 @@ namespace YellowstonePathology.Business.Test.HPV
             this.m_ExpectedDuration = new TimeSpan(4, 0, 0, 0);
             this.m_AttemptOrderTargetLookup = true;
             this.m_RequiresAssignment = false;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             this.m_AddAliquotOnOrder = true;
             this.m_AliquotToAddOnOrder = new YellowstonePathology.Business.Specimen.Model.PantherAliquot();
@@ -39,7 +43,6 @@ namespace YellowstonePathology.Business.Test.HPV
             this.m_TechnicalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
             this.m_HasSplitCPTCode = false;
-            this.m_CMMCDistributionIsImplemented = true;
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("87624", null), 1);
             this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);

@@ -65,9 +65,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
 		protected YellowstonePathology.Business.Task.Model.TaskCollection m_TaskCollection;
         protected YellowstonePathology.Business.Billing.Model.PanelSetCptCodeCollection m_PanelSetCptCodeCollection;
 
-        protected bool m_EpicDistributionIsImplemented;
-        protected bool m_CMMCDistributionIsImplemented;
-
         public PanelSet()
         {
             this.m_ImplementedResultTypes = new List<string>();
@@ -89,8 +86,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_RequiresAssignment = true;
             this.m_IsClientAccessioned = false;
 
-            this.m_EpicDistributionIsImplemented = false;
-            this.m_CMMCDistributionIsImplemented = false;
             this.m_ReportAsAdditionalTesting = true;
 
             this.m_OrderTargetTypeCollectionExclusions = new YellowstonePathology.Business.OrderTargetTypeCollection();

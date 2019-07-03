@@ -22,7 +22,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.LynchSyndrome.MLH1MethylationAnalysisWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;            
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
 
             string task3Description = "Receive materials from Histo and send out to Neo.";
 

@@ -23,7 +23,10 @@ namespace YellowstonePathology.Business.Test.FISH5p159q2215p22
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.FISH5p159q2215p22.FISH5p159q2215p22WordDocument).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+
             this.m_SurgicalAmendmentRequired = true;
 
             string taskDescription = "Collect specimen from Histology and send to Neo.";

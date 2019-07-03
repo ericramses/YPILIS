@@ -23,9 +23,11 @@ namespace YellowstonePathology.Business.Test.LLP
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma).AssemblyQualifiedName;
             this.m_AllowMultiplePerAccession = true;
 
-            this.m_CMMCDistributionIsImplemented = true;
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
-            this.m_EpicDistributionIsImplemented = true;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaWordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Leukemia/Lymphoma Phenotyping.";

@@ -18,7 +18,9 @@ namespace YellowstonePathology.Business.Test.BCellClonalityByPCR
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterM();
             this.m_Active = false;
 
-			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder).AssemblyQualifiedName;
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BCellClonalityByPCR.BCellClonalityByPCRWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;

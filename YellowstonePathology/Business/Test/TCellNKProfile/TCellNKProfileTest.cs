@@ -23,8 +23,11 @@ namespace YellowstonePathology.Business.Test.TCellNKProfile
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.TCellNKProfile.TCellNKProfileWordDocument).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
-            
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86357 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86357", null), 1);
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86359 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86359", null), 1);
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86360 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86360", null), 1);

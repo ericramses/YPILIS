@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 			this.m_PanelSetId = 128;
 			this.m_PanelSetName = "Non GYN Cytology";
 
-            this.m_EpicDistributionIsImplemented = true;
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder).AssemblyQualifiedName;
             string taskDescription = "Perform testing.";
