@@ -23,7 +23,6 @@ namespace YellowstonePathology.Business.Test.ConstitutionalChromosomeAnalysis
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.NothingToPublishReport).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = false;
 
             this.m_SurgicalAmendmentRequired = true;
 

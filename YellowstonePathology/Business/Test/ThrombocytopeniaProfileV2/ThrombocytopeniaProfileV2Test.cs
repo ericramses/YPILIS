@@ -24,6 +24,10 @@ namespace YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2.ThrombocytopeniaProfileV2TestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2.ThrombocytopeniaProfileV2WordDocument).AssemblyQualifiedName;
 
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
+
             string taskDescription = "Perform thrombocytopenia profile testing.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 

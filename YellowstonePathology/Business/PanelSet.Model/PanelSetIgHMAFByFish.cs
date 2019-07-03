@@ -21,6 +21,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BladderCancerFISHUrovysion.BladderCancerFISHUrovysionTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BladderCancerFISHUrovysion.BladderCancerFISHUrovysionWordDocument).AssemblyQualifiedName;
 
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+
             this.m_AllowMultiplePerAccession = true;
 
             string taskDescription = "Gather Materials and send to Neogenomics";

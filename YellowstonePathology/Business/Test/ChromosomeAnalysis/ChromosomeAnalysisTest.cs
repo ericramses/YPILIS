@@ -21,8 +21,12 @@ namespace YellowstonePathology.Business.Test.ChromosomeAnalysis
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisWordDocument).AssemblyQualifiedName;
             
-			this.m_AllowMultiplePerAccession = true;           
-            this.m_EpicDistributionIsImplemented = true;
+			this.m_AllowMultiplePerAccession = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+
             this.m_EnforceOrderTarget = true;
 
             this.m_SurgicalAmendmentRequired = true;

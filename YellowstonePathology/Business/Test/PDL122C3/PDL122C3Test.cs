@@ -22,7 +22,11 @@ namespace YellowstonePathology.Business.Test.PDL122C3
 
             this.m_SurgicalAmendmentRequired = true;
             this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PDL122C3.PDL122C3TestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.PDL122C3.PDL122C3WordDocument).AssemblyQualifiedName;			            

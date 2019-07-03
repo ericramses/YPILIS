@@ -22,8 +22,11 @@ namespace YellowstonePathology.Business.Test.PNH
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PNH.PNHTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.PNH.PNHWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
-            this.m_CMMCDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             string taskDescription = "Gather materials and perform testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));

@@ -24,6 +24,8 @@ namespace YellowstonePathology.Business.Test.ReticulatedPlateletAnalysisV2
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ReticulatedPlateletAnalysisV2.ReticulatedPlateletAnalysisV2TestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ReticulatedPlateletAnalysisV2.ReticulatedPlateletAnalysisV2WordDocument).AssemblyQualifiedName;
 
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+
             string taskDescription = "Perform Reticulated Platelet Analysis testing.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));
 

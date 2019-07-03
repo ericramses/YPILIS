@@ -22,8 +22,12 @@ namespace YellowstonePathology.Business.Test.FLT3
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.FLT3.PanelSetOrderFLT3).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.FLT3.FLT3WordDocument).AssemblyQualifiedName;
             
-			this.m_AllowMultiplePerAccession = true;            
-            this.m_EpicDistributionIsImplemented = true;
+			this.m_AllowMultiplePerAccession = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             string task2Description = "Collect (Peripheral blood: 5 mL in EDTA tube ONLY; Bone marrow: 2 mL in EDTA tube ONLY) and send to Neogenomics.";
 

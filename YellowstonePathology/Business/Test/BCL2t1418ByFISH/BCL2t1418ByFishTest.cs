@@ -23,8 +23,12 @@ namespace YellowstonePathology.Business.Test.BCL2t1418ByFISH
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BCL2t1418ByFISH.BCL2t1418ByFISHWordDocument).AssemblyQualifiedName;
 
             this.m_SurgicalAmendmentRequired = true;
-            this.m_AllowMultiplePerAccession = true;            
-            this.m_EpicDistributionIsImplemented = true;
+            this.m_AllowMultiplePerAccession = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             string task1Description = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, task1Description));

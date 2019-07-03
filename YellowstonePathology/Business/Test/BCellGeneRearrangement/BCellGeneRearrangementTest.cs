@@ -22,8 +22,12 @@ namespace YellowstonePathology.Business.Test.BCellGeneRearrangement
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BCellGeneRearrangement.BCellGeneRearrangementWordDocument).AssemblyQualifiedName;
             
-			this.m_AllowMultiplePerAccession = true;            
-            this.m_EpicDistributionIsImplemented = true;
+			this.m_AllowMultiplePerAccession = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             string task1Description = "Give the paraffin block to Flow so they can send to NEO.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, task1Description));

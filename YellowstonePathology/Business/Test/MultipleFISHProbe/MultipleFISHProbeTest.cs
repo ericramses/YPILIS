@@ -23,7 +23,9 @@ namespace YellowstonePathology.Business.Test.MultipleFISHProbe
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.MultipleFISHProbe.MultipleFISHProbeWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
 
             string taskDescription = "Gather materials and send out to Neo.";
 

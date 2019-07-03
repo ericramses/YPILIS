@@ -31,7 +31,11 @@ namespace YellowstonePathology.Business.Test.InvasiveBreastPanel
             this.m_NeverDistribute = true;
             this.m_ExpectedDuration = new TimeSpan(14, 0, 0, 0);
 
-			YellowstonePathology.Business.Task.Model.TaskUnstainedSlideWithAfterSlidePreparation unstainedSlidePreparation = new YellowstonePathology.Business.Task.Model.TaskUnstainedSlideWithAfterSlidePreparation();
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+
+            YellowstonePathology.Business.Task.Model.TaskUnstainedSlideWithAfterSlidePreparation unstainedSlidePreparation = new YellowstonePathology.Business.Task.Model.TaskUnstainedSlideWithAfterSlidePreparation();
 			YellowstonePathology.Business.Task.Model.TaskPerformInhouseMolecularTesting taskPerformInhouseMolecularTesting = new YellowstonePathology.Business.Task.Model.TaskPerformInhouseMolecularTesting(this.m_PanelSetName);
 
             string task1Description = "Prepare 2 unstained slides with 1 H&E after slide for D-ISH and deliver to Molecular. Prepare ER and PR IHC and deliver to pathologist.";

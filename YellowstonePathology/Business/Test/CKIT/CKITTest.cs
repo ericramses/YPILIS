@@ -20,8 +20,11 @@ namespace YellowstonePathology.Business.Test.CKIT
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.CKIT.CKITTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.CKIT.CKITWordDocument).AssemblyQualifiedName;
             
-			this.m_AllowMultiplePerAccession = true;            
-            this.m_EpicDistributionIsImplemented = true;
+			this.m_AllowMultiplePerAccession = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
 
             string task1Description = "Gather materials and send to NEO for testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, task1Description));            

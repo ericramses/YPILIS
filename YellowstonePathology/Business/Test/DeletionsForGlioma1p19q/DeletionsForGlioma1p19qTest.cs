@@ -23,7 +23,9 @@ namespace YellowstonePathology.Business.Test.DeletionsForGlioma1p19q
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.DeletionsForGlioma1p19q.DeletionsForGlioma1p19qWordDocument).AssemblyQualifiedName;
             
 			this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
 
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
 

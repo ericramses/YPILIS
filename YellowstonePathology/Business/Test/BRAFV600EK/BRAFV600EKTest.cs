@@ -24,9 +24,12 @@ namespace YellowstonePathology.Business.Test.BRAFV600EK
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
-            this.m_ExpectedDuration = new TimeSpan(120, 0, 0);            
-            this.m_EpicDistributionIsImplemented = true;
-            this.m_CMMCDistributionIsImplemented = true;
+            this.m_ExpectedDuration = new TimeSpan(120, 0, 0);
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             this.m_TechnicalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
             this.m_TechnicalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");

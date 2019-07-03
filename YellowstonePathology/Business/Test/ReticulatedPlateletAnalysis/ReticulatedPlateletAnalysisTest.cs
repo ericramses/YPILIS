@@ -15,10 +15,11 @@ namespace YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis
             this.m_ExpectedDuration = new TimeSpan(24, 0, 0);
             this.m_Active = true;
             this.m_CaseType = this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
-            this.m_EpicDistributionIsImplemented = true;
             this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument;
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
 
             string taskDescription = "Perform reticulated platelet testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Flow, taskDescription));

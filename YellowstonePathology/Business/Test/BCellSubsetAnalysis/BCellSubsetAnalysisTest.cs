@@ -27,7 +27,10 @@ namespace YellowstonePathology.Business.Test.BCellSubsetAnalysis
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BCellSubsetAnalysis.BCellSubsetAnalysisWordDocument).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
 
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86355 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86355", null), 1);
             YellowstonePathology.Business.Billing.Model.PanelSetCptCode cpt86356 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("86356", null), 7);            

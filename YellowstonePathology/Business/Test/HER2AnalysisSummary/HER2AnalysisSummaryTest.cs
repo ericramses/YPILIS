@@ -24,6 +24,11 @@ namespace YellowstonePathology.Business.Test.HER2AnalysisSummary
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryWordDocument).AssemblyQualifiedName;
 
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
+
             this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(4, 0, 0, 0);
 

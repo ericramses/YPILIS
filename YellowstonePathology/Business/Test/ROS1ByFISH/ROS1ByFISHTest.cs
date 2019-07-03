@@ -22,8 +22,9 @@ namespace YellowstonePathology.Business.Test.ROS1ByFISH
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHWordDocument).AssemblyQualifiedName;            
 			this.m_AllowMultiplePerAccession = true;
-            //Changed by MS and TK;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
 
             string task1Description = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Molecular so they can send to NEO.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, task1Description));
