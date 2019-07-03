@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>84</ApplicationRevision>
+    <ApplicationRevision>85</ApplicationRevision>
     <ApplicationVersion>10.1.15.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -4017,6 +4017,10 @@
       <DependentUpon>ThrombocytopeniaProfileV2ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Test\ThrombocytopeniaProfileV2ResultPath.cs" />
+    <Compile Include="UI\Test\UnreachableResultPage.xaml.cs">
+      <DependentUpon>UnreachableResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Test\UnreachableResultPath.cs" />
     <Compile Include="UI\Test\WomensHealthProfilePage.xaml.cs">
       <DependentUpon>WomensHealthProfilePage.xaml</DependentUpon>
     </Compile>
@@ -5991,6 +5995,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Test\ThrombocytopeniaProfileV2ResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Test\UnreachableResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
