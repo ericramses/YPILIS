@@ -273,28 +273,24 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
                     case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC:
                         if (panelSet.ImplementedResultTypes.Contains(YellowstonePathology.Business.Test.ResultType.EPIC) == false)
                         {
-                            result.Message = "Distribution Type " + testOrderReportDistribution.DistributionType + " not set for " + panelSet.PanelSetName + " - id " + panelSet.PanelSetId.ToString();
                             result.Success = false;
                         }
                         break;
                     case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH:
                         if (panelSet.ImplementedResultTypes.Contains(YellowstonePathology.Business.Test.ResultType.WPH) == false)
                         {
-                            result.Message = "Distribution Type " + testOrderReportDistribution.DistributionType + " not set for " + panelSet.PanelSetName + " - id " + panelSet.PanelSetId.ToString();
                             result.Success = false;
                         }
                         break;
                     case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA:
                         if (panelSet.ImplementedResultTypes.Contains(YellowstonePathology.Business.Test.ResultType.CMMC) == false)
                         {
-                            result.Message = "Distribution Type " + testOrderReportDistribution.DistributionType + " not set for " + panelSet.PanelSetName + " - id " + panelSet.PanelSetId.ToString();
                             result.Success = false;
                         }
                         break;
                     case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW:
                         if (panelSet.ImplementedResultTypes.Contains(YellowstonePathology.Business.Test.ResultType.ECW) == false)
                         {
-                            result.Message = "Distribution Type " + testOrderReportDistribution.DistributionType + " not set for " + panelSet.PanelSetName + " - id " + panelSet.PanelSetId.ToString();
                             result.Success = false;
                         }
                         break;
@@ -302,6 +298,9 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
 
                 if(result.Success == false)
                 {
+                    result.Message = "Report No " + testOrderReportDistribution.ReportNo + " Distribution Type " + 
+                        testOrderReportDistribution.DistributionType + " not implemented for " + panelSet.PanelSetName + 
+                        " - id " + panelSet.PanelSetId.ToString();
                     break;
                 }
             }

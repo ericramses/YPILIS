@@ -221,13 +221,11 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 MessageBoxResult messageBoxResult = MessageBox.Show(distributionNotSetAudit.Message.ToString() + " Are you sure you want to continue?", "Continue?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    this.CheckDistributionsAreHandled();
                     if (this.Close != null) this.Close(this.Close, new EventArgs());
                 }
             }
             else
             {
-                this.CheckDistributionsAreHandled();
                 if (this.Close != null) this.Close(this.Close, new EventArgs());
             }
         }
@@ -241,7 +239,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             }
             else
             {
-                this.CheckDistributionsAreHandled();
                 if (this.Back != null) this.Back(this.Back, new EventArgs());
             }
         }
@@ -257,7 +254,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 if (this.Next != null)
                 {
-                    this.CheckDistributionsAreHandled();
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                     this.Next(this.Next, new EventArgs());
                 }
@@ -731,17 +727,5 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 physicianClientDistribution.DistributionType = distributionClient.AlternateDistributionType;
             }
         }
-
-        private void CheckDistributionsAreHandled()
-        {
-            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(this.m_PanelSetOrder.PanelSetId);
-            YellowstonePathology.Business.Rules.MethodResult result = this.m_PanelSetOrder.TestOrderReportDistributionCollection.AreDistributionTypesHandled(panelSet);
-            if(result.Success == false)
-            {
-                this.m_PanelSetOrder.HoldDistribution = true;
-                YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException(result.Message);
-            }
-        }
-
     }
-    }
+}
