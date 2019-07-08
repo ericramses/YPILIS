@@ -40,10 +40,28 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkShowFinalizeDialog_Click(object sender, RoutedEventArgs e)
         {
             this.m_PageNavigationWindow = new PageNavigationWindow(this.m_SystemIdentity);
+            this.ShowFinalizeDialog();
+        }
+
+        private void ShowFinalizeDialog()
+        {
             PublishedDocumentFinalPage publishedDocumentFinalPage = new PublishedDocumentFinalPage(this.m_PathologistUI.PanelSetOrder, this.m_PathologistUI.AccessionOrder, this.m_SystemIdentity);
             publishedDocumentFinalPage.Close += new PublishedDocumentFinalPage.CloseEventHandler(PublishedDocumentFinalPage_Close);
+            publishedDocumentFinalPage.ShowDocument += PublishedDocumentFinalPage_ShowDocument;
             this.m_PageNavigationWindow.Show();
-            this.m_PageNavigationWindow.PageNavigator.Navigate(publishedDocumentFinalPage);            
+            this.m_PageNavigationWindow.PageNavigator.Navigate(publishedDocumentFinalPage);
+        }
+
+        private void PublishedDocumentFinalPage_ShowDocument(object sender, EventArgs e)
+        {
+            Test.PublishedDocumentResultPage publishedDocumentResultPage = new Test.PublishedDocumentResultPage(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
+            publishedDocumentResultPage.Next += PublishedDocumentResultPage_Next;
+            this.m_PageNavigationWindow.PageNavigator.Navigate(publishedDocumentResultPage);
+        }
+
+        private void PublishedDocumentResultPage_Next(object sender, EventArgs e)
+        {
+            this.ShowFinalizeDialog();
         }
 
         private void PublishedDocumentFinalPage_Close(object sender, EventArgs e)

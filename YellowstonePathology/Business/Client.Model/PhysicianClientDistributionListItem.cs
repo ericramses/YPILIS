@@ -150,6 +150,7 @@ namespace YellowstonePathology.Business.Client.Model
                     throw new Exception("Not implemented");
             }
 
+            this.CheckDistributionsAreImplemented(panelSetOrder);
             return result;
         }
 
@@ -303,6 +304,17 @@ namespace YellowstonePathology.Business.Client.Model
                 }
             }
             return result;
+        }
+
+        private void CheckDistributionsAreImplemented(YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
+        {
+            YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetOrder.PanelSetId);
+            YellowstonePathology.Business.Rules.MethodResult result = panelSetOrder.TestOrderReportDistributionCollection.AreDistributionTypesHandled(panelSet);
+            if (result.Success == false)
+            {
+                panelSetOrder.HoldDistribution = true;
+                YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException(result.Message);
+            }
         }
     }
 }
