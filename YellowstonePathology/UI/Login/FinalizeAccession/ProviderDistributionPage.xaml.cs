@@ -742,6 +742,5 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 YellowstonePathology.Business.Logging.EmailExceptionHandler.HandleException(result.Message);
             }
         }
-
     }
-    }
+}
