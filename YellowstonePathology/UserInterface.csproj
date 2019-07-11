@@ -1192,6 +1192,7 @@
     <Compile Include="Business\Test\MultipleMyelomaMGUSByFish\MultipleMyelomaMGUSByFishInconclusiveResult.cs" />
     <Compile Include="Business\Test\MyeloidMalignanciesMutationPanel\MyeloidMalignanciesMutationPanelTest.cs" />
     <Compile Include="Business\Test\NeoLABMyeloidDisordersProfile\NeoLABMyeloidDisordersProfileTest.cs" />
+    <Compile Include="Business\Test\NeoSITEMelanoma\NeoSITEMelanomaTest.cs" />
     <Compile Include="Business\Test\NeoTYPEBrainTumorProfile\NeoTYPEBrainTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEBreastTumorProfile\NeoTYPEBreastTumorProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEGastricTumorProfile\NeoTYPEGastricTumorProfileTest.cs" />
