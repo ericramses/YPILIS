@@ -204,6 +204,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.PDL1SP142FDA.PDL1SP142FDATest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NRASEXON4MutationAnalysis.NRASEXON4MutationAnalysisTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NTRKNGSFusionProfile.NTRKNGSFusionProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoSITEMelanoma.NeoSITEMelanomaTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetArupBraf());
