@@ -11,12 +11,12 @@ namespace YellowstonePathology.Business.Label.Model
         {
             StringBuilder result = new StringBuilder();
             int xOffset = 0;
-            int yOffset = 3;
+            int yOffset = 23;
 
             if(printerName.Contains("GK420") == true)
             {
                 xOffset = xOffset + 10;
-                yOffset = yOffset + 10;
+                yOffset = 13;
             }
 
             result.Append("^XA");

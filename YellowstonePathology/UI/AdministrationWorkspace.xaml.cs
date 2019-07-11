@@ -999,6 +999,7 @@ namespace YellowstonePathology.UI
             foreach(string cdm in lst)
             {
                 Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetCPTCodeByCDM(cdm);
+                Console.WriteLine(cdm + ":" + cptCode.Code);
                 if (cptCode == null)
                     MessageBox.Show("CDM not found");
             }
