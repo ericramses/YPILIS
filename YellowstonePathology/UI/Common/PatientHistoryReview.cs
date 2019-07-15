@@ -12,6 +12,7 @@ namespace YellowstonePathology.UI.Common
 		private const string AlopeciaMessage = "Check for alopecia.";
         private const string CervixMessage = "Please check to see if PAP slides need to be pulled.";
         private const string OvaryMessage = "A specimen with an Ovary was found please check the patient history.";
+        private const string FallopianTubeMessage = "A specimen with an Fallopian Tubes was found please check the patient history.";
 
         public PatientHistoryReview()
 		{
@@ -28,6 +29,9 @@ namespace YellowstonePathology.UI.Common
 
             YellowstonePathology.Business.Rules.Surgical.WordSearchListItem ovaryItem = new YellowstonePathology.Business.Rules.Surgical.WordSearchListItem("OVARY", true, OvaryMessage);
             this.m_WordSearchList.Add(ovaryItem);
+
+            YellowstonePathology.Business.Rules.Surgical.WordSearchListItem falopianTubesItem = new YellowstonePathology.Business.Rules.Surgical.WordSearchListItem("FALLOPIAN", true, FallopianTubeMessage);
+            this.m_WordSearchList.Add(falopianTubesItem);
         }
 
         public YellowstonePathology.Business.Rules.ExecutionStatus ExecutionStatus
