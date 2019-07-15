@@ -30,6 +30,7 @@ namespace YellowstonePathology.UI.Stain
                 Business.Stain.Model.Stain stain = (Business.Stain.Model.Stain)this.ListViewStains.SelectedItem;
                 StainEditDialog dialog = new StainEditDialog(stain);
                 dialog.ShowDialog();
+                NotifyPropertyChanged("StainCollection");
             }
         }
 
@@ -42,6 +43,7 @@ namespace YellowstonePathology.UI.Stain
         {
             StainEditDialog dialog = new StainEditDialog();
             dialog.ShowDialog();
+            NotifyPropertyChanged("StainCollection");
         }
 
         private void MenuItemDeleteStain_Click(object sender, RoutedEventArgs e)
@@ -50,9 +52,7 @@ namespace YellowstonePathology.UI.Stain
             {
                 YellowstonePathology.Business.Stain.Model.Stain stain = (Business.Stain.Model.Stain)this.ListViewStains.SelectedItem;
                 YellowstonePathology.Business.Stain.Model.StainCollection.DeleteStain(stain);
-                //this.NotifyPropertyChanged("StainCollection");
             }
-            //MessageBox.Show("Not implemented", "Hmmm", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void NotifyPropertyChanged(String info)
