@@ -31,7 +31,7 @@ namespace YellowstonePathology.Business.Label.Model
             zplString.Append("^FO" + (5 + xOffset) + "," + (90 + yOffset) + "^A@N,18,18,E:VERDANA.TTF^FD" + patientNameText + "^FS");
             zplString.Append("^FO" + (5 + xOffset) + "," + (150 + yOffset) + "^A@N,15,15,E:VERDANA.TTF^FDYPI Blgs^FS");
             string slideId = this.m_Barcode.ToString().Replace("^", "_5e");
-            zplString.Append("^FO" + (105 + xOffset) + "," + (118 + yOffset) + "^BXN,3,200^AD^FH^FD" + slideId + "^FS");            
+            zplString.Append("^FO" + (105 + xOffset) + "," + (115 + yOffset) + "^BXN,3,200^AD^FH^FD" + slideId + "^FS");            
         }
 
         public string TruncateString(string text, int width)

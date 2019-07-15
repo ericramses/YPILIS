@@ -101,8 +101,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string serverFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + "\\" + this.m_PanelSetOrder.ReportNo + fileExtension;
             string interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\" + this.m_PanelSetOrder.ReportNo + fileExtension;
-            if (this.m_Testing == true) interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\Test\" + this.m_PanelSetOrder.ReportNo + fileExtension;            
-            
+            //if (this.m_Testing == true) interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\Test\" + this.m_PanelSetOrder.ReportNo + fileExtension;            
+            if (this.m_Testing == true) interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\BeakerTesting\" + this.m_PanelSetOrder.ReportNo + fileExtension;
+
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(serverFileName))
             {
                 document.Save(sw);

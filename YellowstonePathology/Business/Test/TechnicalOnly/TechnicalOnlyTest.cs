@@ -21,7 +21,7 @@ namespace YellowstonePathology.Business.Test.TechnicalOnly
             this.m_ExpectedDuration = new TimeSpan(90, 0, 0, 0);
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyTestOrder).AssemblyQualifiedName;
-            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.TechnicalOnly.TechnicalOnlyWordDocument).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
             this.m_NeverDistribute = true;            
 			this.m_AcceptOnFinal = true;

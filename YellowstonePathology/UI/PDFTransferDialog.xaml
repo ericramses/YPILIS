@@ -44,7 +44,7 @@
 
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
             <TextBlock>Master AccessionNo:</TextBlock>
-            <TextBox Width="100" Name="TextBoxMasterAccession" Margin="2,2,2,2"></TextBox>
+            <TextBox Width="100" Name="TextBoxMasterAccession" Margin="2,2,2,2" Text="{Binding Path=MasterAccessionNo}"></TextBox>
             <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2">                    
                 <Hyperlink Click="HyperLinkFindAccessionOrder_Click">Find Accession Order</Hyperlink>
             </TextBlock>
