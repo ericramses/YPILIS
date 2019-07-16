@@ -27,6 +27,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
             this.m_AllowMultiplePerAccession = true;
             this.m_ShowResultPageOnOrder = true;
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
+            this.m_MonitorPriority = MonitorPriorityNormal;
 
             YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
             this.m_TechnicalComponentFacility = ypi;

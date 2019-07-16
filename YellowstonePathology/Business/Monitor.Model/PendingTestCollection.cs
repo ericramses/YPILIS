@@ -31,5 +31,22 @@ namespace YellowstonePathology.Business.Monitor.Model
                 test.SetState();
             }
         }
+
+        public PendingTestCollection GetCriticalTestsForMonitorPriority(string monitorPriority)
+        {
+            PendingTestCollection result = new Model.PendingTestCollection();
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection pendingCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetMonitorPriorityTests(monitorPriority);
+            foreach (PendingTest pendingTest in this)
+            {
+                if (pendingTest.State == MonitorStateEnum.Critical)
+                {
+                    if (pendingCollection.Exists(pendingTest.PanelSetId) == true)
+                    {
+                        result.Add(pendingTest);
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

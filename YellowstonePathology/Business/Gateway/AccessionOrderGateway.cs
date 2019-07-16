@@ -2562,7 +2562,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Monitor.Model.PendingTestCollection result = new YellowstonePathology.Business.Monitor.Model.PendingTestCollection();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "select pso.ReportNo, pso.PanelSetName TestName, pso.ExpectedFinalTime, pso.OrderTime, " +
-                "ao.ClientName, ao.PhysicianName ProviderName, su.DisplayName AssignedTo, pso.IsDelayed " +
+                "ao.ClientName, ao.PhysicianName ProviderName, su.DisplayName AssignedTo, pso.IsDelayed, pso.PanelSetId " +
                 "from tblPanelSetOrder pso " +
                 "join tblAccessionOrder ao on pso.MasterAccessionNo = ao.MasterAccessionNo	" +
                 "join tblSystemUser su on pso.AssignedToId = su.UserId " +

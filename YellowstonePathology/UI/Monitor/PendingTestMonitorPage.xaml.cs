@@ -20,7 +20,8 @@ namespace YellowstonePathology.UI.Monitor
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-        private YellowstonePathology.Business.Monitor.Model.PendingTestCollection m_PendingTestCollection;
+        private YellowstonePathology.Business.Monitor.Model.PendingTestCollection m_CriticalTestCollection;
+        private YellowstonePathology.Business.Monitor.Model.PendingTestCollection m_NormalTestCollection;
 
         public PendingTestMonitorPage()
 		{         
@@ -32,8 +33,8 @@ namespace YellowstonePathology.UI.Monitor
         {
             YellowstonePathology.Business.Monitor.Model.PendingTestCollection pendingTestCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPendingTestCollection();
             pendingTestCollection.SetState();
-            pendingTestCollection = pendingTestCollection.SortByDifference();
-            this.m_PendingTestCollection = pendingTestCollection;
+            this.m_CriticalTestCollection = pendingTestCollection.GetCriticalTestsForMonitorPriority(YellowstonePathology.Business.PanelSet.Model.PanelSet.MonitorPriorityCritical);
+            this.m_NormalTestCollection = pendingTestCollection.GetCriticalTestsForMonitorPriority(YellowstonePathology.Business.PanelSet.Model.PanelSet.MonitorPriorityNormal);
             this.NotifyPropertyChanged("");
         }
 
@@ -42,12 +43,17 @@ namespace YellowstonePathology.UI.Monitor
             this.LoadData();
         }
 
-        public YellowstonePathology.Business.Monitor.Model.PendingTestCollection PendingTestCollection
+        public YellowstonePathology.Business.Monitor.Model.PendingTestCollection CriticalTestCollection
         {
-            get { return this.m_PendingTestCollection; }
+            get { return this.m_CriticalTestCollection; }
         }
 
-		public void NotifyPropertyChanged(String info)
+        public YellowstonePathology.Business.Monitor.Model.PendingTestCollection NormalTestCollection
+        {
+            get { return this.m_NormalTestCollection; }
+        }
+
+        public void NotifyPropertyChanged(String info)
 		{
 			if (PropertyChanged != null)
 			{
@@ -57,9 +63,11 @@ namespace YellowstonePathology.UI.Monitor
 		
         private void MenuItemDelay_Click(object sender, RoutedEventArgs e)
         {
-            if (this.ListViewPendingTests.SelectedItem != null)
+            MenuItem item = sender as MenuItem;
+            ListView view = ((ContextMenu)item.Parent).PlacementTarget as ListView;
+            if (view.SelectedItem != null)
             {
-                YellowstonePathology.Business.Monitor.Model.PendingTest pendingTest = (YellowstonePathology.Business.Monitor.Model.PendingTest)this.ListViewPendingTests.SelectedItem;
+                YellowstonePathology.Business.Monitor.Model.PendingTest pendingTest = (YellowstonePathology.Business.Monitor.Model.PendingTest)view.SelectedItem;
                 PendingTestDelayDialog pendingTestDelayDialog = new PendingTestDelayDialog(pendingTest.ReportNo);
                 pendingTestDelayDialog.ShowDialog();
 
