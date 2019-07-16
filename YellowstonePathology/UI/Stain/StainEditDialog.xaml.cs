@@ -93,12 +93,9 @@ namespace YellowstonePathology.UI.Stain
 
             if (methodResult.Success == true)
             {
-                if (isNewStain)
-                {
-                    YellowstonePathology.Business.Stain.Model.StainCollection.Instance.Add(this.m_Stain);
-                }
                 this.m_Stain.Save();
                 string stainText = this.m_Stain.ToJSON();
+                YellowstonePathology.Business.Stain.Model.StainCollection.Refresh();
                 Close();
             }
             else
