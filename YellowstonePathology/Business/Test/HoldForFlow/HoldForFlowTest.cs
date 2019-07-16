@@ -19,6 +19,7 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;
             this.m_NeverDistribute = true;
+            this.m_MonitorPriority = MonitorPriorityNormal;
 
             this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
             this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);

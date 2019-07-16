@@ -10,6 +10,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
     {
 		public event PropertyChangedEventHandler PropertyChanged;
 
+        public static string MonitorPriorityCritical = "CRITICAL";
+        public static string MonitorPriorityNormal = "NORMAL";
+
         protected string m_ObjectId;
 		protected int m_PanelSetId;
         protected string m_PanelSetOrderClassName;
@@ -45,6 +48,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
         protected string m_CMMCNTEViewClassName;
         protected bool m_ResearchTesting;
         protected bool m_ReportAsAdditionalTesting;
+        protected string m_MonitorPriority;
 
         protected List<string> m_ImplementedResultTypes;
 
@@ -87,6 +91,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_IsClientAccessioned = false;
 
             this.m_ReportAsAdditionalTesting = true;
+            this.m_MonitorPriority = MonitorPriorityCritical;
 
             this.m_OrderTargetTypeCollectionExclusions = new YellowstonePathology.Business.OrderTargetTypeCollection();
             this.m_OrderTargetTypeCollectionRestrictions = new YellowstonePathology.Business.OrderTargetTypeCollection();
@@ -607,6 +612,20 @@ namespace YellowstonePathology.Business.PanelSet.Model
                 {
                     this.m_ReportAsAdditionalTesting = value;
                     this.NotifyPropertyChanged("ReportAsAdditionalTesting");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string MonitorPriority
+        {
+            get { return this.m_MonitorPriority; }
+            set
+            {
+                if (this.m_MonitorPriority != value)
+                {
+                    this.m_MonitorPriority = value;
+                    this.NotifyPropertyChanged("MonitorPriority");
                 }
             }
         }
