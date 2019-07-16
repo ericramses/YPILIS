@@ -77,9 +77,33 @@ namespace YellowstonePathology.Business.Gateway
                 {
                     while (dr.Read())
                     {
-
                         YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(result, dr);
                         sqlDataReaderPropertyWriter.WriteProperties();
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static YellowstonePathology.Business.Billing.Model.EODProcessStatusCollection GetBillingEODProcessStatusHistory()
+        {
+            YellowstonePathology.Business.Billing.Model.EODProcessStatusCollection result = new Billing.Model.EODProcessStatusCollection();
+            MySqlCommand cmd = new MySqlCommand("Select * from tblBillingEODProcess where ProcessDate >= @ProcessDate order by ProcessDate desc;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ProcessDate", DateTime.Today.AddDays(-14));
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Billing.Model.EODProcessStatus status = new Billing.Model.EODProcessStatus();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(status, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(status);
                     }
                 }
             }

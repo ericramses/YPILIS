@@ -34,6 +34,7 @@ namespace YellowstonePathology.UI.Billing
         private List<string> m_ReportNumbersToProcess;
 
         private YellowstonePathology.Business.Billing.Model.EODProcessStatus m_EODProcessStatus;
+        private YellowstonePathology.Business.Billing.Model.EODProcessStatusCollection m_EODProcessStatusCollection;
 
         public EODProcessingDialog()
         {
@@ -42,7 +43,8 @@ namespace YellowstonePathology.UI.Billing
             this.m_StatusMessageList = new ObservableCollection<string>();
             this.m_StatusMessageList.Add("No Status");
 
-            this.m_PostDate = DateTime.Today;                                                
+            this.m_PostDate = DateTime.Today;
+            this.m_EODProcessStatusCollection = YellowstonePathology.Business.Gateway.BillingGateway.GetBillingEODProcessStatusHistory();
             InitializeComponent();
             this.DataContext = this;
 
@@ -68,6 +70,11 @@ namespace YellowstonePathology.UI.Billing
         {
             get { return this.m_PostDate; }
             set { this.m_PostDate = value; }
+        }
+
+        public YellowstonePathology.Business.Billing.Model.EODProcessStatusCollection EODProcessStatusCollection
+        {
+            get { return this.m_EODProcessStatusCollection; }
         }
 
         private void MenuItemOpenPSAFolder_Click(object sender, RoutedEventArgs e)

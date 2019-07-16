@@ -306,6 +306,7 @@
     <Compile Include="Business\Billing.Model\CptCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeWithModifier.cs" />
     <Compile Include="Business\Billing.Model\EODProcessStatus.cs" />
+    <Compile Include="Business\Billing.Model\EODProcessStatusCollection.cs" />
     <Compile Include="Business\Billing.Model\FISHCPTCodeList.cs" />
     <Compile Include="Business\Billing.Model\HospitalSplitSurgicalAndReferenceLabBillingRuleSet.cs" />
     <Compile Include="Business\Billing.Model\ICDCode.cs" />

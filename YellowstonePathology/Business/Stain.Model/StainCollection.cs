@@ -119,7 +119,13 @@ namespace YellowstonePathology.Business.Stain.Model
                 result.Add(test);
             }
             return result;
-        }       
+        }
+        
+        static public StainCollection Refresh()
+        {
+            instance = null;
+            return Instance;
+        }
     }
 }
 

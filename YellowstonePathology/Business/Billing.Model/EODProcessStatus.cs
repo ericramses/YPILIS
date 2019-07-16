@@ -84,5 +84,106 @@ namespace YellowstonePathology.Business.Billing.Model
             get { return this.m_FaxTheReport; }
             set { this.m_FaxTheReport = value; }
         }
+
+        public string ProcessDateDay
+        {
+            get { return this.m_ProcessDate.ToShortDateString() + " - " +  this.m_ProcessDate.DayOfWeek; }
+        }
+
+        public string MRNAcctUpdateTime
+        {
+            get
+            {
+                if (this.m_MRNAcctUpdate.HasValue)
+                {
+                    return this.m_MRNAcctUpdate.Value.ToShortTimeString();
+                }
+                return string.Empty;
+            }
+        }
+
+        public string ADTMatchTime
+        {
+            get
+            {
+                if (this.m_ADTMatch.HasValue)
+                {
+                    return this.m_ADTMatch.Value.ToShortTimeString();
+                }
+                return string.Empty;
+            }
+        }
+
+        public string ProcessSVHCDMFilesTime
+        {
+            get
+            {
+                if (this.m_ProcessSVHCDMFiles.HasValue)
+                {
+                    return this.m_ProcessSVHCDMFiles.Value.ToShortTimeString();
+                }
+                return string.Empty;
+            }
+        }
+
+        public string TransferSVHFilesTime
+        {
+            get
+            {
+                if (this.m_TransferSVHFiles.HasValue)
+                {
+                    return this.m_TransferSVHFiles.Value.ToShortTimeString();
+                }
+                return string.Empty;
+            }
+        }
+
+        public string SendSVHClinicEmailTime
+        {
+            get
+            {
+                if (this.m_SendSVHClinicEmail.HasValue)
+                {
+                    return this.m_SendSVHClinicEmail.Value.ToShortTimeString();
+                }
+                return string.Empty;
+            }
+        }
+
+        public string ProcessPSAFilesTime
+        {
+            get
+            {
+                if (this.m_ProcessPSAFiles.HasValue)
+                {
+                    return this.m_ProcessPSAFiles.Value.ToShortTimeString();
+                }
+                return string.Empty;
+            }
+        }
+
+        public string TransferPSAFilesTime
+        {
+            get
+            {
+                if (this.m_TransferPSAFiles.HasValue)
+                {
+                    return this.m_TransferPSAFiles.Value.ToShortTimeString();
+                }
+                return string.Empty;
+            }
+        }
+
+        public string FaxTheReportTime
+        {
+            get
+            {
+                if (this.m_FaxTheReport.HasValue)
+                {
+                    return this.m_FaxTheReport.Value.ToShortTimeString();
+                }
+                return string.Empty;
+            }
+        }
     }
 }
