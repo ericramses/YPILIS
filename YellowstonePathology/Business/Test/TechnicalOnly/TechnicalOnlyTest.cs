@@ -26,6 +26,7 @@ namespace YellowstonePathology.Business.Test.TechnicalOnly
             this.m_NeverDistribute = true;            
 			this.m_AcceptOnFinal = true;
             this.m_HasNoOrderTarget = true;
+            this.m_MonitorPriority = MonitorPriorityNormal;
 
             this.m_TechnicalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");            
             this.m_TechnicalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");

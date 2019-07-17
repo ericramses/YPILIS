@@ -666,5 +666,26 @@ namespace YellowstonePathology.Business.PanelSet.Model
             }
             return result;
         }
+
+        public static PanelSetCollection GetMonitorPriorityTests(string monitorPriority)
+        {
+            PanelSetCollection result = new PanelSetCollection();
+            PanelSetCollection allTests = PanelSetCollection.GetAll();
+            foreach(PanelSet panelSet in allTests)
+            {
+                if(panelSet.MonitorPriority == monitorPriority)
+                {
+                    result.Add(panelSet);
+                }
+            }
+
+            return result;
+        }
+
+        public bool Exists(int panelSetId)
+        {
+            PanelSet result = this.FirstOrDefault(ps => ps.PanelSetId == panelSetId);
+            return result == null ? false : true;
+        }
     }
 }
