@@ -173,29 +173,7 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding State}" Value="Normal">
-                            <Setter Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="{StaticResource NormalColor}"/>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding State}" Value="Warning">
-                            <Setter Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="{StaticResource WarningColor}"/>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding State}" Value="Critical">
-                            <Setter Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="{StaticResource WarningColor}"/>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
+                    <Setter Property="Background" Value="{StaticResource WarningBrush}"/>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>

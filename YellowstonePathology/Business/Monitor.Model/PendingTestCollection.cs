@@ -35,7 +35,7 @@ namespace YellowstonePathology.Business.Monitor.Model
         public PendingTestCollection GetCriticalTestsForMonitorPriority()
         {
             PendingTestCollection result = new Model.PendingTestCollection();
-            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection pendingCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetMonitorPriorityTests(YellowstonePathology.Business.PanelSet.Model.PanelSet.MonitorPriorityCritical);
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection pendingCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetCriticalMonitorPriorityTests();
             foreach (PendingTest pendingTest in this)
             {
                 if (pendingTest.State == MonitorStateEnum.Critical)
@@ -49,10 +49,10 @@ namespace YellowstonePathology.Business.Monitor.Model
             return result;
         }
 
-        public PendingTestCollection GetNormalandNotCriticalTestsForMonitorPriority()
+        public PendingTestCollection GetNonCriticalTestsForMonitorPriority()
         {
             PendingTestCollection result = new Model.PendingTestCollection();
-            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection pendingCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetMonitorPriorityTests(YellowstonePathology.Business.PanelSet.Model.PanelSet.MonitorPriorityCritical);
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection pendingCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetCriticalMonitorPriorityTests();
             foreach (PendingTest pendingTest in this)
             {
                 if (pendingTest.State == MonitorStateEnum.Critical)
@@ -61,13 +61,6 @@ namespace YellowstonePathology.Business.Monitor.Model
                     {
                         result.Add(pendingTest);
                     }
-                }
-            }
-            foreach (PendingTest pendingTest in this)
-            {
-                if (pendingCollection.Exists(pendingTest.PanelSetId) == false && pendingTest.State != MonitorStateEnum.Critical)
-                {
-                    result.Add(pendingTest);
                 }
             }
             return result;

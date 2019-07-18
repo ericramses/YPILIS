@@ -34,7 +34,7 @@ namespace YellowstonePathology.UI.Monitor
             YellowstonePathology.Business.Monitor.Model.PendingTestCollection pendingTestCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPendingTestCollection();
             pendingTestCollection.SetState();
             this.m_CriticalTestCollection = pendingTestCollection.GetCriticalTestsForMonitorPriority();
-            this.m_NormalTestCollection = pendingTestCollection.GetNormalandNotCriticalTestsForMonitorPriority();
+            this.m_NormalTestCollection = pendingTestCollection.GetNonCriticalTestsForMonitorPriority();
             this.NotifyPropertyChanged("");
         }
 
