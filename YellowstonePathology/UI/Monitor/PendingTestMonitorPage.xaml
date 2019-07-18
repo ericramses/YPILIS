@@ -4,7 +4,8 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib" 
     x:Class="YellowstonePathology.UI.Monitor.PendingTestMonitorPage"	
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:my="clr-namespace:YellowstonePathology.Business.Document;assembly=BusinessObjects">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:my="clr-namespace:YellowstonePathology.Business.Document;assembly=BusinessObjects">
 
     <Grid>
         <Grid.Resources>
@@ -172,7 +173,29 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="Background" Value="{StaticResource WarningBrush}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding State}" Value="Normal">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{StaticResource NormalColor}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding State}" Value="Warning">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{StaticResource WarningColor}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding State}" Value="Critical">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{StaticResource WarningColor}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>

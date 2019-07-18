@@ -33,8 +33,8 @@ namespace YellowstonePathology.UI.Monitor
         {
             YellowstonePathology.Business.Monitor.Model.PendingTestCollection pendingTestCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPendingTestCollection();
             pendingTestCollection.SetState();
-            this.m_CriticalTestCollection = pendingTestCollection.GetCriticalTestsForMonitorPriority(YellowstonePathology.Business.PanelSet.Model.PanelSet.MonitorPriorityCritical);
-            this.m_NormalTestCollection = pendingTestCollection.GetCriticalTestsForMonitorPriority(YellowstonePathology.Business.PanelSet.Model.PanelSet.MonitorPriorityNormal);
+            this.m_CriticalTestCollection = pendingTestCollection.GetCriticalTestsForMonitorPriority();
+            this.m_NormalTestCollection = pendingTestCollection.GetNormalandNotCriticalTestsForMonitorPriority();
             this.NotifyPropertyChanged("");
         }
 
