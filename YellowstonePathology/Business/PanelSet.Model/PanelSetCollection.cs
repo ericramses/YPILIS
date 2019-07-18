@@ -205,6 +205,11 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NRASEXON4MutationAnalysis.NRASEXON4MutationAnalysisTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NTRKNGSFusionProfile.NTRKNGSFusionProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoSITEMelanoma.NeoSITEMelanomaTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PAX2.PAX2Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.TFE3.TFE3Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MITF.MITFTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.p63.p63Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEMelanomaProfile.NeoTYPEMelanomaProfileTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetArupBraf());
@@ -230,6 +235,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ParvovirusB19ByPCR.ParvovirusB19ByPCRTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MyeloidMalignanciesMutationPanel.MyeloidMalignanciesMutationPanelTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.RBCBand3ProteinReduction.RBCBand3ProteinReductionTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.FumarateHydrataseByIHC.FumarateHydrataseByIHCTest());
 
             //YPII
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest());
