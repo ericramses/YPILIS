@@ -20,6 +20,7 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterY();
             this.m_Active = true;
             this.m_HasNoOrderTarget = true;
+            this.m_MonitorPriority = "NORMAL";
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryWordDocument).AssemblyQualifiedName;
