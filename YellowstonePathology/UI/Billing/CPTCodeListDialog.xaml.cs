@@ -19,6 +19,8 @@ namespace YellowstonePathology.UI.Billing
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private string m_CptCodeString;
+
         public CPTCodeListDialog()
         {
             InitializeComponent();
@@ -37,6 +39,12 @@ namespace YellowstonePathology.UI.Billing
         public YellowstonePathology.Business.Billing.Model.CptCodeCollection CptCodeCollection
         {
             get { return YellowstonePathology.Store.AppDataStore.Instance.CPTCodeCollection; }
+        }
+
+        public string CptCodeString
+        {
+            get { return this.m_CptCodeString; }
+            set { this.m_CptCodeString = value; }
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
@@ -67,6 +75,16 @@ namespace YellowstonePathology.UI.Billing
             {
                 YellowstonePathology.Store.AppDataStore.Instance.CPTCodeCollection.Load();
                 this.NotifyPropertyChanged("CptCodeCollection");
+            }
+        }
+
+        private void ListBoxCPTCodes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.ListBoxCPTCodes.SelectedItem != null)
+            {
+                YellowstonePathology.Business.Billing.Model.CptCode cptCode = (YellowstonePathology.Business.Billing.Model.CptCode)this.ListBoxCPTCodes.SelectedItem;
+                this.m_CptCodeString = cptCode.ToJSON();
+                NotifyPropertyChanged("CptCodeString");
             }
         }
     }
