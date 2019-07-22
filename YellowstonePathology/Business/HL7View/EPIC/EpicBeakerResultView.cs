@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.HL7View.EPIC
 {
-    public class EPICResultView : IResultView
+    public class EPICBeakerResultView : IResultView
     {        
         private int m_ObxCount;        
         private bool m_SendUnsolicited;
@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrder;
         private YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;                
 
-        public EPICResultView(string reportNo, Business.Test.AccessionOrder accessionOrder, bool testing)
+        public EPICBeakerResultView(string reportNo, Business.Test.AccessionOrder accessionOrder, bool testing)
         {            
             this.m_Testing = testing;
             this.m_AccessionOrder = accessionOrder;
@@ -78,11 +78,11 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(panelSetOrder.UniversalServiceId);            
 
-            EPICObrView obr = new EPICObrView(this.m_PanelSetOrder.ExternalOrderId, this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionDate, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionTime, this.m_AccessionOrder.AccessionDateTime,
-                panelSetOrder.FinalTime, this.m_OrderingPhysician, resultStatus, universalService, this.m_SendUnsolicited);
+            EPICBeakerObrView obr = new EPICBeakerObrView(this.m_PanelSetOrder.ExternalOrderId, this.m_AccessionOrder.MasterAccessionNo, this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionDate, this.m_AccessionOrder.SpecimenOrderCollection[0].CollectionTime, this.m_AccessionOrder.AccessionDateTime,
+                panelSetOrder.FinalTime, this.m_OrderingPhysician, resultStatus, universalService, this.m_SendUnsolicited, this.m_AccessionOrder.SystemInitiatingOrder);
             obr.ToXml(document);
             
-            EPICObxView epicObxView = EPICObxViewFactory.GetObxView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount, false);
+            EPICObxView epicObxView = EPICObxViewFactory.GetObxView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount, true);
             epicObxView.ToXml(document);
             this.m_ObxCount = epicObxView.ObxCount;                            
 
