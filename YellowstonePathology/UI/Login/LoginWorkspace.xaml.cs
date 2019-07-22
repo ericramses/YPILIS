@@ -798,10 +798,17 @@ namespace YellowstonePathology.UI.Login
             xpsDocumentViewer.ShowDialog();
         }
 
-        private void ButtonShowMasterLog_Click(object sender, RoutedEventArgs e)
+        private void MenuItemShowMasterLog_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog report = new YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog();
             report.CreateReport(this.m_LoginUI.AccessionOrderDate);
+            report.OpenReport();
+        }
+
+        private void MenuItemShowNorthernMtMasterLog_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog report = new YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog();
+            report.CreateNorthernMtTechOnlyReport(this.m_LoginUI.AccessionOrderDate);
             report.OpenReport();
         }
 

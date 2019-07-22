@@ -15,11 +15,27 @@ namespace YellowstonePathology.Business.Reports.Surgical
 
 		}
 
-		public void CreateReport(DateTime reportDate)
-		{
-            Business.Surgical.SurgicalMasterLogList surgicalMasterLogList = new Business.Surgical.SurgicalMasterLogList();
-            surgicalMasterLogList.FillByReportDateAndLocation(reportDate);            
 
+        public void CreateNorthernMtTechOnlyReport(DateTime reportDate)
+        {
+            this.m_ReportSaveFileName = @"\\CFileServer\documents\Reports\Surgical\MasterLog\YEAR\MONTH\NorthernMtTechOnlyMasterLog.FILEDATE.v1.xml";
+            Business.Surgical.SurgicalMasterLogList surgicalMasterLogList = new Business.Surgical.SurgicalMasterLogList();
+            surgicalMasterLogList.FillNorthernMtTechnicalOnlyByDateAndLocation(reportDate);
+            string reportTitle = "Northern Montana Technical Only Master Log - " + reportDate.ToLongDateString();
+            this.BuildReport(reportDate, surgicalMasterLogList, reportTitle);
+        }
+
+        public void CreateReport(DateTime reportDate)
+        {
+            this.m_ReportSaveFileName = @"\\CFileServer\documents\Reports\Surgical\MasterLog\YEAR\MONTH\SurgicalMasterLog.FILEDATE.v1.xml";
+            Business.Surgical.SurgicalMasterLogList surgicalMasterLogList = new Business.Surgical.SurgicalMasterLogList();
+            surgicalMasterLogList.FillByReportDateAndLocation(reportDate);
+            string reportTitle = "Surgical Master Log - " + reportDate.ToLongDateString();
+            this.BuildReport(reportDate, surgicalMasterLogList, reportTitle);
+        }
+
+        private void BuildReport(DateTime reportDate, Business.Surgical.SurgicalMasterLogList surgicalMasterLogList, string reportTitle)
+        {
 			this.m_ReportTemplate = @"\\CFileServer\documents\Reports\Templates\SurgicalMasterLog.5.xml";
 
 			this.m_ReportXml = new XmlDocument();
@@ -28,7 +44,7 @@ namespace YellowstonePathology.Business.Reports.Surgical
 			this.m_NameSpaceManager = new XmlNamespaceManager(this.m_ReportXml.NameTable);
 			this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
 			this.m_NameSpaceManager.AddNamespace("wx", "http://schemas.microsoft.com/office/word/2003/auxHint");
-			this.m_ReportSaveFileName = @"\\CFileServer\documents\Reports\Surgical\MasterLog\YEAR\MONTH\SurgicalMasterLog.FILEDATE.v1.xml";
+			//this.m_ReportSaveFileName = @"\\CFileServer\documents\Reports\Surgical\MasterLog\YEAR\MONTH\SurgicalMasterLog.FILEDATE.v1.xml";
 
 			this.ReportBaseXml = new XmlDocument();
 			this.ReportBaseXml.Load(ReportBaseFileName);
@@ -37,7 +53,7 @@ namespace YellowstonePathology.Business.Reports.Surgical
 			this.NameSpaceManagerBase.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
 			this.NameSpaceManagerBase.AddNamespace("wx", "http://schemas.microsoft.com/office/word/2003/auxHint");
 
-			string reportTitle = "Surgical Master Log - " + reportDate.ToLongDateString();            
+			//string reportTitle = "Surgical Master Log - " + reportDate.ToLongDateString();            
 			this.m_ReportXml.SelectSingleNode("//w:r[w:t='report_title_first_page']/w:t", this.NameSpaceManagerBase).InnerText = reportTitle;			
 
 			XmlNode nodeTable = this.FindXmlTableInDetail("accession_no");
