@@ -4,7 +4,8 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib" 
     x:Class="YellowstonePathology.UI.Monitor.PendingTestMonitorPage"	
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:my="clr-namespace:YellowstonePathology.Business.Document;assembly=BusinessObjects">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:my="clr-namespace:YellowstonePathology.Business.Document;assembly=BusinessObjects">
 
     <Grid>
         <Grid.Resources>

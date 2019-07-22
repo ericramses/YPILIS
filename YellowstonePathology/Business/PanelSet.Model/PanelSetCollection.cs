@@ -673,13 +673,13 @@ namespace YellowstonePathology.Business.PanelSet.Model
             return result;
         }
 
-        public static PanelSetCollection GetMonitorPriorityTests(string monitorPriority)
+        public static PanelSetCollection GetCriticalMonitorPriorityTests()
         {
             PanelSetCollection result = new PanelSetCollection();
             PanelSetCollection allTests = PanelSetCollection.GetAll();
             foreach(PanelSet panelSet in allTests)
             {
-                if(panelSet.MonitorPriority == monitorPriority)
+                if(panelSet.MonitorPriority == YellowstonePathology.Business.PanelSet.Model.PanelSet.MonitorPriorityCritical)
                 {
                     result.Add(panelSet);
                 }
