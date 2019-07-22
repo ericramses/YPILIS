@@ -1212,10 +1212,46 @@ namespace YellowstonePathology.Business.Gateway
             return result;
         }
 
+        public static Surgical.SurgicalMasterLogList GetNorthernMtTechOnlyMasterLogList(DateTime reportDate)
+        {
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "create temporary table if not exists rpts " +
+            "( " +
+            "AccessionTime datetime, " +
+            "ReportNo varchar(20), " +
+            "AccessioningFacilityId varchar(100), " +
+            "PFirstName varchar(100), " +
+            "PLastName varchar(100), " +
+            "PBirthdate datetime, " +
+            "PhysicianName varchar(100), " +
+            "ClientName varchar(100), " +
+            "AliquotCount int " +
+            ") " +
+            "as " +
+            "SELECT Distinct a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
+            "a.PBirthdate, a.PhysicianName, a.ClientName, Count(*) AliquotCount " +
+            "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
+            "JOIN tblSpecimenOrder so on a.MasterAccessionNo = so.MasterAccessionNo " +
+            "LEFT OUTER JOIN tblAliquotOrder ao on so.SpecimenOrderId = ao.SpecimenOrderId " +
+            "WHERE AccessionDate = @ReportDate and pso.PanelSetId = 31 and a.ClientId = 587 " +
+            "group by a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
+            "a.PBirthdate, a.PhysicianName, a.ClientName " +
+            "Order By AccessionTime; " +
+            "SELECT rpts.*From rpts rpts Order By AccessionTime; " +
+            "Select ssr.DiagnosisId, so.Description, ssr.ReportNo " +
+            "FROM tblSurgicalSpecimen ssr " +
+            "JOIN tblSpecimenOrder so ON ssr.SpecimenOrderId = so.SpecimenOrderId " +
+            "join rpts rpts on ssr.ReportNo = rpts.ReportNo order by 1; " +
+            "drop temporary table rpts; ";
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@ReportDate", reportDate);
+            return BuildMasterLogList(cmd);
+        }
+
         /*WHC needs to be fixed */
         public static Surgical.SurgicalMasterLogList GetSurgicalMasterLogList(DateTime reportDate)
         {
-            Surgical.SurgicalMasterLogList result = new Surgical.SurgicalMasterLogList();
             MySqlCommand cmd = new MySqlCommand();
             cmd.CommandText = "create temporary table if not exists rpts " +
             "( " +
@@ -1248,6 +1284,12 @@ namespace YellowstonePathology.Business.Gateway
 
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@ReportDate", reportDate);
+            return BuildMasterLogList(cmd);
+        }
+
+        private static Surgical.SurgicalMasterLogList BuildMasterLogList(MySqlCommand cmd)
+        {
+            Surgical.SurgicalMasterLogList result = new Surgical.SurgicalMasterLogList();
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
                 cn.Open();

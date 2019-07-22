@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit" 
              xmlns:CustomControls="clr-namespace:YellowstonePathology.UI.CustomControls"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d">
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -67,11 +68,40 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Click="ButtonShowMasterLog_Click">
+                    <!--<Button Click="ButtonShowMasterLog_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Resources/Log.ico" Margin="2" Height="16"></Image>
                             <TextBlock Margin="2" VerticalAlignment="Center">MasterLog</TextBlock>
                         </StackPanel>
+                    </Button>-->
+
+                    <Button Name="ButtonMasterLog" Margin="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Log.ico" Margin="2" Height="16"></Image>
+                            <TextBlock Margin="2" VerticalAlignment="Center">Master Log</TextBlock>
+                        </StackPanel>
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="MasterLogContextMenu" PlacementRectangle="{Binding RelativeSource={RelativeSource Self}}">
+                                <MenuItem Header="Surgical Master Log" Click="MenuItemShowMasterLog_Click" />
+                                <MenuItem Header="Northern Mt. Healthcare Master Log" Click="MenuItemShowNorthernMtMasterLog_Click" />
+                            </ContextMenu>
+                        </Button.ContextMenu>
+
+                        <Button.Triggers>
+                            <EventTrigger SourceName="ButtonMasterLog" RoutedEvent="Button.Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MasterLogContextMenu" Storyboard.TargetProperty="(ContextMenu.IsOpen)">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <sys:Boolean>true</sys:Boolean>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
                     </Button>
 
                     <Button Margin="2" Click="ButtonReceiveSpecimen_Click">

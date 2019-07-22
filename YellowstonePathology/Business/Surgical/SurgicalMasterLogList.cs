@@ -24,10 +24,21 @@ namespace YellowstonePathology.Business.Surgical
 			{
 				foreach (SurgicalMasterLogItem item in list) this.Add(item);
 			}
-		}        
-	}
+		}
+        
+        public void FillNorthernMtTechnicalOnlyByDateAndLocation(DateTime reportDate)
+        {
+            this.Clear();
 
-	public class SurgicalMasterLogItem : ListItem
+            SurgicalMasterLogList list = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetNorthernMtTechOnlyMasterLogList(reportDate);
+            if (list != null)
+            {
+                foreach (SurgicalMasterLogItem item in list) this.Add(item);
+            }
+        }
+    }
+
+    public class SurgicalMasterLogItem : ListItem
 	{
 		private MasterLogList m_MasterLogList;
 		private string m_ReportNo;

@@ -32,15 +32,32 @@ namespace YellowstonePathology.Business.Monitor.Model
             }
         }
 
-        public PendingTestCollection GetCriticalTestsForMonitorPriority(string monitorPriority)
+        public PendingTestCollection GetCriticalTestsForMonitorPriority()
         {
             PendingTestCollection result = new Model.PendingTestCollection();
-            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection pendingCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetMonitorPriorityTests(monitorPriority);
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection pendingCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetCriticalMonitorPriorityTests();
             foreach (PendingTest pendingTest in this)
             {
                 if (pendingTest.State == MonitorStateEnum.Critical)
                 {
                     if (pendingCollection.Exists(pendingTest.PanelSetId) == true)
+                    {
+                        result.Add(pendingTest);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public PendingTestCollection GetNonCriticalTestsForMonitorPriority()
+        {
+            PendingTestCollection result = new Model.PendingTestCollection();
+            YellowstonePathology.Business.PanelSet.Model.PanelSetCollection pendingCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetCriticalMonitorPriorityTests();
+            foreach (PendingTest pendingTest in this)
+            {
+                if (pendingTest.State == MonitorStateEnum.Critical)
+                {
+                    if (pendingCollection.Exists(pendingTest.PanelSetId) == false)
                     {
                         result.Add(pendingTest);
                     }
