@@ -9,7 +9,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
     public class LSEGeneralSendOut : LSERule
     {
         public static string Interpretation = "Results indicate mismatch repair deficiency, which may render the tumor responsive to PD-1 " +
-            "blockade therapy.  As a subset of patients with MMR deficient prostate cancers have Lynch Syndrome, genetic counseling is recommended.";
+            "blockade therapy.  As a subset of patients with MMR deficient cancers have Lynch Syndrome, genetic counseling is recommended.";
 
         public LSEGeneralSendOut()
         {

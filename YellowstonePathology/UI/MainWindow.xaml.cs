@@ -521,8 +521,7 @@ namespace YellowstonePathology.UI
                 this.m_LabWorkspace = new Test.LabWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemLab);
                 this.m_TabItemLab.Content = this.m_LabWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemLab);
-                this.m_TabItemLab.Focus();
-                //this.m_LabWorkspace.Loaded += new RoutedEventHandler(m_LabWorkspace_Loaded);
+                this.m_TabItemLab.Focus();                
 			}            
         }
 
@@ -530,12 +529,7 @@ namespace YellowstonePathology.UI
         {
             this.AddLabWorkspace();
             this.m_LabWorkspace.GetCase(masterAccessionNo, reportNo);
-        }
-
-        /*private void m_LabWorkspace_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.m_LabWorkspace.TabItemCaseList.Focus();
-        }*/        
+        }        
 
         private void ToolBarButtonSearchWorkspace_Click(object sender, RoutedEventArgs args)
         {

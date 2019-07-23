@@ -645,9 +645,10 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
         private void HyperLinkSendHL7ResultTest_Click(object sender, RoutedEventArgs e)
         {
-                YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder, this.m_AccessionOrder.ClientId, true);
-                YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
-                resultView.Send(methodResult);
+            //YellowstonePathology.Business.HL7View.IResultView resultView = YellowstonePathology.Business.HL7View.ResultViewFactory.GetResultView(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder, this.m_AccessionOrder.ClientId, true);
+            YellowstonePathology.Business.HL7View.EPIC.EPICBeakerResultView resultView = new Business.HL7View.EPIC.EPICBeakerResultView(this.m_PanelSetOrder.ReportNo, this.m_AccessionOrder, true);
+            YellowstonePathology.Business.Rules.MethodResult methodResult = new Business.Rules.MethodResult();
+            resultView.Send(methodResult);            
         }
 
         private void HyperLinkSendHL7Order_Click(object sender, RoutedEventArgs e)

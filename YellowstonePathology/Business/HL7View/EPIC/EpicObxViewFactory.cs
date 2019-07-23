@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 {
     public class EPICObxViewFactory
     {
-        public static EPICObxView GetObxView(int panelSetId, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+        public static EPICObxView GetObxView(int panelSetId, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount, bool beakerTesting)
         {
             EPICObxView view = null;
             switch (panelSetId)
@@ -23,7 +23,14 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     break;
                 case 13:
                 case 128:
-					view = new YellowstonePathology.Business.Test.Surgical.SurgicalEPICObxView(accessionOrder, reportNo, obxCount);
+                    if (beakerTesting)
+                    {
+                        view = new YellowstonePathology.Business.Test.Surgical.SurgicalEPICBeakerObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    else
+                    {
+                        view = new YellowstonePathology.Business.Test.Surgical.SurgicalEPICObxView(accessionOrder, reportNo, obxCount);
+                    }					
                     break;
                 case 14:
 					view = new YellowstonePathology.Business.Test.HPV.HPVEPICObxView(accessionOrder, reportNo, obxCount);

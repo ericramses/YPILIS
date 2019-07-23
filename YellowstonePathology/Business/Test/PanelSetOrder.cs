@@ -1438,8 +1438,9 @@ namespace YellowstonePathology.Business.Test
                 // if there is a reference lab signature then don't change th professional billing
                 if(string.IsNullOrEmpty(this.ReferenceLabSignature) == true)
                 {
+                    YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
                     this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
-                    this.m_ProfessionalComponentBillingFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+                    this.m_ProfessionalComponentBillingFacilityId = ypi.FacilityId;
                 }                
             }
 
