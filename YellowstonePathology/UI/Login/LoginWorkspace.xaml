@@ -28,7 +28,7 @@
                 <ToolBar>
 
                     <ComboBox Name="ComboBoxCaseType" Margin="2,2,2,2" SelectedIndex="0"												
-					    Width="120" Height="22"
+					    Width="110" Height="22"
 					    ItemsSource="{Binding Path=CaseTypeList}"					            
 					    SelectionChanged="ComboBoxCaseType_SelectionChanged">
                     </ComboBox>
