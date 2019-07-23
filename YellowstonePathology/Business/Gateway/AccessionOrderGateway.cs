@@ -1237,11 +1237,10 @@ namespace YellowstonePathology.Business.Gateway
             "group by a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
             "a.PBirthdate, a.PhysicianName, a.ClientName " +
             "Order By AccessionTime; " +
-            "SELECT rpts.*From rpts rpts Order By AccessionTime; " +
-            "Select ssr.DiagnosisId, so.Description, ssr.ReportNo " +
-            "FROM tblSurgicalSpecimen ssr " +
-            "JOIN tblSpecimenOrder so ON ssr.SpecimenOrderId = so.SpecimenOrderId " +
-            "join rpts rpts on ssr.ReportNo = rpts.ReportNo order by 1; " +
+            "SELECT rpts.* From rpts rpts Order By AccessionTime; " +
+            "Select so.SpecimenNumber DiagnosisId, so.Description, pso.ReportNo " +
+            "FROM tblSpecimenOrder so join tblPanelSetOrder pso on so.MasterAccessionNo = pso.MasterAccessionNo " +
+            "join rpts rpts on pso.ReportNo = rpts.ReportNo order by 1; " +
             "drop temporary table rpts; ";
 
             cmd.CommandType = CommandType.Text;
