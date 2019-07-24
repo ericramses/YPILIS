@@ -98,7 +98,7 @@ namespace YellowstonePathology.UI.Client
                 if(CanAdd() == true)
                 {
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(this.m_Facility, this);
-                }
+                    this.m_IsNewFacility = false;                }
             }
 
             if (this.CanSave() == true)
@@ -110,7 +110,7 @@ namespace YellowstonePathology.UI.Client
         private bool CanAdd()
         {
             bool result = true;
-            if (this.m_IsNewFacility == true)
+            if (string.IsNullOrEmpty(this.m_Facility.FacilityName) == false)
             {
                 this.m_Facility.FacilityId = YellowstonePathology.Business.Helper.IdHelper.CapitalConsonantsInString(m_Facility.FacilityName);
                 if (string.IsNullOrEmpty(this.m_Facility.FacilityId) == true)
@@ -123,7 +123,7 @@ namespace YellowstonePathology.UI.Client
                     result = false;
                 }
 
-                if(result == false)
+                if (result == false)
                 {
                     MessageBox.Show("The name did not create a valid Id." + Environment.NewLine + "You can add consonants to the name then change the name when a valid id is created.");
                 }
@@ -131,7 +131,7 @@ namespace YellowstonePathology.UI.Client
             else
             {
                 result = false;
-                MessageBox.Show("You need to enter a facility name.");
+                //MessageBox.Show("You need to enter a facility name.");
             }
             return result;
         }
