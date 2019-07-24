@@ -90,7 +90,7 @@ namespace YellowstonePathology.Business.Gateway
             YellowstonePathology.Business.Billing.Model.EODProcessStatusCollection result = new Billing.Model.EODProcessStatusCollection();
             MySqlCommand cmd = new MySqlCommand("Select * from tblBillingEODProcess where ProcessDate >= @ProcessDate order by ProcessDate desc;");
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("@ProcessDate", DateTime.Today.AddDays(-14));
+            cmd.Parameters.AddWithValue("@ProcessDate", DateTime.Today.AddDays(-30));
 
             using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
