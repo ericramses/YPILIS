@@ -1177,6 +1177,23 @@ namespace YellowstonePathology.Business.Specimen.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }	
+        }
+        
+        public bool OkToSetProcessorTimes(DateTime? processorStartTime)
+        {
+            bool result = false;
+            if (this.ProcessorStartTime.HasValue == false)
+            {
+                result = true;
+            }
+            else if(processorStartTime.HasValue)
+            {
+                if(this.ProcessorStartTime.Value.AddHours(12) <= processorStartTime.Value)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
 	}
 }
