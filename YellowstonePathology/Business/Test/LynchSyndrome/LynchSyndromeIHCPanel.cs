@@ -19,6 +19,13 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             mlh1.TestAbbreviation = "MLH1";
             this.m_TestCollection.Add(mlh1);
 
+            string objectIdPms2 = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.Test.Model.Test pms2 = new YellowstonePathology.Business.Test.Model.Test();
+            pms2.TestId = "217";
+            pms2.TestName = "PMS2";
+            pms2.TestAbbreviation = "PMS2";
+            this.m_TestCollection.Add(pms2);
+
             string objectIdMsh2 = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
             YellowstonePathology.Business.Test.Model.Test msh2 = new YellowstonePathology.Business.Test.Model.Test();
             msh2.TestId = "122";
@@ -32,13 +39,6 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             msh6.TestName = "MSH6";
             msh6.TestAbbreviation = "MSH6";
             this.m_TestCollection.Add(msh6);
-
-            string objectIdPms2 = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            YellowstonePathology.Business.Test.Model.Test pms2 = new YellowstonePathology.Business.Test.Model.Test();
-            pms2.TestId = "217";
-            pms2.TestName = "PMS2";
-            pms2.TestAbbreviation = "PMS2";
-            this.m_TestCollection.Add(pms2);
         }
     }
 }
