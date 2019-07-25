@@ -1188,7 +1188,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             }
             else if(processorStartTime.HasValue)
             {
-                if(this.ProcessorStartTime.Value.AddHours(12) <= processorStartTime.Value)
+                if(this.ProcessorStartTime.Value.AddHours(12) >= processorStartTime.Value)
                 {
                     result = true;
                 }

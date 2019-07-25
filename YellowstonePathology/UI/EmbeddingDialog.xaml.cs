@@ -413,7 +413,7 @@ namespace YellowstonePathology.UI
         private void ButtonScanId_Click(object sender, RoutedEventArgs e)
         {
             Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
-            barcode.ID = "18-7486.1A";
+            barcode.ID = "19-20106.1B";
             this.HistologyBlockScanReceived(barcode);
         }
     }
