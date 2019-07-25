@@ -65,7 +65,10 @@ namespace YellowstonePathology.UI.Navigation
             {
                 if (this.m_SecondMonitorWindow != null) this.m_SecondMonitorWindow.Close();
                 
-                System.Windows.Forms.Screen screen2 = System.Windows.Forms.Screen.AllScreens[1];                
+                System.Windows.Forms.Screen screen2 = System.Windows.Forms.Screen.AllScreens
+                    .Where(s => s.Primary == false)
+                    .Single();
+
                 System.Drawing.Rectangle screen2Rectangle = screen2.WorkingArea;
 
                 this.m_SecondMonitorWindow = window;
