@@ -49,24 +49,8 @@
 				<TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Result Sets</TextBlock>
                 
 				<TextBlock Grid.Column="0" Grid.Row="1" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkBothNegative_Click">Both Negative</Hyperlink>                    
+                    <Hyperlink Click="HyperLinkNotDetected_Click">Not Detected</Hyperlink>                    
 				</TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLink16Positive18Negative_Click">16-Positive, 18-Negative</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLink16Negative18Positive_Click">16-Negative, 18-Positive</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="4" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkBothPositive_Click">Both Positive</Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">                    
-                    <Hyperlink Click="HyperLinkIndeterminate_Click">Indeterminate</Hyperlink>
-                </TextBlock>
 
 				<TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkAcceptResults_Click">Accept Results</Hyperlink>
@@ -115,7 +99,11 @@
 						<RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>
-						<RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
 						<RowDefinition Height="Auto"></RowDefinition>						
 						<RowDefinition Height="*"></RowDefinition>
 					</Grid.RowDefinitions>
@@ -124,25 +112,43 @@
 					<ComboBox Name="ComboBoxIndication" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=IndicationList}" 
                               Text="{Binding Path=PanelSetOrder.Indication}" />
 
-					<TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">HPV 16 Result:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.HPV16Result}" HorizontalAlignment="Stretch" IsEnabled="False"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">HPV DNA Result:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.HPVDNAResult}" HorizontalAlignment="Stretch" IsEnabled="False"/>
 
-					<TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">HPV 18/45 Result:</TextBlock>
-					<TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.HPV18Result}" HorizontalAlignment="Stretch" IsEnabled="False"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">HPV-6/11 Result:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.HPV611Result}" HorizontalAlignment="Stretch" IsEnabled="False"/>
 
-                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Comment:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Comment}" TextWrapping="Wrap" />
+                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">HPV-16 Result:</TextBlock>
+					<TextBox Grid.Column="1" Grid.Row="3" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.HPV16Result}" HorizontalAlignment="Stretch" IsEnabled="False"/>
+
+					<TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">HPV-18 Result:</TextBlock>
+					<TextBox Grid.Column="1" Grid.Row="4" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.HPV18Result}" HorizontalAlignment="Stretch" IsEnabled="False"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">HPV-31 Result:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="5" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.HPV31Result}" HorizontalAlignment="Stretch" IsEnabled="False"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="6" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">HPV-33 Result:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.HPV33Result}" HorizontalAlignment="Stretch" IsEnabled="False"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">HPV-45 Result:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.HPV45Result}" HorizontalAlignment="Stretch" IsEnabled="False"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="8" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold">HPV-58 Result:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="8" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.HPV58Result}" HorizontalAlignment="Stretch" IsEnabled="False"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Comment:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Comment}" TextWrapping="Wrap" />
                     
-                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Interpretation:</TextBlock>
-					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Interpretation}" TextWrapping="Wrap" />
+                    <TextBlock Grid.Column="0" Grid.Row="11" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Interpretation:</TextBlock>
+					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="12" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Interpretation}" TextWrapping="Wrap" />
 
-					<TextBlock Grid.Column="0" Grid.Row="7" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Method:</TextBlock>
-					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Method}" TextWrapping="Wrap" />
+					<TextBlock Grid.Column="0" Grid.Row="13" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">Method:</TextBlock>
+					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="14" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Method}" TextWrapping="Wrap" />
 
-					<TextBlock Grid.Column="0" Grid.Row="9" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">References:</TextBlock>
-					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.ReportReferences}" TextWrapping="Wrap" />					
+					<TextBlock Grid.Column="0" Grid.Row="15" Margin="2,2,2,2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left">References:</TextBlock>
+					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="16" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.ReportReferences}" TextWrapping="Wrap" />					
 
-                    <Grid Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2">
+                    <Grid Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>

@@ -165,7 +165,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
 		}
 
-        private void HyperLinkBothNegative_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkNotDetected_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorResult.IsOkToSetResult(this.m_HPV1618SolidTumorTestOrder);
             if (methodResult.Success == true)
