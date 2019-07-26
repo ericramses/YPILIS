@@ -1194,6 +1194,7 @@
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishCMMCNTEView.cs" />
     <Compile Include="Business\Test\MDSExtendedByFish\MDSExtendedByFishWPHOBXView.cs" />
     <Compile Include="Business\Test\MicrobiologyByPCR\MicrobiologyByPCRTest.cs" />
+    <Compile Include="Business\Test\MPNFish\MPNFishWPHOBXView.cs" />
     <Compile Include="Business\Test\MultipleMyelomaMGUSByFish\MultipleMyelomaMGUSByFishInconclusiveResult.cs" />
     <Compile Include="Business\Test\MyeloidMalignanciesMutationPanel\MyeloidMalignanciesMutationPanelTest.cs" />
     <Compile Include="Business\Test\NeoLABMyeloidDisordersProfile\NeoLABMyeloidDisordersProfileTest.cs" />
@@ -7062,12 +7063,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
