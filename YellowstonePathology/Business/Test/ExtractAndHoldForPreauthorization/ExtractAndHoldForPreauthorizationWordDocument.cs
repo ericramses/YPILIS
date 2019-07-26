@@ -16,7 +16,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
 
         public override void Render()
 		{            
-			base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PreauthorizationNotification.4.xml";
+			base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PreauthorizationNotification.5.xml";
 			base.OpenTemplate();
 			this.SetDemographicsV2();			
 
@@ -26,8 +26,9 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
 
             this.SetXmlNodeData("additional_testing", panelSet.PanelSetName);
             this.SetXmlNodeData("cpt_codes", panelSet.PanelSetCptCodeCollection.GetCommaSeparatedString());
+            this.SetXmlNodeData("report_comment", testOrder.Comment);
 
-            if(this.m_AccessionOrder.PrimaryInsurance == "Medicare")
+            if (this.m_AccessionOrder.PrimaryInsurance == "Medicare")
             {
                 this.SetXmlNodeData("additional_testing_message", "The following additional testing needs an ABN");                
             }
