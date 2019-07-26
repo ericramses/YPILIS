@@ -32,9 +32,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.AddBlankNteElement(document);
 
             this.AddNextNteElement("MLH1 Result: " + panelSetOrder.MLH1Result, document);
+            this.AddNextNteElement("PMS2 Result: " + panelSetOrder.PMS2Result, document);
             this.AddNextNteElement("MSH2 Result: " + panelSetOrder.MSH2Result, document);
             this.AddNextNteElement("MSH6 Result: " + panelSetOrder.MSH6Result, document);
-            this.AddNextNteElement("PMS2 Result: " + panelSetOrder.PMS2Result, document);
             this.AddBlankNteElement(document);
             this.HandleLongString("Comment: " + panelSetOrder.Comment, document);
 
