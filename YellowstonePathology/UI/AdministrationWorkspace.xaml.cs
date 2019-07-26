@@ -994,7 +994,12 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
+            var secondaryScreen = System.Windows.Forms.Screen.AllScreens
+                .Where(s => s.Primary == true)
+                .Single();
+            MessageBox.Show(secondaryScreen.DeviceName);
 
+            /*
             Billing.HRHCDMList lst = new Billing.HRHCDMList();
             foreach(string cdm in lst)
             {
@@ -1004,9 +1009,10 @@ namespace YellowstonePathology.UI
                     MessageBox.Show("CDM not found");
             }
             MessageBox.Show("All CDM's exist");
+            */
 
             //this.WriteCDM();
-            
+
             /*            
             Business.Stain.Model.StainCollection stainCollection = Business.Stain.Model.StainCollection.Instance;
             StringBuilder result = new StringBuilder();
@@ -1022,8 +1028,8 @@ namespace YellowstonePathology.UI
             Console.WriteLine(result.ToString());
             */
 
-            
-            for(int i=1; i<7; i++)
+
+            for (int i=1; i<7; i++)
             {
                 Business.BarcodeScanning.SlideStorage slideStorageBarcode = new Business.BarcodeScanning.SlideStorage("Main Slide Storage", "mnsldstrg", "1", i.ToString(), "YPIBLGS", "2015", "3500", "4500");
                 Business.Label.Model.StorageSlideLabel slideStorageLabel = new Business.Label.Model.StorageSlideLabel(slideStorageBarcode);
