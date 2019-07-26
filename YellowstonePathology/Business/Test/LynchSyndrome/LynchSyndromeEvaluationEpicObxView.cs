@@ -43,9 +43,9 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 PanelSetOrderLynchSyndromeIHC panelSetOrderLynchSyndromeIHC = (PanelSetOrderLynchSyndromeIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(lynchSyndromeIHCPanelTest.PanelSetId, panelSetOrderLynchSyndromeEvaluation.OrderedOnId, true);
                 this.AddNextObxElement("Mismatch Repair Protein Expression by Immunohistochemistry: ", document, "F");
                 this.AddNextObxElement("MLH1: " + panelSetOrderLynchSyndromeIHC.MLH1Result, document, "F");
+                this.AddNextObxElement("PMS2: " + panelSetOrderLynchSyndromeIHC.PMS2Result, document, "F");
                 this.AddNextObxElement("MSH2: " + panelSetOrderLynchSyndromeIHC.MSH2Result, document, "F");
                 this.AddNextObxElement("MSH6: " + panelSetOrderLynchSyndromeIHC.MSH6Result, document, "F");
-                this.AddNextObxElement("PMS2: " + panelSetOrderLynchSyndromeIHC.PMS2Result, document, "F");
                 this.AddNextObxElement("", document, "F");
             }
 

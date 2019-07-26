@@ -103,19 +103,19 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
                 rowmlh1NodeClone.SelectSingleNode("descendant::w:r[w:t='ihc_block_label']/w:t", this.m_NameSpaceManager).InnerText = aliquotOrder.Label;
                 tableNode.InsertAfter(rowmlh1NodeClone, insertAfterRow);
 
+                XmlNode rowpms2NodeClone = rowpms2Node.Clone();
+                rowpms2NodeClone.SelectSingleNode("descendant::w:r[w:t='pms2_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.PMS2Result.Description;
+                tableNode.InsertAfter(rowpms2NodeClone, rowmlh1NodeClone);
+
                 XmlNode rowmsh2NodeClone = rowmsh2Node.Clone();
                 rowmsh2NodeClone.SelectSingleNode("descendant::w:r[w:t='msh2_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.MSH2Result.Description;
-                tableNode.InsertAfter(rowmsh2NodeClone, rowmlh1NodeClone);
+                tableNode.InsertAfter(rowmsh2NodeClone, rowpms2NodeClone);
 
                 XmlNode rowmsh6NodeClone = rowmsh6Node.Clone();
                 rowmsh6NodeClone.SelectSingleNode("descendant::w:r[w:t='msh6_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.MSH6Result.Description;
                 tableNode.InsertAfter(rowmsh6NodeClone, rowmsh2NodeClone);
 
-                XmlNode rowpms2NodeClone = rowpms2Node.Clone();
-                rowpms2NodeClone.SelectSingleNode("descendant::w:r[w:t='pms2_result']/w:t", this.m_NameSpaceManager).InnerText = ihcResult.PMS2Result.Description;
-                tableNode.InsertAfter(rowpms2NodeClone, rowmsh6NodeClone);
-
-                insertAfterRow = rowpms2NodeClone;
+                insertAfterRow = rowmsh6NodeClone;
             }
 
             if (comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHCCollection.Count > 0)

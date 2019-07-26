@@ -67,9 +67,9 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
                 foreach (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeIHC testOrder in comprehensiveColonCancerProfileResult.PanelSetOrderLynchSyndromeIHCCollection)
                 {
                     this.AddNextObxElement("MLH1: " + testOrder.MLH1Result, document, "F");
+                    this.AddNextObxElement("PMS2: " + testOrder.PMS2Result, document, "F");
                     this.AddNextObxElement("MSH2: " + testOrder.MSH2Result, document, "F");
                     this.AddNextObxElement("MSH6: " + testOrder.MSH6Result, document, "F");
-                    this.AddNextObxElement("PMS2: " + testOrder.PMS2Result, document, "F");
                     this.AddNextObxElement("Reference Report: " + testOrder.ReportNo, document, "F");
                     this.AddNextObxElement("", document, "F");
                 }
@@ -77,9 +77,9 @@ namespace YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile
             else
             {
                 this.AddNextObxElement("MLH1: " + "Not Included", document, "F");
+                this.AddNextObxElement("PMS2: " + "Not Included", document, "F");
                 this.AddNextObxElement("MSH2: " + "Not Included", document, "F");
                 this.AddNextObxElement("MSH6: " + "Not Included", document, "F");
-                this.AddNextObxElement("PMS2: " + "Not Included", document, "F");
                 this.AddNextObxElement("", document, "F");
             }
 
