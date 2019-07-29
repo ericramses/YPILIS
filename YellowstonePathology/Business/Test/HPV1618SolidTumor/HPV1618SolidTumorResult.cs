@@ -21,6 +21,7 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
         protected string m_HPV33Result;
         protected string m_HPV45Result;
         protected string m_HPV58Result;
+        protected string m_HPVDNAResult;
         protected string m_SquamousCellCarcinomaInterpretation;
 
         protected string m_Method = "HPV DNA Tissue testing utilizes type-specific primers for early protein genes (E5-E7). Six high-risk (HR) " +
@@ -42,22 +43,26 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 			get { return this.m_ResultCode; }
 		}
 
-		public void SetResult(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder panelSetOrder)
-		{            			
-            panelSetOrder.ResultCode = this.m_ResultCode;
-            panelSetOrder.HPV6Result = this.m_HPV6Result;
-            panelSetOrder.HPV16Result = this.m_HPV16Result;
-            panelSetOrder.HPV18Result = this.m_HPV18Result;
-            panelSetOrder.HPV31Result = this.m_HPV31Result;
-            panelSetOrder.HPV33Result = this.m_HPV33Result;
-            panelSetOrder.HPV45Result = this.m_HPV45Result;
-            panelSetOrder.HPV58Result = this.m_HPV58Result;
-            panelSetOrder.Method = this.m_Method;
-            panelSetOrder.ReportReferences = this.m_References;            
-            panelSetOrder.Interpretation = this.m_SquamousCellCarcinomaInterpretation;            
+		public virtual void SetResult(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder panelSetOrder)
+		{
 		}
 
-		public virtual void AcceptResults(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder,
+        private static void SetResultCode(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder panelSetOrder)
+        {
+            if (panelSetOrder.ResultCode == null)
+            {
+                if (panelSetOrder.Indication == Business.Test.HPV1618SolidTumor.HPV1618SolidTumorIndication.SquamousCellCarcinomaAnalRegion)
+                {
+                    panelSetOrder.ResultCode = "HPV1618ANLRGN";
+                }
+                else
+                {
+                    panelSetOrder.ResultCode = "HPV1618D";
+                }
+            }
+        }
+
+        public virtual void AcceptResults(YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrder,
 			YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			YellowstonePathology.Business.Test.PanelOrder panelOrder = panelSetOrder.PanelOrderCollection.GetUnacceptedPanelOrder();
@@ -67,6 +72,7 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 
 		public void Clear(HPV1618SolidTumorTestOrder hpv1618SolidTumorTestOrder)
         {
+            hpv1618SolidTumorTestOrder.ResultCode = null;
             hpv1618SolidTumorTestOrder.Method = null;
             hpv1618SolidTumorTestOrder.ReportReferences = null;
             hpv1618SolidTumorTestOrder.Interpretation = null;
@@ -77,9 +83,10 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             hpv1618SolidTumorTestOrder.HPV33Result = null;
             hpv1618SolidTumorTestOrder.HPV45Result = null;
             hpv1618SolidTumorTestOrder.HPV58Result = null;
+            hpv1618SolidTumorTestOrder.HPVDNAResult = null;
         }
 
-        public virtual void FinalizeResults(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity, Business.Test.AccessionOrder accessionOrder)
+        public void FinalizeResults(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder panelSetOrder, YellowstonePathology.Business.User.SystemIdentity systemIdentity, Business.Test.AccessionOrder accessionOrder)
 		{
 			panelSetOrder.Finish(accessionOrder);
 		}
@@ -97,11 +104,63 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             {
 				if (string.IsNullOrEmpty(panelSetOrder.ResultCode) == true)
 				{
-					result.Success = false;
-					result.Message = "The results cannot be accepted because there is no result.";
+                    SetResultCode(panelSetOrder);
 				}
             }
-			return result;
+
+            if (result.Success == true)
+            {
+                string message = string.Empty;
+                if (string.IsNullOrEmpty(panelSetOrder.HPVDNAResult) == true)
+                {
+                    result.Success = false;
+                    message = "HPV DNA, ";
+                }
+                if (string.IsNullOrEmpty(panelSetOrder.HPV6Result) == true)
+                {
+                    result.Success = false;
+                    message += "HPV-6, ";
+                }
+                if (string.IsNullOrEmpty(panelSetOrder.HPV16Result) == true)
+                {
+                    result.Success = false;
+                    message += "HPV-16, ";
+                }
+                if (string.IsNullOrEmpty(panelSetOrder.HPV18Result) == true)
+                {
+                    result.Success = false;
+                    message += "HPV-18, ";
+                }
+                if (string.IsNullOrEmpty(panelSetOrder.HPV31Result) == true)
+                {
+                    result.Success = false;
+                    message += "HPV-31, ";
+                }
+                if (string.IsNullOrEmpty(panelSetOrder.HPV33Result) == true)
+                {
+                    result.Success = false;
+                    message += "HPV-33, ";
+                }
+                if (string.IsNullOrEmpty(panelSetOrder.HPV45Result) == true)
+                {
+                    result.Success = false;
+                    message += "HPV-45, ";
+                }
+                if (string.IsNullOrEmpty(panelSetOrder.HPV58Result) == true)
+                {
+                    result.Success = false;
+                    message += "HPV-58, ";
+                }
+
+                if(message.Length > 0)
+                {
+                    message = message.Substring(0, message.Length - 2);
+                    result.Message = "The results cannot be accepted because the " + message + " result/s need a value." + Environment.NewLine +
+                        "Not Performed, Detected or Not Detected are acceptable values.";
+                }
+            }
+
+            return result;
 		}
 
 		public static YellowstonePathology.Business.Rules.MethodResult IsOkToSetResult(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder panelSetOrder)

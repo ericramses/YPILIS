@@ -30,15 +30,38 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             this.AddNextNteElement("Report #: " + panelSetOrder.ReportNo, document);
             this.AddBlankNteElement(document);
 
-			string hpv16ResultText = "HPV-16 Result: " + panelSetOrder.HPV16Result;
-			this.AddNextNteElement(hpv16ResultText, document);
-			this.AddNextNteElement("HPV-16 Reference: Negative", document);
-			this.AddBlankNteElement(document);
-
-			string hpv18ResultText = "HPV-18/45 Result: " + panelSetOrder.HPV18Result;
-			this.AddNextNteElement(hpv18ResultText, document);
-			this.AddNextNteElement("HPV-18/45 Reference: Negative", document);
-			this.AddBlankNteElement(document);
+            this.AddNextNteElement("HPV DNA: " + panelSetOrder.HPVDNAResult, document);
+            this.AddNextNteElement("HPV DNA Reference: Not Detected", document);
+            this.AddBlankNteElement(document);
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextNteElement("HPV-6/11 Result: " + panelSetOrder.HPV6Result, document);
+            }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextNteElement("HPV-16 Result: " + panelSetOrder.HPV16Result, document);
+            }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextNteElement("HPV-18 Result: " + panelSetOrder.HPV18Result, document);
+            }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextNteElement("HPV-31 Result: " + panelSetOrder.HPV31Result, document);
+            }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextNteElement("HPV-33 Result: " + panelSetOrder.HPV33Result, document);
+            }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextNteElement("HPV-45 Result: " + panelSetOrder.HPV45Result, document);
+            }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextNteElement("HPV-58 Result: " + panelSetOrder.HPV58Result, document);
+            }
+            this.AddBlankNteElement(document);
 
             if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)
             {

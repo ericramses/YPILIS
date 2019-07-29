@@ -22,14 +22,23 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
         public HPV1618SolidTumorNotDetectedResult()
         {
             this.m_ResultCode = "HPV1618ND";
-            this.m_HPV6Result = HPV1618SolidTumorResult.NotDetectedResult;
-            this.m_HPV16Result = HPV1618SolidTumorResult.NotDetectedResult;
-            this.m_HPV18Result = HPV1618SolidTumorResult.NotDetectedResult;
-            this.m_HPV31Result = HPV1618SolidTumorResult.NotDetectedResult;
-            this.m_HPV33Result = HPV1618SolidTumorResult.NotDetectedResult;
-            this.m_HPV45Result = HPV1618SolidTumorResult.NotDetectedResult;
-            this.m_HPV58Result = HPV1618SolidTumorResult.NotDetectedResult;
             this.m_SquamousCellCarcinomaInterpretation = SquamousCellCarcinomaInterpretation;
+        }
+
+        public override void SetResult(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder panelSetOrder)
+        {
+            panelSetOrder.HPV6Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV16Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV18Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV31Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV33Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV45Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV58Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPVDNAResult = HPV1618SolidTumorResult.NotDetectedResult;
+
+            panelSetOrder.Method = this.m_Method;
+            panelSetOrder.ReportReferences = this.m_References;
+            panelSetOrder.Interpretation = this.m_SquamousCellCarcinomaInterpretation;
         }
     }
 }

@@ -19,29 +19,47 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             this.m_ResultCode = "HPV1618ANLRGN";
         }
 
-        public void SetResult(string hpv16Result, string hpv18Result)
-        {            
-            this.m_HPV16Result = hpv16Result;
-            this.m_HPV18Result = hpv18Result;
-
-            this.m_SquamousCellCarcinomaInterpretation = SquamousCellCarcinomaInterpretation;
-            if (this.m_HPV16Result == "Positive")
+        public override void SetResult(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder panelSetOrder)
+        {
+            panelSetOrder.ResultCode = this.m_ResultCode;
+            if(panelSetOrder.HPVDNAResult == HPV1618SolidTumorResult.DetectedResult)
             {
-                this.m_SquamousCellCarcinomaInterpretation += " HPV 16 was detected in the sample by real time PCR.";
+                this.m_SquamousCellCarcinomaInterpretation = SquamousCellCarcinomaInterpretation;
+
+                if (this.m_HPV16Result == HPV1618SolidTumorResult.DetectedResult)
+                {
+                    this.m_SquamousCellCarcinomaInterpretation += " HPV 16 was detected in the sample by real time PCR.";
+                }
+
+                if (this.m_HPV18Result == HPV1618SolidTumorResult.DetectedResult)
+                {
+                    this.m_SquamousCellCarcinomaInterpretation += " HPV 18/45 was detected.";
+                }
             }
             else
             {
+                this.m_SquamousCellCarcinomaInterpretation = SquamousCellCarcinomaInterpretation;
                 this.m_SquamousCellCarcinomaInterpretation += " HPV 16 was not detected in the sample by real time PCR.";
+                this.m_SquamousCellCarcinomaInterpretation += " HPV 18/45 was not detected.";
             }
 
-            if (this.m_HPV18Result == "Positive")
-            {
-                this.m_SquamousCellCarcinomaInterpretation += " HPV 18/45 was detected.";
-            }
-            else
-            {
-                this.m_SquamousCellCarcinomaInterpretation += " HPV 18/45 was not detected.";
-            }            
+            panelSetOrder.Method = this.m_Method;
+            panelSetOrder.ReportReferences = this.m_References;
+            panelSetOrder.Interpretation = this.m_SquamousCellCarcinomaInterpretation;
+        }
+
+        public void SetNotDetectedResult(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder panelSetOrder)
+        {
+            panelSetOrder.HPV6Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV16Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV18Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV31Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV33Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV45Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPV58Result = HPV1618SolidTumorResult.NotDetectedResult;
+            panelSetOrder.HPVDNAResult = HPV1618SolidTumorResult.NotDetectedResult;
+
+            this.SetResult(panelSetOrder);
         }
 	}
 }
