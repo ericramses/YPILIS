@@ -21,21 +21,38 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             this.AddHeader(document, panelSetOrder, "HPV Genotypes 16 and 18 Solid Tumor");
             this.AddNextObxElement("", document, "F");
 
-            string hpv16ResultText = "HPV-16 Result: " + panelSetOrder.HPV16Result;
-            this.AddNextObxElement(hpv16ResultText, document, "F");
-            this.AddNextObxElement("HPV-16 Reference: Negative", document, "F");
+            this.AddNextObxElement("HPV DNA: " + panelSetOrder.HPVDNAResult, document, "F");
+            this.AddNextObxElement("HPV DNA Reference: Not Detected", document, "F");
             this.AddNextObxElement("", document, "F");
-
-            string hpv18ResultText = "HPV-18/45 Result: " + panelSetOrder.HPV18Result;
-            this.AddNextObxElement(hpv18ResultText, document, "F");
-            this.AddNextObxElement("HPV-18/45 Reference: Negative", document, "F");
-            this.AddNextObxElement("", document, "F");
-
-            if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
             {
-                this.AddNextObxElement("Comment:", document, "F");
-                this.AddNextObxElement(panelSetOrder.Comment, document, "F");
+                this.AddNextObxElement("HPV-6/11 Result: " + panelSetOrder.HPV6Result, document, "F");
             }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextObxElement("HPV-16 Result: " + panelSetOrder.HPV16Result, document, "F");
+            }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextObxElement("HPV-18 Result: " + panelSetOrder.HPV18Result, document, "F");
+            }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextObxElement("HPV-31 Result: " + panelSetOrder.HPV31Result, document, "F");
+            }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextObxElement("HPV-33 Result: " + panelSetOrder.HPV33Result, document, "F");
+            }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextObxElement("HPV-45 Result: " + panelSetOrder.HPV45Result, document, "F");
+            }
+            if (panelSetOrder.HPV6Result != PanelSetOrder.NotPerformedResult)
+            {
+                this.AddNextObxElement("HPV-58 Result: " + panelSetOrder.HPV58Result, document, "F");
+            }
+            this.AddNextObxElement("", document, "F");
 
             if (panelSetOrder.Indication == YellowstonePathology.Business.Test.HPV1618ByPCR.HPV1618ByPCRIndication.SquamousCellCarcinoma)
             {
