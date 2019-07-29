@@ -10,13 +10,19 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 	public class HPV1618SolidTumorTestOrder : PanelSetOrder
 	{
         private string m_Indication;
-		private string m_HPV16Result;
+        private string m_HPV6Result;
+        private string m_HPV16Result;
 		private string m_HPV18Result;
-		private string m_Method;		
+        private string m_HPV31Result;
+        private string m_HPV33Result;
+        private string m_HPV45Result;
+        private string m_HPV58Result;
+        private string m_HPVDNAResult;
+        private string m_Method;		
         private string m_Interpretation;
         private string m_Comment;
 
-		public HPV1618SolidTumorTestOrder()
+        public HPV1618SolidTumorTestOrder()
 		{
 
 		}
@@ -45,7 +51,21 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             }
         }
 
-		[PersistentProperty()]
+        [PersistentProperty()]
+        public string HPV6Result
+        {
+            get { return this.m_HPV6Result; }
+            set
+            {
+                if (this.m_HPV6Result != value)
+                {
+                    this.m_HPV6Result = value;
+                    this.NotifyPropertyChanged("HPV6Result");
+                }
+            }
+        }
+
+        [PersistentProperty()]
 		[PersistentDataColumnProperty(true, "100", "null", "varchar")]
 		public string HPV16Result
 		{
@@ -75,7 +95,77 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 			}
 		}
 
-		[PersistentProperty()]
+        [PersistentProperty()]
+        public string HPV31Result
+        {
+            get { return this.m_HPV31Result; }
+            set
+            {
+                if (this.m_HPV31Result != value)
+                {
+                    this.m_HPV31Result = value;
+                    this.NotifyPropertyChanged("HPV31Result");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string HPV33Result
+        {
+            get { return this.m_HPV33Result; }
+            set
+            {
+                if (this.m_HPV33Result != value)
+                {
+                    this.m_HPV33Result = value;
+                    this.NotifyPropertyChanged("HPV33Result");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string HPV45Result
+        {
+            get { return this.m_HPV45Result; }
+            set
+            {
+                if (this.m_HPV45Result != value)
+                {
+                    this.m_HPV45Result = value;
+                    this.NotifyPropertyChanged("HPV45Result");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string HPV58Result
+        {
+            get { return this.m_HPV58Result; }
+            set
+            {
+                if (this.m_HPV58Result != value)
+                {
+                    this.m_HPV58Result = value;
+                    this.NotifyPropertyChanged("HPV58Result");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string HPVDNAResult
+        {
+            get { return this.m_HPVDNAResult; }
+            set
+            {
+                if (this.m_HPVDNAResult != value)
+                {
+                    this.m_HPVDNAResult = value;
+                    this.NotifyPropertyChanged("HPVDNAResult");
+                }
+            }
+        }
+
+        [PersistentProperty()]
 		[PersistentDataColumnProperty(true, "500", "null", "varchar")]
 		public string Method
 		{
