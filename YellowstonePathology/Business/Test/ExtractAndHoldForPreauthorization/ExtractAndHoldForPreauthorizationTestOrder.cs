@@ -10,6 +10,7 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
         private int? m_TestId;
         private string m_CPTCodes;
         private string m_Fax;
+        private string m_InternalComment;
 
         public ExtractAndHoldForPreauthorizationTestOrder()
         { }
@@ -32,6 +33,21 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
                 {
                     this.m_Comment = value;
                     this.NotifyPropertyChanged("Comment");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "50", "null", "varchar")]
+        public string InternalComment
+        {
+            get { return this.m_InternalComment; }
+            set
+            {
+                if (this.m_InternalComment != value)
+                {
+                    this.m_InternalComment = value;
+                    this.NotifyPropertyChanged("InternalComment");
                 }
             }
         }
