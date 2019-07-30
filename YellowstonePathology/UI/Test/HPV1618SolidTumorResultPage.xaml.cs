@@ -30,6 +30,7 @@ namespace YellowstonePathology.UI.Test
 		private YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder m_HPV1618SolidTumorTestOrder;
 		private YellowstonePathology.UI.Navigation.PageNavigator m_PageNavigator;
         private List<string> m_IndicationList;
+        private List<string> m_ResultsList;
 
 		public HPV1618SolidTumorResultPage(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder hpv1618SolidTumorTestOrder,
 			YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
@@ -43,8 +44,12 @@ namespace YellowstonePathology.UI.Test
 
             this.m_IndicationList = YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorIndication.GetIndicationList();
 			this.m_PageHeaderText = "HPV 16 18/45 Solid Tumor Results For: " + this.m_AccessionOrder.PatientDisplayName;
-			
-			InitializeComponent();
+            this.m_ResultsList = new List<string>();
+            this.m_ResultsList.Add(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder.NotDetectedResult);
+            this.m_ResultsList.Add(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder.DetectedResult);
+            this.m_ResultsList.Add(YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder.NotPerformedResult);
+
+            InitializeComponent();
 
 			DataContext = this;
 
@@ -56,6 +61,11 @@ namespace YellowstonePathology.UI.Test
         public List<string> IndicationList
         {
             get { return this.m_IndicationList; }
+        }
+
+        public List<string> ResultsList
+        {
+            get { return this.m_ResultsList; }
         }
 
 		public YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder PanelSetOrder
@@ -101,8 +111,7 @@ namespace YellowstonePathology.UI.Test
 			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_HPV1618SolidTumorTestOrder.IsOkToFinalize();
 			if (methodResult.Success == true)
 			{
-                YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorResult hpv1618Result = new Business.Test.HPV1618SolidTumor.HPV1618SolidTumorResult();
-				hpv1618Result.FinalizeResults(this.m_HPV1618SolidTumorTestOrder, this.m_SystemIdentity, this.m_AccessionOrder);
+                this.m_HPV1618SolidTumorTestOrder.Finish(this.m_AccessionOrder);
 
                 YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandler multiTestDistributionHandler = YellowstonePathology.Business.ReportDistribution.Model.MultiTestDistributionHandlerFactory.GetHandler(this.m_AccessionOrder);
                 multiTestDistributionHandler.Set();
@@ -146,7 +155,7 @@ namespace YellowstonePathology.UI.Test
 
 		private void HyperLinkAcceptResults_Click(object sender, RoutedEventArgs e)
 		{
-			YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorResult.IsOkToAccept(this.m_HPV1618SolidTumorTestOrder);
+			YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_HPV1618SolidTumorTestOrder.IsOkToAccept();
 			if (methodResult.Success == true)
 			{
                 this.m_HPV1618SolidTumorTestOrder.Accept();
@@ -166,30 +175,15 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkNotDetected_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Rules.MethodResult methodResult = YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorResult.IsOkToSetResult(this.m_HPV1618SolidTumorTestOrder);
+            YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_HPV1618SolidTumorTestOrder.IsOkToSetResult();
             if (methodResult.Success == true)
             {
-                if (this.m_HPV1618SolidTumorTestOrder.Indication == Business.Test.HPV1618SolidTumor.HPV1618SolidTumorIndication.SquamousCellCarcinomaAnalRegion)
-                {
-                    YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorAnalRegionResult result = new Business.Test.HPV1618SolidTumor.HPV1618SolidTumorAnalRegionResult();
-                    result.SetNotDetectedResult(this.m_HPV1618SolidTumorTestOrder);
-                }
-                else if (this.m_HPV1618SolidTumorTestOrder.Indication == Business.Test.HPV1618SolidTumor.HPV1618SolidTumorIndication.SquamousCellCarcinomaHeadAndNeck)
-                {
-                    YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorNotDetectedResult result = new Business.Test.HPV1618SolidTumor.HPV1618SolidTumorNotDetectedResult();
-                    result.SetResult(this.m_HPV1618SolidTumorTestOrder);
-                }                
+                this.m_HPV1618SolidTumorTestOrder.SetNotDetectedResult();               
 			}
 			else
 			{
 				MessageBox.Show(methodResult.Message);
 			}
 		}
-
-        private void HyperLinkClearResults_Click(object sender, RoutedEventArgs e)
-        {
-            YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorResult result = new Business.Test.HPV1618SolidTumor.HPV1618SolidTumorResult();
-            result.Clear(this.m_HPV1618SolidTumorTestOrder);
-        }
 	}
 }
