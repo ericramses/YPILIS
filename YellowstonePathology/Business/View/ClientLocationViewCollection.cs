@@ -19,10 +19,10 @@ namespace YellowstonePathology.Business.View
         {
             ClientLocationViewCollection result = new ClientLocationViewCollection();
 
-            YellowstonePathology.Business.View.ClientLocationView svhSurgery = new Business.View.ClientLocationView(558, 694, "St. Vincent Healthcare", "Surgery");
+            YellowstonePathology.Business.View.ClientLocationView svhSurgery = new Business.View.ClientLocationView(558, 209, "St. Vincent Healthcare", "Surgery");
             result.Add(svhSurgery);
 
-            YellowstonePathology.Business.View.ClientLocationView svhGICenter = new Business.View.ClientLocationView(558, 695, "St. Vincent Healthcare", "GI Center");
+            YellowstonePathology.Business.View.ClientLocationView svhGICenter = new Business.View.ClientLocationView(558, 209, "St. Vincent Healthcare", "GI Center");
             result.Add(svhGICenter);
 
             YellowstonePathology.Business.View.ClientLocationView bigSkyDerm = new Business.View.ClientLocationView(1203, 580, "Big Sky Dermatology", "Medical Records");
@@ -72,6 +72,9 @@ namespace YellowstonePathology.Business.View
 
             YellowstonePathology.Business.View.ClientLocationView ypi = new Business.View.ClientLocationView(280, 137, "Yellowstone Pathologists, P.C.", "Medical Records");
             result.Add(ypi);
+
+            YellowstonePathology.Business.View.ClientLocationView nm = new Business.View.ClientLocationView(587, 228, "Northern Montana Healthcare", "Medical Records");
+            result.Add(nm);
 
             return Sort(result);
         }

@@ -37,6 +37,9 @@ namespace YellowstonePathology.Business.Test.PDL1288
             this.m_TechnicalComponentBillingFacility = neogenomicsIrvine;
             this.m_ProfessionalComponentBillingFacility = neogenomicsIrvine;
 
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88360", null), 1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);
+
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
         }
     }

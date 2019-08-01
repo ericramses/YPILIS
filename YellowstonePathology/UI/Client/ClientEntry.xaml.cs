@@ -25,7 +25,7 @@ namespace YellowstonePathology.UI.Client
 		private Business.Billing.Model.InsuranceTypeCollection m_InsuranceTypeCollection;
 		private List<string> m_FacilityTypes;
 		private Business.ReportDistribution.Model.DistributionTypeList m_DistributionTypeList;
-		private Business.View.ClientPhysicianView m_ClientPhysicianView;
+        private Business.View.ClientPhysicianView m_ClientPhysicianView;
 		private Business.Domain.PhysicianCollection m_PhysicianCollection;
 		private Business.Billing.Model.BillingRuleSetCollection m_BillingRuleSetCollection;
 		private Business.Client.Model.ClientSupplyOrderCollection m_ClientSupplyOrderCollection;
@@ -70,7 +70,8 @@ namespace YellowstonePathology.UI.Client
 
         private void ClientEntry_Closing(object sender, CancelEventArgs e)
         {
-            YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+            if (this.CanSave() == true) YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(this);
+            else e.Cancel = true;
         }
 
         public void NotifyPropertyChanged(String info)
@@ -106,7 +107,7 @@ namespace YellowstonePathology.UI.Client
             get { return this.m_DistributionTypeList; }
 		}
 
-		public YellowstonePathology.Business.Billing.Model.InsuranceTypeCollection InsuranceTypeCollection
+        public YellowstonePathology.Business.Billing.Model.InsuranceTypeCollection InsuranceTypeCollection
 		{
 			get { return this.m_InsuranceTypeCollection; }
 		}
@@ -148,6 +149,44 @@ namespace YellowstonePathology.UI.Client
         {
             bool result = this.MaskNumberIsValid(this.MaskedTextBoxTelephone);
             if(result == true) result = this.MaskNumberIsValid(this.MaskedTextBoxFax);
+            if (result == true && string.IsNullOrEmpty(this.m_Client.ClientName) == true)
+            {
+                result = false;
+                MessageBox.Show("The Client name may not be blank.");
+            }
+            if (result == true)
+            {
+                if (string.IsNullOrEmpty(this.m_Client.DistributionType) == true)
+                {
+                    result = false;
+                    MessageBox.Show("The Distribution Type may not be blank.");
+                }
+                else if(this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC ||
+                    this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA ||
+                    this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH ||
+                    this.m_Client.DistributionType == YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW)
+                {
+                    if (string.IsNullOrEmpty(this.m_Client.AlternateDistributionType) == true)
+                    {
+                        result = false;
+                        MessageBox.Show("The Alternate Distribution Type must be set when the Distribution Type is " + this.m_Client.DistributionType + ".");
+                    }
+                }
+            }
+
+            if(result == true)
+            {
+                if (string.IsNullOrEmpty(this.m_Client.AlternateDistributionType) == false)
+                {
+                    YellowstonePathology.Business.ReportDistribution.Model.IncompatibleDistributionTypeCollection incompatibleDistributionTypeCollection = new Business.ReportDistribution.Model.IncompatibleDistributionTypeCollection();
+                    if(incompatibleDistributionTypeCollection.TypesAreIncompatible(this.m_Client.DistributionType, this.m_Client.AlternateDistributionType) == true)
+                    {
+                        result = false;
+                        MessageBox.Show("The Alternate Distribution Type may not be " + this.m_Client.AlternateDistributionType + " when the Distribution Type is " + 
+                            this.m_Client.DistributionType + ".");
+                    }
+                }
+            }
             return result;
         }
 
@@ -163,8 +202,12 @@ namespace YellowstonePathology.UI.Client
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClient, this);                    
 					this.m_ClientPhysicianView.Physicians.Add(physician);
 					this.NotifyPropertyChanged("Physicians");
-				}
-			}
+
+                    string distributionObjectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                    YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(distributionObjectId, physicianClient.PhysicianClientId, physicianClient.PhysicianClientId, this.m_Client.DistributionType);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClientDistribution, this);
+                }
+            }
 		}
 
 		private void ButtonRemoveFromClient_Click(object sender, RoutedEventArgs e)
@@ -198,7 +241,7 @@ namespace YellowstonePathology.UI.Client
             if (physicianClientDistributionCollection.Count > 0)
             {
                 result.Success = false;
-                result.Message = "This provider has distributions for this client.  These distributions must be removed before the provider can be removed from the client membership.";
+                result.Message = "This provider has distributions set up for this client.  These distributions must be removed before the provider can be removed from the client membership.";
             }
             return result;
         }
@@ -391,7 +434,7 @@ namespace YellowstonePathology.UI.Client
             if(oktoAdd == true)
             {
                 string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, newPhysicianClient.PhysicianClientId, newPhysicianClient.PhysicianClientId);
+                YellowstonePathology.Business.Client.Model.PhysicianClientDistribution physicianClientDistribution = new Business.Client.Model.PhysicianClientDistribution(objectId, newPhysicianClient.PhysicianClientId, newPhysicianClient.PhysicianClientId, this.m_Client.DistributionType);
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(physicianClientDistribution, this);
             }
         }

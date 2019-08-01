@@ -215,7 +215,7 @@ namespace YellowstonePathology.UI.Cutting
                         {                                
                             YellowstonePathology.Business.Slide.Model.SlideOrder slideOrder = this.m_AliquotOrder.SlideOrderCollection.Get(barcode.ID);
                             YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-                            string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+                            string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HostName;
 
                             this.AddMaterialTrackingLog(slideOrder, thisFacility, thisLocation);
                             slideOrder.SetLocation(thisFacility, thisLocation);
@@ -240,7 +240,7 @@ namespace YellowstonePathology.UI.Cutting
         {           
             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
 			YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, slideOrder.SlideOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
-                thisLocation, "Slide Scanned", "Slide Scanned At Cutting", "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned);
+                thisLocation, "Slide Scanned", "Slide Scanned At Cutting", "SlideOrder", this.m_AccessionOrder.MasterAccessionNo, slideOrder.Label, slideOrder.ClientAccessioned, this.m_AccessionOrder.ClientAccessionNo);
             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));
         }
 
@@ -352,6 +352,18 @@ namespace YellowstonePathology.UI.Cutting
         public override void BeforeNavigatingAway()
         {
             
-        }        
+        }
+
+        private void ButtonAddUnstainedSlide_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.Model.UnstainedSlide unstainedSlide = new Business.Test.Model.UnstainedSlide();
+            Business.Visitor.OrderTestVisitor orderTestVisitor = new Business.Visitor.OrderTestVisitor(this.m_PanelSetOrder.ReportNo, unstainedSlide, null, null, false, this.m_AliquotOrder, true, false, this.m_AccessionOrder.TaskOrderCollection);            
+            orderTestVisitor.Visit(this.m_PanelSetOrder);
+
+            Business.Visitor.AddSlideOrderVisitor addSlideOrderVisitor = new Business.Visitor.AddSlideOrderVisitor(this.m_AliquotOrder, orderTestVisitor.TestOrder);
+            addSlideOrderVisitor.Visit(this.m_AccessionOrder);
+            addSlideOrderVisitor.NewSlideOrder.LabelType = "DirectPrint";
+            this.NotifyPropertyChanged(string.Empty);
+        }
     }
 }

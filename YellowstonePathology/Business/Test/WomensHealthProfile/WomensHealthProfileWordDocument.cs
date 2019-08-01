@@ -37,8 +37,9 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             WomensHealthProfileTestOrder womensHealthProfileTestOrder = (WomensHealthProfileTestOrder)this.m_PanelSetOrder;
             WomensHealthProfileResult womensHealthProfileResult = new WomensHealthProfileResult(this.m_AccessionOrder);
 
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(womensHealthProfileTestOrder.ReportNo);
             YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
-            amendmentSection.SetAmendment(womensHealthProfileTestOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+            amendmentSection.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(womensHealthProfileTestOrder.OrderedOnId);
             this.SetXmlNodeData("specimen_source", specimenOrder.SpecimenSource);

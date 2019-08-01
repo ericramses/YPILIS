@@ -29,6 +29,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		private string m_Description;
         private string m_Action;
         private bool m_ClientAccessioned;
+        private string m_ClientAccession;
 
         public MaterialTrackingLog()
         {
@@ -36,7 +37,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         }
 
         public MaterialTrackingLog(string objectId, string materialId, string materialTrackingBatchId, string facilityId, string facilityName, 
-           string location, string action, string description, string materialType, string masterAccessionNo, string materialLabel, bool clientAccessioned)
+           string location, string action, string description, string materialType, string masterAccessionNo, string materialLabel, bool clientAccessioned, string clientAccession)
         {
             this.m_MaterialTrackingLogId = Guid.NewGuid().ToString();
 			this.m_ObjectId = objectId;
@@ -54,6 +55,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_MasterAccessionNo = masterAccessionNo;
             this.m_MaterialLabel = materialLabel;
             this.m_ClientAccessioned = clientAccessioned;
+            this.m_ClientAccession = clientAccession;
         }
 
         public MaterialTrackingLog(string objectId, string materialId, string materialTrackingBatchId, string facilityId, string facilityName, string location, string materialType)
@@ -75,6 +77,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         {                        
             this.m_MasterAccessionNo = materialTrackingScannedItemView.MasterAccessionNo;
             this.m_MaterialLabel = materialTrackingScannedItemView.MaterialLabel;
+            this.m_MaterialType = materialTrackingScannedItemView.MaterialType;
             if(string.IsNullOrEmpty(materialTrackingScannedItemView.TestName) == false)
             {
                 this.m_MaterialLabel += " - " + materialTrackingScannedItemView.TestName;
@@ -317,6 +320,21 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                 {
                     this.m_ClientAccessioned = value;
                     this.NotifyPropertyChanged("ClientAccessioned");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "100", "null", "varchar")]
+        public string ClientAccession
+        {
+            get { return this.m_ClientAccession; }
+            set
+            {
+                if (this.m_ClientAccession != value)
+                {
+                    this.m_ClientAccession = value;
+                    this.NotifyPropertyChanged("ClientAccession");
                 }
             }
         }

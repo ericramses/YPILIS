@@ -173,7 +173,7 @@ namespace YellowstonePathology.UI.Test
 		{						
 			YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWordDocument report = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);		
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);		
 		}
 
         private void HyperLinkPreviousResults_Click(object sender, RoutedEventArgs e)

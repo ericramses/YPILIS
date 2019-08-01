@@ -123,9 +123,12 @@ namespace YellowstonePathology.UI.Test
 
 		private void ButtonNext_Click(object sender, RoutedEventArgs e)
 		{
-            if (this.IWantToOrderColonCancerProfileMessage() == false)
+            if (this.BRAFReminder() == false)
             {
-                if (this.Next != null) this.Next(this, new EventArgs());
+                if (this.IWantToOrderColonCancerProfileMessage() == false)
+                {
+                    if (this.Next != null) this.Next(this, new EventArgs());
+                }
             }
 		}
 
@@ -159,7 +162,7 @@ namespace YellowstonePathology.UI.Test
         {            
 			YellowstonePathology.Business.Test.LynchSyndrome.LynchSyndromeEvaluationWordDocument report = new Business.Test.LynchSyndrome.LynchSyndromeEvaluationWordDocument(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
         }
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
@@ -189,6 +192,34 @@ namespace YellowstonePathology.UI.Test
             {
                MessageBox.Show("We are unable to finalize this report because: " + auditCollection.Message);
             }
+        }
+
+        private bool BRAFReminder()
+        {
+            bool result = false;
+            if (this.m_LSERuleCollection.Count == 1)
+            {
+                YellowstonePathology.Business.Test.LynchSyndrome.LSERule lseRule = (YellowstonePathology.Business.Test.LynchSyndrome.LSERule)this.ListViewResults.Items[0];
+                if (lseRule.BRAFIsRequired(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation) == true)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show("A Braf is required.  Click Yes to stop and order one or click No to continue?", "Continue!", MessageBoxButton.YesNo);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        result = true;
+                        return result;
+                    }
+                }
+
+                if (lseRule.MethIsRequired(this.m_AccessionOrder, this.m_PanelSetOrderLynchSyndromeEvaluation) == true)
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show("A Meth Analysis is required.  Click Yes to stop and order one or click No to continue?", "Continue!", MessageBoxButton.YesNo);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            return result;
         }
 
         private bool IWantToOrderColonCancerProfileMessage()

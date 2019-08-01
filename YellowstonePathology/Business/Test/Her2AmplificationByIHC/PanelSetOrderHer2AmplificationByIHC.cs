@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YellowstonePathology.Business.Audit.Model;
 using YellowstonePathology.Business.Persistence;
 using YellowstonePathology.Business.Rules;
 
@@ -34,6 +35,14 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
                 "have been determined by NeoGenomics Laboratories.  This test has not been approved by the FDA.  The FDA has determined such " +
                 "clearance or approval is not necessary.  This laboratory is CLIA certified to perform high complexity clinical testing.";
 
+            this.Method = "Ventana PATHWAY anti-HER-2/neu antibody (clone 4B5) is used and staining is performed per the package " +
+                "insert. Scoring is based on ASCO/CAP guidelines for immunohistochemical testing of HER2 in breast cancer, a " +
+                "positive result (score 3+) is based on uniform, intense membrane staining in greater than 10% of invasive tumor cells; " +
+                "an equivocal result (score 2+) is based on weak to moderate complete membrane staining in greater than 10% of the tumor " +
+                "cells (see reference 2 for exceptions); a negative result (score 1+) is defined as incomplete membrane staining that is " +
+                "faint/barely perceptible and within <10% of the invasive tumor cells; and a negative result (score 0) is based on no " +
+                "staining or faint, partial membrane staining in </=10% of the tumor cells. The technical staining of this tumor was performed " +
+                "at Neogenomics Laboratory, and interpretation performed at Yellowstone Pathology Institute.";
         }
 
 		[PersistentProperty()]
@@ -193,6 +202,49 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByIHC
                 }
             }
             return result;
+        }
+
+        public override AuditResult IsOkToFinalize(AccessionOrder accessionOrder)
+        {
+            AuditResult result = base.IsOkToFinalize(accessionOrder);
+
+            if (result.Status == AuditStatusEnum.OK)
+            {
+                HER2AmplificationByISH.HER2AmplificationByISHTest ishTest = new HER2AmplificationByISH.HER2AmplificationByISHTest();
+                if(accessionOrder.PanelSetOrderCollection.Exists(ishTest.PanelSetId, this.m_OrderedOnId, true) == true)
+                {
+                    HER2AmplificationByISH.HER2AmplificationByISHTestOrder ishTestOrder = (HER2AmplificationByISH.HER2AmplificationByISHTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(ishTest.PanelSetId, this.m_OrderedOnId, true);
+                    if(ishTestOrder.Final == true)
+                    {
+                        if (this.m_Score.Contains("2+") == true)
+                        {
+                            HER2AmplificationRecount.HER2AmplificationRecountTest test = new HER2AmplificationRecount.HER2AmplificationRecountTest();
+                            if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_OrderedOnId, true) == false)
+                            {
+                                result.Status = AuditStatusEnum.Warning;
+                                result.Message = "This test will be finalized but not distributed as a " + test.PanelSetName + " is needed to determine the actual result and will be ordered.";
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public override FinalizeTestResult Finish(AccessionOrder accessionOrder)
+        {
+            if (this.m_Score.Contains("2+") == false)
+            {
+                HER2AnalysisSummary.HER2AnalysisSummaryTest test = new HER2AnalysisSummary.HER2AnalysisSummaryTest();
+                if (accessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_OrderedOnId, true) == true)
+                {
+                    this.Distribute = false;
+                    HER2AnalysisSummary.HER2AnalysisSummaryTestOrder testOrder = (HER2AnalysisSummary.HER2AnalysisSummaryTestOrder)accessionOrder.PanelSetOrderCollection.GetPanelSetOrder(test.PanelSetId, this.m_OrderedOnId, true);
+                    testOrder.SetValues(accessionOrder);
+                }
+            }
+            return base.Finish(accessionOrder);
         }
     }
 }

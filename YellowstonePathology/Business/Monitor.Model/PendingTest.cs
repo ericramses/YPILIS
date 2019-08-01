@@ -23,6 +23,7 @@ namespace YellowstonePathology.Business.Monitor.Model
         private TimeSpan m_Difference;
         private string m_DifferenceString;
         private bool m_IsDelayed;
+        private int m_PanelSetId;
 
         public PendingTest()
         {
@@ -139,7 +140,21 @@ namespace YellowstonePathology.Business.Monitor.Model
                     this.NotifyPropertyChanged("IsDelayed");
                 }
             }
-        }        
+        }
+
+        [PersistentProperty()]
+        public int PanelSetId
+        {
+            get { return this.m_PanelSetId; }
+            set
+            {
+                if (this.m_PanelSetId != value)
+                {
+                    this.m_PanelSetId = value;
+                    this.NotifyPropertyChanged("PanelSetId");
+                }
+            }
+        }
 
         public MonitorStateEnum State
         {
@@ -252,6 +267,6 @@ namespace YellowstonePathology.Business.Monitor.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }        
+        }
 	}
 }

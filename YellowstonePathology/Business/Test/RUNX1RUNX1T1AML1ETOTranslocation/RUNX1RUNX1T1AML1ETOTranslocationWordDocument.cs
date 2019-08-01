@@ -23,8 +23,9 @@ namespace YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation
             this.SetReportDistribution();
             this.SetCaseHistory();
 
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
             Document.AmendmentSection amendmentSection = new Document.AmendmentSection();
-            amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+            amendmentSection.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationTestOrder testOrder = (YellowstonePathology.Business.Test.RUNX1RUNX1T1AML1ETOTranslocation.RUNX1RUNX1T1AML1ETOTranslocationTestOrder)this.m_PanelSetOrder;
 

@@ -28,8 +28,11 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
             this.m_NeverDistribute = true;
             this.m_ShowResultPageOnOrder = true;            
             this.m_ExpectedDuration = new TimeSpan(7, 0, 0, 0);
-            this.m_EpicDistributionIsImplemented = true;
-            this.m_CMMCDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileWordDocument).AssemblyQualifiedName;

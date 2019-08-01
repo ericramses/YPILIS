@@ -23,8 +23,9 @@ namespace YellowstonePathology.Business.Test.FGFR1
             this.SetReportDistribution();
             this.SetCaseHistory();
 
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
             Document.AmendmentSection amendmentSection = new Document.AmendmentSection();
-            amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+            amendmentSection.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             FGFR1TestOrder testOrder = (FGFR1TestOrder)this.m_PanelSetOrder;
 

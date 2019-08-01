@@ -26,6 +26,9 @@ namespace YellowstonePathology.UI.Test
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
+        public delegate void OrderTestEventHandler(object sender, CustomEventArgs.PanelSetReturnEventArgs e);
+        public event OrderTestEventHandler OrderTest;
+
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private string m_PageHeaderText;
@@ -79,11 +82,12 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
         {
-            Business.Rules.MethodResult result = this.m_PanelSetOrder.IsOkToFinalize();
-            if (result.Success == true)
+            Business.Audit.Model.AuditResult result = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
+            if (result.Status == Business.Audit.Model.AuditStatusEnum.OK)
             {
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
+                //Business.Logging.EmailExceptionHandler.HandleException(this.m_PanelSetOrder, "This report has just been finalized.");
             }
             else
             {
@@ -128,6 +132,20 @@ namespace YellowstonePathology.UI.Test
             else
             {
                 MessageBox.Show(result.Message);
+            }
+        }
+
+        private void HyperLinkOrderHER2Summary_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest test = new Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest();
+            if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(test.PanelSetId, this.m_PanelSetOrder.OrderedOnId, true) == false)
+            {
+                CustomEventArgs.PanelSetReturnEventArgs args = new CustomEventArgs.PanelSetReturnEventArgs(test);
+                this.OrderTest(this, args);
+            }
+            else
+            {
+                MessageBox.Show("Unable to order a " + test.PanelSetName + " as one already exists");
             }
         }
 

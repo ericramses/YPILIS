@@ -30,10 +30,8 @@ namespace YellowstonePathology.UI.Login
 		private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
 		private ObservableCollection<string> m_FixationTypeCollection;
         private YellowstonePathology.UI.Login.FinalizeAccession.SpecimenAdequacyTypes m_SpecimenAdequacyTypes;        
-		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;        
-
-        private DateTime m_ProcessorStartTime;
-        private TimeSpan m_ProcessFixationDuration;
+		private YellowstonePathology.Business.Specimen.Model.SpecimenOrder m_SpecimenOrder;
+        private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 
         public SpecimenOrderDetailsPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder)
@@ -41,6 +39,7 @@ namespace YellowstonePathology.UI.Login
 			this.m_AccessionOrder = accessionOrder;
 			this.m_SpecimenOrder = specimenOrder;
 
+            this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
             this.m_FixationTypeCollection = YellowstonePathology.Business.Specimen.Model.FixationType.GetFixationTypeCollection();
             this.m_SpecimenAdequacyTypes = new FinalizeAccession.SpecimenAdequacyTypes();
 
@@ -52,7 +51,7 @@ namespace YellowstonePathology.UI.Login
 
         private void SpecimenOrderDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
-             
+            this.m_BarcodeScanPort.ContainerScanReceived += this.ContainerScanReceived;
             this.TextBoxDescription.Focus();
             if(string.IsNullOrEmpty(this.m_SpecimenOrder.SpecimenId) == true)
             {
@@ -75,7 +74,19 @@ namespace YellowstonePathology.UI.Login
 
         private void SpecimenOrderDetailsPage_Unloaded(object sender, RoutedEventArgs e)
         {
-             
+            this.m_BarcodeScanPort.ContainerScanReceived -= this.ContainerScanReceived;
+        }
+
+        private void ContainerScanReceived(YellowstonePathology.Business.BarcodeScanning.ContainerBarcode containerBarcode)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                if(string.IsNullOrEmpty(this.m_SpecimenOrder.ContainerId) == true)
+                {
+                    this.m_SpecimenOrder.ContainerId = containerBarcode.ToString();
+                }
+            }
+            ));
         }
 
         private void ComboBoxReceivedIn_SelectionChanged(object sender, SelectionChangedEventArgs e)

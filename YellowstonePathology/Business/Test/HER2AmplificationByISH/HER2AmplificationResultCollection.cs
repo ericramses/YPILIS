@@ -9,14 +9,21 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
 {
     public class HER2AmplificationResultCollection : ObservableCollection<HER2AmplificationResult>
     {
-        public HER2AmplificationResultCollection(PanelSetOrderCollection panelSetOrderCollection, string reportNo)
+        public HER2AmplificationResultCollection(PanelSetOrderCollection panelSetOrderCollection, HER2AmplificationByISHTestOrder panelSetOrder)
         {
-            this.Add(new HER2AmplificationResultGroup1Breast(panelSetOrderCollection, reportNo));
-            this.Add(new HER2AmplificationResultGroup2Breast(panelSetOrderCollection, reportNo));
-            this.Add(new HER2AmplificationResultGroup3Breast(panelSetOrderCollection, reportNo));
-            this.Add(new HER2AmplificationResultGroup4Breast(panelSetOrderCollection, reportNo));
-            this.Add(new HER2AmplificationResultGroup5Breast(panelSetOrderCollection, reportNo));
-            this.Add(new HER2AmplificationResultGastric(panelSetOrderCollection, reportNo));
+            this.Add(new HER2AmplificationResultGroup1Breast(panelSetOrderCollection, panelSetOrder));
+            this.Add(new HER2AmplificationResultGroup2Breast(panelSetOrderCollection, panelSetOrder));
+            this.Add(new HER2AmplificationResultGroup3Breast(panelSetOrderCollection, panelSetOrder));
+            this.Add(new HER2AmplificationResultGroup4Breast(panelSetOrderCollection, panelSetOrder));
+            this.Add(new HER2AmplificationResultGroup5Breast(panelSetOrderCollection, panelSetOrder));
+            this.Add(new HER2AmplificationResultGastric(panelSetOrderCollection, panelSetOrder));
+        }
+
+        public HER2AmplificationResultCollection(PanelSetOrderCollection panelSetOrderCollection, HER2AnalysisSummary.HER2AnalysisSummaryTestOrder panelSetOrder)
+        {
+            this.Add(new HER2AmplificationResultGroup2Breast(panelSetOrderCollection, panelSetOrder));
+            this.Add(new HER2AmplificationResultGroup3Breast(panelSetOrderCollection, panelSetOrder));
+            this.Add(new HER2AmplificationResultGroup4Breast(panelSetOrderCollection, panelSetOrder));
         }
 
         public HER2AmplificationResult FindMatch()

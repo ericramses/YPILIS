@@ -37,6 +37,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             Business.Panel.Model.HAndEPanel handePanel = new Panel.Model.HAndEPanel();
             this.m_PanelCollection.Add(handePanel);
+
+            Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88365", null), 1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);
         }
     }
 }

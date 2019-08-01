@@ -195,6 +195,21 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELumphomaProfile.NeoTYPELumphomaProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Adenovirus.AdenovirusTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPELiverBiliaryTumorProfile.NeoTYPELiverBiliaryTumorProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PrealbuminTTR.PrealbuminTTRTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.AmyloidAandAmyloidP.AmyloidAandAmyloidPTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NUT.NUTTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEMyeloidDisordersProfile.NeoTYPEMyeloidDisordersProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.CancerTYPEID.CancerTYPEIDTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ParvovirusB19ByIHC.ParvovirusB19ByIHCTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PDL1SP142FDA.PDL1SP142FDATest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NRASEXON4MutationAnalysis.NRASEXON4MutationAnalysisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NTRKNGSFusionProfile.NTRKNGSFusionProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoSITEMelanoma.NeoSITEMelanomaTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PAX2.PAX2Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.TFE3.TFE3Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MITF.MITFTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.p63.p63Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEMelanomaProfile.NeoTYPEMelanomaProfileTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetArupBraf());
@@ -217,6 +232,10 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ChromosomeAnalysisBreakage.ChromosomeAnalysisBreakageTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.CalcitoninByImmunohistochemistry.CalcitoninByImmunohistochemistryTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.LymphocyteSubsetPanel4.LymphocyteSubsetPanel4Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ParvovirusB19ByPCR.ParvovirusB19ByPCRTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.MyeloidMalignanciesMutationPanel.MyeloidMalignanciesMutationPanelTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.RBCBand3ProteinReduction.RBCBand3ProteinReductionTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.FumarateHydrataseByIHC.FumarateHydrataseByIHCTest());
 
             //YPII
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisTest());
@@ -262,10 +281,11 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             panelSetCollection.Add(new YellowstonePathology.Business.Test.PNH.PNHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaTest());
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.PlateletAssociatedAntibodies.PlateletAssociatedAntibodiesTest());
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisTest());
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTest());
-			panelSetCollection.Add(new YellowstonePathology.Business.Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.DNACellCycleAnalysis.DNACellCycleAnalysisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysis.ReticulatedPlateletAnalysisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.StemCellEnumeration.StemCellEnumerationTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.FetalHemoglobin.FetalHemoglobinTest());
 			panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.HighRiskHPVTestRetired());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.TCellNKProfile.TCellNKProfileTest());
@@ -282,9 +302,13 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.SlideTracking.SlideTrackingTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.FLT3Preliminary.FLT3PreliminaryTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.EGFRMutationAnalysisPreliminary.EGFRMutationAnalysisPreliminaryTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationSummary.HER2AmplificationSummaryTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationRecount.HER2AmplificationRecountTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.OrderAssociation.OrderAssociationTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.FetalHemoglobinV2.FetalHemoglobinV2Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.StemCellCD34Enumeration.StemCellCD34EnumerationTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2.ThrombocytopeniaProfileV2Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysisV2.ReticulatedPlateletAnalysisV2Test());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PlateletAssociatedAntibodiesV2.PlateletAssociatedAntibodiesV2Test());
 
             //UniversityofWashington
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetUniversalOrganismByPCR());
@@ -304,6 +328,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
 
             //Genomic Health
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetOncoTypeDX());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.SF3B1MutationAnalysis.SF3B1MutationAnalysisTest());
 
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetAnatomicPathologyConsultation());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.GrossOnly.GrossOnlyTest());
@@ -340,6 +365,8 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ChromosomeAnalysisForFetalAnomaly.ChromosomeAnalysisForFetalAnomalyTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MissingInformation.MissingInformationTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.Trisomy21ByFISH.Trisomy21ByFISHTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.HER2AmplificationByISHSendOut.HER2AmplificationByISHSendOutTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.ETV6F.ETV6FTest());
 
             panelSetCollection.Add(new YellowstonePathology.Business.Test.BrainDonation.BrainDonationTest());
 
@@ -396,32 +423,6 @@ namespace YellowstonePathology.Business.PanelSet.Model
                 if (panelSet is PanelSetMolecularTest == true)
                 {
                     result.Add(panelSet);
-                }
-            }
-
-            return result;
-        }
-
-        public static PanelSetCollection GetFlowPanelSets(bool includePNH)
-        {
-            PanelSetCollection result = new PanelSetCollection();
-            PanelSetCollection allPanelSets = PanelSetCollection.GetAll();
-
-            foreach (PanelSet panelSet in allPanelSets)
-            {
-                if (panelSet.CaseType == YellowstonePathology.Business.CaseType.FlowCytometry)
-                {
-                    if (includePNH == true)
-                    {
-                        result.Add(panelSet);
-                    }
-                    else
-                    {
-                        if (panelSet.PanelSetId != 19)
-                        {
-                            result.Add(panelSet);
-                        }
-                    }
                 }
             }
 
@@ -670,6 +671,27 @@ namespace YellowstonePathology.Business.PanelSet.Model
                 result.Add(panelSet);
             }
             return result;
+        }
+
+        public static PanelSetCollection GetCriticalMonitorPriorityTests()
+        {
+            PanelSetCollection result = new PanelSetCollection();
+            PanelSetCollection allTests = PanelSetCollection.GetAll();
+            foreach(PanelSet panelSet in allTests)
+            {
+                if(panelSet.MonitorPriority == YellowstonePathology.Business.PanelSet.Model.PanelSet.MonitorPriorityCritical)
+                {
+                    result.Add(panelSet);
+                }
+            }
+
+            return result;
+        }
+
+        public bool Exists(int panelSetId)
+        {
+            PanelSet result = this.FirstOrDefault(ps => ps.PanelSetId == panelSetId);
+            return result == null ? false : true;
         }
     }
 }

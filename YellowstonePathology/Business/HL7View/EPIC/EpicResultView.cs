@@ -21,12 +21,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         {            
             this.m_Testing = testing;
             this.m_AccessionOrder = accessionOrder;
-            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);            
-
-            //if (this.m_AccessionOrder.UniversalServiceId.ToUpper() != this.m_PanelSetOrder.UniversalServiceId.ToUpper())
-            //{
-            //    this.m_SendUnsolicited = true;
-            //}
+            this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(reportNo);                        
 
             if(string.IsNullOrEmpty(this.m_PanelSetOrder.ExternalOrderId) == true)
             {
@@ -77,7 +72,8 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
 
             string resultStatus = ResultStatusEnum.Final.Value;
-            if (panelSetOrder.AmendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction.Value;
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(panelSetOrder.ReportNo);
+            if (amendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction.Value;
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection universalServiceIdCollection = YellowstonePathology.Business.ClientOrder.Model.UniversalServiceCollection.GetAll();
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = universalServiceIdCollection.GetByUniversalServiceId(panelSetOrder.UniversalServiceId);            
@@ -86,7 +82,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 panelSetOrder.FinalTime, this.m_OrderingPhysician, resultStatus, universalService, this.m_SendUnsolicited);
             obr.ToXml(document);
             
-            EPICObxView epicObxView = EPICObxViewFactory.GetObxView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount);
+            EPICObxView epicObxView = EPICObxViewFactory.GetObxView(panelSetOrder.PanelSetId, this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_ObxCount, false);
             epicObxView.ToXml(document);
             this.m_ObxCount = epicObxView.ObxCount;                            
 
@@ -100,8 +96,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
 			string serverFileName = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser) + "\\" + this.m_PanelSetOrder.ReportNo + fileExtension;
             string interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\" + this.m_PanelSetOrder.ReportNo + fileExtension;
-            if (this.m_Testing == true) interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\Test\" + this.m_PanelSetOrder.ReportNo + fileExtension;            
-            
+            //if (this.m_Testing == true) interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\Test\" + this.m_PanelSetOrder.ReportNo + fileExtension;            
+            if (this.m_Testing == true) interfaceFileName = @"\\YPIIInterface1\ChannelData\Outgoing\1002\BeakerTesting\" + this.m_PanelSetOrder.ReportNo + fileExtension;
+
             using (System.IO.StreamWriter sw = new System.IO.StreamWriter(serverFileName))
             {
                 document.Save(sw);

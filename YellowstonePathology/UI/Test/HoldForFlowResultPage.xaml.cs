@@ -126,7 +126,7 @@ namespace YellowstonePathology.UI.Test
         {
             YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowWordDocument report = new Business.Test.HoldForFlow.HoldForFlowWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
         }
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)

@@ -49,8 +49,10 @@ namespace YellowstonePathology.UI
 
                             if(indexOfFirstChar == -1)
                             {
-                                MessageBox.Show("This report no sucks: " + reportNo);
-                                return;
+                                reportNo = reportNo + "S";
+                                indexOfFirstChar = this.FindFirstLetter(reportNo);
+                                //MessageBox.Show("This report no sucks: " + reportNo);
+                                //return;
                             }
 
                             reportNo = reportNo.Insert(indexOfFirstChar, ".");

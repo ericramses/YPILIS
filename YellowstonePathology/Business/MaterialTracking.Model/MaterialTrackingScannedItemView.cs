@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         private string m_MaterialId;
         private string m_MaterialType;
         private string m_MasterAccessionNo;
+        private string m_ClientAccessionNo;
         private string m_PLastName;
         private string m_PFirstName;
         private string m_MaterialLabel;
@@ -63,6 +64,20 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                 {
                     this.m_MasterAccessionNo = value;
                     this.NotifyPropertyChanged("MasterAccessionNo");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ClientAccessionNo
+        {
+            get { return this.m_ClientAccessionNo; }
+            set
+            {
+                if (this.m_ClientAccessionNo != value)
+                {
+                    this.m_ClientAccessionNo = value;
+                    this.NotifyPropertyChanged("ClientAccessionNo");
                 }
             }
         }

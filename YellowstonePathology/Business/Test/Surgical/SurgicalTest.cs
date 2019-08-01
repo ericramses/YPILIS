@@ -25,8 +25,12 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.Surgical.SurgicalWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = false;            
             this.m_ExpectedDuration = new TimeSpan(3, 0, 0, 0);
-            this.m_EpicDistributionIsImplemented = true;
-            this.m_CMMCDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.ECW);
 
             this.m_RequiresAssignment = false;
 

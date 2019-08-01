@@ -19,7 +19,8 @@ namespace YellowstonePathology.UI.Test
         {
             this.m_TestOrder = testOrder;
             this.m_ControlsNotDisabledOnFinal = new List<FrameworkElement>();
-                        
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = accessionOrder.AmendmentCollection.GetAmendmentsForReport(testOrder.ReportNo);
+
             this.m_DisableRequired = false;
             if (accessionOrder.AccessionLock.IsLockAquiredByMe == false)
             {
@@ -27,7 +28,7 @@ namespace YellowstonePathology.UI.Test
             }
             else if(this.m_TestOrder.Final == true)
             {
-                if(this.m_TestOrder.AmendmentCollection.HasOpenAmendment() == true)
+                if(amendmentCollection.HasOpenAmendment() == true)
                 {
                     this.m_DisableRequired = false;
                 }

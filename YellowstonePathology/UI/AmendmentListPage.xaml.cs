@@ -22,7 +22,10 @@ namespace YellowstonePathology.UI
 	{		
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		private AmendmentUI m_AmendmentUI;
+        public delegate void ContentChangedEventHandler(object sender, EventArgs e);
+        public event ContentChangedEventHandler ContentChanged;
+
+        private AmendmentUI m_AmendmentUI;
 
 		public AmendmentListPage(AmendmentUI amendmentUI)
 		{
@@ -33,6 +36,8 @@ namespace YellowstonePathology.UI
             {
                 this.ButtonAdd.IsEnabled = false;
                 this.ButtonDelete.IsEnabled = false;
+                this.ButtonEdit.IsEnabled = false;
+                this.ListViewAmendments.MouseDoubleClick -= this.ListViewAmendments_MouseDoubleClick;
             }
 		}
 
@@ -56,20 +61,18 @@ namespace YellowstonePathology.UI
 
 		private void ButtonAdd_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentUI.PanelSetOrder.AddAmendment();
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentUI.AccessionOrder.AddAmendment(this.m_AmendmentUI.PanelSetOrder.ReportNo);
 			amendment.TestResultAmendmentFill(this.m_AmendmentUI.ReportNo, this.m_AmendmentUI.AssignedToId, "???");
-			//this.m_AmendmentUI.Save(false);
 
 			NotifyPropertyChanged("Amendments");
 			this.ListViewAmendments.SelectedIndex = 0;
 		}
 
-		private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
 		{
 			if (this.m_AmendmentUI.SelectedAmendment != null)
 			{
-				AmendmentEditPage amendmentEditPage = new AmendmentEditPage(this.m_AmendmentUI);
-				this.NavigationService.Navigate(amendmentEditPage);
+				this.ShowEditPage();
 			}
 		}
 
@@ -81,7 +84,7 @@ namespace YellowstonePathology.UI
 				if (result == MessageBoxResult.Yes)
 				{
                     YellowstonePathology.Business.Amendment.Model.Amendment selectedAmendment = (YellowstonePathology.Business.Amendment.Model.Amendment)this.ListViewAmendments.SelectedItem;					
-					this.m_AmendmentUI.PanelSetOrder.DeleteAmendment(selectedAmendment.AmendmentId);
+					this.m_AmendmentUI.AccessionOrder.DeleteAmendment(selectedAmendment.AmendmentId);
 					this.ListViewAmendments.SelectedIndex = -1;
 				}
 			}
@@ -95,11 +98,23 @@ namespace YellowstonePathology.UI
 
 		private void ListViewAmendments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
-			if (this.ListViewAmendments.SelectedItem != null)
-			{
-				AmendmentEditPage amendmentEditPage = new AmendmentEditPage(this.m_AmendmentUI);
-				this.NavigationService.Navigate(amendmentEditPage);
-			}
-		}
-	}
+            if (this.ListViewAmendments.SelectedItem != null)
+            {
+                this.ShowEditPage();
+            }
+        }
+
+        private void ShowEditPage()
+        {
+            AmendmentEditPage amendmentEditPage = new AmendmentEditPage(this.m_AmendmentUI);
+            amendmentEditPage.ContentChanged += AmendmentEditPage_ContentChanged;
+            this.NavigationService.Navigate(amendmentEditPage);
+            this.ContentChanged(this, new EventArgs());
+        }
+
+        private void AmendmentEditPage_ContentChanged(object sender, EventArgs e)
+        {
+            this.ContentChanged(this, new EventArgs());
+        }
+    }
 }

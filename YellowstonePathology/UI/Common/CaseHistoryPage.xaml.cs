@@ -48,7 +48,7 @@ namespace YellowstonePathology.UI.Common
                 YellowstonePathology.Business.Surgical.PathologistHistoryItem pathologistHistoryItem = (YellowstonePathology.Business.Surgical.PathologistHistoryItem)this.listViewCaseHistoryList.SelectedItem;
 				YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(pathologistHistoryItem.ReportNo);                
 				string path = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameDoc(orderIdParser);
-				YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(path);
+				YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(path);
             }
         }
 

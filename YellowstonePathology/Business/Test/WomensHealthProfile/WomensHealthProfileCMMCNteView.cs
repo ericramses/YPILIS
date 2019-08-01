@@ -120,7 +120,7 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                 }
             }
 
-            this.AddAmendments(document, womensHealthProfileTestOrder);
+            this.AddAmendments(document, womensHealthProfileTestOrder, this.m_AccessionOrder);
 
             this.AddNextNteElement("CURRENT MOLECULAR TEST SUMMARY", document);
 

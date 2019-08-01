@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using YellowstonePathology.Business.Persistence;
 
 namespace YellowstonePathology.Business.PanelSet.Model
@@ -7,6 +9,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
 	public class PanelSet : INotifyPropertyChanged
     {
 		public event PropertyChangedEventHandler PropertyChanged;
+
+        public static string MonitorPriorityCritical = "CRITICAL";
+        public static string MonitorPriorityNormal = "NORMAL";
 
         protected string m_ObjectId;
 		protected int m_PanelSetId;
@@ -43,6 +48,9 @@ namespace YellowstonePathology.Business.PanelSet.Model
         protected string m_CMMCNTEViewClassName;
         protected bool m_ResearchTesting;
         protected bool m_ReportAsAdditionalTesting;
+        protected string m_MonitorPriority;
+
+        protected List<string> m_ImplementedResultTypes;
 
         protected YellowstonePathology.Business.Specimen.Model.Aliquot m_AliquotToAddOnOrder;        
 
@@ -61,11 +69,10 @@ namespace YellowstonePathology.Business.PanelSet.Model
 		protected YellowstonePathology.Business.Task.Model.TaskCollection m_TaskCollection;
         protected YellowstonePathology.Business.Billing.Model.PanelSetCptCodeCollection m_PanelSetCptCodeCollection;
 
-        protected bool m_EpicDistributionIsImplemented;
-        protected bool m_CMMCDistributionIsImplemented;
-
         public PanelSet()
-        {            
+        {
+            this.m_ImplementedResultTypes = new List<string>();
+
             this.m_IsBillable = true;
             this.m_NeverDistribute = false;            
             this.m_Active = true;
@@ -83,16 +90,20 @@ namespace YellowstonePathology.Business.PanelSet.Model
             this.m_RequiresAssignment = true;
             this.m_IsClientAccessioned = false;
 
-            this.m_EpicDistributionIsImplemented = false;
-            this.m_CMMCDistributionIsImplemented = false;
             this.m_ReportAsAdditionalTesting = true;
+            this.m_MonitorPriority = MonitorPriorityCritical;
 
             this.m_OrderTargetTypeCollectionExclusions = new YellowstonePathology.Business.OrderTargetTypeCollection();
             this.m_OrderTargetTypeCollectionRestrictions = new YellowstonePathology.Business.OrderTargetTypeCollection();
 
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.NothingToPublishReport).AssemblyQualifiedName;
-		}        
+		}
+
+        public List<string> ImplementedResultTypes
+        {
+            get { return this.m_ImplementedResultTypes; }
+        }
 
         public YellowstonePathology.Business.OrderTargetTypeCollection OrderTargetTypeCollectionExclusions
         {
@@ -601,6 +612,20 @@ namespace YellowstonePathology.Business.PanelSet.Model
                 {
                     this.m_ReportAsAdditionalTesting = value;
                     this.NotifyPropertyChanged("ReportAsAdditionalTesting");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string MonitorPriority
+        {
+            get { return this.m_MonitorPriority; }
+            set
+            {
+                if (this.m_MonitorPriority != value)
+                {
+                    this.m_MonitorPriority = value;
+                    this.NotifyPropertyChanged("MonitorPriority");
                 }
             }
         }

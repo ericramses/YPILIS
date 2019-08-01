@@ -26,8 +26,11 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 			this.m_IsReflexPanel = true;
 			this.m_AllowMultiplePerAccession = true;
             this.m_IsBillable = false;
-            this.m_ExpectedDuration = TimeSpan.FromDays(14);            
-            this.m_EpicDistributionIsImplemented = true;
+            this.m_ExpectedDuration = TimeSpan.FromDays(14);
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+
             this.m_EnforceOrderTarget = true;
 
             string task1Description = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
@@ -44,6 +47,15 @@ namespace YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis
 
             this.m_ProfessionalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBLGS");
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("81235", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode2 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88374", null), 2);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode3 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88360", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode4 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("81210", null), 1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode2);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode3);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode4);
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServicePathSummary());
 

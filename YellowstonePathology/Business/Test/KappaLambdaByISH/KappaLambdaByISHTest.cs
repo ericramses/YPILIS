@@ -10,13 +10,13 @@ namespace YellowstonePathology.Business.Test.KappaLambdaByISH
         public KappaLambdaByISHTest()
 		{
 			this.m_PanelSetId = 235;
-            this.m_PanelSetName = "Kappa Lambda By ISH";
+            this.m_PanelSetName = "Kappa Lambda By ISH (Retired)";
             this.m_CaseType = YellowstonePathology.Business.CaseType.FISH;
 			this.m_HasTechnicalComponent = true;			
 			this.m_HasProfessionalComponent = true;
 			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
-            this.m_Active = true;
+            this.m_Active = false;
             this.m_ExpectedDuration = TimeSpan.FromDays(1);
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;

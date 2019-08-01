@@ -27,7 +27,11 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 			this.m_AcceptOnFinal = true;
 			this.m_AllowMultiplePerAccession = true;
             this.m_IsBillable = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             string taskDescription = "Perform MLH1, MSH2, MSH6, PMS2 testing.";
 			this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, taskDescription));

@@ -24,8 +24,9 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 			this.SetReportDistribution();
 			this.SetCaseHistory();
 
-			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
-			amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
+            YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
+			amendmentSection.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
 			this.ReplaceText("report_result", testOrder.Result);
 			this.ReplaceText("report_interpretation", testOrder.Interpretation);
@@ -38,8 +39,8 @@ namespace YellowstonePathology.Business.Test.BCRABLByFish
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
 			this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
-			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
+			this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));
+			this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.ReferenceLabSignature);
 
 			this.SaveReport();
 		}

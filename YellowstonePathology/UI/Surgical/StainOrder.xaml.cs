@@ -179,7 +179,7 @@ namespace YellowstonePathology.UI.Surgical
                 if(string.IsNullOrEmpty(this.m_PanelOrderComment) == true)
                 {                    
                     result = false;
-                    MessageBox.Show("To better track the reason for recuts a comment is required indicating the reason for the recut you are ordering.");
+                    MessageBox.Show("To better track the reason for recuts a comment is required. Click on the Recut Comment link to the right of the text box for canned comments.");
                 }
             }
             return result;
@@ -377,6 +377,12 @@ namespace YellowstonePathology.UI.Surgical
             {
                 checkBox.IsChecked = false;
             }
+        }
+
+        private void HyperLinkRecutComments_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Surgical.RecutCommentsDialog recutCommentsDialog = new RecutCommentsDialog(this);
+            recutCommentsDialog.ShowDialog();            
         }
     }
 }

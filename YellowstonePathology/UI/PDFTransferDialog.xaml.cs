@@ -31,13 +31,28 @@ namespace YellowstonePathology.UI
         private Business.Test.AccessionOrder m_AccessionOrder;
         private List<string> m_Files;
         private List<string> m_CaseDocuments;
+        private string m_MasterAccessionNo;
 
         private Login.Receiving.LoginPageWindow m_LoginPageWindow;
 
         public PDFTransferDialog()
-        {                        
+        {
+            this.m_MasterAccessionNo = "19-";
             InitializeComponent();
             this.DataContext = this;
+        }
+
+        public string MasterAccessionNo
+        {
+            get { return this.m_MasterAccessionNo; }
+            set
+            {
+                if (this.m_MasterAccessionNo != value)
+                {
+                    this.m_MasterAccessionNo = value;
+                    this.NotifyPropertyChanged("MasterAccessionNo");
+                }
+            }
         }
 
         public List<string> Files
@@ -161,6 +176,7 @@ namespace YellowstonePathology.UI
                     }
 
                     this.m_CaseDocuments = System.IO.Directory.GetFiles(casePath).ToList<string>();
+                    this.NotifyPropertyChanged(string.Empty);
                     MessageBox.Show("The pdf has been linked to this case.");
                 }
                 else
@@ -235,7 +251,6 @@ namespace YellowstonePathology.UI
             this.m_LoginPageWindow.Close();
         }
 
-
         public void GhostPDFToPNG(string pdfResultFilePath, string xpsCaseFilePath)
         {
             string guid = System.Guid.NewGuid().ToString().ToUpper();
@@ -305,15 +320,14 @@ namespace YellowstonePathology.UI
         }
 
         private void HyperLinkFindAccessionOrder_Click(object sender, RoutedEventArgs e)
-        {
-            string masterAccessionNo = this.TextBoxMasterAccession.Text;
-            if(string.IsNullOrEmpty(masterAccessionNo) == false)
+        {            
+            if(string.IsNullOrEmpty(this.m_MasterAccessionNo) == false)
             {
                 this.m_AccessionOrder = null;
                 this.m_CaseDocuments = null;
 
-                this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(masterAccessionNo, this);
-                Business.OrderIdParser orderIdParser = new Business.OrderIdParser(masterAccessionNo);
+                this.m_AccessionOrder = Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_MasterAccessionNo, this);
+                Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_MasterAccessionNo);
                 string casePath = YellowstonePathology.Document.CaseDocumentPath.GetPath(orderIdParser);
                 this.m_CaseDocuments = System.IO.Directory.GetFiles(casePath).ToList<string>();
 

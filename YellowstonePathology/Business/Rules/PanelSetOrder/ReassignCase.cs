@@ -9,7 +9,9 @@ namespace YellowstonePathology.Business.Rules.PanelSetOrder
 	{
 		private YellowstonePathology.Business.Rules.Rule m_Rule;
         private YellowstonePathology.Business.Rules.ExecutionStatus m_ExecutionStatus;
-		private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrderItem;
+        YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+
+        private YellowstonePathology.Business.Test.PanelSetOrder m_PanelSetOrderItem;
 		private bool m_CreateAmendment;
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
 
@@ -22,10 +24,11 @@ namespace YellowstonePathology.Business.Rules.PanelSetOrder
 			this.m_Rule.ActionList.Add(this.ChangeUser);
 		}
 
-        public void Execute(YellowstonePathology.Business.Rules.ExecutionStatus executionStatus, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, 
+        public void Execute(YellowstonePathology.Business.Rules.ExecutionStatus executionStatus, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, 
             bool createAmendment, YellowstonePathology.Business.User.SystemIdentity systemIdentity)
 		{
 			this.m_ExecutionStatus = executionStatus;
+            this.m_AccessionOrder = accessionOrder;
 			this.m_PanelSetOrderItem = panelSetOrder;
 			this.m_CreateAmendment = createAmendment;
             this.m_SystemIdentity = systemIdentity;
@@ -45,7 +48,7 @@ namespace YellowstonePathology.Business.Rules.PanelSetOrder
 		{
 			if (this.m_CreateAmendment)
 			{
-                YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_PanelSetOrderItem.AddAmendment();
+                YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AccessionOrder.AddAmendment(this.m_PanelSetOrderItem.ReportNo);
 				amendment.UserId = this.m_SystemIdentity.User.UserId;				
 			}
 		}

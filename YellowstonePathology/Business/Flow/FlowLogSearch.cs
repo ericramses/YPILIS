@@ -33,12 +33,6 @@ namespace YellowstonePathology.Business.Flow
             this.m_SearchType = FlowLogListSearchTypeEnum.GetByLeukemiaNotFinal;            
         }
 
-        public void SetByTestType(int testId)
-        {
-            this.m_SearchType = FlowLogListSearchTypeEnum.GetByTestType;
-            this.m_Parameter = testId;            
-        }
-
         public void SetByReportNo(string reportNo)
         {
 			this.m_SearchType = FlowLogListSearchTypeEnum.GetByReportNo;
@@ -57,12 +51,6 @@ namespace YellowstonePathology.Business.Flow
             this.m_Parameter = patientName;            
         }
 
-        public void SetByPathologistId(int pathologistId)
-        {
-            this.m_SearchType = FlowLogListSearchTypeEnum.GetByPathologistId;
-            this.m_Parameter = pathologistId;            
-        }
-
         public void Search()
         {            
             switch (this.m_SearchType)
@@ -70,10 +58,6 @@ namespace YellowstonePathology.Business.Flow
                 case FlowLogListSearchTypeEnum.GetByLeukemiaNotFinal:
                     this.m_FlowLogList = Gateway.FlowGateway.GetByLeukemiaNotFinal();
                     break;               
-                case FlowLogListSearchTypeEnum.GetByTestType:
-                    int testId = (int)this.m_Parameter;
-                    this.m_FlowLogList = Gateway.FlowGateway.GetByTestType(testId);
-                    break;
 				case FlowLogListSearchTypeEnum.GetByReportNo:
                     string reportNo = (string)this.m_Parameter;
 					this.m_FlowLogList = Gateway.FlowGateway.GetFlowLogListByReportNo(reportNo);
@@ -85,10 +69,6 @@ namespace YellowstonePathology.Business.Flow
                 case FlowLogListSearchTypeEnum.GetByPatientName:
                     string patientName = (string)this.m_Parameter;
                     this.m_FlowLogList = Gateway.FlowGateway.GetByPatientName(patientName);
-                    break;
-                case FlowLogListSearchTypeEnum.GetByPathologistId:
-                    int pathologistId = (int)this.m_Parameter;
-                    this.m_FlowLogList = Gateway.FlowGateway.GetByPathologistId(pathologistId);
                     break;
             }
             if (this.m_FlowLogList == null)

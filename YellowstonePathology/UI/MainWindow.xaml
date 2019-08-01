@@ -58,6 +58,7 @@
                     <MenuItem Header="Stains" Click="MenuItemStains_Click" />
                     <MenuItem Header="Stain Status" Click="MenuItemStainStatus_Click" />
                     <MenuItem Header="PDF Transfer" Click="MenuItemPDFTransfer_Click" />
+                    <MenuItem Header="Print SVH Labels" Click="MenuItemPrintSVHLabels_Click" />
                 </MenuItem>
 
                 <MenuItem Header="_Client" Name="MenuItemClient">
@@ -73,6 +74,8 @@
                     <MenuItem Header="SVH Billing Data Import" Click="MenuItemSVHBillingDataImport_Click"></MenuItem>
                     <MenuItem Header="Parse PSA Data" Click="MenuItemParsePSAData_Click"></MenuItem>
                     <MenuItem Header="Simulation" Click="MenuItemBillingSimulation_Click"></MenuItem>
+                    <MenuItem Header="CPT Codes" Click="MenuItemBillingCPTCodes_Click"></MenuItem>
+                    <MenuItem Header="ICD Codes" Click="MenuItemBillingICDCodes_Click"></MenuItem>
                 </MenuItem>
 
 			    <MenuItem Header="_Scan Processing" Name="MenuItemScanProcessing">
@@ -93,10 +96,10 @@
                     <MenuItem Name="MenuItemWebServiceAccounts" Header="Web Service Accounts" Click="MenuItemWebServiceAccounts_Click"></MenuItem>
                     <MenuItem Name="MenuItemTest" Header="Testing" Click="MenuItemTest_Click"></MenuItem>
                     <MenuItem Name="MenuItemDictationTemplates" Header="Dictation Templates" Click="MenuItemDictationTemplates_Click" />
-                    <MenuItem Name="MenuItemRedis" Header="Save Redis to file" Click="MenuItemRedis_Click"></MenuItem>
                     <MenuItem Name="MenuItemChainExplorer" Header="Chain Explorer" Click="MenuItemChainExplorer_Click"></MenuItem>
                     <MenuItem Name="MenuItemAutoComplete" Header="Auto Complete" Click="MenuItemAutoComplete_Click"></MenuItem>
                     <MenuItem Name="MenuItemPolicies" Header="Policies" Click="MenuItemPolicyExplorer_Click"></MenuItem>
+                    <MenuItem Name="MenuItemSpecimen" Header="Specimen" Click="MenuItemSpecimen_Click"></MenuItem>
                 </MenuItem>
 
                 <MenuItem Header="_Monitor" Name="MenuItemMonitor">
@@ -105,6 +108,7 @@
                     <MenuItem Name="MenuItemMonitorPendingTests" Header="Pending Tests" Click="MenuItemShowPendingTestMonitor_Click"></MenuItem>
                     <MenuItem Name="MenuItemMonitorMissingInformation" Header="Missing Information" Click="MenuItemShowMissingInformationMonitor_Click"></MenuItem>
                     <MenuItem Name="MenuItemDashboard" Header="Dashboard" Click="MenuItemShowDashboardMonitor_Click"></MenuItem>
+                    <MenuItem Name="MenuItemBillingEOD" Header="Billing EOD Process" Click="MenuItemShowBillingEOD_Click"></MenuItem>
                 </MenuItem>
                 
             </Menu>

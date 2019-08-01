@@ -10,7 +10,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
     public class LSEColonBRAFMeth : LSERule
     {
         public static string Interpretation = "The results are compatible with a sporadic tumor and further genetic evaluation is not indicated.";
-
+        public static string BRAFMethNotDetectedInterpretation = "The immunohistochemical staining pattern and molecular test results are highly " +
+            "suggestive of Lynch Syndrome.  Recommend genetic counseling and further evaluation.";
         public LSEColonBRAFMeth()
         {
             this.m_RuleName = "Reflex to BRAF/Meth";
@@ -87,9 +88,29 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
 
             if (brafResult.Message == TestResult.NotDetected && methResult.Message == TestResult.NotDetected)
             {
-                result = LSEColonSendOut.Interpretation;
+                result = BRAFMethNotDetectedInterpretation;
             }
 
+            return result;
+        }
+
+        public override bool BRAFIsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            bool result = false;
+            Rules.MethodResult methodResult = this.HasFinalBRAFResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            if (methodResult.Success == false && methodResult.Message.Contains("has not been ordered") == true) result = true;
+            return result;
+        }
+
+        public override bool MethIsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            bool result = false;
+            Rules.MethodResult brafResult = this.HasFinalBRAFResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            if (brafResult.Success == true && brafResult.Message == TestResult.NotDetected)
+            {
+                Rules.MethodResult methodResult = this.HasFinalMethResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+                if (methodResult.Success == false && methodResult.Message.Contains("has not been ordered") == true) result = true;
+            }
             return result;
         }
     }

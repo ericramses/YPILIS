@@ -17,7 +17,7 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 		{			
 			YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder panelSetOrder = (YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorTestOrder)this.m_PanelSetOrder;
 
-			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HPV1618GenotypingSolidTumor.2.xml";
+			this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\HPV1618GenotypingSolidTumor.3.xml";
 			base.OpenTemplate();
 
 			base.SetDemographicsV2();
@@ -30,11 +30,31 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
 			string collectionDateTimeString = YellowstonePathology.Business.Helper.DateTimeExtensions.CombineDateAndTime(specimenOrder.CollectionDate, specimenOrder.CollectionTime);
 			this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
-			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
-			amendmentSection.SetAmendment(this.m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, false);
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
+            YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
+			amendmentSection.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, false);
 
-			base.ReplaceText("hpv16_result", panelSetOrder.HPV16Result);
-			base.ReplaceText("hpv18_result", panelSetOrder.HPV18Result);
+            base.ReplaceText("hpvdna_result", panelSetOrder.HPVDNAResult);
+            if(panelSetOrder.HPV6Result == PanelSetOrder.NotPerformedResult) base.DeleteRow("hpv6_result");
+            else base.ReplaceText("hpv6_result", panelSetOrder.HPV6Result);
+
+            if (panelSetOrder.HPV16Result == PanelSetOrder.NotPerformedResult) base.DeleteRow("hpv16_result");
+            else base.ReplaceText("hpv16_result", panelSetOrder.HPV16Result);
+
+            if (panelSetOrder.HPV18Result == PanelSetOrder.NotPerformedResult) base.DeleteRow("hpv18_result");
+            else base.ReplaceText("hpv18_result", panelSetOrder.HPV18Result);
+
+            if (panelSetOrder.HPV31Result == PanelSetOrder.NotPerformedResult) base.DeleteRow("hpv31_result");
+            else base.ReplaceText("hpv31_result", panelSetOrder.HPV31Result);
+
+            if (panelSetOrder.HPV33Result == PanelSetOrder.NotPerformedResult) base.DeleteRow("hpv33_result");
+            else base.ReplaceText("hpv33_result", panelSetOrder.HPV33Result);
+
+            if (panelSetOrder.HPV45Result == PanelSetOrder.NotPerformedResult) base.DeleteRow("hpv45_result");
+            else base.ReplaceText("hpv45_result", panelSetOrder.HPV45Result);
+
+            if (panelSetOrder.HPV58Result == PanelSetOrder.NotPerformedResult) base.DeleteRow("hpv58_result");
+            else base.ReplaceText("hpv58_result", panelSetOrder.HPV58Result);
 
             if (panelSetOrder.Indication == YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorIndication.SquamousCellCarcinomaHeadAndNeck)
             {
@@ -66,7 +86,7 @@ namespace YellowstonePathology.Business.Test.HPV1618SolidTumor
             }
             
             base.ReplaceText("report_method", panelSetOrder.Method);
-
+            base.ReplaceText("report_references", panelSetOrder.ReportReferences);
 			this.ReplaceText("report_date", BaseData.GetShortDateString(this.m_PanelSetOrder.FinalDate));
 			this.SetXmlNodeData("pathologist_signature", this.m_PanelSetOrder.Signature);
 

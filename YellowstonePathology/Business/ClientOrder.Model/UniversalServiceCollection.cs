@@ -79,7 +79,7 @@ namespace YellowstonePathology.Business.ClientOrder.Model
                 }
             }
 
-            if (result == null) result = new UniversalServiceDefinitions.UniversalServiceNone();
+            if (result == null) result = new UniversalServiceDefinitions.UniversalServiceMiscellaneous();
             return result;
         }
 

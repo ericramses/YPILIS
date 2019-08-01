@@ -22,22 +22,11 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="300"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
-                <Button Click="ButtonViewDocument_Click" KeyboardNavigation.IsTabStop="False" Width="25" Height="25">
-                    <Image Source="/Resources/Document.jpg"></Image>
-                </Button>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportNo}" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
-                    <TextBlock Text=":" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
-                    <TextBlock Text="{Binding Path=AccessionOrder.PatientDisplayName}" VerticalAlignment="Center" Margin="2,2,2,2" FontWeight="Bold"></TextBlock>
-                </StackPanel>
-            </StackPanel>
-            <TabControl Grid.Column="0" Grid.Row="1" Name="tabControlFlow">
+            <TabControl Grid.Column="0" Grid.Row="0" Name="tabControlFlow">
                 <TabItem Header="General" Name="TabItemGeneral">
                     <StackPanel Margin="20">
                         <StackPanel Orientation="Horizontal">
@@ -76,17 +65,6 @@
                             <TextBlock Style="{StaticResource HeadingTextBlock}">Clinical History:</TextBlock>
                             <TextBox Style="{StaticResource BoundTextBox}" Height="30" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
                                      Text="{Binding Path=AccessionOrder.ClinicalHistory, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Style="{StaticResource HeadingTextBlock}">Test Performed:</TextBlock>
-                            <ComboBox Name="ComboBoxTestPerformed" Style="{StaticResource BoundTextBox}"
-									  ItemsSource="{Binding Path=FlowPanelSetCollection}"
-									  DisplayMemberPath="PanelSetName"
-									  SelectedValuePath="PanelSetId"
-									  SelectedValue="{Binding Path=PanelSetOrderLeukemiaLymphoma.PanelSetId}"
-									  IsEnabled="{Binding Path=IsWorkspaceEnabled}"
-									  SelectionChanged="ComboBoxTestPerformed_SelectionChanged">
-                            </ComboBox>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
@@ -230,50 +208,45 @@
                 </TabItem>
 
                 <TabItem Name="TabItemSpecimen" Header="Specimen">
-                    <Grid>
+                    <Grid Margin="5,5,5,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="20"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource HeadingTextBlock}">Date/Time Received:</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" FontWeight="Bold">Date/Time Received:</TextBlock>
                         <TextBox Name="textBoxDateTimeReceived" Grid.Column="1" Grid.Row="1" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
-                                  HorizontalAlignment="Left" Width="150"
+                                  HorizontalAlignment="Stretch" Margin="2,2,2,2"
                                  Text="{Binding Path=AccessionOrder.SpecimenOrderCollection[0].DateReceived, Converter={StaticResource MilitaryDateTimeConverter}}">
                         </TextBox>
 
-
-                        <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource HeadingTextBlock}" VerticalAlignment="Center">Specimen:</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right" FontWeight="Bold" Margin="2,2,2,2">Specimen:</TextBlock>
 
                         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-                            <Button Name="ButtonShowSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSpecimenDialog_Click">Details</Button>
-                            <Button Name="ButtonShowSelectSpecimenDialog" Width="100" Height="30" Margin="2,2,2,2" Click="ButtonShowSelectSpecimenDialog_Click">Selection</Button>
+                            <TextBlock Margin="2,2,2,2">
+                                <Hyperlink Click="HyperLinkShowSpecimenDialog_Click">Details</Hyperlink>
+                            </TextBlock>
+                            <TextBlock Margin="2,2,2,2">
+                                <Hyperlink Click="HyperLinkShowSelectSpecimenDialog_Click">Selection</Hyperlink>
+                            </TextBlock>
                         </StackPanel>
 
-                        <TextBlock Grid.Column="0" Grid.Row="3" Style="{StaticResource HeadingTextBlock}">Specimen Viability</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="3" TextAlignment="Right" FontWeight="Bold" Margin="2,2,2,2">Specimen Viability:</TextBlock>
                         <TextBox Grid.Column="1" Grid.Row="3" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
-                                  HorizontalAlignment="Left" Width="150"
+                                  HorizontalAlignment="Stretch"
                                  Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent, UpdateSourceTrigger=PropertyChanged}">
                         </TextBox>
 
-                        <TextBlock Grid.Column="0" Grid.Row="4" Style="{StaticResource HeadingTextBlock}">Gross Description:</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="4" FontWeight="Bold" Margin="2,2,2,2">Gross Description:</TextBlock>
                         <TextBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" IsEnabled="{Binding Path=IsWorkspaceEnabled}"
                                  TextWrapping="Wrap" AcceptsReturn="True"
                                  Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.GrossX, UpdateSourceTrigger=PropertyChanged}">
@@ -527,7 +500,7 @@
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="ICD10 Codes" Height="22" Margin="-1.8,-2,-2.2,0" VerticalAlignment="Top">
+                <TabItem Header="ICD10 Codes">
                     <Grid Background="White">
                         <Grid.ContextMenu>
                             <ContextMenu>
@@ -684,56 +657,11 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Name="TabItemCommonMarkers" Header="Markers(Common)">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="59*"></ColumnDefinition>
-                            <ColumnDefinition Width="16*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-
-                        <StackPanel Orientation="Horizontal" Margin="5,5,5.4,5.2" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-                            <TextBlock VerticalAlignment="Center" Width="200" Style="{StaticResource GatingTextBlock}" TextAlignment="Right" Margin="2,2,2,2">Marker Panel:</TextBlock>
-                            <ComboBox Name="comboBoxCommonMarkerPanel" Width="150" ItemsSource="{Binding Path=FlowPanelList}" DisplayMemberPath="PanelName" SelectedValuePath="PanelId" Height="22" Margin="2,2,2,2"/>
-                            <Button Name="ButtonAddCommonMarkerPanel" Height="20" Width="100" Click="ButtonAddCommonMarkerPanel_Click" Margin="2,2,2,2">Add Panel</Button>
-                        </StackPanel>
-
-                        <ListView Name="listViewCommonMarkers" Grid.Column="0" 
-				        ItemsSource="{Binding Path=PanelSetOrderLeukemiaLymphoma.FlowMarkerCollection}" IsEnabled="{Binding Path=IsWorkspaceEnabled}" Grid.ColumnSpan="2" Margin="0,35,0.4,0.2" Grid.RowSpan="2">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Path=Name}" Header="Marker"/>
-                                    <GridViewColumn Header="Intensity" Width="150">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <ComboBox Width="130"  Margin="3" IsEditable="True" Text="{Binding Path=Result}">
-                                                    <ComboBoxItem>Negative</ComboBoxItem>
-                                                    <ComboBoxItem>Weakly Positive</ComboBoxItem>
-                                                    <ComboBoxItem>Positive</ComboBoxItem>
-                                                    <ComboBoxItem>Strongly Positive</ComboBoxItem>
-                                                </ComboBox>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-
-                        <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold" Margin="2,1.8,1.4,2.2" Grid.ColumnSpan="2">Report Comment:</TextBlock>
-                        <TextBox Name="TextBoxReportComment" Grid.Column="0" Grid.Row="3" Text="{Binding Path=PanelSetOrderLeukemiaLymphoma.ReportComment, UpdateSourceTrigger=PropertyChanged}" 
-                                 HorizontalAlignment="Stretch" Height="100" AcceptsReturn="True" Margin="2,1.8,1.4,2.2" Grid.ColumnSpan="2"></TextBox>
-                    </Grid>
-                </TabItem>
             </TabControl>
 
-            <GridSplitter Height="5" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"></GridSplitter>
+            <GridSplitter Height="5" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"></GridSplitter>
 
-            <TabControl Name="tabControlBottomLeftPane" Grid.Column="0" Grid.Row="3">
+            <TabControl Name="tabControlBottomLeftPane" Grid.Column="0" Grid.Row="2">
 
                 <TabItem Header="List">
                     <Grid>
@@ -820,7 +748,7 @@
 								Checked="RadioButtonFlowSearch_Checked"
 								Style="{StaticResource RadioButtonStyle}"
 							  GroupName="radioButtonGroupSearch">Report No:</RadioButton>
-                            <TextBox Name="textBoxSearchReportNo" Width="100" Visibility="Hidden" KeyUp="textBoxSearchReportNo_KeyUp">18-</TextBox>
+                            <TextBox Name="textBoxSearchReportNo" Width="100" Visibility="Hidden" KeyUp="textBoxSearchReportNo_KeyUp"></TextBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <RadioButton Name="radioButtonSearchPatientName"
@@ -871,18 +799,9 @@
                                     <ComboBoxItem>2016</ComboBoxItem>
                                     <ComboBoxItem>2017</ComboBoxItem>
                                     <ComboBoxItem>2018</ComboBoxItem>
+                                    <ComboBoxItem>2019</ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <RadioButton Name="radioButtonSearchTestId"
-								Checked="RadioButtonFlowSearch_Checked"
-							  Style="{StaticResource RadioButtonStyle}"
-							  GroupName="radioButtonGroupSearch">Test Performed</RadioButton>
-                            <ComboBox Name="comboBoxFlowSearchTestType" Style="{StaticResource BoundTextBox}"
-								 ItemsSource="{Binding Path=FlowPanelSetCollection}" 								 								 
-								 DisplayMemberPath="PanelSetName" Visibility="Hidden">
-                            </ComboBox>
                         </StackPanel>
                         <Button Name="buttonSearch" Click="ButtonSearch_Click" Style="{StaticResource NormalButton}" Width="150">Search</Button>
                     </StackPanel>

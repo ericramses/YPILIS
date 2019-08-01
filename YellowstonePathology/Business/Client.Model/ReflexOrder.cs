@@ -11,10 +11,9 @@ namespace YellowstonePathology.Business.Client.Model
         protected string m_ReflexOrderCode;
         protected string m_Description;
         protected YellowstonePathology.Business.PanelSet.Model.PanelSet m_PanelSet;
-        
+
         public ReflexOrder()
         {
-
         }
 
         public int RuleNumber

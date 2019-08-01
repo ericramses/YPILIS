@@ -45,7 +45,7 @@ namespace YellowstonePathology.Business.HL7View
                 }
                 
                 Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
-                Business.Label.Model.HistologySlidePaperZPLLabelV1 zplCommand = new Label.Model.HistologySlidePaperZPLLabelV1(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.AccessioningFacility, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
+                Business.Label.Model.HistologySlidePaperZPLLabelV1 zplCommand = new Label.Model.HistologySlidePaperZPLLabelV1(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.AccessioningFacility, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);                
                 zplPrinterUSB.Print(zplCommand);
 
                 slideOrder.Printed = true;
@@ -130,7 +130,6 @@ namespace YellowstonePathology.Business.HL7View
             orderRequest.Pid = new Ventana.pid();
             orderRequest.Pid.FirstName = accessionOrder.PFirstName;
             orderRequest.Pid.LastName = accessionOrder.PLastName;
-
             orderRequest.Pid.MiddleInitial = string.IsNullOrEmpty(accessionOrder.PMiddleInitial) ? string.Empty: accessionOrder.PMiddleInitial;
             orderRequest.Pid.Birthdate = accessionOrder.PBirthdate.Value.ToString("yyyyMMdd");
             orderRequest.Pid.Sex = accessionOrder.PSex;

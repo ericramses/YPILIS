@@ -15,7 +15,6 @@ namespace YellowstonePathology.Business.Flow
 
         private YellowstonePathology.Business.User.SystemUserCollection m_PathologistUsers;
         private YellowstonePathology.Business.User.SystemUserCollection m_MedTechUsers;
-        private YellowstonePathology.Business.PanelSet.Model.PanelSetCollection m_FlowPanelSetCollection;
         private Flow.FlowComment m_FlowComment;
         private Flow.Marker m_Marker;
         
@@ -29,7 +28,6 @@ namespace YellowstonePathology.Business.Flow
         private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
 		private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
 		private YellowstonePathology.Business.Patient.Model.PatientHistoryList m_PatientHistoryList;
-		private YellowstonePathology.Business.PanelSet.Model.PanelSetCollection m_PanelSets;
         private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
         private object m_Writer;
 
@@ -51,8 +49,6 @@ namespace YellowstonePathology.Business.Flow
 			this.m_PathologistUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Pathologist, true);
 			this.m_MedTechUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.MedTech, true);
 
-            this.m_FlowPanelSetCollection = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetFlowPanelSets(false);            
-
             this.m_FlowComment = new FlowComment();
             this.m_FlowComment.FlowCommentCollection.SetFillCommandAll();
             this.m_FlowComment.FlowCommentCollection.Fill();
@@ -73,7 +69,6 @@ namespace YellowstonePathology.Business.Flow
 
 			this.m_CaseDocumentCollection = new Document.CaseDocumentCollection();
 			this.m_PatientHistoryList = new YellowstonePathology.Business.Patient.Model.PatientHistoryList();
-			this.m_PanelSets = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
 
 			this.Search();
         }
@@ -223,7 +218,8 @@ namespace YellowstonePathology.Business.Flow
 			{
 				if (this.PanelSetOrderLeukemiaLymphoma.Final == true)
 				{
-					if (this.PanelSetOrderLeukemiaLymphoma.AmendmentCollection.HasOpenAmendment() == true)
+                    YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.PanelSetOrderLeukemiaLymphoma.ReportNo);
+                    if (amendmentCollection.HasOpenAmendment() == true)
 					{
 						this.IsWorkspaceEnabled = true;
 					}
@@ -286,7 +282,16 @@ namespace YellowstonePathology.Business.Flow
                     methodResult.Success = false;
                     methodResult.Message = "The specimen adequacy for the specimen is not set.";
                 }
-            }            
+            }
+
+            if (methodResult.Success == true)
+            {
+                if (string.IsNullOrEmpty(this.m_PanelSetOrderLeukemiaLymphoma.SpecimenViabilityPercent) == true)
+                {
+                    methodResult.Success = false;
+                    methodResult.Message += Environment.NewLine + "The specimen viability is not set.";
+                }
+            }
 
             return methodResult;
         }
@@ -334,11 +339,6 @@ namespace YellowstonePathology.Business.Flow
         public YellowstonePathology.Business.User.SystemUserCollection MedTechUsers
         {
             get { return this.m_MedTechUsers; }
-        }
-
-        public YellowstonePathology.Business.PanelSet.Model.PanelSetCollection FlowPanelSetCollection
-        {
-            get { return this.m_FlowPanelSetCollection; }
         }
 
 		public YellowstonePathology.Business.User.SystemUser CurrentUser

@@ -300,9 +300,9 @@ namespace YellowstonePathology.UI
 		public YellowstonePathology.UI.Cytology.CytologyWorkspace CytologyWorkspace
 		{
 			get { return this.m_CytologyWorkspace; }
-		}                
+		}
 
-		private void TabControlLeftWorkspace_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TabControlLeftWorkspace_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (e.AddedItems.Count > 0 && e.AddedItems[0] != null)
 			{
@@ -521,8 +521,7 @@ namespace YellowstonePathology.UI
                 this.m_LabWorkspace = new Test.LabWorkspace(this.m_MainWindowCommandButtonHandler, this.m_TabItemLab);
                 this.m_TabItemLab.Content = this.m_LabWorkspace;
                 this.TabControlLeftWorkspace.Items.Add(this.m_TabItemLab);
-                this.m_TabItemLab.Focus();
-                //this.m_LabWorkspace.Loaded += new RoutedEventHandler(m_LabWorkspace_Loaded);
+                this.m_TabItemLab.Focus();                
 			}            
         }
 
@@ -530,12 +529,7 @@ namespace YellowstonePathology.UI
         {
             this.AddLabWorkspace();
             this.m_LabWorkspace.GetCase(masterAccessionNo, reportNo);
-        }
-
-        /*private void m_LabWorkspace_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.m_LabWorkspace.TabItemCaseList.Focus();
-        }*/        
+        }        
 
         private void ToolBarButtonSearchWorkspace_Click(object sender, RoutedEventArgs args)
         {
@@ -875,6 +869,12 @@ namespace YellowstonePathology.UI
             monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.DashboardMonitor);
         }
 
+        private void MenuItemShowBillingEOD_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.UI.Monitor.MonitorPath monitorPath = new Monitor.MonitorPath();
+            monitorPath.Show(YellowstonePathology.UI.Monitor.MonitorPageLoadEnum.BillingEODProcess);
+        }
+
         private void MenuItemAcidWashOrders_Click(object sender, RoutedEventArgs e)
         {
             Test.AcidWashOrdersDialog acidWashOrdersDialog = new Test.AcidWashOrdersDialog();
@@ -975,7 +975,7 @@ namespace YellowstonePathology.UI
 
         private void MenuItemUserPreferences_Click(object sender, RoutedEventArgs e)
         {
-            Common.UserPreferencesList dlg = new Common.UserPreferencesList(false);
+            Common.UserPreferencesList dlg = new Common.UserPreferencesList();
             dlg.ShowDialog();
         }
 
@@ -1002,12 +1002,6 @@ namespace YellowstonePathology.UI
             Business.Test.PanelSetOrder pso = ao.PanelSetOrderCollection.GetSurgical();
             Surgical.StainOrder stainOrder = new Surgical.StainOrder(ao, pso);
             stainOrder.ShowDialog();
-        }
-
-        private void MenuItemRedis_Click(object sender, RoutedEventArgs e)
-        {
-            Redis.StoreSelection dlg = new Redis.StoreSelection();
-            dlg.ShowDialog();
         }
 
         private void MenuItemChainExplorer_Click(object sender, RoutedEventArgs e)
@@ -1038,6 +1032,30 @@ namespace YellowstonePathology.UI
         {
             UI.Billing.SimulationDialog simulationDialog = new Billing.SimulationDialog();
             simulationDialog.Show();
+        }
+
+        private void MenuItemBillingCPTCodes_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Billing.CPTCodeListDialog cptCodeListDialog = new UI.Billing.CPTCodeListDialog();
+            cptCodeListDialog.Show();
+        }
+
+        private void MenuItemBillingICDCodes_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Billing.ICDCodeListDialog icdCodeListDialog = new UI.Billing.ICDCodeListDialog();
+            icdCodeListDialog.Show();
+        }
+
+        private void MenuItemSpecimen_Click(object sender, RoutedEventArgs e)
+        {
+            UI.SpecimenListDialog specimenListDialog = new UI.SpecimenListDialog();
+            specimenListDialog.ShowDialog();
+        }
+
+        private void MenuItemPrintSVHLabels_Click(object sender, RoutedEventArgs e)
+        {
+            SVHLabelDialog dlg = new UI.SVHLabelDialog();
+            dlg.ShowDialog();
         }
     }
 }

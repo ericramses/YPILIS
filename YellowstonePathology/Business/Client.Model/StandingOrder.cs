@@ -14,7 +14,6 @@ namespace YellowstonePathology.Business.Client.Model
 
         public StandingOrder()
         {
-            
         }        
 
         public virtual bool IsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)

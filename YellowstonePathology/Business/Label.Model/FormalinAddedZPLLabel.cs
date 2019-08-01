@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Label.Model
                 GetOne(result, xOffset);
                 xOffset += 325;
             }
-            
+
             result.Append("^XZ");
             return result.ToString();
         }

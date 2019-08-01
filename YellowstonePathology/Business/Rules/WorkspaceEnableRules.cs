@@ -78,7 +78,8 @@ namespace YellowstonePathology.Business.Rules
 
 		public void HasOpenAmendment()
 		{
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in m_PanelSetOrder.AmendmentCollection)
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
 			{
 				if (amendment.Final == false)
 				{

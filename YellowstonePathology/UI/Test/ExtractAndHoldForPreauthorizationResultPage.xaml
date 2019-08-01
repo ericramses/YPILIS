@@ -37,6 +37,7 @@
 					<RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="*"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
 					<RowDefinition Height="Auto"></RowDefinition>
@@ -50,16 +51,24 @@
                 <TextBlock Name="TextBlockShowDocument" Grid.Column="0" Grid.Row="5" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkShowDocument_Click">Show Document</Hyperlink>
 				</TextBlock>
+                
+                <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,0">
+                    <Hyperlink Click="HyperLinkPublish_Click">Publish</Hyperlink>
+                </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="6" Margin="5,3,0,5">
+                <TextBlock Grid.Column="0" Grid.Row="7" Margin="5,3,0,0">
+                    <Hyperlink Click="HyperLinkFax_Click">Fax</Hyperlink>
+                </TextBlock>
+
+                <TextBlock Grid.Column="0" Grid.Row="8" Margin="5,3,0,5">
 					<Hyperlink Click="HyperLinkFinalizeResults_Click">Finalize</Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Column="0" Grid.Row="9" Margin="5,3,0,0">                    
+                <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnacceptResults_Click">Unaccept Results</Hyperlink>
 				</TextBlock>
 
-                <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">                    
+                <TextBlock Name="TextBlockUnfinalResults" Grid.Column="0" Grid.Row="11" Margin="5,3,0,0">                    
                     <Hyperlink Click="HyperLinkUnfinalResults_Click">Unfinalize Results</Hyperlink>
 				</TextBlock>
 
@@ -82,9 +91,22 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,5" FontWeight="Bold">Comment:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Comment}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="200"></TextBox>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Test:</TextBlock>
+                    <ComboBox Name="ComboBoxTests" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" ItemsSource="{Binding Path=PanelSetCollection}" SelectedValuePath="PanelSetId" 
+                              DisplayMemberPath="PanelSetName" SelectedValue="{Binding Path=PanelSetOrder.TestId}" SelectionChanged="ComboBoxTests_SelectionChanged"/>
 
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">CPT Codes:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.CPTCodes}" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Fax:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Fax}" />
+
+                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,5" FontWeight="Bold">Report Comment:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.Comment}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="200"></TextBox>
+
+                    <TextBlock Grid.Column="0" Grid.Row="5" Margin="2,2,2,5" FontWeight="Bold">Internal Comment:</TextBlock>
+                    <TextBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrder.InternalComment}" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="200"></TextBox>
+                    
                     <local:ReferenceLabFinalControl x:Name="ReferenceLabFinalControl" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="13" Margin="2,2,2,2"/>
 
 				</Grid>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 
@@ -19,7 +20,7 @@ namespace YellowstonePathology.Business.Slide.Model
             VantageSlideView view = null;
 
             YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+            string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HostName;
 
             if (this.Exists(vantageSlideId) == false)
             {
@@ -43,10 +44,7 @@ namespace YellowstonePathology.Business.Slide.Model
             slideScan.ScannedBy = Business.User.SystemIdentity.Instance.User.UserName;
             view.VantageSlide.SlideScans.Add(slideScan);
 
-            string jsonSlide = view.VantageSlide.ToJson();
-
-            Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).DataBase.Execute("json.set", new string[] { view.VantageSlide.GetRedisKey(), ".", jsonSlide });
-
+            view.VantageSlide.Save();
         }
 
         public VantageSlideView Get(string vantageSlideId)
@@ -79,7 +77,7 @@ namespace YellowstonePathology.Business.Slide.Model
 
         private void Load()
         {
-            string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeys(this.m_MasterAccessionNo);
+            List<string> results = VantageSlide.GetByMasterAccessionNo(this.m_MasterAccessionNo);
             foreach (string result in results)
             {
                 VantageSlide vantageSlide = VantageSlide.FromJson(result);
@@ -93,8 +91,7 @@ namespace YellowstonePathology.Business.Slide.Model
             foreach (VantageSlideView view in this)
             {
                 view.VantageSlide.CurrentLocation = location;
-                string jsonSlide = view.VantageSlide.ToJson();
-                Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).DataBase.Execute("json.set", new string[] { view.VantageSlide.GetRedisKey(), ".", jsonSlide });
+                view.VantageSlide.Save();
             }
         }
     }

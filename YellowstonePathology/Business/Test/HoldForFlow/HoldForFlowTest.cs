@@ -19,7 +19,14 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterT();
             this.m_Active = true;
             this.m_NeverDistribute = true;
-            this.m_ExpectedDuration = new TimeSpan(2, 0, 0, 0);
+            this.m_MonitorPriority = MonitorPriorityNormal;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
+
+            this.m_ExpectedDuration = new TimeSpan(7, 0, 0, 0);
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowWordDocument).AssemblyQualifiedName;
             this.m_RequiresPathologistSignature = false;
@@ -28,6 +35,10 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
             this.m_ReportAsAdditionalTesting = false;
             this.m_IsBillable = false;
+
+            YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_TechnicalComponentFacility = ypi;
+            this.m_TechnicalComponentBillingFacility = ypi;
         }
-	}
+    }
 }

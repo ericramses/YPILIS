@@ -20,11 +20,15 @@ namespace YellowstonePathology.Business.Test.BoneMarrowSummary
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterY();
             this.m_Active = true;
             this.m_HasNoOrderTarget = true;
+            this.m_MonitorPriority = "NORMAL";
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PanelSetOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BoneMarrowSummary.BoneMarrowSummaryWordDocument).AssemblyQualifiedName;
             this.m_AllowMultiplePerAccession = false;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
 
             this.m_ExpectedDuration = new TimeSpan(14, 0, 0, 0);
 

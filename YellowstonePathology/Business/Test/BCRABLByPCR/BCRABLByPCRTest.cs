@@ -21,8 +21,12 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
 			this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BCRABLByPCR.BCRABLByPCRWordDocument).AssemblyQualifiedName;
             
-			this.m_AllowMultiplePerAccession = true;            
-            this.m_EpicDistributionIsImplemented = true;
+			this.m_AllowMultiplePerAccession = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             string taskDescription = "Collect (Peripheral blood: 5 mL in EDTA tube ONLY; " +
             "Bone marrow: 2 mL in EDTA tube ONLY) and send to Neogenomics.";
@@ -33,11 +37,8 @@ namespace YellowstonePathology.Business.Test.BCRABLByPCR
             this.m_TechnicalComponentFacility = neogenomicsIrvine;
             this.m_TechnicalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("81206", null), 1);
-            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);
-
-            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode2 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("81207", null), 1);
-            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode2);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("81479", null), 1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode);            
 
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMOLEGEN());
 		}

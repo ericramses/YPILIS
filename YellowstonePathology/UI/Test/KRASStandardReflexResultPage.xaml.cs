@@ -153,7 +153,7 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument report = new YellowstonePathology.Business.Test.KRASStandardReflex.KRASStandardReflexWordDocument(this.m_AccessionOrder, this.m_KRASStandardReflexTestOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
 		}		
 
 		private void ProviderDetailPage_Return(object sender, UI.Navigation.PageNavigationReturnEventArgs e)

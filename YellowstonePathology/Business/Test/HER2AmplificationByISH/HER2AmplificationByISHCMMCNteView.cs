@@ -70,7 +70,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 this.AddNextNteElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
             }
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             this.AddNextNteElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document);
             this.AddNextNteElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document);
@@ -152,7 +152,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 this.AddNextNteElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
             }
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             this.AddNextNteElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document);
             this.AddNextNteElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document);
@@ -228,7 +228,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 this.AddNextNteElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
             }
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             this.AddNextNteElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document);
             this.AddNextNteElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document);
@@ -297,17 +297,6 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
             this.AddNextNteElement("HER2: " + panelSetOrder.Result, document);
             this.AddNextNteElement("HER2 to Chr17 Ratio: " + panelSetOrder.AverageHer2Chr17Signal, document);
             this.AddNextNteElement("Average HER2 Copy Number: " + panelSetOrder.AverageHer2NeuSignal.Value.ToString(), document);
-
-            if (panelSetOrder.HER2ByIHCRequired == true)
-            {
-                Her2AmplificationByIHC.Her2AmplificationByIHCTest her2AmplificationByIHCTest = new Her2AmplificationByIHC.Her2AmplificationByIHCTest();
-                if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(her2AmplificationByIHCTest.PanelSetId, panelSetOrder.OrderedOnId, true) == true)
-                {
-                    Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC panelSetOrderHer2AmplificationByIHC = (Her2AmplificationByIHC.PanelSetOrderHer2AmplificationByIHC)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(her2AmplificationByIHCTest.PanelSetId);
-                    string ihc = "HER2 By IHC: " + panelSetOrderHer2AmplificationByIHC.Score + " (per report provided from " + panelSetOrderHer2AmplificationByIHC.ReportNo + ")";
-                    this.AddNextNteElement(ihc, document);
-                }
-            }
             this.AddBlankNteElement(document);
 
             if (string.IsNullOrEmpty(panelSetOrder.ResultComment) != true)
@@ -322,7 +311,7 @@ namespace YellowstonePathology.Business.Test.HER2AmplificationByISH
                 this.AddNextNteElement("E-signed " + panelSetOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document);
             }
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             this.AddNextNteElement("Number of invasive tumor cells counted: " + panelSetOrder.CellsCounted.ToString(), document);
             this.AddNextNteElement("Number of observers: " + panelSetOrder.NumberOfObservers.ToString(), document);

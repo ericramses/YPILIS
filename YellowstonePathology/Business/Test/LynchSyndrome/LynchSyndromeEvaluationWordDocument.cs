@@ -24,7 +24,8 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             this.OpenTemplate();
             this.SetDemographicsV2();
             this.SetReportDistribution();
-            this.SetAmendments(this.m_PanelSetOrder.AmendmentCollection);
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
+            this.SetAmendments(amendmentCollection);
             
             YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation = (YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation)this.m_PanelSetOrder;
             base.ReplaceText("report_result", panelSetOrderLynchSyndromeEvaluation.Result);

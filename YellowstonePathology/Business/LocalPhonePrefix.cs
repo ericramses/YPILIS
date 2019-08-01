@@ -118,7 +118,8 @@ namespace YellowstonePathology.Business
             this.Add("947");
             this.Add("953");
             this.Add("962");
-            this.Add("967");            
+            this.Add("967");
+            this.Add("969");
         }
 
         public string HandleLongDistance(string phoneNumber)

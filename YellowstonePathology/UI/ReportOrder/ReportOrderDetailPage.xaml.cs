@@ -127,7 +127,7 @@ namespace YellowstonePathology.UI.ReportOrder
 			YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
 			caseDocument.Render();
 
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(caseDocument.SaveFileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(caseDocument.SaveFileName);
 		}        
 
 		private void HyperLinkFinalize_Click(object sender, RoutedEventArgs e)

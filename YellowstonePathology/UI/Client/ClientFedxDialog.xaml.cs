@@ -189,7 +189,7 @@ namespace YellowstonePathology.UI.Client
                     }
                     else
                     {
-                        MessageBox.Show("There was a problem with this shipping request.");
+                        MessageBox.Show(result.Message);
                     }
                 }
                 else
@@ -275,6 +275,14 @@ namespace YellowstonePathology.UI.Client
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void HyperLinkOptiFreight_Click(object sender, RoutedEventArgs e)
+        {
+            Business.MaterialTracking.Model.FedexAccountProduction fedexAccount = new Business.MaterialTracking.Model.FedexAccountProduction();
+            this.m_AccountNo = fedexAccount.OptiFreightAccountNo;
+            this.m_PaymentType = "THIRD_PARTY";
+            this.NotifyPropertyChanged(string.Empty);
         }
     }
 }

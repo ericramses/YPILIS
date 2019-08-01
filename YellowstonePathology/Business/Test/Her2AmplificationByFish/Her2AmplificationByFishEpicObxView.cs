@@ -70,7 +70,8 @@ namespace YellowstonePathology.Business.Test.Her2AmplificationByFish
             this.HandleLongString(panelSetOrder.Reference, document, "F");
             this.AddNextObxElement(string.Empty, document, "F");
 
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(panelSetOrder.ReportNo);
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
             {
                 this.AddNextObxElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document, "C");
                 this.HandleLongString(amendment.Text, document, "C");

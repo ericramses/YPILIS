@@ -86,7 +86,7 @@ namespace YellowstonePathology.UI.Login
                 YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_LoginUI.AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_LoginUI.ReportNo);
                 YellowstonePathology.Business.Interface.ICaseDocument caseDocument = YellowstonePathology.Business.Document.DocumentFactory.GetDocument(this.m_LoginUI.AccessionOrder, panelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
                 caseDocument.Render();
-                YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(caseDocument.SaveFileName);
+                YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(caseDocument.SaveFileName);
             }
         }
 
@@ -798,10 +798,17 @@ namespace YellowstonePathology.UI.Login
             xpsDocumentViewer.ShowDialog();
         }
 
-        private void ButtonShowMasterLog_Click(object sender, RoutedEventArgs e)
+        private void MenuItemShowMasterLog_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog report = new YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog();
             report.CreateReport(this.m_LoginUI.AccessionOrderDate);
+            report.OpenReport();
+        }
+
+        private void MenuItemShowNorthernMtMasterLog_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog report = new YellowstonePathology.Business.Reports.Surgical.SurgicalMasterLog();
+            report.CreateNorthernMtTechOnlyReport(this.m_LoginUI.AccessionOrderDate);
             report.OpenReport();
         }
 
@@ -949,16 +956,13 @@ namespace YellowstonePathology.UI.Login
             this.m_BarcodeScanPort.VantageSlideScanReceived -= BarcodeScanPort_VantageSlideScanReceived;
             string masterAccessionNo = null;
 
-            string[] results = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.VantageSlide).GetAllJSONKeysBySlideId(scanData);
+            List<string> results = Business.Slide.Model.VantageSlide.GetBySlideId(scanData);
             foreach (string result in results)
             {
                 Business.Slide.Model.VantageSlide vantageSlide = Business.Slide.Model.VantageSlide.FromJson(result);
                 masterAccessionNo = vantageSlide.MasterAccessionNo;
                 break;
             }
-
-            //Business.Slide.Model.VantageSlideCollection vantageSlideCollection = new Business.Slide.Model.VantageSlideCollection(masterAccessionNo);
-            //vantageSlideCollection.HandleSlideScan(scanData);
 
             this.m_LoginUI.GetReportSearchListByMasterAccessionNo(masterAccessionNo);
             this.ListViewAccessionOrders.SelectedIndex = 0;

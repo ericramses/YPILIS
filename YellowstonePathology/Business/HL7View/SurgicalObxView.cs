@@ -40,7 +40,8 @@ namespace YellowstonePathology.Business.HL7View
                 this.AddNextObxElement("", document, "F");
             }
 
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrderSurgical.AmendmentCollection)
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(panelSetOrderSurgical.ReportNo);
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
             {
                 this.AddNextObxElement(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"), document, "C");
                 this.HandleLongString(amendment.Text, document, "C");

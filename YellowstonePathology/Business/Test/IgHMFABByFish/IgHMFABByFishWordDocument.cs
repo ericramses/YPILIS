@@ -25,15 +25,14 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
             this.SetReportDistribution();
             this.SetCaseHistory();
 
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
             YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
-            amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+            amendmentSection.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             this.ReplaceText("report_result", panelSetOrder.Result);
             this.ReplaceText("report_interpretation", panelSetOrder.Interpretation);
             this.ReplaceText("probe_set", panelSetOrder.ProbeSetDetail);
-            this.ReplaceText("nuclei_scored", panelSetOrder.NucleiScored);
-            //this.ReplaceText("report_method", panelSetOrder.Method);
-            //this.ReplaceText("report_reference", panelSetOrder.ReportReferences);
+            this.ReplaceText("nuclei_scored", panelSetOrder.NucleiScored);            
             this.ReplaceText("asr_comment", panelSetOrder.ASRComment);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
@@ -43,7 +42,7 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
             this.SetXmlNodeData("date_time_collected", collectionDateTimeString);
 
             this.ReplaceText("report_date", YellowstonePathology.Business.BaseData.GetShortDateString(this.m_PanelSetOrder.ReferenceLabFinalDate));
-            this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.Signature);
+            this.ReplaceText("pathologist_signature", this.m_PanelSetOrder.ReferenceLabSignature);
 
             this.SaveReport();
         }

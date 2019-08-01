@@ -64,13 +64,18 @@ namespace YellowstonePathology.UI.Test
 		public string PageHeaderText
 		{
 			get { return this.m_PageHeaderText; }
-		}		
+		}
+        
+        public YellowstonePathology.Business.PanelSet.Model.PanelSetCollection PanelSetCollection
+        {
+            get { return YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll(); }
+        }
 
-		private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
+        private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
 		{
 			YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument report = new Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
 		}
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
@@ -149,6 +154,41 @@ namespace YellowstonePathology.UI.Test
 
                 pageNavigationWindow.PageNavigator.Navigate(dictationTemplatePage);
             }            
+        }
+
+        private void ComboBoxTests_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(this.ComboBoxTests.SelectedItem != null)
+            {
+                YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = (YellowstonePathology.Business.PanelSet.Model.PanelSet)this.ComboBoxTests.SelectedItem;
+                string cpts = panelSet.PanelSetCptCodeCollection.GetCommaSeparatedString();
+                if(string.IsNullOrEmpty(cpts) == false) this.m_PanelSetOrder.CPTCodes = cpts;
+                this.NotifyPropertyChanged("PanelSetOrder.CPTCodes");
+            }
+        }
+
+        private void HyperLinkPublish_Click(object sender, RoutedEventArgs e)
+        {
+            YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument reportPreauth =
+                new YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Normal);
+            reportPreauth.Render();
+            reportPreauth.Publish();
+            MessageBox.Show("The document has been published.");
+        }
+
+        private void HyperLinkFax_Click(object sender, RoutedEventArgs e)
+        {
+            Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
+            string preauthFileName = Business.Document.CaseDocument.GetCaseFileNameTifPreAuth(orderIdParser);
+            if (System.IO.File.Exists(preauthFileName) == true)
+            {
+                Business.ReportDistribution.Model.FaxSubmission.Submit(this.m_PanelSetOrder.Fax, this.m_PanelSetOrder.ReportNo + "Preauthorization Notification", preauthFileName);
+                MessageBox.Show("The fax was successfully submitted.");
+            }
+            else
+            {
+                MessageBox.Show("The document must be published first.");
+            }
         }
     }
 }

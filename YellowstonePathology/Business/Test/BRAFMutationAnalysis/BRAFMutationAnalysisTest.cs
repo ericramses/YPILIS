@@ -26,9 +26,13 @@ namespace YellowstonePathology.Business.Test.BRAFMutationAnalysis
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisWordDocument).AssemblyQualifiedName;
             this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(120, 0, 0);
-            this.m_EpicDistributionIsImplemented = true;
-            this.m_CMMCDistributionIsImplemented = true;
-            this.m_EnforceOrderTarget = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
+
+            this.m_EnforceOrderTarget = false;
 
             YellowstonePathology.Business.Facility.Model.Facility neogenomicsIrvine = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("NEOGNMCIRVN");
             this.m_TechnicalComponentFacility = neogenomicsIrvine;

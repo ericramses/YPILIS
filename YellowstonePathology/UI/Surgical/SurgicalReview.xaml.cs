@@ -119,6 +119,14 @@ namespace YellowstonePathology.UI.Surgical
             get { return (YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)this.m_PathologistUI.PanelSetOrder; }
         }
 
+        public YellowstonePathology.Business.Amendment.Model.AmendmentCollection AmendmentCollection
+        {
+            get
+            {
+                return this.m_PathologistUI.AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.PanelSetOrderSurgical.ReportNo);
+            }
+        }
+
         public YellowstonePathology.Business.Common.FieldEnabler FieldEnabler
         {
             get { return this.m_PathologistUI.FieldEnabler; }
@@ -329,12 +337,12 @@ namespace YellowstonePathology.UI.Surgical
                     MessageBoxResult messageBoxResult = MessageBox.Show("An amendment will be created as a result of reasigning this case.  Are you sure you want to proceed with reasignment?", "Proceed?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (messageBoxResult == MessageBoxResult.Yes)
                     {
-                        reassignCase.Execute(executionStatus, this.PanelSetOrderSurgical, true, Business.User.SystemIdentity.Instance);
+                        reassignCase.Execute(executionStatus, this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, true, Business.User.SystemIdentity.Instance);
                     }
                 }
                 else
                 {
-                    reassignCase.Execute(executionStatus, this.PanelSetOrderSurgical, false, Business.User.SystemIdentity.Instance);
+                    reassignCase.Execute(executionStatus, this.m_PathologistUI.AccessionOrder, this.PanelSetOrderSurgical, false, Business.User.SystemIdentity.Instance);
                     if (executionStatus.Halted == false)
                     {
                         MessageBox.Show("The case has been reassigned");
@@ -580,6 +588,20 @@ namespace YellowstonePathology.UI.Surgical
         {
             this.m_PathologistUI.PanelSetOrder.PanelSetOrderCPTCodeCollection.SetCPTCodes(this.m_PathologistUI.AccessionOrder.SpecimenOrderCollection, this.m_PathologistUI.PanelSetOrder.ReportNo, this.m_PathologistUI.AccessionOrder.ClientId, this.m_PathologistUI.AccessionOrder.SvhMedicalRecord, this.m_PathologistUI.AccessionOrder.SvhAccount);
             this.RefreshBillingSpecimenViewCollection();            
+        }
+
+        private void CheckBoxGlobal_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)checkBox.Tag;
+            amendment.MasterAccessionNo = this.m_PathologistUI.AccessionOrder.MasterAccessionNo;
+        }
+
+        private void CheckBoxGlobal_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = (YellowstonePathology.Business.Amendment.Model.Amendment)checkBox.Tag;
+            amendment.MasterAccessionNo = null;
         }
     }
 }

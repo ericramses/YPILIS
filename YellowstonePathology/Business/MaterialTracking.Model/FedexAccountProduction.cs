@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_Password = "sDY7lb5HCpaNvU2B98PZ6JoUY";
             this.m_MeterNo = "109758384";
             this.m_AccountNo = "235542196";
+            this.m_OptiFreightAccountNo = "659313596";     
         }
     }
 }

@@ -93,6 +93,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 		{
             if (this.DataIsValid() == true)
             {
+                if (this.m_AccessionOrder.SvhMedicalRecord != null) this.m_AccessionOrder.SvhMedicalRecord = this.m_AccessionOrder.SvhMedicalRecord.ToUpper();
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
                 UI.Navigation.PageNavigationReturnEventArgs args = new UI.Navigation.PageNavigationReturnEventArgs(UI.Navigation.PageNavigationDirectionEnum.Next, null);
                 this.Return(this, args);
@@ -109,7 +110,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
 
             if (isValidDate == false)
             {
-                MessageBox.Show("Enter a valid Birthdate.");
+                MessageBox.Show("Please enter a valid Birthdate.");
+                result = false;
+            }
+
+            if (string.IsNullOrEmpty(this.m_AccessionOrder.PSex) == true)
+            {
+                MessageBox.Show("Please enter the patient sex.");
                 result = false;
             }
 

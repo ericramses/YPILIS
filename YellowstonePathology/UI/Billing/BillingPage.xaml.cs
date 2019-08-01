@@ -58,7 +58,8 @@ namespace YellowstonePathology.UI.Billing
         private YellowstonePathology.Business.Document.CaseDocumentCollection m_CaseDocumentCollection;
                 
         private string m_ReportNo;
-        private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;        
+        private YellowstonePathology.Business.Facility.Model.FacilityCollection m_FacilityCollection;
+        private YellowstonePathology.Business.Client.Model.ClientCollection m_SVHClients;
 
         public BillingPage(string reportNo, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{			
@@ -67,6 +68,7 @@ namespace YellowstonePathology.UI.Billing
 
             this.m_FacilityCollection = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance;
             this.m_FacilityCollection.Insert(0, new Business.Facility.Model.Facility());
+            this.m_SVHClients = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientCollectionByClientGroupId("1");
 
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
             this.m_PanelSetOrderCPTCodeCollection = this.m_PanelSetOrder.PanelSetOrderCPTCodeCollection;
@@ -179,11 +181,18 @@ namespace YellowstonePathology.UI.Billing
             {
                 if (this.IsProfessionalBillingFacilityValid() == true)
                 {
-                    YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
-                    YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Set();
-                    if (methodResult.Success == false)
+                    if (this.RequiredIdsArePresent() == true)
                     {
-                        MessageBox.Show(methodResult.Message);
+                        YellowstonePathology.Business.Billing.Model.BillableObject billableObject = Business.Billing.Model.BillableObjectFactory.GetBillableObject(this.m_AccessionOrder, this.m_ReportNo);
+                        YellowstonePathology.Business.Rules.MethodResult methodResult = billableObject.Set();
+                        if (methodResult.Success == false)
+                        {
+                            MessageBox.Show(methodResult.Message);
+                        }
+                        else
+                        {
+                            this.m_PanelSetOrderCPTCodeCollection.UpdateCodeType();
+                        }
                     }
                 }
             }            
@@ -347,7 +356,7 @@ namespace YellowstonePathology.UI.Billing
             if (adtMessages.Messages.Count > 0)
             {
                 Business.OrderIdParser orderIdParser = new Business.OrderIdParser(this.m_AccessionOrder.MasterAccessionNo);
-                YellowstonePathology.Business.Document.ADTInsuranceDocument adtInsuranceDocument = new Business.Document.ADTInsuranceDocument(adtMessages);
+                YellowstonePathology.Business.Document.ADTInsuranceDocument adtInsuranceDocument = new Business.Document.ADTInsuranceDocument(adtMessages);                
                 adtInsuranceDocument.SaveAsTIF(orderIdParser);
                 this.m_CaseDocumentCollection = new Business.Document.CaseDocumentCollection(this.m_ReportNo);
                 this.NotifyPropertyChanged("CaseDocumentCollection");
@@ -386,6 +395,21 @@ namespace YellowstonePathology.UI.Billing
                 YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = (YellowstonePathology.Business.Test.PanelSetOrderCPTCode)this.ListViewPanelSetOrderCPTCode.SelectedItem;
                 panelSetOrderCPTCode.CPTCode = "88342";
             }
+        }
+
+        private bool RequiredIdsArePresent()
+        {
+            bool result = true;
+            if(this.m_SVHClients.Exists(m_AccessionOrder.ClientId) == true)
+            {
+                if(string.IsNullOrEmpty(this.m_AccessionOrder.SvhAccount) == true ||
+                    string.IsNullOrEmpty(this.m_AccessionOrder.SvhMedicalRecord) == true)
+                {
+                    result = false;
+                    MessageBox.Show("This case must have the MRN and Account Number before it can be set", "Missing MRN or Account No.");
+                }
+            }
+            return result;
         }
     }
 }

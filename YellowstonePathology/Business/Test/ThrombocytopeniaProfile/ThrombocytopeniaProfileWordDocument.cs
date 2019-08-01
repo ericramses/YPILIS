@@ -33,9 +33,10 @@ namespace YellowstonePathology.Business.Test.ThombocytopeniaProfile
             this.SetReportDistribution();
             this.SetCaseHistory();
 
-            if (this.m_PanelSetOrder.AmendmentCollection.Count > 0)
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.m_PanelSetOrder.ReportNo);
+            if (amendmentCollection.Count > 0)
             {
-                string amendmentTitle = this.m_PanelSetOrder.AmendmentCollection[0].AmendmentType;
+                string amendmentTitle = amendmentCollection[0].AmendmentType;
                 if (amendmentTitle == "Correction") amendmentTitle = "Corrected Report";
                 this.SetXmlNodeData("Amendment", amendmentTitle);
             }
@@ -44,8 +45,8 @@ namespace YellowstonePathology.Business.Test.ThombocytopeniaProfile
                 this.SetXmlNodeData("Amendment", "");
             }
 
-			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
-            amendmentSection.SetAmendment(this.m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, false);
+            YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
+            amendmentSection.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, false);
 
 			YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(this.m_PanelSetOrder.OrderedOn, this.m_PanelSetOrder.OrderedOnId);
             this.SetXmlNodeData("specimen_description", specimenOrder.Description);
@@ -84,8 +85,8 @@ namespace YellowstonePathology.Business.Test.ThombocytopeniaProfile
         public override void  Publish()
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-            Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Document.CaseDocumentTypeEnum.CaseReport, Document.CaseDocumentFileTypeEnnum.xml, Document.CaseDocumentFileTypeEnnum.pdf);
-            Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Document.CaseDocumentTypeEnum.CaseReport, Document.CaseDocumentFileTypeEnnum.xps, Document.CaseDocumentFileTypeEnnum.tif);
+            Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Document.CaseDocumentTypeEnum.CaseReport, Document.CaseDocumentFileTypeEnum.xml, Document.CaseDocumentFileTypeEnum.pdf);
+            Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Document.CaseDocumentTypeEnum.CaseReport, Document.CaseDocumentFileTypeEnum.xps, Document.CaseDocumentFileTypeEnum.tif);
 
             //YellowstonePathology.Business.Document.CaseDocument.SaveXMLAsPDF(orderIdParser);
             //YellowstonePathology.Business.Helper.FileConversionHelper.SaveXpsReportToTiff(this.m_PanelSetOrder.ReportNo);

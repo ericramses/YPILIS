@@ -27,8 +27,9 @@ namespace YellowstonePathology.Business.Test.MPNStandardReflex
 			this.SetReportDistribution();
 			this.SetCaseHistory();
 
-			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
-			amendmentSection.SetAmendment(m_PanelSetOrder.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
+            YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
+			amendmentSection.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, true);
 
             this.ReplaceText("panelset_name", panelSetOrderMPNStandardReflex.PanelSetName);
             if (string.IsNullOrEmpty(panelSetOrderMPNStandardReflex.JAK2V617FResult) == false)

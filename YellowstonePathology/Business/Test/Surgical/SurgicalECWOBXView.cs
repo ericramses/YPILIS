@@ -21,7 +21,8 @@ namespace YellowstonePathology.Business.Test.Surgical
             this.AddHeader(document, panelSetOrderSurgical, "Surgical Pathology Report");
             this.AddNextObxElement("", document, "F");
 
-            this.InformRevisedDiagnosis(document, panelSetOrderSurgical.AmendmentCollection);
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(panelSetOrderSurgical.ReportNo);
+            this.InformRevisedDiagnosis(document, amendmentCollection);
 
             foreach (SurgicalSpecimen surgicalSpecimen in panelSetOrderSurgical.SurgicalSpecimenCollection)
             {
@@ -181,7 +182,8 @@ namespace YellowstonePathology.Business.Test.Surgical
         public void AddAmendments(XElement document)
         {
             SurgicalTestOrder panelSetOrder = (SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(panelSetOrder.ReportNo);
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
             {
                 if (amendment.Final == true)
                 {

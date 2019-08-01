@@ -71,7 +71,7 @@ namespace YellowstonePathology.UI.Test
         {
             YellowstonePathology.Business.Test.LiposarcomaFusionProfile.LiposarcomaFusionProfileWordDocument report = new YellowstonePathology.Business.Test.LiposarcomaFusionProfile.LiposarcomaFusionProfileWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
         }
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)

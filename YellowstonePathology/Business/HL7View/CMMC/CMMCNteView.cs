@@ -74,9 +74,10 @@ namespace YellowstonePathology.Business.HL7View.CMMC
             }
         }
 
-        public virtual void AddAmendments(XElement document, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder)
+        public virtual void AddAmendments(XElement document, YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder, YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
-            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in panelSetOrder.AmendmentCollection)
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = accessionOrder.AmendmentCollection.GetAmendmentsForReport(panelSetOrder.ReportNo);
+            foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
             {
                 if (amendment.Final == true)
                 {

@@ -17,7 +17,8 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         protected string m_Key;
         protected string m_Password;
         protected string m_AccountNo;
-        protected string m_MeterNo;        
+        protected string m_MeterNo;
+        protected string m_OptiFreightAccountNo;      
 
         public FedexAccount()
         {
@@ -42,6 +43,11 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
         public string AccountNo
         {
             get { return this.m_AccountNo; }
+        }
+
+        public string OptiFreightAccountNo
+        {
+            get { return this.m_OptiFreightAccountNo; }
         }
 
         public string MeterNo

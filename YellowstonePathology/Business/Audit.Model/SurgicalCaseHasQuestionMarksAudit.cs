@@ -47,7 +47,8 @@ namespace YellowstonePathology.Business.Audit.Model
                     if (string.IsNullOrEmpty(intraoperativeConsultation.Result) == true || intraoperativeConsultation.Result.Contains("???") == true) this.m_Message.Append("intraoperative consultation result, ");
                 }
 
-                foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in this.m_SurgicalTestOrder.AmendmentCollection)
+                YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.m_SurgicalTestOrder.ReportNo);
+                foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
                 {
                     if (string.IsNullOrEmpty(amendment.Text) == true || amendment.Text.Contains("???") == true) this.m_Message.Append("amendment, ");
                 }

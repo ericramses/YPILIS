@@ -23,8 +23,8 @@ namespace YellowstonePathology.UI.Gross
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-
         private DictationTemplate m_DictationTemplate;
+        private string m_HoldToCompareString;
 
         public DictationTemplateEditPage(DictationTemplate dictationTemplate)
         {
@@ -36,6 +36,8 @@ namespace YellowstonePathology.UI.Gross
             {
                 this.m_DictationTemplate = dictationTemplate;
             }
+
+            this.m_HoldToCompareString = this.m_DictationTemplate.ToJSON();
             InitializeComponent();
             DataContext = this;
         }
@@ -58,7 +60,7 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanSave();
             if (methodResult.Success == true)
             {
-                Gross.DictationTemplateCollection.Save(this.m_DictationTemplate);
+                this.m_DictationTemplate.Save();
                 this.DialogResult = true;
                 Close();
             }
@@ -100,6 +102,11 @@ namespace YellowstonePathology.UI.Gross
                     }
                 }
             }
+
+            if(result.Success == true)
+            {
+                result = YellowstonePathology.Business.Helper.JSONHelper.IsValidJSONString(this.m_DictationTemplate.ToJSON());
+            }
             return result;
         }
 
@@ -128,7 +135,21 @@ namespace YellowstonePathology.UI.Gross
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            string currentString = this.m_DictationTemplate.ToJSON();
+            if (this.m_HoldToCompareString != currentString)
+            {
+                MessageBoxResult messageBoxResult = MessageBox.Show("Do you  want to save the changes?", "Save Changes", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+                if (messageBoxResult == MessageBoxResult.No)
+                {
+                    this.DialogResult = false;
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.DialogResult = false;
+                this.Close();
+            }
         }
     }
 }

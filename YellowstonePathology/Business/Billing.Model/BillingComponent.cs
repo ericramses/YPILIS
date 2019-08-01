@@ -43,7 +43,11 @@ namespace YellowstonePathology.Business.Billing.Model
                 else if (YellowstonePathology.Business.Facility.Model.FacilityCollection.IsAYellowstonePathologyFacility(professionalComponentBillingFacility) == true)
                 {
                     result = new BillingComponentProfessionalOnly(panelSetOrder);
-                }                
+                }
+                else
+                {
+                    result = new BillingComponentNoBilling(panelSetOrder);
+                }
             }
             else if (panelSetOrder.HasTechnicalComponent == true && panelSetOrder.HasProfessionalComponent == false)
             {

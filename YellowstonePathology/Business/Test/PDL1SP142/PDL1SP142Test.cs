@@ -21,7 +21,11 @@ namespace YellowstonePathology.Business.Test.PDL1SP142
 
             this.m_SurgicalAmendmentRequired = true;
             this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+
             this.m_ExpectedDuration = TimeSpan.FromDays(1);
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142TestOrder).AssemblyQualifiedName;

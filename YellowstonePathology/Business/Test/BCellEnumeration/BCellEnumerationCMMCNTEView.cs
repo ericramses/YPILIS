@@ -46,7 +46,7 @@ namespace YellowstonePathology.Business.Test.BCellEnumeration
             this.AddNextNteElement(result.ToString(), document);
 
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
             this.AddNextNteElement("Specimen Description: " + specimenOrder.Description, document);

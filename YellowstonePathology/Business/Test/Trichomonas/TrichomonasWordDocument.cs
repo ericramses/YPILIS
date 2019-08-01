@@ -24,8 +24,9 @@ namespace YellowstonePathology.Business.Test.Trichomonas
             this.SetReportDistribution();
             this.SetCaseHistory();
 
-			YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
-            amendmentSection.SetAmendment(reportOrderTrichomonas.AmendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, false);
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(reportOrderTrichomonas.ReportNo);
+            YellowstonePathology.Business.Document.AmendmentSection amendmentSection = new YellowstonePathology.Business.Document.AmendmentSection();
+            amendmentSection.SetAmendment(amendmentCollection, this.m_ReportXml, this.m_NameSpaceManager, false);
 
             this.SetXmlNodeData("test_result", reportOrderTrichomonas.Result);
             this.SetXmlNodeData("test_method", reportOrderTrichomonas.Method);

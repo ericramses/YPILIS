@@ -38,14 +38,15 @@ namespace YellowstonePathology.Business.Amendment.Model
         private string m_AcceptedBy;
         private bool m_SystemGenerated;
         private string m_CorrectionType;
+        private string m_MasterAccessionNo;
 
         public Amendment()
         {
         }
 
-        public Amendment(string reportNo, string amendmentId)
+        public Amendment(string masterAccessionNo, string reportNo, string amendmentId)
         {
-            this.m_ReportNo = reportNo;
+            this.m_MasterAccessionNo = masterAccessionNo;
             this.AmendmentId = amendmentId;
             this.SetDefaultValues(reportNo);
             this.m_Accepted = false;
@@ -351,6 +352,7 @@ namespace YellowstonePathology.Business.Amendment.Model
                 {
                     this.m_ReportNo = value;
                     this.NotifyPropertyChanged("ReportNo");
+                    this.NotifyPropertyChanged("Global");
                 }
             }
         }
@@ -518,6 +520,26 @@ namespace YellowstonePathology.Business.Amendment.Model
                     this.NotifyPropertyChanged("CorrectionType");
                 }
             }
+        }
+
+        [PersistentProperty()]
+        public string MasterAccessionNo
+        {
+            get { return this.m_MasterAccessionNo; }
+            set
+            {
+                if (this.m_MasterAccessionNo != value)
+                {
+                    this.m_MasterAccessionNo = value;
+                    this.NotifyPropertyChanged("MasterAccessionNo");
+                }
+            }
+        }
+
+        public bool Global
+        {
+            get { return string.IsNullOrEmpty(this.m_ReportNo) ? true : false; }
+            set { this.NotifyPropertyChanged("Global"); }
         }
 
         public virtual YellowstonePathology.Business.Rules.MethodResult IsOkToAccept()

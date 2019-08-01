@@ -47,7 +47,8 @@ namespace YellowstonePathology.Business.HL7View.CDC
 
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_PanelSetOrder.ReportNo);
             ResultStatus resultStatus = ResultStatusEnum.Final;
-            if (panelSetOrder.AmendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction;
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(panelSetOrder.ReportNo);
+            if (amendmentCollection.Count != 0) resultStatus = ResultStatusEnum.Correction;
             MTDohObrView obr = new MTDohObrView(this.m_AccessionOrder, this.m_PanelSetOrder.ReportNo, this.m_OrderingPhysician);
             obr.ToXml(this.m_Document);
 

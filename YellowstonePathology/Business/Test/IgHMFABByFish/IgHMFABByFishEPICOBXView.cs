@@ -24,7 +24,7 @@ namespace YellowstonePathology.Business.Test.IgHMFABByFish
             this.AddNextObxElement("Result: " + testOrder.Result, document, "F");
             this.AddNextObxElement("", document, "F");
 
-            this.AddNextObxElement("Pathologist: " + testOrder.Signature, document, "F");
+            this.AddNextObxElement("Pathologist: " + testOrder.ReferenceLabSignature, document, "F");
             if (testOrder.FinalTime.HasValue == true)
             {
                 this.AddNextObxElement("E-signed " + testOrder.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");

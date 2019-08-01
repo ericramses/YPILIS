@@ -117,11 +117,20 @@ namespace YellowstonePathology.Business.HL7View.CMMC
                 case 228:
                     view = new YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRCMMCNTEView(accessionOrder, reportNo);
                     break;
+                case 245:
+                    view = new YellowstonePathology.Business.Test.PDL122C3.PDL22C3CMMCNTEView(accessionOrder, reportNo);
+                    break;
                 case 269:
                     view = new YellowstonePathology.Business.Test.HPV1618SolidTumor.HPV1618SolidTumorCMMCView(accessionOrder, reportNo);
                     break;
                 case 274:
                     view = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisCMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 313:
+                    view = new YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryCMMCNTEView(accessionOrder, reportNo);
+                    break;
+                case 338:
+                    view = new YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2.ThrombocytopeniaProfileV2CMMCNTEView(accessionOrder, reportNo);
                     break;
             }
             return view;

@@ -225,7 +225,7 @@ namespace YellowstonePathology.Business.Gateway
         public static YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingBatchCollection GetMaterialTrackingBatchCollection()
         {
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select * from tblMaterialTrackingBatch order by OpenDate desc limit 200;";
+            cmd.CommandText = "Select * from tblMaterialTrackingBatch where OpenDate >= date_add(curdate(), interval -90 day) order by OpenDate desc;";
             cmd.CommandType = System.Data.CommandType.Text;
             return BuildMaterialTrackingBatchCollection(cmd);
         }
@@ -324,6 +324,7 @@ namespace YellowstonePathology.Business.Gateway
                 "mtb.MaterialTrackingBatchId AS MaterialTrackingBatchId, " +
                 "mtl.MaterialTrackingLogId AS MaterialTrackingLogId, " +
                 "ao.MasterAccessionNo AS MasterAccessionNo, " +
+                "ao.ClientAccessionNo AS ClientAccessionNo, " +
                 "ao.PLastName AS PLastName, " +
                 "ao.PFirstName AS PFirstName, " +
                 "mtl.MaterialType AS MaterialType, " +
@@ -348,10 +349,7 @@ namespace YellowstonePathology.Business.Gateway
                 "Left JOIN tblAccessionOrder ao ON mtl.MasterAccessionNo = ao.MasterAccessionNo " +
                 "where mtb.MaterialTrackingBatchId = @MaterialTrackingBatchId order by mtl.LogDate desc";
 
-            MySqlCommand cmd = new MySqlCommand();
-            //cmd.CommandText = "Select * from ViewMaterialTrackingLog where ViewMaterialTrackingLog.MaterialTrackingBatchId = " +
-            //    "@MaterialTrackingBatchId order by LogDate desc;";
-
+            MySqlCommand cmd = new MySqlCommand();            
             cmd.CommandText = sql;
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Parameters.AddWithValue("@MaterialTrackingBatchId", materialTrackingBatchId);

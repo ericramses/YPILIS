@@ -137,17 +137,7 @@ namespace YellowstonePathology.Business.Test
                 }
             }
             return result;
-        }
-
-        public void Add(YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection summaryCollection)
-        {
-            foreach (PanelSetOrderCPTCodeBill item in summaryCollection)
-            {
-                PanelSetOrderCPTCodeBill newItem = this.GetNextItem(item.ReportNo);
-                newItem.From(item);
-                this.Add(newItem);
-            }
-        }
+        }        
 
         public void ReplaceCode(string codeToReplace, string newCode)
         {
@@ -214,6 +204,23 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
+        public bool IsHRHClientClinic()
+        {
+            bool result = false;
+            foreach (PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in this)
+            {
+                Business.Client.Model.HRHClinics hrhClinics = new Client.Model.HRHClinics();
+                if(hrhClinics.Exists(panelSetOrderCPTCodeBill.ClientId) && panelSetOrderCPTCodeBill.BillTo == "Client")
+                {
+                    panelSetOrderCPTCodeBill.MedicalRecord = "*" + panelSetOrderCPTCodeBill.MedicalRecord;
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        
         public bool HasMRNStartingWithA()
         {
             bool result = false;
@@ -294,6 +301,7 @@ namespace YellowstonePathology.Business.Test
             reverseOriginal.PostDate = DateTime.Today;
             reverseOriginal.MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
             reverseOriginal.Account = panelSetOrderCPTCodeBill.Account;
+            reverseOriginal.CodeType = panelSetOrderCPTCodeBill.CodeType;
             this.Add(reverseOriginal);
 
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill reverseNew = this.GetNextItem(panelSetOrderCPTCodeBill.ReportNo);
@@ -306,6 +314,7 @@ namespace YellowstonePathology.Business.Test
             reverseNew.PostDate = DateTime.Today;
             reverseNew.MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
             reverseNew.Account = panelSetOrderCPTCodeBill.Account;
+            reverseNew.CodeType = panelSetOrderCPTCodeBill.CodeType;
             this.Add(reverseNew);
         }
 
@@ -321,6 +330,7 @@ namespace YellowstonePathology.Business.Test
             reverseOriginal.PostDate = DateTime.Today;
             reverseOriginal.MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
             reverseOriginal.Account = panelSetOrderCPTCodeBill.Account;
+            reverseOriginal.CodeType = panelSetOrderCPTCodeBill.CodeType;
             this.Add(reverseOriginal);
 
             YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill reverseNew = this.GetNextItem(panelSetOrderCPTCodeBill.ReportNo);
@@ -333,6 +343,7 @@ namespace YellowstonePathology.Business.Test
             reverseNew.PostDate = DateTime.Today;
             reverseNew.MedicalRecord = panelSetOrderCPTCodeBill.MedicalRecord;
             reverseNew.Account = panelSetOrderCPTCodeBill.Account;
+            reverseNew.CodeType = panelSetOrderCPTCodeBill.CodeType;
             this.Add(reverseNew);            
         }
 
@@ -348,6 +359,7 @@ namespace YellowstonePathology.Business.Test
             globalItem.PostDate = DateTime.Today;
             globalItem.MedicalRecord = item.MedicalRecord;
             globalItem.Account = item.Account;
+            globalItem.CodeType = item.CodeType;
             this.Add(globalItem);                
         }
 
@@ -363,6 +375,7 @@ namespace YellowstonePathology.Business.Test
             globalItem.PostDate = DateTime.Today;
             globalItem.MedicalRecord = item.MedicalRecord;
             globalItem.Account = item.Account;
+            globalItem.CodeType = item.CodeType;
             this.Add(globalItem);
         }
 
@@ -379,6 +392,7 @@ namespace YellowstonePathology.Business.Test
             panelSetOrderCPTCodeBill.ClientId = clientId;
             panelSetOrderCPTCodeBill.MedicalRecord = item.MedicalRecord;
             panelSetOrderCPTCodeBill.Account = item.Account;
+            panelSetOrderCPTCodeBill.CodeType = item.CodeType;
             this.Add(panelSetOrderCPTCodeBill);
         }
 
@@ -414,7 +428,7 @@ namespace YellowstonePathology.Business.Test
                 reverseOriginal.PostDate = postDate;
                 reverseOriginal.MedicalRecord = item.MedicalRecord;
                 reverseOriginal.Account = item.Account;
-
+                reverseOriginal.CodeType = item.CodeType;
                 this.Add(reverseOriginal);
 
                 YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBill reverseNew = this.GetNextItem(item.ReportNo);
@@ -427,6 +441,7 @@ namespace YellowstonePathology.Business.Test
                 reverseNew.PostDate = postDate;
                 reverseNew.MedicalRecord = item.MedicalRecord;
                 reverseNew.Account = item.Account;
+                reverseNew.CodeType = item.CodeType;
                 this.Add(reverseNew);
             }
         }        

@@ -46,7 +46,6 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
         private void AssignmentPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.m_IsLoaded = true;
-             
         }
 
         private void AssignmentPage_Unloaded(object sender, RoutedEventArgs e)
@@ -103,6 +102,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     this.Return(this, args);
                 }
             }
+            /* removed by SH on 6/17 to see what happens.
             else if (this.m_AccessionOrder.PanelSetOrderCollection.HasUnassignedPanelSetOrder(panelSetTechnicalOnly.PanelSetId) == true)
             {
                 MessageBoxResult messageBoxResult = MessageBox.Show("There is an order that has not been assigned are you sure you want to continue?", "Assignement", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
@@ -113,6 +113,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                     this.Return(this, args);
                 }
             }
+            */
             else
             {
                 YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
@@ -148,39 +149,7 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                         panelSetOrder.ProfessionalComponentFacilityId = null;
                         panelSetOrder.ProfessionalComponentBillingFacilityId = null;
                     }                    
-                }
-                else
-                {                         
-                    if(systemUser.UserId == 5061) //Dr Clegg
-                    {
-                        YellowstonePathology.Business.Facility.Model.Facility ypCody = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPCDY");
-                        YellowstonePathology.Business.Facility.Model.Facility ypiCody = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPICDY");
-
-                        if (panelSetOrder.HasProfessionalComponent == true)
-                        {
-                            panelSetOrder.ProfessionalComponentFacilityId = ypCody.FacilityId;
-                            panelSetOrder.ProfessionalComponentBillingFacilityId = ypiCody.FacilityId;
-                        }
-                        else
-                        {
-                            panelSetOrder.ProfessionalComponentFacilityId = null;
-                            panelSetOrder.ProfessionalComponentBillingFacilityId = null;
-                        }
-                    }
-                    else
-                    {
-                        if(panelSetOrder.HasProfessionalComponent == true)
-                        {
-                            panelSetOrder.ProfessionalComponentFacilityId = ypBLGS.FacilityId;
-                            panelSetOrder.ProfessionalComponentBillingFacilityId = ypiBLGS.FacilityId;
-                        }
-                        else
-                        {
-                            panelSetOrder.ProfessionalComponentFacilityId = null;
-                            panelSetOrder.ProfessionalComponentBillingFacilityId = null;
-                        }                        
-                    }
-                }
+                }                
             }
         }
 

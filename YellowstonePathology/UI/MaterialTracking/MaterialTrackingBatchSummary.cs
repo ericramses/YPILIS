@@ -31,15 +31,14 @@ namespace YellowstonePathology.UI.MaterialTracking
             MaterialTrackingSummaryCollection materialTrackingSummaryCollection = new MaterialTrackingSummaryCollection();
 
             List<string> materialTypeList = this.m_MaterialTrackingLogViewCollection.GetDistinctMaterialTypes();
-            List<string> masterAccessionNoList = this.m_MaterialTrackingLogViewCollection.GetMasterAccessionNoList();
+            List<Tuple<string, string>> accessionList = this.m_MaterialTrackingLogViewCollection.GetAccessionList();
 
-            foreach (string masterAccessionNo in masterAccessionNoList)
+            foreach (Tuple<string, string> accession in accessionList)
             {
-                MaterialTrackingSummary materialTrackingSummary = new MaterialTrackingSummary(masterAccessionNo, false);
-                
+                MaterialTrackingSummary materialTrackingSummary = new MaterialTrackingSummary(accession.Item1, accession.Item2, false);                
                 foreach (string materialType in materialTypeList)
                 {
-                    int materialCount = this.m_MaterialTrackingLogViewCollection.GetMaterialCount(masterAccessionNo, materialType);
+                    int materialCount = this.m_MaterialTrackingLogViewCollection.GetMaterialCount(accession.Item1, materialType);
                     MaterialTrackingSummaryColumn materialTrackingSummaryColumn = new MaterialTrackingSummaryColumn(materialType, materialCount);
                     materialTrackingSummary.ColumnList.Add(materialTrackingSummaryColumn);
                     totalMaterialCount += materialCount;
@@ -87,6 +86,10 @@ namespace YellowstonePathology.UI.MaterialTracking
             masterAccessionColumn.Width = new GridLength(96 * 2, GridUnitType.Pixel);
             grid.ColumnDefinitions.Add(masterAccessionColumn);
 
+            ColumnDefinition clientAccessionColumn = new ColumnDefinition();
+            clientAccessionColumn.Width = new GridLength(96 * 2, GridUnitType.Pixel);
+            grid.ColumnDefinitions.Add(clientAccessionColumn);
+
             for (int i = 0; i < materialTypeList.Count; i++)
             {
                 ColumnDefinition materialTypeColumn = new ColumnDefinition();
@@ -122,7 +125,17 @@ namespace YellowstonePathology.UI.MaterialTracking
 			Grid.SetRow(label4, 3);
 			grid.Children.Add(label4);
 
-            int column = 1;
+            TextBlock label5 = new TextBlock();
+            label5.Text = "Client Accession";
+            label5.Margin = new Thickness(0, 2, 2, 2);
+            label5.HorizontalAlignment = HorizontalAlignment.Left;
+            label5.TextDecorations = TextDecorations.Underline;
+            label5.FontWeight = FontWeight.FromOpenTypeWeight(700);
+            Grid.SetColumn(label5, 1);
+            Grid.SetRow(label5, 3);
+            grid.Children.Add(label5);
+
+            int column = 2;
             foreach (string materialType in materialTypeList)
             {
                 TextBlock materialTypeTextBlock = new TextBlock();
@@ -150,16 +163,29 @@ namespace YellowstonePathology.UI.MaterialTracking
             columnDefinitionMA.Width = new GridLength(96 * 2, GridUnitType.Pixel);
             grid.ColumnDefinitions.Add(columnDefinitionMA);
 
-            TextBlock textBlockMA = new TextBlock();
+            TextBlock textBlockMA = new TextBlock();            
             textBlockMA.Text = materialTrackingSummary.MasterAccessionNo;
             textBlockMA.Margin = new Thickness(2, 10, 2, 0);
             textBlockMA.HorizontalAlignment = HorizontalAlignment.Left;
             textBlockMA.TextAlignment = TextAlignment.Right;
             Grid.SetColumn(textBlockMA, 0);
             Grid.SetRow(textBlockMA, 0);
-            grid.Children.Add(textBlockMA);
+            grid.Children.Add(textBlockMA);            
 
-            int column = 1;
+            ColumnDefinition columnDefinitionCA = new ColumnDefinition();
+            columnDefinitionCA.Width = new GridLength(96 * 2, GridUnitType.Pixel);
+            grid.ColumnDefinitions.Add(columnDefinitionCA);
+
+            TextBlock textBlockCA = new TextBlock();
+            textBlockCA.Text = materialTrackingSummary.ClientAccessionNo;
+            textBlockCA.Margin = new Thickness(2, 10, 2, 0);
+            textBlockCA.HorizontalAlignment = HorizontalAlignment.Left;
+            textBlockCA.TextAlignment = TextAlignment.Right;
+            Grid.SetColumn(textBlockCA, 1);
+            Grid.SetRow(textBlockCA, 0);
+            grid.Children.Add(textBlockCA);
+
+            int column = 2;
             foreach (MaterialTrackingSummaryColumn materialTrackingSummaryColumn in materialTrackingSummary.ColumnList)
             {
                 ColumnDefinition columnDefinition = new ColumnDefinition();
@@ -198,7 +224,11 @@ namespace YellowstonePathology.UI.MaterialTracking
             Grid.SetRow(text1, 0);
             grid.Children.Add(text1);
 
-            int column = 1;
+            ColumnDefinition column2 = new ColumnDefinition();
+            column2.Width = new GridLength(96 * 2, GridUnitType.Pixel);
+            grid.ColumnDefinitions.Add(column2);
+
+            int column = 2;
             foreach (MaterialTrackingSummaryColumn materialTrackingSummaryColumn in materialTrackingSummaryTotal.ColumnList)
             {
                 ColumnDefinition columnDefinition = new ColumnDefinition();

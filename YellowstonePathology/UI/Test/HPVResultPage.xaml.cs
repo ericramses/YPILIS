@@ -167,7 +167,7 @@ namespace YellowstonePathology.UI.Test
         {
 			YellowstonePathology.Business.Test.HPV.HPVWordDocument report = new Business.Test.HPV.HPVWordDocument(this.m_AccessionOrder, this.m_HPVTestOrder, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
         }        
 
         private void ComboBoxResult_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -42,7 +42,7 @@ namespace YellowstonePathology.Business.Test.MDSExtendedByFish
             }
 
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             this.AddNextNteElement("Specimen Information:", document);
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);

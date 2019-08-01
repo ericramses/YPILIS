@@ -8,16 +8,6 @@ namespace YellowstonePathology.Store
 {
     public enum AppDBNameEnum
     {        
-        Lock,
-        CPTCode,
-        ICDCode,
-        PQRS,
-        Stain,
-        VantageSlide,
-        EmbeddingScan,
-        BozemanBlockCount,
-        TempPQRS,
-        Specimen,
-        DictationTemplate
+        Lock
     }
 }

@@ -24,9 +24,10 @@ namespace YellowstonePathology.Business.Test.API2MALT1ByPCR
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.API2MALT1ByPCR.API2MALT1ByPCRWordDocument).AssemblyQualifiedName;
 
             this.m_AllowMultiplePerAccession = true;
-            //Changed by MS and TK;
-            this.m_EpicDistributionIsImplemented = true;
-            this.m_CMMCDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
 
             string task1Description = "Cut H&E slide and give to pathologist to circle tumor for tech only. Give the paraffin block to Flow so they can send to NEO.";
             this.m_TaskCollection.Add(new YellowstonePathology.Business.Task.Model.Task(YellowstonePathology.Business.Task.Model.TaskAssignment.Histology, task1Description));

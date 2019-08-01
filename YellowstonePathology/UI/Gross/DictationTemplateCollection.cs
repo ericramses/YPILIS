@@ -6,6 +6,8 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.UI.Gross
 {
@@ -21,7 +23,7 @@ namespace YellowstonePathology.UI.Gross
             {
                 if (instance == null)
                 {
-                    instance = BuildFromRedis();
+                    instance = Load();
                 }
                 return instance;
             }
@@ -72,33 +74,40 @@ namespace YellowstonePathology.UI.Gross
             return result;
         }
 
-        public static DictationTemplateCollection BuildFromRedis()
+        private static DictationTemplateCollection Load()
         {
             DictationTemplateCollection result = new DictationTemplateCollection();
-            Store.RedisDB dictationTemplateDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.DictationTemplate);
-            foreach (string jString in dictationTemplateDb.GetAllJSONKeys())
+            MySqlCommand cmd = new MySqlCommand("Select JSONValue from tblDictationTemplate;");
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
-                DictationTemplate dictationTemplate = JsonConvert.DeserializeObject<DictationTemplate>(jString, new JsonSerializerSettings
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
-                    TypeNameHandling = TypeNameHandling.All,
-                    ObjectCreationHandling = ObjectCreationHandling.Replace,
-                });
+                    while (dr.Read())
+                    {
+                        string jString = dr[0].ToString();
+                        DictationTemplate dictationTemplate = JsonConvert.DeserializeObject<DictationTemplate>(jString, new JsonSerializerSettings
+                        {
+                            TypeNameHandling = TypeNameHandling.All,
+                            ObjectCreationHandling = ObjectCreationHandling.Replace,
+                        });
 
-                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
-                foreach(string id in jObject["specimenIds"])
-                {
-                    Business.Specimen.Model.Specimen specimen = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen(id);
-                    dictationTemplate.SpecimenCollection.Add(specimen);
+                        JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
+                        foreach (string id in jObject["specimenIds"])
+                        {
+                            Business.Specimen.Model.Specimen specimen = Business.Specimen.Model.SpecimenCollection.Instance.GetSpecimen(id);
+                            dictationTemplate.SpecimenCollection.Add(specimen);
+                        }
+
+                        result.Add(dictationTemplate);
+                    }
                 }
-
-                result.Add(dictationTemplate);
             }
-            return result;
-        }
 
-        public static void Save(DictationTemplate dictationTemplate)
-        {
-            Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.DictationTemplate).DataBase.Execute("json.set", new string[] { dictationTemplate.TemplateId, ".", dictationTemplate.ToJSON() });
+            return result;
         }
 
         public static DictationTemplateCollection Refresh()

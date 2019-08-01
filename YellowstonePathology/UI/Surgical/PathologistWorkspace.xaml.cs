@@ -210,7 +210,7 @@ namespace YellowstonePathology.UI.Surgical
 
 		private void MainWindowCommandButtonHandler_ShowAmendmentDialog(object sender, EventArgs e)
 		{
-			if (this.m_PathologistUI.AccessionOrder != null && this.m_PathologistUI.AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
+			if (this.m_PathologistUI.AccessionOrder != null)
 			{
 				this.m_PathologistUI.ShowAmendmentDialog();
             }
@@ -352,9 +352,9 @@ namespace YellowstonePathology.UI.Surgical
 							System.Windows.MessageBox.Show("The scan did not result in a valid case, please try again.", "Invalid Scan", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 						}
 					}));
-		}
+		}        
 
-		private void HistologySlideScanReceived(YellowstonePathology.Business.BarcodeScanning.Barcode barcode)
+        private void HistologySlideScanReceived(YellowstonePathology.Business.BarcodeScanning.Barcode barcode)
 		{
 			this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
 				new Action(
@@ -930,6 +930,20 @@ namespace YellowstonePathology.UI.Surgical
             barcode.ID = "19-3021.1A1";
             barcode.IsValidated = true;
             this.HistologySlideScanReceived(barcode);
-        }
+        }        
+
+        private void ButtonCaseAssignment_Click(object sender, RoutedEventArgs e)
+        {
+            this.m_BarcodeScanPort.HistologySlideScanReceived -= HistologySlideScanReceived;
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived -= BarcodeScanPort_ThinPrepSlideScanReceived;
+            this.m_BarcodeScanPort.CytologySlideScanReceived -= CytologySlideScanReceived;            
+
+            Stain.PathologistsScanDialog dlg = new Stain.PathologistsScanDialog();
+            dlg.ShowDialog();
+
+            this.m_BarcodeScanPort.HistologySlideScanReceived += HistologySlideScanReceived;
+            this.m_BarcodeScanPort.ThinPrepSlideScanReceived += BarcodeScanPort_ThinPrepSlideScanReceived;
+            this.m_BarcodeScanPort.CytologySlideScanReceived += CytologySlideScanReceived;            
+        }        
     }
 }

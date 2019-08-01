@@ -19,10 +19,9 @@ namespace YellowstonePathology.Business.Test
         protected static string UnableToAccept = "This case cannot be accepted because the results have not been set.";
         protected static string UnableToFinal = "This case cannot be finalized because the results have not been set.";
         protected static string UnableToSetPreviousResults = "The previous results may not be set because results have already been accepted.";
-        protected static string NotPerformedResult = "Not Performed";
+        public static string NotPerformedResult = "Not Performed";
 
         protected PanelOrderCollection m_PanelOrderCollection;
-        protected YellowstonePathology.Business.Amendment.Model.AmendmentCollection m_AmendmentCollection;
 		protected YellowstonePathology.Business.Test.PanelSetOrderCPTCodeCollection m_PanelSetOrderCPTCodeCollection;
 		protected YellowstonePathology.Business.Test.PanelSetOrderCPTCodeBillCollection m_PanelSetOrderCPTCodeBillCollection;
         protected YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection m_TestOrderReportDistributionCollection;
@@ -116,8 +115,6 @@ namespace YellowstonePathology.Business.Test
 			this.m_PanelSetOrderCPTCodeBillCollection = new PanelSetOrderCPTCodeBillCollection();
             this.m_TestOrderReportDistributionCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();
             this.m_TestOrderReportDistributionLogCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLogCollection();
-
-            this.m_AmendmentCollection = new YellowstonePathology.Business.Amendment.Model.AmendmentCollection();					
 		}
 
 		public PanelSetOrder(string masterAccessionNo, string reportNo, string objectId, YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet, bool distribute)
@@ -165,8 +162,6 @@ namespace YellowstonePathology.Business.Test
 			this.m_PanelSetOrderCPTCodeBillCollection = new PanelSetOrderCPTCodeBillCollection();
             this.m_TestOrderReportDistributionCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();
             this.m_TestOrderReportDistributionLogCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLogCollection();
-
-            this.m_AmendmentCollection = new YellowstonePathology.Business.Amendment.Model.AmendmentCollection();			
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = panelSet.UniversalServiceIdCollection.GetByApplicationName(YellowstonePathology.Business.ClientOrder.Model.UniversalServiceApplicationNameEnum.EPIC);
             this.m_UniversalServiceId = universalService.UniversalServiceId;
@@ -237,8 +232,6 @@ namespace YellowstonePathology.Business.Test
 			this.m_PanelSetOrderCPTCodeBillCollection = new PanelSetOrderCPTCodeBillCollection();
             this.m_TestOrderReportDistributionCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionCollection();
             this.m_TestOrderReportDistributionLogCollection = new YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistributionLogCollection();
-
-            this.m_AmendmentCollection = new YellowstonePathology.Business.Amendment.Model.AmendmentCollection();
 
             YellowstonePathology.Business.ClientOrder.Model.UniversalService universalService = panelSet.UniversalServiceIdCollection.GetByApplicationName(YellowstonePathology.Business.ClientOrder.Model.UniversalServiceApplicationNameEnum.EPIC);
             this.m_UniversalServiceId = universalService.UniversalServiceId;
@@ -1397,7 +1390,8 @@ namespace YellowstonePathology.Business.Test
             auditCollection.Add(new Audit.Model.FinalizedAudit(this));
             auditCollection.Add(new Audit.Model.MRNAudit(accessionOrder));
             auditCollection.Add(new Audit.Model.AccountNoAudit(accessionOrder));
-            auditCollection.Add(new Audit.Model.DistributionCanBeSetAudit(accessionOrder));
+            auditCollection.Add(new Audit.Model.DistributionAvailableAudit(accessionOrder));
+            auditCollection.Add(new Audit.Model.DistributionNotSetAudit(this));
             result = auditCollection.Run2();
 
             return result;
@@ -1416,6 +1410,16 @@ namespace YellowstonePathology.Business.Test
                 result.Success = false;
                 result.Message = "This case cannot be finalized because the results have not been accepted.";
             }
+            else
+            {
+                Audit.Model.DistributionNotSetAudit distributionNotSetAudit = new Audit.Model.DistributionNotSetAudit(this);
+                distributionNotSetAudit.Run();
+                if (distributionNotSetAudit.Status == Audit.Model.AuditStatusEnum.Failure)
+                {
+                    result.Success = false;
+                    result.Message = distributionNotSetAudit.Message.ToString();
+                }
+            }
             return result;
         }
 
@@ -1430,8 +1434,14 @@ namespace YellowstonePathology.Business.Test
             this.m_FinaledById = Business.User.SystemIdentity.Instance.User.UserId;
             this.m_Signature = Business.User.SystemIdentity.Instance.User.Signature;
             if (panelSet.HasProfessionalComponent)
-            {
-                this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+            {                
+                // if there is a reference lab signature then don't change th professional billing
+                if(string.IsNullOrEmpty(this.ReferenceLabSignature) == true)
+                {
+                    YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+                    this.m_ProfessionalComponentFacilityId = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId;
+                    this.m_ProfessionalComponentBillingFacilityId = ypi.FacilityId;
+                }                
             }
 
             if (panelSet.AcceptOnFinal == true)
@@ -1447,9 +1457,6 @@ namespace YellowstonePathology.Business.Test
             {
                 this.m_AssignedToId = Business.User.SystemIdentity.Instance.User.UserId;
             }
-
-            YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(accessionOrder.PhysicianId, accessionOrder.ClientId);
-            physicianClientDistributionCollection.SetDistribution(this, accessionOrder);
 
             accessionOrder.SetCaseOwnerId();
 
@@ -1567,13 +1574,6 @@ namespace YellowstonePathology.Business.Test
 				return panelOrders;
 			}
 			set { throw new Exception("Not Implemented Here."); }
-		}
-
-		[PersistentCollection()]
-        public YellowstonePathology.Business.Amendment.Model.AmendmentCollection AmendmentCollection
-		{
-			get { return this.m_AmendmentCollection; }
-			set { this.m_AmendmentCollection = value; }
 		}
 
 		public bool ColorCodeVisible
@@ -1725,20 +1725,6 @@ namespace YellowstonePathology.Business.Test
             this.m_ScheduledPublishTime = null;
             this.NotifyPropertyChanged(string.Empty);
         }
-
-        public virtual YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment()
-		{
-			string amendmentId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetNextItem(this.m_ReportNo, amendmentId);
-			this.m_AmendmentCollection.Add(amendment);
-			return amendment;
-		}
-
-		public virtual void DeleteAmendment(string amendmentId)
-		{
-            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetAmendment(amendmentId);
-			this.m_AmendmentCollection.Remove(amendment);
-		}
 
 		public virtual string GetLocationPerformedComment()
 		{

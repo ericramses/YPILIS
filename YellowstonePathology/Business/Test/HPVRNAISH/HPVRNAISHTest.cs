@@ -36,6 +36,11 @@ namespace YellowstonePathology.Business.Test.HPVRNAISH
             this.m_ProfessionalComponentFacility = neogenomicsIrvine;
             this.m_ProfessionalComponentBillingFacility = neogenomicsIrvine;
 
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode1 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88365", null), 1);
+            YellowstonePathology.Business.Billing.Model.PanelSetCptCode panelSetCptCode2 = new YellowstonePathology.Business.Billing.Model.PanelSetCptCode(Store.AppDataStore.Instance.CPTCodeCollection.GetClone("88364", null), 1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode1);
+            this.m_PanelSetCptCodeCollection.Add(panelSetCptCode2);
+
             this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceMiscellaneous());
         }
     }

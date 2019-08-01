@@ -241,7 +241,12 @@ namespace YellowstonePathology.Business.Visitor
                     if (this.m_PanelSetOrder.Distribute == true)
                     {
                         YellowstonePathology.Business.Client.Model.PhysicianClientDistributionList physicianClientDistributionCollection = YellowstonePathology.Business.Gateway.ReportDistributionGateway.GetPhysicianClientDistributionCollection(this.m_AccessionOrder.PhysicianId, this.m_AccessionOrder.ClientId);
-                        physicianClientDistributionCollection.SetDistribution(this.m_PanelSetOrder, this.m_AccessionOrder);
+                        Audit.Model.CanSetDistributionAudit canSetDistributionAudit = new Audit.Model.CanSetDistributionAudit(this.m_AccessionOrder, physicianClientDistributionCollection);
+                        canSetDistributionAudit.Run();
+                        if (canSetDistributionAudit.Status == Audit.Model.AuditStatusEnum.OK)
+                        {
+                            physicianClientDistributionCollection.SetDistribution(this.m_PanelSetOrder, this.m_AccessionOrder);
+                        }
                     }
                 }
             }

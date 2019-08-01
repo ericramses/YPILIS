@@ -81,7 +81,7 @@ namespace YellowstonePathology.UI.Test
         {
             YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142WordDocument report = new YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142WordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
         }
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
@@ -131,10 +131,11 @@ namespace YellowstonePathology.UI.Test
                 if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetSurgical.PanelSetId) == true)
                 {
                     YellowstonePathology.Business.Test.PanelSetOrder surgicalPanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetSurgical.PanelSetId);
-                    if (surgicalPanelSetOrder.AmendmentCollection.HasAmendmentForReport(this.m_PanelSetOrder.ReportNo) == false)
+                    YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(surgicalPanelSetOrder.ReportNo);
+                    if (amendmentCollection.HasAmendmentForReport(this.m_PanelSetOrder.ReportNo) == false)
                     {
                         string amendmentText = YellowstonePathology.Business.Test.PDL1SP142.PDL1SP142SystemGeneratedAmendmentText.AmendmentText(this.m_PanelSetOrder);
-                        YellowstonePathology.Business.Amendment.Model.Amendment amendment = surgicalPanelSetOrder.AddAmendment();
+                        YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AccessionOrder.AddAmendment(surgicalPanelSetOrder.ReportNo);
                         amendment.TestResultAmendmentFill(surgicalPanelSetOrder.ReportNo, surgicalPanelSetOrder.AssignedToId, amendmentText);
                         amendment.ReferenceReportNo = this.m_PanelSetOrder.ReportNo;
                         amendment.SystemGenerated = true;

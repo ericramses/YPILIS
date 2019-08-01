@@ -84,6 +84,6 @@ namespace YellowstonePathology.UI.Cutting
         {                        
             this.m_TestOrderPanelSetOrderViewCollection.PrintLabels(this.m_AccessionOrder, this.m_AliquotOrder);
             this.m_TestOrderPanelSetOrderViewCollection.UpdateCollection();
-        }
+        }        
     }
 }

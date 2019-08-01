@@ -42,17 +42,6 @@ namespace YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear
 			return string.Empty;
 		}
 
-        public override YellowstonePathology.Business.Rules.MethodResult IsOkToFinalize()
-        {
-            YellowstonePathology.Business.Rules.MethodResult result = new Rules.MethodResult();
-            if (this.Final == true)
-            {
-                result.Success = false;
-                result.Message = "This case cannot be finalized because it is already finalized.";
-            }
-            return result;
-        }
-
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "500", "null", "varchar")]
         public string TechnologistsQuestion

@@ -7,7 +7,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 {
     public class EPICObxViewFactory
     {
-        public static EPICObxView GetObxView(int panelSetId, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount)
+        public static EPICObxView GetObxView(int panelSetId, YellowstonePathology.Business.Test.AccessionOrder accessionOrder, string reportNo, int obxCount, bool beakerTesting)
         {
             EPICObxView view = null;
             switch (panelSetId)
@@ -23,7 +23,14 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     break;
                 case 13:
                 case 128:
-					view = new YellowstonePathology.Business.Test.Surgical.SurgicalEPICObxView(accessionOrder, reportNo, obxCount);
+                    if (beakerTesting)
+                    {
+                        view = new YellowstonePathology.Business.Test.Surgical.SurgicalEPICBeakerObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    else
+                    {
+                        view = new YellowstonePathology.Business.Test.Surgical.SurgicalEPICObxView(accessionOrder, reportNo, obxCount);
+                    }					
                     break;
                 case 14:
 					view = new YellowstonePathology.Business.Test.HPV.HPVEPICObxView(accessionOrder, reportNo, obxCount);
@@ -103,12 +110,12 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 				case 124:
 					view = new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisEPICOBXView(accessionOrder, reportNo, obxCount);
 					break;
+                case 125:
+                    view = new YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanelEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
                 case 131:
                     view = new YellowstonePathology.Business.Test.ALKForNSCLCByFISH.ALKForNSCLCByFISHEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
-				case 132:
-					view = new YellowstonePathology.Business.Test.MicrosatelliteInstabilityAnalysis.MicrosatelliteInstabilityAnalysisEPICObxView(accessionOrder, reportNo, obxCount);
-					break;
 				case 135:
 					view = new YellowstonePathology.Business.Test.ABL1KinaseDomainMutation.ABL1KinaseDomainMutationEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
@@ -312,6 +319,18 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     break;
                 case 274:
                     view = new YellowstonePathology.Business.Test.BRAFMutationAnalysis.BRAFMutationAnalysisEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 313:
+                    view = new YellowstonePathology.Business.Test.HER2AnalysisSummary.HER2AnalysisSummaryEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 338:
+                    view = new YellowstonePathology.Business.Test.ThrombocytopeniaProfileV2.ThrombocytopeniaProfileV2EPICObxView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 339:
+                    view = new YellowstonePathology.Business.Test.ReticulatedPlateletAnalysisV2.ReticulatedPlateletAnalysisV2EPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
+                case 340:
+                    view = new YellowstonePathology.Business.Test.PlateletAssociatedAntibodiesV2.PlateletAssociatedAntibodiesV2EPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
             }
             return view;

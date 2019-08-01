@@ -15,6 +15,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 		private string m_MaterialTrackingBatchId;
         private string m_MaterialTrackingLogId;
         private string m_MasterAccessionNo;
+        private string m_ClientAccessionNo;        
         private string m_PLastName;
         private string m_PFirstName;
         private string m_MaterialType;
@@ -66,6 +67,20 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
                 {
                     this.m_MasterAccessionNo = value;
                     this.NotifyPropertyChanged("MasterAccessionNo");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        public string ClientAccessionNo
+        {
+            get { return this.m_ClientAccessionNo; }
+            set
+            {
+                if (this.m_ClientAccessionNo != value)
+                {
+                    this.m_ClientAccessionNo = value;
+                    this.NotifyPropertyChanged("ClientAccessionNo");
                 }
             }
         }
@@ -168,13 +183,14 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             }
         }               
 
-        public void FromScannedItemView(MaterialTrackingScannedItemView materialTrackingScannedItemView, MaterialTrackingLog materialTackingLog)
+        public void FromScannedItemView(MaterialTrackingScannedItemView materialTrackingScannedItemView, MaterialTrackingLog materialTrackingLog)
         {
-            this.m_MaterialTrackingLogId = materialTackingLog.MaterialTrackingLogId;
-            this.m_MaterialTrackingBatchId = materialTackingLog.MaterialTrackingBatchId;
+            this.m_MaterialTrackingLogId = materialTrackingLog.MaterialTrackingLogId;
+            this.m_MaterialTrackingBatchId = materialTrackingLog.MaterialTrackingBatchId;
             this.m_MaterialId = materialTrackingScannedItemView.MaterialId;
             this.m_MaterialType = materialTrackingScannedItemView.MaterialType;
             this.m_MasterAccessionNo = materialTrackingScannedItemView.MasterAccessionNo;
+            this.m_ClientAccessionNo = materialTrackingScannedItemView.ClientAccessionNo;
             this.m_PLastName = materialTrackingScannedItemView.PLastName;
             this.m_PFirstName = materialTrackingScannedItemView.PFirstName;
             this.m_MaterialLabel = materialTrackingScannedItemView.MaterialLabel;
@@ -182,8 +198,8 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             {
                 this.m_MaterialLabel += " - " + materialTrackingScannedItemView.TestName;
             }
-            this.m_LogDate = materialTackingLog.LogDate;
-            this.m_LoggedBy = materialTackingLog.LoggedBy;
+            this.m_LogDate = materialTrackingLog.LogDate;
+            this.m_LoggedBy = materialTrackingLog.LoggedBy;
         }
 
         public void FromScannedItemView(MaterialTrackingLog materialTackingLog)

@@ -50,6 +50,7 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalResults);
+            this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockFinalizeResults);
         }
 
         public string OrderedOnDescription
@@ -79,25 +80,25 @@ namespace YellowstonePathology.UI.Test
 		{
 			YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisWordDocument report = new YellowstonePathology.Business.Test.ChromosomeAnalysis.ChromosomeAnalysisWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
             report.Render();
-			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+			YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
 		}
 
 		private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)
 		{
-            YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
-            if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
-            {
+            //YellowstonePathology.Business.Audit.Model.AuditResult auditResult = this.m_PanelSetOrder.IsOkToFinalize(this.m_AccessionOrder);
+            //if (auditResult.Status == Business.Audit.Model.AuditStatusEnum.OK)
+            //{
                 YellowstonePathology.Business.Test.FinalizeTestResult finalizeTestResult = this.m_PanelSetOrder.Finish(this.m_AccessionOrder);
                 this.HandleFinalizeTestResult(finalizeTestResult);
                 if (this.m_PanelSetOrder.Accepted == false)
                 {
                     this.m_PanelSetOrder.Accept();
                 }
-            }
-            else
-            {
-                MessageBox.Show(auditResult.Message);
-            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show(auditResult.Message);
+            //}
         }
 
         private void HyperLinkUnfinalResults_Click(object sender, RoutedEventArgs e)

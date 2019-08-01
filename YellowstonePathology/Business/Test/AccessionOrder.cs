@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Data;
-
 using System.Linq;
 using System.Xml.Linq;
 using System.Text;
@@ -25,7 +24,8 @@ namespace YellowstonePathology.Business.Test
 		private YellowstonePathology.Business.Specimen.Model.SpecimenOrderCollection m_SpecimenOrderCollection;
 		private YellowstonePathology.Business.Test.PanelSetOrderCollection m_PanelSetOrderCollection;
 		private YellowstonePathology.Business.Task.Model.TaskOrderCollection m_TaskOrderCollection;
-		private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;        
+		private YellowstonePathology.Business.Billing.Model.ICD9BillingCodeCollection m_ICD9BillingCodeCollection;
+        private YellowstonePathology.Business.Amendment.Model.AmendmentCollection m_AmendmentCollection;
 
 		private XElement m_OrderInstructionsUpdate;
 
@@ -102,6 +102,7 @@ namespace YellowstonePathology.Business.Test
         private int m_CaseOwnerId;
         private bool m_ITAuditRequired;
         private bool m_ITAudited;
+        private bool m_HoldBilling;
         private int m_ITAuditPriority;
         private string m_CaseDialog;
         private string m_PlaceOfService;              
@@ -114,6 +115,7 @@ namespace YellowstonePathology.Business.Test
 			this.m_SpecimenOrderDataTemplate = YellowstonePathology.Business.DataTemplateSpecimenOrderEnum.DataTemplateAccessionTreeView;			
 			this.m_ICD9BillingCodeCollection = new Billing.Model.ICD9BillingCodeCollection();
 			this.m_TaskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
+            this.m_AmendmentCollection = new Amendment.Model.AmendmentCollection();
 		}
 
         public AccessionOrder(string masterAccessionNo, string objectId)
@@ -131,7 +133,8 @@ namespace YellowstonePathology.Business.Test
 			this.m_SpecimenOrderDataTemplate = YellowstonePathology.Business.DataTemplateSpecimenOrderEnum.DataTemplateAccessionTreeView;            
 			this.m_ICD9BillingCodeCollection = new Billing.Model.ICD9BillingCodeCollection();
 			this.m_TaskOrderCollection = new YellowstonePathology.Business.Task.Model.TaskOrderCollection();
-        }        
+            this.m_AmendmentCollection = new Amendment.Model.AmendmentCollection();
+        }
 
         public AccessionLock AccessionLock
         {
@@ -1220,6 +1223,21 @@ namespace YellowstonePathology.Business.Test
 
         [PersistentProperty()]
         [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
+        public bool HoldBilling
+        {
+            get { return this.m_HoldBilling; }
+            set
+            {
+                if (this.m_HoldBilling != value)
+                {
+                    this.m_HoldBilling = value;
+                    this.NotifyPropertyChanged("HoldBilling");
+                }
+            }
+        }
+
+        [PersistentProperty()]
+        [PersistentDataColumnProperty(true, "1", "0", "tinyint")]
         public bool ITAuditRequired
         {
             get { return this.m_ITAuditRequired; }
@@ -1363,8 +1381,24 @@ namespace YellowstonePathology.Business.Test
 					this.PhysicianId = physician.PhysicianId;
 					this.PhysicianName = physician.DisplayName;
 				}
-			}			
-		}        
+			}
+            if (ShouldBillingBeHeld() == true) this.m_HoldBilling = true;
+		}  
+        
+        public bool ShouldBillingBeHeld()
+        {
+            bool result = false;
+            if(string.IsNullOrEmpty(this.m_SvhMedicalRecord) == false && this.m_SvhMedicalRecord.StartsWith("A"))
+            {
+                result = true;    
+            }
+            Business.Client.Model.HRHClinics hrhClinics = new Client.Model.HRHClinics();
+            if(hrhClinics.Exists(this.m_ClientId))
+            {
+                result = true;
+            }
+            return result;
+        }      
 
 		public string PhysicianClientName
         {
@@ -1561,20 +1595,12 @@ namespace YellowstonePathology.Business.Test
                 }
                 else if(this.m_ClientId == 579)
                 {
-                    panelSetOrder.AssignedToId = 5088;  //tallman cases to emerick
+                    panelSetOrder.AssignedToId = 5149;  //tallman cases to Messner
                     YellowstonePathology.Business.Facility.Model.Facility yp = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBLGS");
                     YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
                     panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;
                     panelSetOrder.ProfessionalComponentBillingFacilityId = ypi.FacilityId;
-                }
-                else if (this.m_ClientId == 14) // YD
-                {
-                    panelSetOrder.AssignedToId = 5102; //Assign to Dr. durden
-                    YellowstonePathology.Business.Facility.Model.Facility yp = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBLGS");
-                    YellowstonePathology.Business.Facility.Model.Facility ypi = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
-                    panelSetOrder.ProfessionalComponentFacilityId = yp.FacilityId;
-                    panelSetOrder.ProfessionalComponentBillingFacilityId = ypi.FacilityId;
-                }                
+                }                              
             }
             else if (this.m_CaseOwnerId != 0)
             {
@@ -1755,15 +1781,22 @@ namespace YellowstonePathology.Business.Test
         {
             Business.Facility.Model.FacilityCollection ypiFacilities = Business.Facility.Model.FacilityCollection.GetAllYPFacilities();            
             if(ypiFacilities.Exists(testOrderInfo.PanelSetOrder.TechnicalComponentFacilityId) == false)
-            {            
-                YellowstonePathology.Business.Task.Model.TaskFax task = new Business.Task.Model.TaskFax(string.Empty, string.Empty, "AdditionalTesetingNotification");
-                string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(taskOrder.TaskOrderDetailCollection, taskOrder.TaskOrderId);
-                string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
-
-                Business.Client.Model.Client client = Business.Gateway.PhysicianClientGateway.GetClientByClientId(this.m_ClientId);
-                YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, taskOrder.TaskOrderId, objectId, task, this.m_ClientId);
-                taskOrderDetail.FaxNumber = client.Fax;
-                taskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
+            {
+                PanelSetOrder panelSetOrder = this.PanelSetOrderCollection.GetPanelSetOrder(testOrderInfo.PanelSetOrder.ReportNo);
+                foreach (ReportDistribution.Model.TestOrderReportDistribution reportDistribution in panelSetOrder.TestOrderReportDistributionCollection)
+                {
+                    Client.Model.Client client = Gateway.PhysicianClientGateway.GetClientByClientId(reportDistribution.ClientId);
+                    if (client.SendAdditionalTestingNotifications == true)
+                    {
+                        YellowstonePathology.Business.Task.Model.TaskFax task = new Business.Task.Model.TaskFax(string.Empty, string.Empty, "AdditionalTesetingNotification");
+                        string taskOrderDetailId = YellowstonePathology.Business.OrderIdParser.GetNextTaskOrderDetailId(taskOrder.TaskOrderDetailCollection, taskOrder.TaskOrderId);
+                        string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                        YellowstonePathology.Business.Task.Model.TaskOrderDetailFax taskOrderDetail = new Business.Task.Model.TaskOrderDetailFax(taskOrderDetailId, taskOrder.TaskOrderId, objectId, task, this.m_ClientId);
+                        taskOrderDetail.FaxNumber = client.AdditionalTestingNotificationFax;
+                        taskOrderDetail.SendToName = client.AdditionalTestingNotificationContact;
+                        taskOrder.TaskOrderDetailCollection.Add(taskOrderDetail);
+                    }
+                }
             }
         }
 
@@ -1835,6 +1868,42 @@ namespace YellowstonePathology.Business.Test
 
                 this.m_CaseOwnerId = id;
             }
+        }
+
+        [PersistentCollection()]
+        public YellowstonePathology.Business.Amendment.Model.AmendmentCollection AmendmentCollection
+        {
+            get { return this.m_AmendmentCollection; }
+            set { this.m_AmendmentCollection = value; }
+        }
+
+        public YellowstonePathology.Business.Amendment.Model.Amendment AddAmendment(string reportNo)
+        {
+            string amendmentId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetNextItem(this.m_MasterAccessionNo, reportNo, amendmentId);
+
+            if (string.IsNullOrEmpty(reportNo) == false)
+            {
+                if(this.m_PanelSetOrderCollection.GetPanelSetOrder(reportNo) is YellowstonePathology.Business.Test.Surgical.SurgicalTestOrder)
+                {
+                    Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_PanelSetOrderCollection.GetSurgical();
+                    surgicalTestOrder.HandleNewAmendment(amendment);
+                }
+            }
+
+            this.m_AmendmentCollection.Add(amendment);
+            return amendment;
+        }
+
+        public void DeleteAmendment(string amendmentId)
+        {
+            YellowstonePathology.Business.Amendment.Model.Amendment amendment = this.m_AmendmentCollection.GetAmendment(amendmentId);
+            if (this.m_PanelSetOrderCollection.HasSurgical() == true)
+            {
+                Test.Surgical.SurgicalTestOrder surgicalTestOrder = this.m_PanelSetOrderCollection.GetSurgical();
+                surgicalTestOrder.DeleteAmendment(amendment.AmendmentId);
+            }
+            this.m_AmendmentCollection.Remove(amendment);
         }
     }
 }

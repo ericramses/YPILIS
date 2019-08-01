@@ -38,7 +38,10 @@ namespace YellowstonePathology.UI.Test
 				case 27:
 					result = new KRASStandardResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
-				case 30:
+                case 28:
+                    result = new FetalHemoglobinResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 30:
                     result = new KRASStandardReflexResultPath(reportNo, accessionOrder, pageNavigator, window, backButtonVisibility);
                     break;
                 case 31:
@@ -54,7 +57,7 @@ namespace YellowstonePathology.UI.Test
 					result = new BCellClonalityByPCRResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 46:
-					result = new HER2AmplificationByISHResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    result = new HER2AmplificationByISHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 50:
 					result = new ErPrSemiQuantitativeResultPath(reportNo, accessionOrder, pageNavigator, window);
@@ -96,11 +99,14 @@ namespace YellowstonePathology.UI.Test
 				case 112:
 					result = new ComprehensiveColonCancerProfilePath(reportNo, accessionOrder, pageNavigator, window, backButtonVisibility);
                     break;
-				case 131:
-                    result = new ALKForNSCLCByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
+                case 124:
+                    result = new Test.EGFRToALKReflexPath(reportNo, accessionOrder, pageNavigator, window, System.Windows.Visibility.Collapsed);
                     break;
-				case 132:
-					result = new MicrosatelliteInstabilityAnalysisResultPath(reportNo, accessionOrder, pageNavigator, window);
+                case 125:
+                    result = new Test.InvasiveBreastPanelPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 131:
+                    result = new ALKForNSCLCByFISHResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
 				case 135:
 					result = new ABL1KinaseDomainMutationResultPath(reportNo, accessionOrder, pageNavigator, window);
@@ -345,9 +351,33 @@ namespace YellowstonePathology.UI.Test
                 case 314:
                     result = new HER2AmplificationRecountResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
-                case 316:
-                    result = new OrderAssociationResultPath(reportNo, accessionOrder, pageNavigator, window);
+                case 328:
+                    result = new StemCellEnumerationResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 333:
+                    result = new FetalHemoglobinV2ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 334:
+                    result = new StemCellCD34EnumerationResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 338:
+                    result = new ThrombocytopeniaProfileV2ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 339:
+                    result = new ReticulatedPlateletAnalysisV2ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+                case 340:
+                    result = new PlateletAssociatedAntibodiesV2ResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
+            }
+
+            if(result == null)
+            {
+                YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetId);
+                if (panelSet.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument)
+                {
+                    result = new PublishedDocumentResultPath(reportNo, accessionOrder, pageNavigator, window);
+                }
             }
             return result;
         }
@@ -384,63 +414,25 @@ namespace YellowstonePathology.UI.Test
                     }
 
                     YellowstonePathology.UI.Login.WomensHealthProfilePath womensHealthProfilePath = new YellowstonePathology.UI.Login.WomensHealthProfilePath(accessionOrder, clientOrder, pageNavigator, window, System.Windows.Visibility.Collapsed);
-                    womensHealthProfilePath.Back += new Login.WomensHealthProfilePath.BackEventHandler(WomensHealthProfilePath_Finished);
-                    womensHealthProfilePath.Finish += new Login.WomensHealthProfilePath.FinishEventHandler(WomensHealthProfilePath_Finished);
+                    womensHealthProfilePath.Back += ResultPath_Finish;
+                    womensHealthProfilePath.Finish += ResultPath_Finish;
                     womensHealthProfilePath.Start();
-                }
-                else if (panelSetOrder is YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisTestOrder)
-                {
-                    result = true;
-                    Test.EGFRToALKReflexPath eGFRToALKReflexPath = new Test.EGFRToALKReflexPath(panelSetOrder.ReportNo, accessionOrder, pageNavigator, window, System.Windows.Visibility.Collapsed);
-                    eGFRToALKReflexPath.Finish += new Test.EGFRToALKReflexPath.FinishEventHandler(EGFRToALKReflexPath_Finish);
-                    eGFRToALKReflexPath.Start();
-                }
-                else if (panelSetOrder is YellowstonePathology.Business.Test.InvasiveBreastPanel.InvasiveBreastPanel)
-                {
-                    result = true;
-                    YellowstonePathology.UI.Test.InvasiveBreastPanelPath invasiveBreastPanelPath = new Test.InvasiveBreastPanelPath(panelSetOrder.ReportNo, accessionOrder, pageNavigator, window);
-                    invasiveBreastPanelPath.Finish += new Test.InvasiveBreastPanelPath.FinishEventHandler(InvasiveBreastPanelPath_Finish);
-                    invasiveBreastPanelPath.Start();
                 }
                 else
                 {
-                    YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll().GetPanelSet(panelSetOrder.PanelSetId);
-                    if (panelSet.ResultDocumentSource == Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument)
-                    {
-                        result = true;
-                        PublishedDocumentResultPath publishedDocumentResultPath = new PublishedDocumentResultPath(panelSetOrder.ReportNo, accessionOrder, pageNavigator, window);
-                        publishedDocumentResultPath.Finish += new ResultPath.FinishEventHandler(ResultPath_Finish);
-                        publishedDocumentResultPath.Start();
-                    }
-                    else
-                    {
-                        result = true;
-                        
-                    }
+                    result = true;
+                    UnreachableResultPath unreachableResultPath = new UnreachableResultPath(panelSetOrder.ReportNo, accessionOrder, pageNavigator, window);
+                    unreachableResultPath.Finish += ResultPath_Finish;
+                    unreachableResultPath.Start();
                 }
             }
 
-			return result;
+            return result;
         }        
-
-        private void WomensHealthProfilePath_Finished(object sender, EventArgs e)
-        {
-            if (this.Finished != null) this.Finished(this, new EventArgs());
-        }
        
         private void ResultPath_Finish(object sender, EventArgs e)
         {
             if (this.Finished != null) this.Finished(this, new EventArgs());
         }        
-
-        private void EGFRToALKReflexPath_Finish(object sender, EventArgs e)
-        {
-            if (this.Finished != null) this.Finished(this, new EventArgs());
-        }        
-
-        private void InvasiveBreastPanelPath_Finish(object sender, EventArgs e)
-        {
-            if (this.Finished != null) this.Finished(this, new EventArgs());
-        }
     }
 }

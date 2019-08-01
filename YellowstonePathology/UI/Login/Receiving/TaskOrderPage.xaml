@@ -75,22 +75,25 @@
                         <TextBlock Grid.Column="1" Grid.Row="7" Margin="2,2,2,2" Text="{Binding Path=AcknowledgedDate}" />
 
                         <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="5" Margin="10,10,10,10">
-
+                            <TextBlock Margin="2,2,2,2">
+                                <Hyperlink Click="HyperLinkPublishFax_Click" Tag="{Binding Path=.}">Publish</Hyperlink>
+                            </TextBlock>
+                            
                             <TextBlock Margin="2,2,2,2">
                                 <Hyperlink Click="HyperLinkSendFax_Click" Tag="{Binding Path=.}">Send Fax</Hyperlink>
                             </TextBlock>
 
-                            <TextBlock Grid.Column="2" Grid.Row="1" Margin="2,2,2,2">
-                                            <Hyperlink Click="HyperLinkAcknowledge_Click" Tag="{Binding Path=.}">Acknowledge</Hyperlink>
+                            <TextBlock Margin="2,2,2,2">
+                                <Hyperlink Click="HyperLinkAcknowledge_Click" Tag="{Binding Path=.}">Acknowledge</Hyperlink>
                             </TextBlock>
 
 
-                            <TextBlock Grid.Column="2" Grid.Row="2" Margin="2,2,2,2">
-                                            <Hyperlink Click="HyperLinkDelete_Click" Tag="{Binding Path=.}">Delete</Hyperlink>
+                            <TextBlock Margin="2,2,2,2">
+                                <Hyperlink Click="HyperLinkDelete_Click" Tag="{Binding Path=.}">Delete</Hyperlink>
                             </TextBlock>
 
-                            <TextBlock Grid.Column="2" Grid.Row="3" Margin="2,2,2,2">
-                                            <Hyperlink Click="HyperLinkUnacknowledge_Click" Tag="{Binding Path=.}">Unacknowledge</Hyperlink>
+                            <TextBlock Margin="2,2,2,2">
+                                <Hyperlink Click="HyperLinkUnacknowledge_Click" Tag="{Binding Path=.}">Unacknowledge</Hyperlink>
                             </TextBlock>
                         </StackPanel>
 
@@ -205,8 +208,12 @@
                                 <Hyperlink Click="HyperLinkCancelShipment_Click" Tag="{Binding Path=.}">Cancel Shipment</Hyperlink>
                             </TextBlock>
 
-                            <TextBlock Grid.Column="2" Grid.Row="1" Margin="2,2,2,2">
-                                            <Hyperlink Click="HyperLinkAcknowledge_Click" Tag="{Binding Path=.}">Acknowledge</Hyperlink>
+                            <TextBlock Margin="2,2,2,2">
+                                <Hyperlink Click="HyperLinkAcknowledge_Click" Tag="{Binding Path=.}">Acknowledge</Hyperlink>
+                            </TextBlock>
+
+                            <TextBlock Margin="2,50,2,2">
+                                <Hyperlink Click="HyperLinkOptiFreight_Click" Tag="{Binding Path=.}">OptiFreight</Hyperlink>
                             </TextBlock>
 
                         </StackPanel>

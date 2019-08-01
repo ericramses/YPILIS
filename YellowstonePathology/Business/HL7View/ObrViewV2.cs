@@ -24,7 +24,8 @@ namespace YellowstonePathology.Business.HL7View
             this.m_PanelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(13);
             this.m_SigningPathologist = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(this.m_PanelSetOrder.AssignedToId);
 
-            if (this.m_PanelSetOrder.AmendmentCollection.Count == 0)
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(m_PanelSetOrder.ReportNo);
+            if (amendmentCollection.Count == 0)
             {
                 this.m_ObservationResultStatus = "F";
             }

@@ -33,7 +33,7 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
 
             this.AddNextNteElement("Comment: " + panelSetOrder.Comment, document);
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
             this.AddBlankNteElement(document);
         }
     }

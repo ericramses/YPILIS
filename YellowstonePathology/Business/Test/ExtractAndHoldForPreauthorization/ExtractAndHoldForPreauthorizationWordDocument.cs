@@ -15,11 +15,27 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
         }
 
         public override void Render()
-		{                        
-			base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PreauthorizationNotification.2.xml";
+		{            
+			base.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\PreauthorizationNotification.5.xml";
 			base.OpenTemplate();
-			this.SetDemographicsV2();
-			this.SetXmlNodeData("additional_testing", this.m_PanelSetOrder.PanelSetName);
+			this.SetDemographicsV2();			
+
+            Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTestOrder testOrder = (Business.Test.ExtractAndHoldForPreauthorization.ExtractAndHoldForPreauthorizationTestOrder)this.m_PanelSetOrder;
+            Business.PanelSet.Model.PanelSetCollection panelSetCollection = Business.PanelSet.Model.PanelSetCollection.GetAll();
+            Business.PanelSet.Model.PanelSet panelSet = panelSetCollection.GetPanelSet(testOrder.TestId.Value);
+
+            this.SetXmlNodeData("additional_testing", panelSet.PanelSetName);
+            this.SetXmlNodeData("cpt_codes", panelSet.PanelSetCptCodeCollection.GetCommaSeparatedString());
+            this.SetXmlNodeData("report_comment", testOrder.Comment);
+
+            if (this.m_AccessionOrder.PrimaryInsurance == "Medicare")
+            {
+                this.SetXmlNodeData("additional_testing_message", "The following additional testing needs an ABN");                
+            }
+            else
+            {
+                this.SetXmlNodeData("additional_testing_message", "The following additional testing needs preauthorization:");
+            }            
 
             YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
             this.m_SaveFileName = Business.Document.CaseDocument.GetCaseFileNameXMLPreAuth(orderIdParser);
@@ -29,9 +45,9 @@ namespace YellowstonePathology.Business.Test.ExtractAndHoldForPreauthorization
         public override void Publish()
         {
             YellowstonePathology.Business.OrderIdParser orderIdParser = new YellowstonePathology.Business.OrderIdParser(this.m_PanelSetOrder.ReportNo);
-            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.PreauthorizationRequest, CaseDocumentFileTypeEnnum.xml, CaseDocumentFileTypeEnnum.doc);
-            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.PreauthorizationRequest, CaseDocumentFileTypeEnnum.doc, CaseDocumentFileTypeEnnum.xps);
-            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.PreauthorizationRequest, CaseDocumentFileTypeEnnum.xps, CaseDocumentFileTypeEnnum.tif);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.PreauthorizationRequest, CaseDocumentFileTypeEnum.xml, CaseDocumentFileTypeEnum.doc);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.PreauthorizationRequest, CaseDocumentFileTypeEnum.doc, CaseDocumentFileTypeEnum.xps);
+            YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, CaseDocumentTypeEnum.PreauthorizationRequest, CaseDocumentFileTypeEnum.xps, CaseDocumentFileTypeEnum.tif);
         }
     }
 }

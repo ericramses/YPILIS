@@ -335,7 +335,7 @@ namespace YellowstonePathology.Business.Test
             return result;
         }
 
-        public bool HasOpenAmendment
+        /*public bool HasOpenAmendment
         {
             get
             {
@@ -350,7 +350,7 @@ namespace YellowstonePathology.Business.Test
                 }
                 return hasOpenAmendment;
             }
-        }
+        }*/
 
         public bool HasPathologistReviewFor(int pathologistId)
         {
@@ -1165,7 +1165,8 @@ namespace YellowstonePathology.Business.Test
             result.Add(212);
 
             result.Add(136);  // MPN Standard Reflex
-            result.Add(137);  // MPN Extended Reflex
+            //result.Add(137);  // MPN Extended Reflex
+            result.Add(300);  //Extract and Hold for Preauthorization
             return result;
         }
 

@@ -6,7 +6,8 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
-using StackExchange.Redis;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.Specimen.Model
 {
@@ -22,7 +23,7 @@ namespace YellowstonePathology.Business.Specimen.Model
             {
                 if (instance == null)
                 {
-                    instance = BuildFromRedis();
+                    instance = Load();
                 }
                 return instance;
             }
@@ -79,42 +80,52 @@ namespace YellowstonePathology.Business.Specimen.Model
             return Sort(result);
         }
 
-        public string ToJSON()
-        {
-            var camelCaseFormatter = new JsonSerializerSettings();
-            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            string result = JsonConvert.SerializeObject(this, Formatting.Indented, camelCaseFormatter);
-            return result;
-        }
-
-        public static SpecimenCollection BuildFromRedis()
+        private static SpecimenCollection Load()
         {
             SpecimenCollection result = new SpecimenCollection();
-            Store.RedisDB specimenDb = Store.AppDataStore.Instance.RedisStore.GetDB(Store.AppDBNameEnum.Specimen);
-            foreach (string jString in specimenDb.GetAllJSONKeys())
+            MySqlCommand cmd = new MySqlCommand("Select JSONValue from tblSpecimen;");
+            cmd.CommandType = CommandType.Text;
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
             {
-                Specimen specimen = JsonConvert.DeserializeObject<Specimen>(jString, new JsonSerializerSettings
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
                 {
-                    TypeNameHandling = TypeNameHandling.All,
-                    ObjectCreationHandling = ObjectCreationHandling.Replace,
-                });
-
-                JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
-                string code = jObject["cptCodeId"].ToString();
-                if (string.IsNullOrEmpty(code) == false)
-                {
-                    specimen.CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(code, null);
-                }                
-
-                /*string id = jObject["specimenId"].ToString();
-                if(id == "NLLSPCMN")
-                {
-                    specimen.SpecimenId = null;
-                }*/
-
-                result.Add(specimen);
+                    while (dr.Read())
+                    {
+                        string jString = dr[0].ToString();
+                        Specimen specimen = FromJSON(jString);
+                        result.Add(specimen);
+                    }
+                }
             }
+            result.Add(new Specimen());
             return Sort(result);
+        }
+
+        public static Specimen FromJSON(string jString)
+        {
+            Specimen specimen = JsonConvert.DeserializeObject<Specimen>(jString, new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All,
+                ObjectCreationHandling = ObjectCreationHandling.Replace,
+            });
+
+            JObject jObject = JsonConvert.DeserializeObject<JObject>(jString);
+            string code = jObject["cptCodeId"].ToString();
+            if (string.IsNullOrEmpty(code) == false)
+            {
+                specimen.CPTCode = Store.AppDataStore.Instance.CPTCodeCollection.GetClone(code, null);
+            }
+
+            return specimen;
+        }
+
+        public static void Refresh()
+        {
+            instance = null;
+            SpecimenCollection tmp = SpecimenCollection.Instance;
         }
     }
 }

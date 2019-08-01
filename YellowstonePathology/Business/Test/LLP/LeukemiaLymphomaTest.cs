@@ -5,7 +5,7 @@ using System.Text;
 
 namespace YellowstonePathology.Business.Test.LLP
 {
-	public class LeukemiaLymphomaTest : YellowstonePathology.Business.PanelSet.Model.FlowCytometry.PanelSetFlowCytometry
+	public class LeukemiaLymphomaTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
     {
 		public LeukemiaLymphomaTest()
         {
@@ -13,9 +13,21 @@ namespace YellowstonePathology.Business.Test.LLP
             this.m_PanelSetName = "Leukemia/Lymphoma Phenotyping";            
 			this.m_AllowMultiplePerAccession = true;
             this.m_ExpectedDuration = new TimeSpan(48, 0, 0);
-            this.m_CMMCDistributionIsImplemented = true;
 
-            this.m_EpicDistributionIsImplemented = true;
+            this.m_CaseType = "Flow Cytometry";
+            this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
+            this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterF();
+            this.m_CaseType = this.m_CaseType = YellowstonePathology.Business.CaseType.FlowCytometry;
+            this.m_Active = true;
+
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.LLP.PanelSetOrderLeukemiaLymphoma).AssemblyQualifiedName;
+            this.m_AllowMultiplePerAccession = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.CMMC);
+
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.LLP.LeukemiaLymphomaWordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Leukemia/Lymphoma Phenotyping.";
@@ -24,6 +36,12 @@ namespace YellowstonePathology.Business.Test.LLP
             this.m_HasProfessionalComponent = true;
             this.m_ProfessionalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPBLGS");
             this.m_ProfessionalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+
+            this.m_HasTechnicalComponent = true;
+            this.m_TechnicalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_TechnicalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+
+            this.m_UniversalServiceIdCollection.Add(new YellowstonePathology.Business.ClientOrder.Model.UniversalServiceDefinitions.UniversalServiceFLOWYPI());
 		}
     }
 }

@@ -453,8 +453,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView> result = new List<YellowstonePathology.Business.Client.Model.PhysicianClientDistributionView>();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select pcd.*, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId as ProviderId, ph.DisplayName " +
-                "PhysicianName, c.DistributionType " +
+            cmd.CommandText = "Select pcd.*, c.ClientId, c.ClientName, ph.PhysicianId, ph.ObjectId as ProviderId, ph.DisplayName PhysicianName " +
                 "from tblPhysicianClient pc " +
                 "join tblPhysicianClientDistribution pcd on pc.PhysicianClientId = pcd.PhysicianClientId " +
                 "join tblPhysicianClient pc2 on pcd.DistributionId = pc2.PhysicianClientId " +
@@ -1262,6 +1261,44 @@ namespace YellowstonePathology.Business.Gateway
                     }
                 }
             }
+            return result;
+        }
+
+        public static Client.Model.HPVStandingOrderCollection GetHPVStandingOrderCollectionByPhysicianId(int physicianId)
+        {
+            YellowstonePathology.Business.Client.Model.HPVStandingOrderCollection result = new Client.Model.HPVStandingOrderCollection();
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "Select * from tblHPVStandingOrder h where h.PhysicianId = @PhysicianId;";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@PhysicianId", physicianId);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        YellowstonePathology.Business.Client.Model.HPVStandingOrder hpvStandingOrder = new Client.Model.HPVStandingOrder();
+                        YellowstonePathology.Business.Persistence.SqlDataReaderPropertyWriter sqlDataReaderPropertyWriter = new Persistence.SqlDataReaderPropertyWriter(hpvStandingOrder, dr);
+                        sqlDataReaderPropertyWriter.WriteProperties();
+                        result.Add(hpvStandingOrder);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static Domain.PhysicianCollection GetAllPhysicians()
+        {
+            Domain.PhysicianCollection result = new Domain.PhysicianCollection();
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandText = "select ph.* " +
+               "from tblPhysician ph;";
+            cmd.CommandType = CommandType.Text;
+            result = PhysicianClientGateway.GetPhysicianCollectionFromCommand(cmd);
             return result;
         }
     }

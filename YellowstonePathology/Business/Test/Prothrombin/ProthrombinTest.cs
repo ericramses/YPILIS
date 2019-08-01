@@ -21,7 +21,9 @@ namespace YellowstonePathology.Business.Test.Prothrombin
             this.m_IsBillable = false;
             
 			this.m_AllowMultiplePerAccession = true;
-            this.m_EpicDistributionIsImplemented = true;
+
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
+            this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
 
             this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.Prothrombin.ProthrombinTestOrder).AssemblyQualifiedName;
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.Prothrombin.ProthrombinWordDocument).AssemblyQualifiedName;

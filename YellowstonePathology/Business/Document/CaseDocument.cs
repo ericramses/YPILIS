@@ -240,7 +240,7 @@ namespace YellowstonePathology.Business.Document
             p.Start();            
         }
 
-        public static void OpenWordDocumentWithWordViewer(string fileName)
+        public static void OpenWordDocumentWithWord(string fileName)
         {
             string newFile = string.Empty;
             if (File.Exists(fileName) == true)

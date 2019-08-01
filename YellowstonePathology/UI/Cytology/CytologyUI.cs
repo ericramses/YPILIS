@@ -66,7 +66,7 @@ namespace YellowstonePathology.UI.Cytology
 			this.m_DataLoadResult = new Business.Domain.DataLoadResult();
 
             this.m_Facility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-            this.m_Location = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.Location;
+            this.m_Location = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HostName;
         }
 
         public void AssignScreenings(List<YellowstonePathology.Business.Search.CytologyScreeningSearchResult> cytologyScreeningSearchResults, YellowstonePathology.Business.User.SystemUser systemUser)
@@ -122,7 +122,7 @@ namespace YellowstonePathology.UI.Cytology
         {			
 			YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument report = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapWordDocument(this.m_AccessionOrder, this.m_PanelSetOrderCytology, Business.Document.ReportSaveModeEnum.Draft);
 			report.Render();
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(report.SaveFileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
         }        
 
         public YellowstonePathology.Business.Search.CytologyScreeningSearch Search
@@ -354,7 +354,7 @@ namespace YellowstonePathology.UI.Cytology
         {
 			YellowstonePathology.Business.OrderIdParser orderIdParser = new Business.OrderIdParser(reportNo);
 			string fileName = YellowstonePathology.Business.Document.CaseDocument.GetCaseFileNameDoc(orderIdParser);
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWordViewer(fileName);
+            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(fileName);
         }
 
         public void AddAcidWashPanelOrder(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology orderingPanelOrder, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)

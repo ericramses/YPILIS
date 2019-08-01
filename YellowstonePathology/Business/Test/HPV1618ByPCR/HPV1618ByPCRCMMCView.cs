@@ -53,7 +53,7 @@ namespace YellowstonePathology.Business.Test.HPV1618ByPCR
             }
 
             this.AddBlankNteElement(document);
-            this.AddAmendments(document, panelSetOrder);
+            this.AddAmendments(document, panelSetOrder, this.m_AccessionOrder);
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrder.OrderedOn, panelSetOrder.OrderedOnId);
             YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = specimenOrder.AliquotOrderCollection.GetByAliquotOrderId(panelSetOrder.OrderedOnId);

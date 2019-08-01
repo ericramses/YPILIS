@@ -38,7 +38,7 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
             panelSetOrderLynchSyndromeEvaluation.Interpretation = LSEGYNMeth.Interpretation;
             panelSetOrderLynchSyndromeEvaluation.Method = this.BuildMethod(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
             panelSetOrderLynchSyndromeEvaluation.ReportReferences = LSEGYNReferences;
-            panelSetOrderLynchSyndromeEvaluation.ReflexToBRAFMeth = true;
+            panelSetOrderLynchSyndromeEvaluation.ReflexToBRAFMeth = false;
         }
 
         public override Audit.Model.AuditResult IsOkToSetResults(AccessionOrder accessionOrder, PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
@@ -66,6 +66,14 @@ namespace YellowstonePathology.Business.Test.LynchSyndrome
                 result = LSEColonSendOut.Interpretation;
             }
 
+            return result;
+        }
+
+        public override bool MethIsRequired(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, YellowstonePathology.Business.Test.LynchSyndrome.PanelSetOrderLynchSyndromeEvaluation panelSetOrderLynchSyndromeEvaluation)
+        {
+            bool result = false;
+            Rules.MethodResult methodResult = this.HasFinalMethResult(accessionOrder, panelSetOrderLynchSyndromeEvaluation);
+            if (methodResult.Success == false && methodResult.Message.Contains("has not been ordered") == true) result = true;
             return result;
         }
     }

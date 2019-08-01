@@ -12,34 +12,34 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
 {
     public class FedexReturnLabelRequest
     {
-        private string m_ShipToName;
-        private string m_ShipToPhone;
-        private string m_ShipToAddress1;
-        private string m_ShipToAddress2;
-        private string m_ShipToCity;
-        private string m_ShipToState;
-        private string m_ShipToZip;
+        private string m_ShipperName;
+        private string m_ShipperPhone;
+        private string m_ShipperAddress1;
+        private string m_ShipperAddress2;
+        private string m_ShipperCity;
+        private string m_ShipperState;
+        private string m_ShipperZip;
 
-        private Business.Facility.Model.Facility m_ShipFromFacility;
+        private Business.Facility.Model.Facility m_ShipToFacility;
         private FedexAccount m_FedexAccount;
         private XDocument m_ProcessShipmentRequest;                
 
-        public FedexReturnLabelRequest(string shipToName, string shipToPhone, string shipToAddress1, string shipToAddress2, string shipToCity, string shipToState, string shipToZip, FedexAccount fedexAccount)
+        public FedexReturnLabelRequest(string shipperName, string shipperPhone, string shipperAddress1, string shipperAddress2, string shipperCity, string shipperState, string shipperZip, FedexAccount fedexAccount)
         {
-            this.m_ShipFromFacility = Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
+            this.m_ShipToFacility = Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
-            this.m_ShipToName = shipToName;
-            this.m_ShipToPhone = shipToPhone;
-            this.m_ShipToAddress1 = shipToAddress1;
-            this.m_ShipToAddress2 = shipToAddress2;
-            this.m_ShipToCity = shipToCity;
-            this.m_ShipToState = shipToState;
-            this.m_ShipToZip = shipToZip;
+            this.m_ShipperName = shipperName;
+            this.m_ShipperPhone = shipperPhone;
+            this.m_ShipperAddress1 = shipperAddress1;
+            this.m_ShipperAddress2 = shipperAddress2;
+            this.m_ShipperCity = shipperCity;
+            this.m_ShipperState = shipperState;
+            this.m_ShipperZip = shipperZip;
 
             this.m_FedexAccount = fedexAccount;                        
 
             this.OpenShipmentRequestFile();
-            this.SetShipementRequestData();
+            this.SetShipmentRequestData();
         }        
 
         public Business.MaterialTracking.Model.FedexProcessShipmentReply RequestShipment()
@@ -71,7 +71,7 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             return result; ;
         }
 
-        private void SetShipementRequestData()
+        private void SetShipmentRequestData()
         {
             XmlNamespaceManager namespaces = new XmlNamespaceManager(new NameTable());            
             namespaces.AddNamespace("soapenv", "http://schemas.xmlsoap.org/soap/envelope/");
@@ -88,47 +88,47 @@ namespace YellowstonePathology.Business.MaterialTracking.Model
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Contact/v19:PersonName", namespaces).Value = string.Empty;
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Contact/v19:PersonName", namespaces).Value = string.Empty;
 
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Contact/v19:CompanyName", namespaces).Value = this.m_ShipToName;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Contact/v19:CompanyName", namespaces).Value = this.m_ShipToName;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Contact/v19:CompanyName", namespaces).Value = this.m_ShipperName;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Contact/v19:CompanyName", namespaces).Value = this.m_ShipperName;
 
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Contact/v19:PhoneNumber", namespaces).Value = this.m_ShipToPhone;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Contact/v19:PhoneNumber", namespaces).Value = this.m_ShipToPhone;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Contact/v19:PhoneNumber", namespaces).Value = this.m_ShipperPhone;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Contact/v19:PhoneNumber", namespaces).Value = this.m_ShipperPhone;
 
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Contact/v19:EMailAddress", namespaces).Value = string.Empty;
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Contact/v19:EMailAddress", namespaces).Value = string.Empty;
 
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Address/v19:StreetLines[1]", namespaces).Value = this.m_ShipToAddress1;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Address/v19:StreetLines[1]", namespaces).Value = this.m_ShipToAddress1;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Address/v19:StreetLines[1]", namespaces).Value = this.m_ShipperAddress1;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Address/v19:StreetLines[1]", namespaces).Value = this.m_ShipperAddress1;
 
-            if (string.IsNullOrEmpty(this.m_ShipToAddress2) == false)
+            if (string.IsNullOrEmpty(this.m_ShipperAddress2) == false)
             {
-                this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Address/v19:StreetLines[2]", namespaces).Value = this.m_ShipToAddress2;
-                this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Address/v19:StreetLines[2]", namespaces).Value = this.m_ShipToAddress2;
+                this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Address/v19:StreetLines[2]", namespaces).Value = this.m_ShipperAddress2;
+                this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Address/v19:StreetLines[2]", namespaces).Value = this.m_ShipperAddress2;
             }
                         
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Address/v19:City", namespaces).Value = this.m_ShipToCity;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Address/v19:City", namespaces).Value = this.m_ShipToCity;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Address/v19:City", namespaces).Value = this.m_ShipperCity;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Address/v19:City", namespaces).Value = this.m_ShipperCity;
 
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Address/v19:StateOrProvinceCode", namespaces).Value = this.m_ShipToState;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Address/v19:StateOrProvinceCode", namespaces).Value = this.m_ShipToState;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Address/v19:StateOrProvinceCode", namespaces).Value = this.m_ShipperState;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Address/v19:StateOrProvinceCode", namespaces).Value = this.m_ShipperState;
 
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Address/v19:PostalCode", namespaces).Value = this.m_ShipToZip;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Address/v19:PostalCode", namespaces).Value = this.m_ShipToZip;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Address/v19:PostalCode", namespaces).Value = this.m_ShipperZip;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Address/v19:PostalCode", namespaces).Value = this.m_ShipperZip;
 
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Shipper/v19:Address/v19:CountryCode", namespaces).Value = "US";
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:Origin/v19:Address/v19:CountryCode", namespaces).Value = "US";
 
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:PaymentType", namespaces).Value = "SENDER";                        
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:AccountNumber", namespaces).Value = this.m_FedexAccount.AccountNo;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:PaymentType", namespaces).Value = "THIRD_PARTY";                        
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:AccountNumber", namespaces).Value = this.m_FedexAccount.OptiFreightAccountNo;
 
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Contact/v19:CompanyName", namespaces).Value = this.m_ShipFromFacility.FacilityName;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Contact/v19:PhoneNumber", namespaces).Value = this.m_ShipFromFacility.PhoneNumber;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Contact/v19:CompanyName", namespaces).Value = this.m_ShipToFacility.FacilityName;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Contact/v19:PhoneNumber", namespaces).Value = this.m_ShipToFacility.PhoneNumber;
 
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StreetLines[1]", namespaces).Value = this.m_ShipFromFacility.Address1;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StreetLines[2]", namespaces).Value = this.m_ShipFromFacility.Address2;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:City", namespaces).Value = this.m_ShipFromFacility.City;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StateOrProvinceCode", namespaces).Value = this.m_ShipFromFacility.State;
-            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:PostalCode", namespaces).Value = this.m_ShipFromFacility.ZipCode;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StreetLines[1]", namespaces).Value = this.m_ShipToFacility.Address1;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StreetLines[2]", namespaces).Value = this.m_ShipToFacility.Address2;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:City", namespaces).Value = this.m_ShipToFacility.City;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:StateOrProvinceCode", namespaces).Value = this.m_ShipToFacility.State;
+            this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:PostalCode", namespaces).Value = this.m_ShipToFacility.ZipCode;
             this.m_ProcessShipmentRequest.XPathSelectElement("//soapenv:Envelope/soapenv:Body/v19:ProcessShipmentRequest/v19:RequestedShipment/v19:ShippingChargesPayment/v19:Payor/v19:ResponsibleParty/v19:Address/v19:CountryCode", namespaces).Value = "US";            
         }
 

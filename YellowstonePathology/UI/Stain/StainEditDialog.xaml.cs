@@ -88,12 +88,14 @@ namespace YellowstonePathology.UI.Stain
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.CanSave();
             if (methodResult.Success == true)
             {
-                if(isNewStain)
-                {
-                    YellowstonePathology.Business.Stain.Model.StainCollection.Instance.Add(this.m_Stain);
-                }
-                Business.Stain.Model.StainCollection.Save(this.m_Stain);
+                methodResult = YellowstonePathology.Business.Helper.JSONHelper.IsValidJSONString(this.m_Stain.ToJSON());
+            }
+
+            if (methodResult.Success == true)
+            {
+                this.m_Stain.Save();
                 string stainText = this.m_Stain.ToJSON();
+                YellowstonePathology.Business.Stain.Model.StainCollection.Refresh();
                 Close();
             }
             else
