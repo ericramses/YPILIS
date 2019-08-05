@@ -303,6 +303,8 @@
     <Compile Include="Business\BaseListItem.cs" />
     <Compile Include="Business\Billing.Model\ADTListItem.cs" />
     <Compile Include="Business\Billing.Model\BillableObjectNeoFlowCytometry.cs" />
+    <Compile Include="Business\Billing.Model\CDM.cs" />
+    <Compile Include="Business\Billing.Model\CDMCollection.cs" />
     <Compile Include="Business\Billing.Model\CptCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeWithModifier.cs" />
     <Compile Include="Business\Billing.Model\EODProcessStatus.cs" />
@@ -1245,6 +1247,7 @@
     <Compile Include="Business\Test\StemCellEnumeration\StemCellEnumerationTestOrder.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalEpicBeakerObxView.cs" />
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileWPHOBXView.cs" />
+    <Compile Include="Business\Test\TET2MutationAnalysis\TET2MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\TFE3\TFE3Test.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2CMMCNTEView.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2EPICObxView.cs" />
@@ -1257,6 +1260,7 @@
     <Compile Include="Business\Test\Trichomonas\TrichomonasWPHOBXView.cs" />
     <Compile Include="Business\Test\VaricellaZosterVirus\VaricellaZosterVirusTest.cs" />
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
+    <Compile Include="Business\Test\WT1MutationAnalsysis\WT1MutationAnalsysisTest.cs" />
     <Compile Include="Business\User\SystemRoleView.cs" />
     <Compile Include="Business\User\SystemRoleViewCollection.cs" />
     <Compile Include="Business\View\PanelSetOrderAmendmentView.cs" />
@@ -3060,6 +3064,9 @@
     <Compile Include="Business\Billing.Model\AccessionListItem.cs" />
     <Compile Include="UI\Billing\AddFISHCPTCodePage.xaml.cs">
       <DependentUpon>AddFISHCPTCodePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Billing\CDMListDialog.xaml.cs">
+      <DependentUpon>CDMListDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Billing\CPTCodeEditDialog.xaml.cs">
       <DependentUpon>CPTCodeEditDialog.xaml</DependentUpon>
@@ -5040,6 +5047,10 @@
     <Page Include="UI\Billing\ADTPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Billing\CDMListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Billing\CPTCodeEditDialog.xaml">
       <SubType>Designer</SubType>
@@ -7054,12 +7065,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

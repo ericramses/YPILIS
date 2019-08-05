@@ -257,6 +257,7 @@ namespace YellowstonePathology.UI.Monitor
         private void ProcessSVHCDMFiles(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             this.m_BackgroundWorker.ReportProgress(1, "Starting processing SVH CDM files.");
+            YellowstonePathology.Business.Client.Model.ClientGroupClientCollection hrhGroup = YellowstonePathology.Business.Gateway.PhysicianClientGateway.GetClientGroupClientCollectionByClientGroupId("2");
             YellowstonePathology.Business.ReportNoCollection reportNoCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetReportNumbersBySVHProcess(this.m_PostDate);
             string workingFolder = System.IO.Path.Combine(this.m_BaseWorkingFolderPathSVH, this.m_PostDate.ToString("MMddyyyy"));
             if (Directory.Exists(workingFolder) == false)
@@ -267,9 +268,6 @@ namespace YellowstonePathology.UI.Monitor
                 Directory.CreateDirectory(System.IO.Path.Combine(workingFolder, "result"));
                 Directory.CreateDirectory(System.IO.Path.Combine(workingFolder, "result", "done"));
             }
-
-            Business.Billing.Model.CptCodeCollection cptCodeCollection = new Business.Billing.Model.CptCodeCollection();
-            cptCodeCollection.Load();
 
             int rowCount = 0;
             foreach (YellowstonePathology.Business.ReportNo reportNo in reportNoCollection)
@@ -284,7 +282,7 @@ namespace YellowstonePathology.UI.Monitor
                 {
                     if (panelSetOrderCPTCodeBill.BillTo == "Client" && panelSetOrderCPTCodeBill.PostDate == this.m_PostDate)
                     {
-                        if (cptCodeCollection.HasSVHCDM(panelSetOrderCPTCodeBill.CPTCode) == true)
+                        if (YellowstonePathology.Business.Billing.Model.CDMCollection.Instance.Exists(panelSetOrderCPTCodeBill.CPTCode, "SVH") == true)
                         {
                             if (panelSetOrderCPTCodeBill.PostedToClient == false)
                             {

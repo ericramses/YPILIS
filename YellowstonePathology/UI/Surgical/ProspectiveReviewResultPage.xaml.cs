@@ -134,11 +134,6 @@ namespace YellowstonePathology.UI.Surgical
             this.AddPeerReview(5061);
         }
 
-        private void HyperLinkAddDrGallager_Click(object sender, RoutedEventArgs e)
-        {
-            this.AddPeerReview(5087);
-        }
-
         private void HyperLinkAddDrMatthews_Click(object sender, RoutedEventArgs e)
         {
             this.AddPeerReview(5136);
@@ -217,6 +212,11 @@ namespace YellowstonePathology.UI.Surgical
         private void HyperLinkAddDrMessner_Click(object sender, RoutedEventArgs e)
         {
             this.AddPeerReview(5149);
+        }
+
+        private void HyperLinkAddDrSchneider_Click(object sender, RoutedEventArgs e)
+        {
+            this.AddPeerReview(5150);
         }
     }
 }
