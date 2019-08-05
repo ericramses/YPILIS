@@ -471,7 +471,7 @@ namespace YellowstonePathology.UI.Billing
                 if(System.IO.Directory.Exists(workingFolder) == true)
                 {
                     string[] files = System.IO.Directory.GetFiles(workingFolder);
-
+                    
                     Business.SSHFileTransfer sshFileTransfer = new Business.SSHFileTransfer(psaSSHConfig["host"].ToString(), Convert.ToInt32(psaSSHConfig["port"]),
                         psaSSHConfig["username"].ToString(), psaSSHConfig["password"].ToString());
                     sshFileTransfer.Failed += SshFileTransfer_Failed;
