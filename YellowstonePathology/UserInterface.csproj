@@ -1245,6 +1245,7 @@
     <Compile Include="Business\Test\StemCellEnumeration\StemCellEnumerationTestOrder.cs" />
     <Compile Include="Business\Test\Surgical\SurgicalEpicBeakerObxView.cs" />
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileWPHOBXView.cs" />
+    <Compile Include="Business\Test\TET2MutationAnalysis\TET2MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\TFE3\TFE3Test.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2CMMCNTEView.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2EPICObxView.cs" />
@@ -7054,12 +7055,12 @@
   <ItemGroup>
     <PublishFile Include="Microsoft.Exchange.WebServices">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>

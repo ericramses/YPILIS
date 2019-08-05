@@ -178,7 +178,8 @@ namespace YellowstonePathology.UI.Test
             YellowstonePathology.Business.Rules.MethodResult methodResult = this.m_HPV1618SolidTumorTestOrder.IsOkToSetResult();
             if (methodResult.Success == true)
             {
-                this.m_HPV1618SolidTumorTestOrder.SetNotDetectedResult();               
+                this.m_HPV1618SolidTumorTestOrder.SetNotDetectedResult();
+                this.NotifyPropertyChanged("PanelSetOrder");
 			}
 			else
 			{
