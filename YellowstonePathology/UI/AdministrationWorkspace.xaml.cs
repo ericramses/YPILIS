@@ -1803,31 +1803,6 @@ namespace YellowstonePathology.UI
                 }
             }
             MessageBox.Show("Done" + Environment.NewLine + message);*/
-
-            int cnt = 0;
-            using (StreamWriter sw = new StreamWriter(@"C:\wcTemp\CDMNotListed.txt", false))
-            {
-                foreach (YellowstonePathology.Business.Billing.Model.CptCode cptCode in YellowstonePathology.Store.AppDataStore.Instance.CPTCodeCollection)
-                {
-                    if (string.IsNullOrEmpty(cptCode.SVHCDMCode) == true) continue;
-                    bool found = false;
-                    foreach (YellowstonePathology.Business.Billing.Model.CDM cdm in YellowstonePathology.Business.Billing.Model.CDMCollection.Instance)
-                    {
-                        //if (cdm.CDMClient == "HRH") continue;
-                        if (cptCode.Code == cdm.CPTCode && cptCode.SVHCDMCode == cdm.CDMCode)
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (found == false)
-                    {
-                        sw.WriteLine(cptCode.Code + " - " + cptCode.SVHCDMCode + " - " + cptCode.SVHCDMDescription);
-                        cnt++;
-                    }
-                }
-            }
-            MessageBox.Show("Done " + cnt.ToString());
         }
     }
 }

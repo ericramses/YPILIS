@@ -27,7 +27,6 @@ namespace YellowstonePathology.UI.Billing
         {
             this.m_CDMClients = new List<string>();
             this.m_CDMClients.Add("SVH");
-            this.m_CDMClients.Add("HRH");
             InitializeComponent();
 
             DataContext = this;
