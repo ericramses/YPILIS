@@ -16,6 +16,8 @@ namespace YellowstonePathology.Business.HL7View.EPIC
         string m_Quantity;
         string m_MasterAccessionNo;
         YellowstonePathology.Business.Domain.Physician m_OrderingPhysician;
+        string m_CDMCode;
+        string m_ProcedureName;
 
         public EPICFT1View(YellowstonePathology.Business.Billing.Model.CptCode cptCode, DateTime billDate, DateTime postDate, string quantity,
             YellowstonePathology.Business.Domain.Physician orderingPhysician, string masterAccessionNo)
@@ -26,6 +28,12 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             this.m_Quantity = quantity;
             this.m_MasterAccessionNo = masterAccessionNo;
             this.m_OrderingPhysician = orderingPhysician;
+            YellowstonePathology.Business.Billing.Model.CDM cdm = YellowstonePathology.Business.Billing.Model.CDMCollection.Instance.GetCDMS(this.m_CptCode.Code, "SVH");
+            if(cdm != null)
+            {
+                this.m_CDMCode = cdm.CDMCode;
+                this.m_ProcedureName = cdm.ProcedureName;
+            }
         }
 
         public void ToXml(XElement document, int ft1Number)
@@ -49,13 +57,13 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             XElement ft16Element = new XElement("FT1.6", "CG");
             ft1Element.Add(ft16Element);
 
-            if (string.IsNullOrEmpty(this.m_CptCode.SVHCDMCode) == true)
+            if (string.IsNullOrEmpty(this.m_CDMCode) == true)
                 throw new Exception("No CDM was found for: "  + this.m_CptCode.Code);
 
-            XElement ft17Element = new XElement("FT1.7", this.m_CptCode.SVHCDMCode);
+            XElement ft17Element = new XElement("FT1.7", this.m_CDMCode);
             ft1Element.Add(ft17Element);
 
-            XElement ft18Element = new XElement("FT1.8", this.m_CptCode.SVHCDMDescription);
+            XElement ft18Element = new XElement("FT1.8", this.m_ProcedureName);
             ft1Element.Add(ft18Element);
 
             XElement ft110Element = new XElement("FT1.10", this.m_Quantity);            

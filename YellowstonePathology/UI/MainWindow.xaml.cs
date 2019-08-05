@@ -1037,13 +1037,19 @@ namespace YellowstonePathology.UI
         private void MenuItemBillingCPTCodes_Click(object sender, RoutedEventArgs e)
         {
             UI.Billing.CPTCodeListDialog cptCodeListDialog = new UI.Billing.CPTCodeListDialog();
-            cptCodeListDialog.Show();
+            cptCodeListDialog.ShowDialog();
         }
 
         private void MenuItemBillingICDCodes_Click(object sender, RoutedEventArgs e)
         {
             UI.Billing.ICDCodeListDialog icdCodeListDialog = new UI.Billing.ICDCodeListDialog();
-            icdCodeListDialog.Show();
+            icdCodeListDialog.ShowDialog();
+        }
+
+        private void MenuItemBillingCDMCodes_Click(object sender, RoutedEventArgs e)
+        {
+            UI.Billing.CDMListDialog dlg = new UI.Billing.CDMListDialog();
+            dlg.ShowDialog();
         }
 
         private void MenuItemSpecimen_Click(object sender, RoutedEventArgs e)
