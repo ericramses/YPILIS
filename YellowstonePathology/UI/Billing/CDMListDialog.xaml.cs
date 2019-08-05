@@ -20,7 +20,6 @@ namespace YellowstonePathology.UI.Billing
         public event PropertyChangedEventHandler PropertyChanged;
 
         private YellowstonePathology.Business.Billing.Model.CDM m_SelectedCDM;
-        private string m_CptCodeString;
         private List<string> m_CDMClients;
 
         public CDMListDialog()
@@ -42,12 +41,6 @@ namespace YellowstonePathology.UI.Billing
             get { return this.m_SelectedCDM; }
         }
 
-        public string CptCodeString
-        {
-            get { return this.m_CptCodeString; }
-            set { }
-        }
-
         public List<string> CDMClients
         {
             get { return this.m_CDMClients; }
@@ -66,7 +59,6 @@ namespace YellowstonePathology.UI.Billing
             if(this.ListBoxCDM.SelectedItem != null)
             {
                 this.m_SelectedCDM = (YellowstonePathology.Business.Billing.Model.CDM)this.ListBoxCDM.SelectedItem;
-                this.GetCPTCode();
                 NotifyPropertyChanged("SelectedCDM");
             }
         }
@@ -74,9 +66,7 @@ namespace YellowstonePathology.UI.Billing
         private void ButtonNewCDM_Click(object sender, RoutedEventArgs e)
         {
             this.m_SelectedCDM = new Business.Billing.Model.CDM();
-            this.m_CptCodeString = null;
             NotifyPropertyChanged("SelectedCDM");
-            NotifyPropertyChanged("CptCodeString");
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
@@ -118,15 +108,6 @@ namespace YellowstonePathology.UI.Billing
 
                 if (result.Success == true)
                 {
-                    if (string.IsNullOrEmpty(this.m_SelectedCDM.ProcedureName) == true)
-                    {
-                        result.Success = false;
-                        result.Message = "Unable to save as the Procedure does not have a value.";
-                    }
-                }
-
-                if (result.Success == true)
-                {
                     if (string.IsNullOrEmpty(this.m_SelectedCDM.CDMClient) == true)
                     {
                         result.Success = false;
@@ -146,26 +127,6 @@ namespace YellowstonePathology.UI.Billing
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void TextBoxCPTCode_LostFocus(object sender, RoutedEventArgs e)
-        {
-            this.m_SelectedCDM.CPTCode = TextBoxCPTCode.Text;
-            this.GetCPTCode();
-        }
-
-        private void GetCPTCode()
-        {
-            YellowstonePathology.Business.Billing.Model.CptCode cptCode = YellowstonePathology.Store.AppDataStore.Instance.CPTCodeCollection.GetCPTCode(this.m_SelectedCDM.CPTCode);
-            if (cptCode != null)
-            {
-                this.m_CptCodeString = cptCode.ToJSON();
-            }
-            else
-            {
-                this.m_CptCodeString = null;
-            }
-            NotifyPropertyChanged("CptCodeString");
         }
     }
 }
