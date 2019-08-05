@@ -1260,6 +1260,7 @@
     <Compile Include="Business\Test\Trichomonas\TrichomonasWPHOBXView.cs" />
     <Compile Include="Business\Test\VaricellaZosterVirus\VaricellaZosterVirusTest.cs" />
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
+    <Compile Include="Business\Test\WT1MutationAnalsysis\WT1MutationAnalsysisTest.cs" />
     <Compile Include="Business\User\SystemRoleView.cs" />
     <Compile Include="Business\User\SystemRoleViewCollection.cs" />
     <Compile Include="Business\View\PanelSetOrderAmendmentView.cs" />
