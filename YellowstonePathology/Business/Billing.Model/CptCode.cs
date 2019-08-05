@@ -23,8 +23,6 @@ namespace YellowstonePathology.Business.Billing.Model
         protected bool m_HasMedicareQuantityLimit;
         protected int m_MedicareQuantityLimit;
         protected CPTCodeTypeEnum m_CodeType;
-        protected string m_SVHCDMCode;
-        protected string m_SVHCDMDescription;
 
         protected List<CptCodeModifier> m_Modifiers;
 
@@ -126,20 +124,6 @@ namespace YellowstonePathology.Business.Billing.Model
         {
             get { return this.m_MedicareQuantityLimit; }
             set { this.m_MedicareQuantityLimit = value; }
-        }
-
-        [PersistentProperty()]
-        public string SVHCDMCode
-        {
-            get { return this.m_SVHCDMCode; }
-            set { this.m_SVHCDMCode = value; }
-        }
-
-        [PersistentProperty()]
-        public string SVHCDMDescription
-        {
-            get { return this.m_SVHCDMDescription; }
-            set { this.m_SVHCDMDescription = value; }
         }
 
         [PersistentProperty()]

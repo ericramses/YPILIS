@@ -303,6 +303,8 @@
     <Compile Include="Business\BaseListItem.cs" />
     <Compile Include="Business\Billing.Model\ADTListItem.cs" />
     <Compile Include="Business\Billing.Model\BillableObjectNeoFlowCytometry.cs" />
+    <Compile Include="Business\Billing.Model\CDM.cs" />
+    <Compile Include="Business\Billing.Model\CDMCollection.cs" />
     <Compile Include="Business\Billing.Model\CptCodeFactory.cs" />
     <Compile Include="Business\Billing.Model\CPTCodeWithModifier.cs" />
     <Compile Include="Business\Billing.Model\EODProcessStatus.cs" />
@@ -3062,6 +3064,9 @@
     <Compile Include="UI\Billing\AddFISHCPTCodePage.xaml.cs">
       <DependentUpon>AddFISHCPTCodePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Billing\CDMListDialog.xaml.cs">
+      <DependentUpon>CDMListDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Billing\CPTCodeEditDialog.xaml.cs">
       <DependentUpon>CPTCodeEditDialog.xaml</DependentUpon>
     </Compile>
@@ -5041,6 +5046,10 @@
     <Page Include="UI\Billing\ADTPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Billing\CDMListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Billing\CPTCodeEditDialog.xaml">
       <SubType>Designer</SubType>
