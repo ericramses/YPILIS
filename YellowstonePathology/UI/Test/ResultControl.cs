@@ -104,9 +104,9 @@ namespace YellowstonePathology.UI.Test
         
         protected void HandleUnFinalize()
         {
-            this.EnableContents(this.Content);
+            //this.EnableContents(this.Content);
         }
-
+        
         private void EnableContents(object o)
         {
             if (o is UIElement)
@@ -144,6 +144,6 @@ namespace YellowstonePathology.UI.Test
                     ((UIElement)o).IsEnabled = true;
                 }
             }
-        }
+        }       
     }
 }
