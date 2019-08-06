@@ -54,7 +54,14 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.ButtonNext);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalizeResults);
-		}
+
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.CheckBoxAccepted);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.CheckBoxFinal);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBoxAcceptedBy);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBoxAcceptedTime);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBoxFinalTime);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBoxSignature);
+        }
 
         private void NGCTResultPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -135,6 +142,8 @@ namespace YellowstonePathology.UI.Test
 			if (methodResult.Success == true)
 			{
 				this.m_PanelSetOrder.Unfinalize();
+                this.HandleUnFinalize();
+                this.NotifyPropertyChanged("");
 			}
 			else
 			{
