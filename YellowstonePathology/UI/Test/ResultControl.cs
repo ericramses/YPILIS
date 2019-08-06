@@ -13,12 +13,14 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.PanelSetOrder m_TestOrder;
         private bool m_DisableRequired;
         protected List<FrameworkElement> m_ControlsNotDisabledOnFinal;
+        protected List<FrameworkElement> m_ControlsNotEnabledOnUnFinal;
 
         public ResultControl(YellowstonePathology.Business.Test.PanelSetOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
         {
             this.m_TestOrder = testOrder;
             this.m_ControlsNotDisabledOnFinal = new List<FrameworkElement>();
+            this.m_ControlsNotEnabledOnUnFinal = new List<FrameworkElement>();
             YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = accessionOrder.AmendmentCollection.GetAmendmentsForReport(testOrder.ReportNo);
 
             this.m_DisableRequired = false;
@@ -48,6 +50,7 @@ namespace YellowstonePathology.UI.Test
         public ResultControl()
         {
             this.m_ControlsNotDisabledOnFinal = new List<FrameworkElement>();
+            this.m_ControlsNotEnabledOnUnFinal = new List<FrameworkElement>();
         }
 
         private void ResultControl_Loaded(object sender, RoutedEventArgs e)
@@ -96,6 +99,50 @@ namespace YellowstonePathology.UI.Test
             else
             {
                 ((UIElement)o).IsEnabled = false;
+            }
+        }
+        
+        protected void HandleUnFinalize()
+        {
+            this.EnableContents(this.Content);
+        }
+
+        private void EnableContents(object o)
+        {
+            if (o is UIElement)
+            {
+                if (this.m_ControlsNotEnabledOnUnFinal.Contains(o))
+                {
+                    ((FrameworkElement)o).IsEnabled = false;
+                }
+                else if (o is Panel)
+                {
+                    Panel panel = (Panel)o;
+                    foreach (UIElement element in panel.Children)
+                    {
+                        EnableContents(element);
+                    }
+                }
+                else if (o is CheckBox)
+                {
+                    ((UIElement)o).IsEnabled = true;
+                }
+                else if (o is ContentControl)
+                {
+                    ContentControl contentControl = (ContentControl)o;
+                    if (contentControl.Content != null)
+                    {
+                        EnableContents(contentControl.Content);
+                    }
+                    else
+                    {
+                        contentControl.IsEnabled = true;
+                    }
+                }
+                else
+                {
+                    ((UIElement)o).IsEnabled = true;
+                }
             }
         }
     }

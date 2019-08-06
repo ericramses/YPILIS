@@ -88,6 +88,18 @@ namespace YellowstonePathology.UI.Test
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockShowDocument);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockUnfinalize);
             this.m_ControlsNotDisabledOnFinal.Add(this.TextBlockNext);
+
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.CheckBoxAccepted);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.CheckBoxFinal);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.ComboBoxStandingOrderDescription);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBlockLastHPVDate);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBlockPatientAge);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBlockScreeningImpression);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBlockStandingOrderDescription);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBoxAcceptedBy);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBoxAcceptedTime);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBoxFinalTime);
+            this.m_ControlsNotEnabledOnUnFinal.Add(this.TextBoxSignaure);
         }
 
         public string HPVStandingOrderDescription
@@ -388,6 +400,7 @@ namespace YellowstonePathology.UI.Test
                 {
                     this.m_WomensHealthProfileTestOrder.Unfinalize();
                     this.m_AuditCollection.Run();
+                    this.HandleUnFinalize();
                     this.NotifyPropertyChanged("");
                 }
             }
@@ -395,6 +408,7 @@ namespace YellowstonePathology.UI.Test
             {
                 this.m_WomensHealthProfileTestOrder.Unfinalize();
                 this.m_AuditCollection.Run();
+                this.HandleUnFinalize();
                 this.NotifyPropertyChanged("");
             }
         }
