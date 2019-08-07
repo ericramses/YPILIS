@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grpc.Core;
+using System.Text.RegularExpressions;
 
 namespace YellowstonePathology.Business.HL7View
 {
@@ -21,7 +22,7 @@ namespace YellowstonePathology.Business.HL7View
                 Business.Stain.Model.Stain stain = Business.Stain.Model.StainCollection.Instance.GetStainByTestId(slideOrder.TestId);
                 if (slideOrder.PerformedByHand == false || stain.PerformedByHand == false)
                 {
-                    if (slideOrder.OrderSentToVentana == false)
+                    if (slideOrder.OrderSentToVentana == true)
                     {
                         if (this.CanBuild(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId) == true)
                         {
@@ -174,10 +175,22 @@ namespace YellowstonePathology.Business.HL7View
             obr.PathologistNpi = string.IsNullOrEmpty(orderedBy.NationalProviderId) ? "NOTAPPLICABLE" : orderedBy.NationalProviderId;
             obr.PathologistLastname = orderedBy.LastName;
             obr.PathologistFirstname = orderedBy.FirstName;
-            obr.SlideId = "HSLD" + slideOrder.SlideOrderId;
-            obr.SlideSequence = Business.Specimen.Model.Slide.GetSlideNumber(slideOrder.Label);
-            obr.Blockid = aliquotOrder.AliquotOrderId;
-            obr.BlockSequence = Business.Specimen.Model.Block.GetBlockLetter(aliquotOrder.Label);            
+
+            OrderIdParser orderIdParser = new OrderIdParser(slideOrder.SlideOrderId);
+            string masterAccessionNo = orderIdParser.MasterAccessionNo;
+
+            //obr.SlideId = "HSLD" + slideOrder.SlideOrderId;                        
+
+            string label = slideOrder.Label;
+            if (label.Contains(".") == true)
+            {
+                label = label.Replace(".", "SL");
+            }
+
+            obr.SlideId = "HSLD" + masterAccessionNo + "." + label;
+            obr.SlideSequence = Business.Specimen.Model.Slide.GetSlideNumber(label);            
+            obr.Blockid = masterAccessionNo + "." + RemoveTrailingNumbers(label);
+            obr.BlockSequence = Business.Specimen.Model.Block.GetBlockLetter(label);            
             obr.SpecimenId = specimenOrder.SpecimenOrderId;
             obr.SpecimenSequence = specimenOrder.SpecimenNumber.ToString();
             stainOrder.Obr = obr;
@@ -185,6 +198,13 @@ namespace YellowstonePathology.Business.HL7View
 
             Ventana.OrderReply orderReply = ventanaServiceClient.buildOrder(orderRequest);
             return orderReply.Message;
+        }
+
+        public string RemoveTrailingNumbers(string text)
+        {
+            var digits = new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };            
+            var result = text.TrimEnd(digits);
+            return result;
         }
     }
 }

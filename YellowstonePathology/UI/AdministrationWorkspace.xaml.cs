@@ -994,9 +994,14 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-19978");
-            Business.HL7View.EPIC.EPICBeakerResultView result = new Business.HL7View.EPIC.EPICBeakerResultView("19-19978.S", ao, true);
-            result.Send(new Business.Rules.MethodResult());
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-20667");
+            Business.Slide.Model.SlideOrder slideOrder = ao.SpecimenOrderCollection.GetSlideOrder("19-20667.2B2");            
+            Business.HL7View.VentanaStainOrder vo = new Business.HL7View.VentanaStainOrder();
+            vo.HandleOrder(ao, slideOrder);
+
+            //Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-19978");
+            //Business.HL7View.EPIC.EPICBeakerResultView result = new Business.HL7View.EPIC.EPICBeakerResultView("19-19978.S", ao, true);
+            //result.Send(new Business.Rules.MethodResult());
         }
 
         private void InsertADT()
