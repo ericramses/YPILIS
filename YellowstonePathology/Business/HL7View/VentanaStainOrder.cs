@@ -22,7 +22,7 @@ namespace YellowstonePathology.Business.HL7View
                 Business.Stain.Model.Stain stain = Business.Stain.Model.StainCollection.Instance.GetStainByTestId(slideOrder.TestId);
                 if (slideOrder.PerformedByHand == false || stain.PerformedByHand == false)
                 {
-                    if (slideOrder.OrderSentToVentana == true)
+                    if (slideOrder.OrderSentToVentana == false)
                     {
                         if (this.CanBuild(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId) == true)
                         {
@@ -177,9 +177,7 @@ namespace YellowstonePathology.Business.HL7View
             obr.PathologistFirstname = orderedBy.FirstName;
 
             OrderIdParser orderIdParser = new OrderIdParser(slideOrder.SlideOrderId);
-            string masterAccessionNo = orderIdParser.MasterAccessionNo;
-
-            //obr.SlideId = "HSLD" + slideOrder.SlideOrderId;                        
+            string masterAccessionNo = orderIdParser.MasterAccessionNo;            
 
             string label = slideOrder.Label;
             if (label.Contains(".") == true)
