@@ -19,7 +19,7 @@ namespace YellowstonePathology.Business.Reports
 		{
 			YellowstonePathology.Business.Domain.OrderLogCollection orderLogCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetOrderLogCollectionByReportDate(reportDate);
 
-			this.m_ReportTemplate = @"\\CFileServer\documents\Reports\Templates\LabOrdersLog.xml";
+			this.m_ReportTemplate = @"\\CFileServer\documents\Reports\Templates\LabOrdersLog1.xml";
 
 			this.m_ReportXml = new XmlDocument();
 			this.m_ReportXml.Load(this.m_ReportTemplate);
@@ -60,7 +60,7 @@ namespace YellowstonePathology.Business.Reports
 
 				DateTime dateTime = (DateTime)orderLogItem.OrderTime.Value;
 				string orderDate = dateTime.ToString("M/d/yyyy h:mm tt", System.Globalization.CultureInfo.InvariantCulture);
-				string orderedBy = orderLogItem.Initials;
+				string orderedBy = orderLogItem.LastName;
 				string procedure = orderLogItem.TestName;
 				string block = orderLogItem.Description;
 				string comment = orderLogItem.ProcedureComment;
