@@ -12,7 +12,7 @@ namespace YellowstonePathology.UI
 
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.User.SystemUserCollection m_LogUsers;
-        private YellowstonePathology.Business.Task.Model.TaskOrderCollection m_TaskOrderCollection;
+        private YellowstonePathology.Business.Task.Model.TaskOrderViewList m_TaskOrderViewList;
         private YellowstonePathology.Business.Task.Model.TaskOrderCollection m_DailyTaskOrderCollection;
 
         private List<string> m_TaskAcknowledgementTypeList;
@@ -26,7 +26,7 @@ namespace YellowstonePathology.UI
             this.m_LogUsers = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetUsersByRole(YellowstonePathology.Business.User.SystemUserRoleDescriptionEnum.Log, true);
             this.m_TaskAcknowledgementTypeList = YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.GetAll();
 
-            this.GetTaskOrderCollection();
+            this.GetTaskOrderViewList();
             this.GetDailyTaskOrderCollection();
 
             YellowstonePathology.UI.TaskNotifier.Instance.Notifier.Alert += new TaskNotifier.AlertEventHandler(Notifier_Alert);
@@ -34,8 +34,8 @@ namespace YellowstonePathology.UI
 
         private void Notifier_Alert(object sender, CustomEventArgs.TaskOrderCollectionReturnEventArgs e)
         {
-            this.m_TaskOrderCollection = e.TaskOrderCollection;
-            this.NotifyPropertyChanged("TaskOrderCollection");
+            this.m_TaskOrderViewList = new Business.Task.Model.TaskOrderViewList(e.TaskOrderCollection);
+            this.NotifyPropertyChanged("TaskOrderViewList");
             YellowstonePathology.UI.TaskNotifier.Instance.Notifier.Alert -= Notifier_Alert;
         }
 
@@ -72,9 +72,9 @@ namespace YellowstonePathology.UI
             get { return this.m_LogUsers; }
         }
 
-        public YellowstonePathology.Business.Task.Model.TaskOrderCollection TaskOrderCollection
+        public YellowstonePathology.Business.Task.Model.TaskOrderViewList TaskOrderViewList
         {
-            get { return this.m_TaskOrderCollection; }
+            get { return this.m_TaskOrderViewList; }
         }
 
         public YellowstonePathology.Business.Task.Model.TaskOrderCollection DailyTaskOrderCollection
@@ -87,17 +87,17 @@ namespace YellowstonePathology.UI
             get { return this.m_TaskAcknowledgementTypeList; }
         }
 
-        public void GetTaskOrderCollection()
+        public void GetTaskOrderViewList()
         {
-            this.m_TaskOrderCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTaskOrderCollection(YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.Immediate);
-            this.NotifyPropertyChanged("TaskOrderCollection");
+            this.m_TaskOrderViewList = new Business.Task.Model.TaskOrderViewList(YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTaskOrderCollection(YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.Immediate));
+            this.NotifyPropertyChanged("TaskOrderViewList");
         }
 
         public void GetTasksNotAcknowledged()
         {
             string assignedTo = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.AcknowledgeTasksFor;
-            this.m_TaskOrderCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTasksNotAcknowledged(assignedTo, YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.Immediate);
-            this.NotifyPropertyChanged("TaskOrderCollection");
+            this.m_TaskOrderViewList = new Business.Task.Model.TaskOrderViewList(YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetTasksNotAcknowledged(assignedTo, YellowstonePathology.Business.Task.Model.TaskAcknowledgementType.Immediate));
+            this.NotifyPropertyChanged("TaskOrderViewList");
         }
 
         public void GetDailyTaskOrderCollection()

@@ -89,16 +89,16 @@ namespace YellowstonePathology.UI
 
         private void ButtonTaskOrderRefresh_Click(object sender, RoutedEventArgs e)
         {
-            this.m_TaskUI.GetTaskOrderCollection();
+            this.m_TaskUI.GetTaskOrderViewList();
         }
 
         private void ButtonTaskOrderPrint_Click(object sender, RoutedEventArgs e)
         {
             if (this.ListViewTaskOrders.SelectedItem != null)
             {
-                YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = (YellowstonePathology.Business.Task.Model.TaskOrder)this.ListViewTaskOrders.SelectedItem;
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(taskOrder.MasterAccessionNo, this.m_Writer);
-                Login.Receiving.TaskOrderDataSheet taskOrderDataSheet = new Login.Receiving.TaskOrderDataSheet(taskOrder, accessionOrder);
+                YellowstonePathology.Business.Task.Model.TaskOrderView taskOrderView = (YellowstonePathology.Business.Task.Model.TaskOrderView)this.ListViewTaskOrders.SelectedItem;
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(taskOrderView.TaskOrder.MasterAccessionNo, this.m_Writer);
+                Login.Receiving.TaskOrderDataSheet taskOrderDataSheet = new Login.Receiving.TaskOrderDataSheet(taskOrderView.TaskOrder, accessionOrder);
 
                 System.Printing.PrintQueue printQueue = new System.Printing.LocalPrintServer().DefaultPrintQueue;
                 System.Windows.Controls.PrintDialog printDialog = new System.Windows.Controls.PrintDialog();
@@ -112,9 +112,9 @@ namespace YellowstonePathology.UI
         {
             if (this.ListViewTaskOrders.SelectedItem != null)
             {
-                YellowstonePathology.Business.Task.Model.TaskOrder selectedTaskOrder = (YellowstonePathology.Business.Task.Model.TaskOrder)this.ListViewTaskOrders.SelectedItem;
-                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(selectedTaskOrder.MasterAccessionNo, this.m_Writer);
-                YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = accessionOrder.TaskOrderCollection.GetTaskOrder(selectedTaskOrder.TaskOrderId);
+                YellowstonePathology.Business.Task.Model.TaskOrderView selectedTaskOrderView = (YellowstonePathology.Business.Task.Model.TaskOrderView)this.ListViewTaskOrders.SelectedItem;
+                YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(selectedTaskOrderView.TaskOrder.MasterAccessionNo, this.m_Writer);
+                YellowstonePathology.Business.Task.Model.TaskOrder taskOrder = accessionOrder.TaskOrderCollection.GetTaskOrder(selectedTaskOrderView.TaskOrder.TaskOrderId);
 
                 this.m_LoginPageWindow = new Login.Receiving.LoginPageWindow();
 
@@ -242,11 +242,11 @@ namespace YellowstonePathology.UI
         {
             if (this.ListViewTaskOrders.SelectedItems.Count != 0)
             {
-                foreach (YellowstonePathology.Business.Task.Model.TaskOrder taskOrder in this.ListViewTaskOrders.SelectedItems)
+                foreach (YellowstonePathology.Business.Task.Model.TaskOrderView taskOrderView in this.ListViewTaskOrders.SelectedItems)
                 {
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(taskOrder, this.m_Writer);
+                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.DeleteDocument(taskOrderView.TaskOrder, this.m_Writer);
                 }
-                this.m_TaskUI.GetTaskOrderCollection();
+                this.m_TaskUI.GetTaskOrderViewList();
             }
         }
     }
