@@ -1327,7 +1327,7 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.Business.Domain.OrderLogCollection results = new Domain.OrderLogCollection();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT pso.ReportNo, su.Initials, TestName, CASE ao.LabelPrefix " +
+            cmd.CommandText = "SELECT pso.ReportNo, su.Initials, su.LastName, TestName, CASE ao.LabelPrefix " +
                "WHEN 'FS' then concat('FS', ao.Label, ' - ', ifnull(so.Description, '')) " +
               "WHEN 'CB' then concat('CB', ao.Label, ' - ', ifnull(so.Description, '')) " +
               "ELSE concat(ifnull(ao.Label, ''), ' - ', ifnull(so.Description, '')) END as Description, po.OrderTime, " +
