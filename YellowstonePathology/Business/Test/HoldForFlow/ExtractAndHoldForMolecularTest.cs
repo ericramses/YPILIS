@@ -10,6 +10,7 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
     {
         public ExtractAndHoldForMolecularTest()
         {
+            this.m_PanelSetId = 360;
             this.m_PanelSetName = "Extract And Hold For Molecular";
             this.m_Abbreviation = "Extract And Hold For Molecular";
         }

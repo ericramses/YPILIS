@@ -11,6 +11,7 @@ namespace YellowstonePathology.Business.Test.HoldForFlow
         public CultureAndHoldForCytogeneticsTest()
         {
             {
+                this.m_PanelSetId = 361;
                 this.m_PanelSetName = "Culture And Hold For Cytogenetics";
                 this.m_Abbreviation = "Culture And Hold For Cytogenetics";
                 this.m_HasTechnicalComponent = true;                
