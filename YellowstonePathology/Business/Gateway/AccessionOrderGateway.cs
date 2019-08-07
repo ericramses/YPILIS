@@ -1335,7 +1335,7 @@ namespace YellowstonePathology.Business.Gateway
               "JOIN tblPanelSetOrder pso ON po.ReportNo = pso.ReportNo JOIN tblTestOrder ot on ot.PanelOrderId = po.PanelOrderId " +
               "JOIN tblAliquotOrder ao ON ot.AliquotOrderId = ao.AliquotOrderId " +
               "JOIN tblSpecimenOrder so ON ao.SpecimenOrderId = so.SpecimenOrderId LEFT OUTER JOIN tblStainResult sr ON  sr.TestOrderId = ot.TestOrderId " +
-              "WHERE po.OrderDate = @OrderDate AND po.PanelId in (19, 21, 66) and ot.TestId not in (49) ORDER BY 5 Asc, 1;";
+              "WHERE po.OrderDate = @OrderDate AND po.PanelId in (19, 21, 64, 66) and ot.TestId not in (49) ORDER BY 5 Asc, 1;";
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("@OrderDate", reportDate.ToString("yyyy-MM-dd"));
 
