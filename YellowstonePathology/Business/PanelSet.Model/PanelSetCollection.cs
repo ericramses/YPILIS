@@ -212,6 +212,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.Test.NeoTYPEMelanomaProfile.NeoTYPEMelanomaProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.TET2MutationAnalysis.TET2MutationAnalysisTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.WT1MutationAnalsysis.WT1MutationAnalsysisTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.PanTRK.PanTRKTest());
 
             //ARUP
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.PanelSetArupBraf());

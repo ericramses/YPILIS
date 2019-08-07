@@ -1220,6 +1220,7 @@
     <Compile Include="Business\Test\NUT\NUTTest.cs" />
     <Compile Include="Business\Test\p57\p57Test.cs" />
     <Compile Include="Business\Test\p63\p63Test.cs" />
+    <Compile Include="Business\Test\PanTRK\PanTRKTest.cs" />
     <Compile Include="Business\Test\ParvovirusB19ByPCR\ParvovirusB19ByPCRTest.cs" />
     <Compile Include="Business\Test\ParvovirusB19ByIHC\ParvovirusB19ByIHCTest.cs" />
     <Compile Include="Business\Test\PAX2\PAX2Test.cs" />
