@@ -569,6 +569,9 @@ namespace YellowstonePathology.UI.Billing
             streamWriter.Flush();
             streamWriter.Close();
 
+            this.m_EODProcessStatusCollection = YellowstonePathology.Business.Gateway.BillingGateway.GetBillingEODProcessStatusHistory();
+            this.NotifyPropertyChanged("EODProcessStatusCollection");
+
             MessageBox.Show("All done.");
         }
 
