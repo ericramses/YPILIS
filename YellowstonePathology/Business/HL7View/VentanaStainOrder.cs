@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Grpc.Core;
-using System.Text.RegularExpressions;
 
 namespace YellowstonePathology.Business.HL7View
 {
@@ -22,8 +21,8 @@ namespace YellowstonePathology.Business.HL7View
                 Business.Stain.Model.Stain stain = Business.Stain.Model.StainCollection.Instance.GetStainByTestId(slideOrder.TestId);
                 if (slideOrder.PerformedByHand == false || stain.PerformedByHand == false)
                 {
-                    //if (slideOrder.OrderSentToVentana == false)
-                    //{
+                    if (slideOrder.OrderSentToVentana == false)
+                    {
                         if (this.CanBuild(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId) == true)
                         {
                             string result = this.Build(accessionOrder, slideOrder.TestOrderId, slideOrder.SlideOrderId);
@@ -36,7 +35,7 @@ namespace YellowstonePathology.Business.HL7View
                             string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
                             System.IO.File.WriteAllText(@"\\10.1.2.31\ChannelData\Outgoing\Ventana\" + objectId + ".hl7", result);
                         }
-                    //}
+                    }
                 }
                 else
                 {
@@ -44,9 +43,9 @@ namespace YellowstonePathology.Business.HL7View
                     testOrder.TestStatus = "PERFORMEDBYHAND";
                     testOrder.TestStatusUpdateTime = DateTime.Now;
                 }
-                
+
                 Business.Label.Model.ZPLPrinterUSB zplPrinterUSB = new Business.Label.Model.ZPLPrinterUSB();
-                Business.Label.Model.HistologySlidePaperZPLLabelV1 zplCommand = new Label.Model.HistologySlidePaperZPLLabelV1(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.AccessioningFacility, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);                
+                Business.Label.Model.HistologySlidePaperZPLLabelV1 zplCommand = new Label.Model.HistologySlidePaperZPLLabelV1(slideOrder.SlideOrderId, slideOrder.ReportNo, slideOrder.PatientFirstName, slideOrder.PatientLastName, slideOrder.TestAbbreviation, slideOrder.Label, slideOrder.AccessioningFacility, slideOrder.UseWetProtocol, slideOrder.PerformedByHand);
                 zplPrinterUSB.Print(zplCommand);
 
                 slideOrder.Printed = true;
@@ -73,13 +72,13 @@ namespace YellowstonePathology.Business.HL7View
             Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
 
             Business.Stain.Model.Stain stain = Business.Stain.Model.StainCollection.Instance.GetStainByTestId(testOrder.TestId);
-            if(stain != null)
+            if (stain != null)
             {
                 result = true;
-                if(slideOrder.UseWetProtocol == true)
+                if (slideOrder.UseWetProtocol == true)
                 {
                     result = false;
-                    if(stain.HasWetProtocol == true || stain.UseWetProtocol == true)
+                    if (stain.HasWetProtocol == true || stain.UseWetProtocol == true)
                     {
                         result = true;
                     }
@@ -102,7 +101,7 @@ namespace YellowstonePathology.Business.HL7View
             Business.User.SystemUser orderedBy = Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(panelOrder.OrderedById);
 
             Business.Test.AliquotOrder aliquotOrder = accessionOrder.SpecimenOrderCollection.GetAliquotOrderByTestOrderId(testOrderId);
-            Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Get(testOrderId);            
+            Business.Test.Model.TestOrder testOrder = panelOrder.TestOrderCollection.Get(testOrderId);
 
             Business.Slide.Model.SlideOrder slideOrder = aliquotOrder.SlideOrderCollection.Get(slideOrderId);
             Business.Specimen.Model.SpecimenOrder specimenOrder = accessionOrder.SpecimenOrderCollection.GetSpecimenOrderByAliquotOrderId(aliquotOrder.AliquotOrderId);
@@ -110,9 +109,9 @@ namespace YellowstonePathology.Business.HL7View
             Business.Stain.Model.Stain stain = Business.Stain.Model.StainCollection.Instance.GetStainByTestId(testOrder.TestId);
             string ventanaBarcode = stain.VentanaBenchMarkId.ToString();
             string ventanaProtocolName = stain.VentanaBenchMarkProtocolName;
-            if(slideOrder.UseWetProtocol == true)
+            if (slideOrder.UseWetProtocol == true)
             {
-                if(stain.HasWetProtocol == true)
+                if (stain.HasWetProtocol == true)
                 {
                     ventanaBarcode = stain.VentanaBenchMarkWetId.ToString();
                     ventanaProtocolName = stain.VentanaBenchMarkWetProtocolName;
@@ -131,14 +130,15 @@ namespace YellowstonePathology.Business.HL7View
             orderRequest.Pid = new Ventana.pid();
             orderRequest.Pid.FirstName = accessionOrder.PFirstName;
             orderRequest.Pid.LastName = accessionOrder.PLastName;
-            orderRequest.Pid.MiddleInitial = string.IsNullOrEmpty(accessionOrder.PMiddleInitial) ? string.Empty: accessionOrder.PMiddleInitial;
+
+            orderRequest.Pid.MiddleInitial = string.IsNullOrEmpty(accessionOrder.PMiddleInitial) ? string.Empty : accessionOrder.PMiddleInitial;
             orderRequest.Pid.Birthdate = accessionOrder.PBirthdate.Value.ToString("yyyyMMdd");
             orderRequest.Pid.Sex = accessionOrder.PSex;
 
             orderRequest.Pv1 = new Ventana.pv1();
             orderRequest.Pv1.RequestingPhysicianFirstname = orderedBy.FirstName;
             orderRequest.Pv1.RequestingPhysicianLastname = orderedBy.LastName;
-            orderRequest.Pv1.RequestingPhysicianNpi = string.IsNullOrEmpty(orderedBy.NationalProviderId) ? "NOTAPPLICABLE": orderedBy.NationalProviderId;
+            orderRequest.Pv1.RequestingPhysicianNpi = string.IsNullOrEmpty(orderedBy.NationalProviderId) ? "NOTAPPLICABLE" : orderedBy.NationalProviderId;
 
             orderRequest.Sac = new Ventana.sac();
             orderRequest.Sac.RegistrationDateTime = accessionOrder.AccessionTime.Value.ToString("yyyyMMddHHmm");
@@ -151,7 +151,7 @@ namespace YellowstonePathology.Business.HL7View
             orc.SiteDescription = "Yellowstone Pathology";
             orc.FacilityCode = "YPI";
             orc.FacilityName = "Yellowstone Pathology";
-            stainOrder.Orc = orc;            
+            stainOrder.Orc = orc;
 
             Ventana.obr obr = new Ventana.obr();
             obr.OrderSequenceId = "1";
@@ -169,26 +169,16 @@ namespace YellowstonePathology.Business.HL7View
             {
                 obr.SpecimenName = "NONE";
             }
-            
+
             obr.SpecimenDescription = specimenOrder.Description;
             obr.SurgicalProcedureName = "Surgical Pathology";
             obr.PathologistNpi = string.IsNullOrEmpty(orderedBy.NationalProviderId) ? "NOTAPPLICABLE" : orderedBy.NationalProviderId;
             obr.PathologistLastname = orderedBy.LastName;
             obr.PathologistFirstname = orderedBy.FirstName;
-
-            OrderIdParser orderIdParser = new OrderIdParser(slideOrder.SlideOrderId);
-            string masterAccessionNo = orderIdParser.MasterAccessionNo;            
-
-            string label = slideOrder.Label;
-            if (label.Contains(".") == true)
-            {
-                label = label.Replace(".", "SL");
-            }
-
-            obr.SlideId = "HSLD" + masterAccessionNo + "." + label;
-            obr.SlideSequence = Business.Specimen.Model.Slide.GetSlideNumber(label);            
-            obr.Blockid = masterAccessionNo + "." + RemoveTrailingNumbers(label);
-            obr.BlockSequence = Business.Specimen.Model.Block.GetBlockLetter(label);            
+            obr.SlideId = "HSLD" + slideOrder.SlideOrderId;
+            obr.SlideSequence = Business.Specimen.Model.Slide.GetSlideNumber(slideOrder.Label);
+            obr.Blockid = aliquotOrder.AliquotOrderId;
+            obr.BlockSequence = Business.Specimen.Model.Block.GetBlockLetter(aliquotOrder.Label);
             obr.SpecimenId = specimenOrder.SpecimenOrderId;
             obr.SpecimenSequence = specimenOrder.SpecimenNumber.ToString();
             stainOrder.Obr = obr;
@@ -196,13 +186,6 @@ namespace YellowstonePathology.Business.HL7View
 
             Ventana.OrderReply orderReply = ventanaServiceClient.buildOrder(orderRequest);
             return orderReply.Message;
-        }
-
-        public string RemoveTrailingNumbers(string text)
-        {
-            var digits = new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };            
-            var result = text.TrimEnd(digits);
-            return result;
         }
     }
 }
