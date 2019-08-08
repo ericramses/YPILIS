@@ -35,7 +35,7 @@
 				<TextBlock Grid.Column="0" Grid.Row="0" Margin="5,5,5,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center" FontWeight="Bold">Correlation:</TextBlock>
 
 				<ListBox Name="ListBoxCorrelation" Grid.Column="0" Grid.Row="1" Margin="5,0,10,2" KeyboardNavigation.DirectionalNavigation="Cycle" BorderBrush="Transparent" HorizontalAlignment="Left"
-						 ItemsSource="{Binding ElementName=ImmediateExamCorrelationWindow, Path=DataContext.CorrelationTypes}" SelectionChanged="ListBoxCorrelation_SelectionChanged"
+						 ItemsSource="{Binding ElementName=ImmediateExamCorrelationWindow, Path=DataContext.CorrelationTypes}" 
 						 SelectedValue="{Binding Path=IntraoperativeConsultationResult.Correlation, Mode=TwoWay}" Background="Transparent" >
 					<ListBox.Resources>
 						<Style x:Key="{x:Type ListBoxItem}" TargetType="{x:Type ListBoxItem}" >
@@ -82,7 +82,7 @@
 
 				<ListBox Name="ListBoxPatientCare" Grid.Column="0" Grid.Row="1" Margin="5,0,10,2" KeyboardNavigation.DirectionalNavigation="Cycle" BorderBrush="Transparent" HorizontalAlignment="Left"
 						 ItemsSource="{Binding ElementName=ImmediateExamCorrelationWindow, Path=DataContext.PatientCareEffects}" Background="Transparent"
-						 SelectedValue="{Binding Path=IntraoperativeConsultation.CorrelationEffectOnPatientCare, Mode=TwoWay}" >
+						 SelectedValue="{Binding Path=IntraoperativeConsultationResult.CorrelationEffectOnPatientCare, Mode=TwoWay}" >
 					<ListBox.Resources>
 						<Style x:Key="{x:Type ListBoxItem}" TargetType="{x:Type ListBoxItem}" >
 							<Setter Property="Margin" Value="2,2,2,0"/>
@@ -114,7 +114,7 @@
 
 				<ListBox Name="ListBoxDiscrepancy" Grid.Column="0" Grid.Row="1" Margin="5,0,10,2" KeyboardNavigation.DirectionalNavigation="Cycle" BorderBrush="Transparent" HorizontalAlignment="Left"
 						 ItemsSource="{Binding ElementName=ImmediateExamCorrelationWindow, Path=DataContext.DescrepancyTypes}" Background="Transparent"
-						 SelectedValue="{Binding Path=IntraoperativeConsultation.CorrelationDiscrepancyType, Mode=TwoWay}" >
+						 SelectedValue="{Binding Path=IntraoperativeConsultationResult.CorrelationDiscrepancyType, Mode=TwoWay}" >
 					<ListBox.Resources>
 						<Style x:Key="{x:Type ListBoxItem}" TargetType="{x:Type ListBoxItem}" >
 							<Setter Property="Margin" Value="2,2,2,0"/>
