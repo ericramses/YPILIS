@@ -1141,8 +1141,10 @@
     <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryWPHOBXView.cs" />
     <Compile Include="Business\Test\HoldForFlow\CultureAndHoldForCytogeneticsTest.cs" />
     <Compile Include="Business\Test\HoldForFlow\DirectHarvestForFISHTest.cs" />
+    <Compile Include="Business\Test\HPV1618\HPV1618EPICBeakerObxView.cs" />
     <Compile Include="Business\Test\HPV1618\HPV1618WPHOBXView.cs" />
     <Compile Include="Business\Test\HPVRNAISH\HPVRNAISHTest.cs" />
+    <Compile Include="Business\Test\HPV\HPVEPICBeakerObxView.cs" />
     <Compile Include="Business\Test\INI1\INI1Test.cs" />
     <Compile Include="Business\Test\InvasiveBreastPanel\InvasiveBreastPanelEPICOBXView.cs" />
     <Compile Include="Business\Test\InvasiveBreastPanel\InvasiveBreastPanelWPHOBXView.cs" />
@@ -1215,6 +1217,7 @@
     <Compile Include="Business\Test\NeoTYPEMelanomaProfile\NeoTYPEMelanomaProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEMyeloidDisordersProfile\NeoTYPEMyeloidDisordersProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
+    <Compile Include="Business\Test\NGCT\NGCTEPICBeakerObxView.cs" />
     <Compile Include="Business\Test\NRASEXON4MutationAnalysis\NRASEXON4MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\NTRKNGSFusionProfile\NTRKNGSFusionProfileTest.cs" />
     <Compile Include="Business\Test\NUT\NUTTest.cs" />
@@ -1261,9 +1264,11 @@
     <Compile Include="Business\Test\ThrombocytopeniaProfile\ThrombocytopeniaProfileCMMCNTEView.cs" />
     <Compile Include="Business\Test\DNACellCycleAnalysis\DNACellCycleAnalysisTest.cs" />
     <Compile Include="Business\Test\TP53MutationAnalysis\TP53MutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\Trichomonas\TrichomonasEPICBeakerObxView.cs" />
     <Compile Include="Business\Test\Trichomonas\TrichomonasWPHOBXView.cs" />
     <Compile Include="Business\Test\VaricellaZosterVirus\VaricellaZosterVirusTest.cs" />
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
+    <Compile Include="Business\Test\WomensHealthProfile\WomensHealthProfileEPICBeakerObxView.cs" />
     <Compile Include="Business\Test\WT1MutationAnalsysis\WT1MutationAnalsysisTest.cs" />
     <Compile Include="Business\User\SystemRoleView.cs" />
     <Compile Include="Business\User\SystemRoleViewCollection.cs" />
