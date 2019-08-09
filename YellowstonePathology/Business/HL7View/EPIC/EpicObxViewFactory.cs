@@ -16,8 +16,15 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.JAK2V617F.JAK2V617FEPICObxView(accessionOrder, reportNo, obxCount);
                     break;                
                 case 3:
-                    view = new YellowstonePathology.Business.Test.NGCT.NGCTEPICObxView(accessionOrder, reportNo, obxCount);
-					break;
+                    if (beakerTesting)
+                    {
+                        view = new YellowstonePathology.Business.Test.NGCT.NGCTEPICBeakerObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    else
+                    {
+                        view = new YellowstonePathology.Business.Test.NGCT.NGCTEPICObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    break;
 				case 46:
 					view = new YellowstonePathology.Business.Test.HER2AmplificationByISH.HER2AmplificationByISHEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
@@ -33,7 +40,14 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     }					
                     break;
                 case 14:
-					view = new YellowstonePathology.Business.Test.HPV.HPVEPICObxView(accessionOrder, reportNo, obxCount);
+                    if (beakerTesting)
+                    {
+                        view = new YellowstonePathology.Business.Test.HPV.HPVEPICBeakerObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    else
+                    {
+                        view = new YellowstonePathology.Business.Test.HPV.HPVEPICObxView(accessionOrder, reportNo, obxCount);
+                    }
                     break;
                 case 15:
                     if (beakerTesting)
@@ -82,10 +96,25 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.EGFRMutationAnalysis.EGFRMutationAnalysisEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
                 case 61:
-					view = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasEPICObxView(accessionOrder, reportNo, obxCount);
+                    if (beakerTesting)
+                    {
+                        view = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasEPICBeakerObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    else
+                    {
+                        view = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasEPICObxView(accessionOrder, reportNo, obxCount);
+                    }
                     break;
                 case 62:
-					view = new YellowstonePathology.Business.Test.HPV1618.HPV1618EPICObxView(accessionOrder, reportNo, obxCount);
+                    if (beakerTesting)
+                    {
+                        view = new YellowstonePathology.Business.Test.HPV1618.HPV1618EPICBeakerObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    else
+                    {
+                        view = new YellowstonePathology.Business.Test.HPV1618.HPV1618EPICObxView(accessionOrder, reportNo, obxCount);
+                    }
+
                     break;
                 case 211:
                     view = new YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowEPICOBXView(accessionOrder, reportNo, obxCount);
@@ -112,7 +141,14 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.ComprehensiveColonCancerProfile.ComprehensiveColonCancerProfileEPICObxView(accessionOrder, reportNo, obxCount);
 					break;
                 case 116:
-					view = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileEPICObxView(accessionOrder, reportNo, obxCount);
+                    if (beakerTesting)
+                    {
+                        view = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileEPICBeakerObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    else
+                    {
+                        view = new YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileEPICObxView(accessionOrder, reportNo, obxCount);
+                    }
                     break;
 				case 124:
 					view = new YellowstonePathology.Business.Test.EGFRToALKReflexAnalysis.EGFRToALKReflexAnalysisEPICOBXView(accessionOrder, reportNo, obxCount);
