@@ -33,7 +33,14 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                     }					
                     break;
                 case 14:
-					view = new YellowstonePathology.Business.Test.HPV.HPVEPICObxView(accessionOrder, reportNo, obxCount);
+                    if (beakerTesting)
+                    {
+                        view = new YellowstonePathology.Business.Test.HPV.HPVEPICBeakerObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    else
+                    {
+                        view = new YellowstonePathology.Business.Test.HPV.HPVEPICObxView(accessionOrder, reportNo, obxCount);
+                    }
                     break;
                 case 15:
                     if (beakerTesting)
@@ -85,7 +92,15 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.Trichomonas.TrichomonasEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
                 case 62:
-					view = new YellowstonePathology.Business.Test.HPV1618.HPV1618EPICObxView(accessionOrder, reportNo, obxCount);
+                    if (beakerTesting)
+                    {
+                        view = new YellowstonePathology.Business.Test.HPV1618.HPV1618EPICBeakerObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    else
+                    {
+                        view = new YellowstonePathology.Business.Test.HPV1618.HPV1618EPICObxView(accessionOrder, reportNo, obxCount);
+                    }
+
                     break;
                 case 211:
                     view = new YellowstonePathology.Business.Test.HoldForFlow.HoldForFlowEPICOBXView(accessionOrder, reportNo, obxCount);
