@@ -36,7 +36,14 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.HPV.HPVEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
                 case 15:
-					view = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapEPICObxView(accessionOrder, reportNo, obxCount);
+                    if (beakerTesting)
+                    {
+                        view = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapEPICBeakerObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    else
+                    {
+                        view = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapEPICObxView(accessionOrder, reportNo, obxCount);
+                    }
                     break;
                 case 18:
 					view = new YellowstonePathology.Business.Test.BRAFV600EK.BRAFV600EKEPICObxView(accessionOrder, reportNo, obxCount);
