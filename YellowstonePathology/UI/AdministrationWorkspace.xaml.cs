@@ -1755,6 +1755,13 @@ namespace YellowstonePathology.UI
                 }
             }
             MessageBox.Show("Done" + Environment.NewLine + message);*/
+
+            /*YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSets = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+            foreach (YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet in panelSets)
+            {
+                panelSet.Save();
+            }
+            MessageBox.Show("Done");*/
         }
     }
 }

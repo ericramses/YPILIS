@@ -1252,6 +1252,7 @@
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileWPHOBXView.cs" />
     <Compile Include="Business\Test\TET2MutationAnalysis\TET2MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\TFE3\TFE3Test.cs" />
+    <Compile Include="Business\Test\ThinPrepPap\ThinPrepPapEPICBeakerObxView.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2CMMCNTEView.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2EPICObxView.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2WordDocument.cs" />
