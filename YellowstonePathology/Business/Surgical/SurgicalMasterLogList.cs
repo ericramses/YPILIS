@@ -49,6 +49,7 @@ namespace YellowstonePathology.Business.Surgical
 		private string m_PhysicianName;
 		private string m_ClientName;
 		private int m_AliquotCount;
+        private string m_ClientAccessionNo;
 
 		public SurgicalMasterLogItem()
 		{
@@ -116,7 +117,14 @@ namespace YellowstonePathology.Business.Surgical
             get { return this.m_AliquotCount; }
             set { this.m_AliquotCount = value; }
 		}
-	}
+
+        [PersistentProperty()]
+        public string ClientAccessionNo
+        {
+            get { return this.m_ClientAccessionNo; }
+            set { this.m_ClientAccessionNo = value; }
+        }
+    }
 
 	public class MasterLogList : ObservableCollection<MasterLogItem>
 	{

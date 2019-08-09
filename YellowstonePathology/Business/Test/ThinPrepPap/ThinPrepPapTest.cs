@@ -27,6 +27,8 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             this.m_AttemptOrderTargetLookup = true;
             this.m_RequiresAssignment = false;
 
+            this.m_MonitorPriority = PanelSet.Model.PanelSet.MonitorPriorityNormal;
+
             this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
             this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
             this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WPH);

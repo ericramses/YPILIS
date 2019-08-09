@@ -36,15 +36,14 @@ namespace YellowstonePathology.Business.Reports.Surgical
 
         private void BuildReport(DateTime reportDate, Business.Surgical.SurgicalMasterLogList surgicalMasterLogList, string reportTitle)
         {
-			this.m_ReportTemplate = @"\\CFileServer\documents\Reports\Templates\SurgicalMasterLog.5.xml";
+			this.m_ReportTemplate = @"\\CFileServer\documents\Reports\Templates\SurgicalMasterLog.6.xml";
 
 			this.m_ReportXml = new XmlDocument();
 			this.m_ReportXml.Load(this.m_ReportTemplate);
 
 			this.m_NameSpaceManager = new XmlNamespaceManager(this.m_ReportXml.NameTable);
 			this.m_NameSpaceManager.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
-			this.m_NameSpaceManager.AddNamespace("wx", "http://schemas.microsoft.com/office/word/2003/auxHint");
-			//this.m_ReportSaveFileName = @"\\CFileServer\documents\Reports\Surgical\MasterLog\YEAR\MONTH\SurgicalMasterLog.FILEDATE.v1.xml";
+			this.m_NameSpaceManager.AddNamespace("wx", "http://schemas.microsoft.com/office/word/2003/auxHint");			
 
 			this.ReportBaseXml = new XmlDocument();
 			this.ReportBaseXml.Load(ReportBaseFileName);
@@ -52,8 +51,7 @@ namespace YellowstonePathology.Business.Reports.Surgical
 			this.NameSpaceManagerBase = new XmlNamespaceManager(ReportBaseXml.NameTable);
 			this.NameSpaceManagerBase.AddNamespace("w", "http://schemas.microsoft.com/office/word/2003/wordml");
 			this.NameSpaceManagerBase.AddNamespace("wx", "http://schemas.microsoft.com/office/word/2003/auxHint");
-
-			//string reportTitle = "Surgical Master Log - " + reportDate.ToLongDateString();            
+			
 			this.m_ReportXml.SelectSingleNode("//w:r[w:t='report_title_first_page']/w:t", this.NameSpaceManagerBase).InnerText = reportTitle;			
 
 			XmlNode nodeTable = this.FindXmlTableInDetail("accession_no");
@@ -88,7 +86,8 @@ namespace YellowstonePathology.Business.Reports.Surgical
 
 						XmlNode nodeNewR1 = nodeTemplateR1.Clone();
 						this.ReplaceTextInRowNode(nodeNewR1, "accession_no", reportNo);
-						this.ReplaceTextInRowNode(nodeNewR1, "patient_name", patientName);
+                        this.ReplaceTextInRowNode(nodeNewR1, "client_accession", surgicalMasterLogItem.ClientAccessionNo);
+                        this.ReplaceTextInRowNode(nodeNewR1, "patient_name", patientName);
 						this.ReplaceTextInRowNode(nodeNewR1, "physician_client", physicianClient);
 						this.ReplaceTextInRowNode(nodeNewR1, "alq_cnt", aliquotCount);
 

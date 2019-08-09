@@ -27,6 +27,8 @@ namespace YellowstonePathology.Business.Test.ReviewForAdditionalTesting
             this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.ReviewForAdditionalTesting.ReviewForAdditionalTestingWordDocument).AssemblyQualifiedName;
 			this.m_AllowMultiplePerAccession = true;
 
+            this.m_MonitorPriority = PanelSet.Model.PanelSet.MonitorPriorityNormal;
+
             this.m_ImplementedResultTypes.Add(Business.Test.ResultType.WORD);
             this.m_ImplementedResultTypes.Add(Business.Test.ResultType.EPIC);
 

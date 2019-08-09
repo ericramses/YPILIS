@@ -1225,11 +1225,12 @@ namespace YellowstonePathology.Business.Gateway
             "PBirthdate datetime, " +
             "PhysicianName varchar(100), " +
             "ClientName varchar(100), " +
-            "AliquotCount int " +
+            "ClientAccessionNo varchar(100), " +
+            "AliquotCount int " +            
             ") " +
             "as " +
             "SELECT Distinct a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName, " +
-            "a.PBirthdate, a.PhysicianName, a.ClientName, Count(*) AliquotCount " +
+            "a.PBirthdate, a.PhysicianName, a.ClientName, a.ClientAccessionNo, Count(*) AliquotCount " +
             "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
             "JOIN tblSpecimenOrder so on a.MasterAccessionNo = so.MasterAccessionNo " +
             "LEFT OUTER JOIN tblAliquotOrder ao on so.SpecimenOrderId = ao.SpecimenOrderId " +
@@ -1263,10 +1264,11 @@ namespace YellowstonePathology.Business.Gateway
             "PhysicianName varchar(100), " +
             "ClientName varchar(100), " +
             "AliquotCount int " +
+            "ClientAccessionNo varchar(100), " +
             ") " +
             "as " +
             "SELECT Distinct a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName,  " +
-            "a.PBirthdate, a.PhysicianName, a.ClientName, Count(*) AliquotCount " +
+            "a.PBirthdate, a.PhysicianName, a.ClientName, a.ClientAccessionNo, Count(*) AliquotCount " +
             "FROM tblAccessionOrder a JOIN tblPanelSetOrder pso ON a.MasterAccessionNo = pso.MasterAccessionNo " +
             "JOIN tblSpecimenOrder so on a.MasterAccessionNo = so.MasterAccessionNo " +
             "LEFT OUTER JOIN tblAliquotOrder ao on so.SpecimenOrderId = ao.SpecimenOrderId " +

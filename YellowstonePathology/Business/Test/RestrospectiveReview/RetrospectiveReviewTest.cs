@@ -29,6 +29,8 @@ namespace YellowstonePathology.Business.Test.RetrospectiveReview
             this.m_NeverDistribute = true;
             this.m_IsBillable = false;
 
+            this.m_MonitorPriority = PanelSet.Model.PanelSet.MonitorPriorityNormal;
+
             this.m_TechnicalComponentFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
             this.m_TechnicalComponentBillingFacility = YellowstonePathology.Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId("YPIBLGS");
 
