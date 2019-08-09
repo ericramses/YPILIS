@@ -908,5 +908,21 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 }
             }            
         }
+
+        private void MenuItemSendVentanaOrder_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = (MenuItem)sender;
+            XElement xElement = XElement.Parse(menuItem.Tag.ToString());
+
+            string slideOrderId = xElement.Element("SlideOrderId").Value;           
+            Business.OrderIdParser orderIdParser = new Business.OrderIdParser(slideOrderId);
+
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(orderIdParser.MasterAccessionNo);
+            Business.Slide.Model.SlideOrder slideOrder = ao.SpecimenOrderCollection.GetSlideOrder(slideOrderId);
+            Business.HL7View.VentanaStainOrder vo = new Business.HL7View.VentanaStainOrder();
+            vo.HandleOrder(ao, slideOrder);
+
+            MessageBox.Show("The order has been sent.");
+        }
     }
 }
