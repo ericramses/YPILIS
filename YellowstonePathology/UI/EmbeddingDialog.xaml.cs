@@ -339,7 +339,13 @@ namespace YellowstonePathology.UI
                 if (embeddingScan.Updated == false)
                 {
                     YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(embeddingScan.AliquotOrderId, this);
-                    aliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);                    
+                    aliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
+                    
+                    YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+                    string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HostName;
+
+                    this.AddMaterialTrackingLog(aliquotOrder, thisFacility, thisLocation);
+                    aliquotOrder.SetLocation(thisFacility, thisLocation);
 
                     Business.ParseSpecimenOrderIdResult parseSpecimenOrderIdResult = aliquotOrder.ParseSpecimenOrderIdFromBlock();
                     if (parseSpecimenOrderIdResult.ParsedSuccessfully == true)
@@ -364,6 +370,19 @@ namespace YellowstonePathology.UI
                     this.m_EmbeddingScanCollection.UpdateStatus(embeddingScan);
                 }
             }            
+        }
+
+        private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Facility.Model.Facility thisFacility, string thisLocation)
+        {
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Input, new System.Threading.ThreadStart(delegate ()
+            {
+                string objectId = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+                Business.OrderIdParser orderIdParse = new Business.OrderIdParser(aliquotOrder.AliquotOrderId);
+
+                YellowstonePathology.Business.MaterialTracking.Model.MaterialTrackingLog materialTrackingLog = new Business.MaterialTracking.Model.MaterialTrackingLog(objectId, aliquotOrder.AliquotOrderId, null, thisFacility.FacilityId, thisFacility.FacilityName,
+                    thisLocation, "Block Scanned", "Block Scanned At Embeding", "Block", orderIdParse.MasterAccessionNo, aliquotOrder.Label, aliquotOrder.ClientAccessioned, null);
+                YellowstonePathology.Business.Persistence.DocumentGateway.Instance.InsertDocument(materialTrackingLog, Window.GetWindow(this));
+            }));            
         }
 
         private void ComboBoxProcessorRun_SelectionChanged(object sender, SelectionChangedEventArgs e)
