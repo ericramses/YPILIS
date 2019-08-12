@@ -113,5 +113,26 @@ namespace YellowstonePathology.Business.Domain
 			}
 			return result;
 		}
+
+        public List<string> GetPriorHPVResult(string masterAccessionNo, DateTime cutoffDate)
+        {
+            List<string> result = new List<string>(); ;
+
+            foreach (YellowstonePathology.Business.Domain.PatientHistoryResult patientHistoryResult in this)
+            {
+                if (patientHistoryResult.MasterAccessionNo != masterAccessionNo)
+                {
+                    if (DateTime.Compare(patientHistoryResult.AccessionDate, cutoffDate) >= 0)
+                    {
+                        if (patientHistoryResult.PanelSetId == 15)
+                        {
+                            result.Add(Business.Gateway.AccessionOrderGateway.GetCytologyResultCode(patientHistoryResult.ReportNo));
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
