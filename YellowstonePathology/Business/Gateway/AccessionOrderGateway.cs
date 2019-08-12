@@ -3519,5 +3519,29 @@ namespace YellowstonePathology.Business.Gateway
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public static  string GetCytologyResultCode(string reportNo)
+        {
+            string result = string.Empty;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select ResultCode from tblPanelSetOrder where ReportNo = @ReportNo;";
+            cmd.Parameters.AddWithValue("@ReportNo", reportNo);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = dr[0].ToString();
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }
