@@ -52,7 +52,11 @@ namespace YellowstonePathology.Business.Test.Model
             if (wetIron.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper()) tests.Add(wetIron);
             foreach (Test test in TestCollectionInstance.Instance)
             {
-                if (test.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper()) tests.Add(TestCollectionInstance.GetClone(test.TestId));
+                if (test.TestName.ToUpper().Substring(0, 1) == firstLetter.ToUpper())
+                {
+                    if(test.TestId != "177") // CD99
+                    tests.Add(TestCollectionInstance.GetClone(test.TestId));
+                }
             }
 
             tests.Sort(Test.CompareByTestName);

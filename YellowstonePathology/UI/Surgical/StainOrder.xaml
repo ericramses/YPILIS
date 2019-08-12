@@ -692,9 +692,6 @@
                     <CheckBox Name="StainOrder416" Tag="cd68" Grid.Column="0" Grid.Row="16" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="16" Margin="2,2,2,2">CD68</TextBlock>
 
-                    <CheckBox Name="StainOrder417" Tag="cd99" Grid.Column="0" Grid.Row="17" Margin="2,2,2,2"></CheckBox>
-                    <TextBlock Grid.Column="1" Grid.Row="17" Margin="2,2,2,2">CD99</TextBlock>
-
                     <CheckBox Name="StainOrder418" Tag="cd117" Grid.Column="0" Grid.Row="18" Margin="2,2,2,2"></CheckBox>
                     <TextBlock Grid.Column="1" Grid.Row="18" Margin="2,2,2,2">CD117</TextBlock>
 
