@@ -116,7 +116,7 @@ namespace YellowstonePathology.Business.Domain
 
         public List<string> GetPriorHPVResult(string masterAccessionNo, DateTime cutoffDate)
         {
-            List<string> result = new List<string>(); ;
+            List<string> result = new List<string>();
 
             foreach (YellowstonePathology.Business.Domain.PatientHistoryResult patientHistoryResult in this)
             {
@@ -124,7 +124,7 @@ namespace YellowstonePathology.Business.Domain
                 {
                     if (DateTime.Compare(patientHistoryResult.AccessionDate, cutoffDate) >= 0)
                     {
-                        if (patientHistoryResult.PanelSetId == 15)
+                        if (patientHistoryResult.PanelSetId == 14)
                         {
                             result.Add(Business.Gateway.AccessionOrderGateway.GetCytologyResultCode(patientHistoryResult.ReportNo));
                         }
