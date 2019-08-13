@@ -33,11 +33,13 @@ namespace YellowstonePathology.Business.Client.Model
                         {
                             if (dateOfLastHPV >= DateTime.Today.AddDays(-330))
                             {
+                                result = true;
                                 List<string> priorResults = patientHistory.GetPriorHPVResult(accessionOrder.MasterAccessionNo, DateTime.Today.AddDays(-330));
                                 foreach (string hpvResult in priorResults)
                                 {
                                     if (hpvResult == YellowstonePathology.Business.Test.HPV.HPVResult.OveralResultCodePositive)
                                     {
+                                        result = false;
                                         break;
                                     }
                                 }
