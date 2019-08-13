@@ -12,7 +12,7 @@ namespace YellowstonePathology.Business.Client.Model
         {
             this.m_RuleNumber = 17;
             this.m_ReflexOrderCode = "RFLXHPVRL17";
-            this.m_Description = "Perform reflex HPV testing on patients who have a PAP result of ASCUS or LSIL and have no positive PAP result in the last year.";
+            this.m_Description = "Perform reflex HPV testing on patients who have a PAP result of ASCUS or LSIL and have no positive HPV result in the last year.";
             this.m_PanelSet = new YellowstonePathology.Business.Test.HPV.HPVTest();
         }
 
