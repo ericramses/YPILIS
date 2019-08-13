@@ -66,7 +66,7 @@ namespace YellowstonePathology.Business.Label.Model
             result.Append("^PR2");
             result.Append("^PW420");
             result.Append("^FWB");
-            result.Append("^A0,35,35^FO0,0^FB335,1,,^FD" + this.m_ReportNo + "^FS");
+            result.Append("^A0,35,35^FO0,0^FB335,1,,^FD" + this.m_ReportNo + "^FS");            
             result.Append("^FO46,248^BXI,03,200,24,24^FD" + "HSLD" + this.m_SlideOrderId + "^FS");                        
             result.Append("^A0,35,35^FO43,3^FB235,1,,^FD" + this.m_SlideLabel + "^FS");
             result.Append("^A0,35,35^FO75,3^FB235,1,,^FD" + truncatedTestName + "^FS");

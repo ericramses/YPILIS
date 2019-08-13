@@ -789,8 +789,8 @@ namespace YellowstonePathology.Business
 					break;
 				case YellowstonePathology.Business.Test.AliquotType.Slide:
                 case YellowstonePathology.Business.Test.AliquotType.FNA:
-				case YellowstonePathology.Business.Test.AliquotType.Specimen:
-                case YellowstonePathology.Business.Test.AliquotType.Wash:
+                case YellowstonePathology.Business.Test.AliquotType.Wash:                    
+                case YellowstonePathology.Business.Test.AliquotType.Specimen:                
                     id = "." + GetNextAliquotAlqNo(aliquotOrderCollection);
 					break;
 			}

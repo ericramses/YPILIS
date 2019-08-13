@@ -36,9 +36,8 @@ namespace YellowstonePathology.Business
             int count = 1;
             var keyFile = new PrivateKeyFile(SSH_KEY_PATH);
             if (File.Exists(SSH_KEY_PATH) == false)
-            {
-                this.SendStatusMessage("SSH Key File Not Found.", count);
-                return;
+            {                
+                throw new Exception("SSH Key File Not Found.");
             }
 
             var keyFiles = new [] { keyFile };

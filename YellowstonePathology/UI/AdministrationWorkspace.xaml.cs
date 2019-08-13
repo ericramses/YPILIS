@@ -994,62 +994,14 @@ namespace YellowstonePathology.UI
 
         private void ButtonRunMethod_Click(object sender, RoutedEventArgs e)
         {
-            var secondaryScreen = System.Windows.Forms.Screen.AllScreens
-                .Where(s => s.Primary == true)
-                .Single();
-            MessageBox.Show(secondaryScreen.DeviceName);
+            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("16-29808");
+            Business.Slide.Model.SlideOrder slideOrder = ao.SpecimenOrderCollection.GetSlideOrder("16-29808.2A2");            
+            Business.HL7View.VentanaStainOrder vo = new Business.HL7View.VentanaStainOrder();
+            vo.HandleOrder(ao, slideOrder);
 
-            /*
-            Billing.HRHCDMList lst = new Billing.HRHCDMList();
-            foreach(string cdm in lst)
-            {
-                Business.Billing.Model.CptCode cptCode = Store.AppDataStore.Instance.CPTCodeCollection.GetCPTCodeByCDM(cdm);
-                Console.WriteLine(cdm + ":" + cptCode.Code);
-                if (cptCode == null)
-                    MessageBox.Show("CDM not found");
-            }
-            MessageBox.Show("All CDM's exist");
-            */
-
-            //this.WriteCDM();
-
-            /*            
-            Business.Stain.Model.StainCollection stainCollection = Business.Stain.Model.StainCollection.Instance;
-            StringBuilder result = new StringBuilder();
-            foreach (Business.Stain.Model.Stain stain in stainCollection)
-            {
-                //BenchMark Special Stains
-                //BenchMark ULTRA                
-                if (stain.StainerType == "BenchMark ULTRA")
-                {
-                    result.Append("'" + stain.TestId + "', ");                    
-                }                
-            }
-            Console.WriteLine(result.ToString());
-            */
-
-
-            for (int i=1; i<7; i++)
-            {
-                Business.BarcodeScanning.SlideStorage slideStorageBarcode = new Business.BarcodeScanning.SlideStorage("Main Slide Storage", "mnsldstrg", "1", i.ToString(), "YPIBLGS", "2015", "3500", "4500");
-                Business.Label.Model.StorageSlideLabel slideStorageLabel = new Business.Label.Model.StorageSlideLabel(slideStorageBarcode);
-                StringBuilder zplCmds = new StringBuilder();
-                zplCmds.Append("^XA");
-                slideStorageLabel.AppendCommands(zplCmds, 0, 0);
-                zplCmds.Append("^XZ");
-                Business.Label.Model.RawPrinterHelper.SendStringToPrinter("ZDesigner GX430t", zplCmds.ToString());
-            }             
-
-            //Business.Label.Model.StorageSlideLabel storageSlideLabel = new Business.Label.Model.StorageSlideLabel()
-            /*
-            Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-10046");
-            // Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill = ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection[0];
-            foreach(Business.Test.PanelSetOrderCPTCodeBill panelSetOrderCPTCodeBill in ao.PanelSetOrderCollection[0].PanelSetOrderCPTCodeBillCollection)
-            {
-                Business.HL7View.EPIC.EPICFT1ResultView epicFT1ResultView = new Business.HL7View.EPIC.EPICFT1ResultView(ao, panelSetOrderCPTCodeBill);
-                epicFT1ResultView.Publish("c:\\temp");
-            }
-            */
+            //Business.Test.AccessionOrder ao = Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo("19-19978");
+            //Business.HL7View.EPIC.EPICBeakerResultView result = new Business.HL7View.EPIC.EPICBeakerResultView("19-19978.S", ao, true);
+            //result.Send(new Business.Rules.MethodResult());
         }
 
         private void InsertADT()
@@ -1803,6 +1755,13 @@ namespace YellowstonePathology.UI
                 }
             }
             MessageBox.Show("Done" + Environment.NewLine + message);*/
+
+            /*YellowstonePathology.Business.PanelSet.Model.PanelSetCollection panelSets = YellowstonePathology.Business.PanelSet.Model.PanelSetCollection.GetAll();
+            foreach (YellowstonePathology.Business.PanelSet.Model.PanelSet panelSet in panelSets)
+            {
+                panelSet.Save();
+            }
+            MessageBox.Show("Done");*/
         }
     }
 }

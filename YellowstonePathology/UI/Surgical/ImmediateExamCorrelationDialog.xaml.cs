@@ -50,7 +50,7 @@ namespace YellowstonePathology.UI.Surgical
 			DataContext = this;
 		}
 
-		public YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult IntraoperativeConsultationResult
+        public YellowstonePathology.Business.Test.Surgical.IntraoperativeConsultationResult IntraoperativeConsultationResult
 		{
 			get { return this.m_IntraoperativeConsultationResult; }
 		}
@@ -73,15 +73,6 @@ namespace YellowstonePathology.UI.Surgical
 		private void ButtonOk_Click(object sender, RoutedEventArgs e)
 		{
 			Close();
-		}
-
-		private void ListBoxCorrelation_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (this.ListBoxCorrelation.SelectedItem != null && this.ListBoxCorrelation.SelectedItem.ToString() != "Disagree")
-			{
-				this.m_IntraoperativeConsultationResult.CorrelationEffectOnPatientCare = string.Empty;
-				this.m_IntraoperativeConsultationResult.CorrelationDiscrepancyType = string.Empty;
-			}
 		}
 	}
 }

@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>118</ApplicationRevision>
+    <ApplicationRevision>144</ApplicationRevision>
     <ApplicationVersion>10.1.15.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -329,6 +329,7 @@
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule7.cs" />
     <Compile Include="Business\Client.Model\HPVCompoundStandingOrderRule6.cs" />
     <Compile Include="Business\Client.Model\HPVReflexOrderRule141.cs" />
+    <Compile Include="Business\Client.Model\HPVReflexOrderRule17.cs" />
     <Compile Include="Business\Client.Model\HPVReflexOrderRule51.cs" />
     <Compile Include="Business\Client.Model\HPVRule.cs" />
     <Compile Include="Business\Client.Model\HPVRuleAge1.cs" />
@@ -1093,6 +1094,8 @@
     <Compile Include="Business\Billing.Model\SVHClinicMailMessage.cs" />
     <Compile Include="Business\Surgical\AssignmentScan.cs" />
     <Compile Include="Business\Surgical\AssignmentScanCollection.cs" />
+    <Compile Include="Business\Task.Model\TaskOrderView.cs" />
+    <Compile Include="Business\Task.Model\TaskOrderViewList.cs" />
     <Compile Include="Business\Test.Model\TestCollectionInstance.cs" />
     <Compile Include="Business\Test.Model\TestFactory.cs" />
     <Compile Include="Business\Test.Model\TestOrderStatusView.cs" />
@@ -1139,8 +1142,10 @@
     <Compile Include="Business\Test\HER2AnalysisSummary\HER2AnalysisSummaryWPHOBXView.cs" />
     <Compile Include="Business\Test\HoldForFlow\CultureAndHoldForCytogeneticsTest.cs" />
     <Compile Include="Business\Test\HoldForFlow\DirectHarvestForFISHTest.cs" />
+    <Compile Include="Business\Test\HPV1618\HPV1618EPICBeakerObxView.cs" />
     <Compile Include="Business\Test\HPV1618\HPV1618WPHOBXView.cs" />
     <Compile Include="Business\Test\HPVRNAISH\HPVRNAISHTest.cs" />
+    <Compile Include="Business\Test\HPV\HPVEPICBeakerObxView.cs" />
     <Compile Include="Business\Test\INI1\INI1Test.cs" />
     <Compile Include="Business\Test\InvasiveBreastPanel\InvasiveBreastPanelEPICOBXView.cs" />
     <Compile Include="Business\Test\InvasiveBreastPanel\InvasiveBreastPanelWPHOBXView.cs" />
@@ -1213,11 +1218,13 @@
     <Compile Include="Business\Test\NeoTYPEMelanomaProfile\NeoTYPEMelanomaProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEMyeloidDisordersProfile\NeoTYPEMyeloidDisordersProfileTest.cs" />
     <Compile Include="Business\Test\NeoTYPEOvarianTumorProfile\NeoTYPEOvarianTumorProfileTest.cs" />
+    <Compile Include="Business\Test\NGCT\NGCTEPICBeakerObxView.cs" />
     <Compile Include="Business\Test\NRASEXON4MutationAnalysis\NRASEXON4MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\NTRKNGSFusionProfile\NTRKNGSFusionProfileTest.cs" />
     <Compile Include="Business\Test\NUT\NUTTest.cs" />
     <Compile Include="Business\Test\p57\p57Test.cs" />
     <Compile Include="Business\Test\p63\p63Test.cs" />
+    <Compile Include="Business\Test\PanTRK\PanTRKTest.cs" />
     <Compile Include="Business\Test\ParvovirusB19ByPCR\ParvovirusB19ByPCRTest.cs" />
     <Compile Include="Business\Test\ParvovirusB19ByIHC\ParvovirusB19ByIHCTest.cs" />
     <Compile Include="Business\Test\PAX2\PAX2Test.cs" />
@@ -1249,6 +1256,7 @@
     <Compile Include="Business\Test\TCellNKProfile\TCellNKProfileWPHOBXView.cs" />
     <Compile Include="Business\Test\TET2MutationAnalysis\TET2MutationAnalysisTest.cs" />
     <Compile Include="Business\Test\TFE3\TFE3Test.cs" />
+    <Compile Include="Business\Test\ThinPrepPap\ThinPrepPapEPICBeakerObxView.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2CMMCNTEView.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2EPICObxView.cs" />
     <Compile Include="Business\Test\ThrombocytopeniaProfileV2\ThrombocytopeniaProfileV2WordDocument.cs" />
@@ -1257,9 +1265,11 @@
     <Compile Include="Business\Test\ThrombocytopeniaProfile\ThrombocytopeniaProfileCMMCNTEView.cs" />
     <Compile Include="Business\Test\DNACellCycleAnalysis\DNACellCycleAnalysisTest.cs" />
     <Compile Include="Business\Test\TP53MutationAnalysis\TP53MutationAnalysisTest.cs" />
+    <Compile Include="Business\Test\Trichomonas\TrichomonasEPICBeakerObxView.cs" />
     <Compile Include="Business\Test\Trichomonas\TrichomonasWPHOBXView.cs" />
     <Compile Include="Business\Test\VaricellaZosterVirus\VaricellaZosterVirusTest.cs" />
     <Compile Include="Business\Test\WholeExomeSequencing\WholeExomeSequencingTest.cs" />
+    <Compile Include="Business\Test\WomensHealthProfile\WomensHealthProfileEPICBeakerObxView.cs" />
     <Compile Include="Business\Test\WT1MutationAnalsysis\WT1MutationAnalsysisTest.cs" />
     <Compile Include="Business\User\SystemRoleView.cs" />
     <Compile Include="Business\User\SystemRoleViewCollection.cs" />

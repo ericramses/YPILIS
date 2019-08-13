@@ -134,13 +134,13 @@
 					<TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.PhysicianName}"></TextBlock>
 
 					<TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Patient Age:</TextBlock>
-					<TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.PatientAccessionAge, StringFormat=MM/dd/yyyy}" IsEnabled="False"></TextBlock>
+					<TextBlock Name="TextBlockPatientAge" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="2,2,2,2" Text="{Binding Path=AccessionOrder.PatientAccessionAge, StringFormat=MM/dd/yyyy}" IsEnabled="False"></TextBlock>
 
 					<TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">PAP Result:</TextBlock>
-					<TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderCytology.ScreeningImpression}" IsEnabled="False" TextWrapping="Wrap"></TextBlock>
+					<TextBlock Name="TextBlockScreeningImpression" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="2,2,2,2" Text="{Binding Path=PanelSetOrderCytology.ScreeningImpression}" IsEnabled="False" TextWrapping="Wrap"></TextBlock>
 
 					<TextBlock Grid.Column="0" Grid.Row="3" Margin="2,2,2,2" FontWeight="Bold">Date of last HPV:</TextBlock>
-					<TextBlock Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="2,2,2,2" Text="{Binding Path=DateOfLastHPV, StringFormat=MM/dd/yyyy}" IsEnabled="False"></TextBlock>
+                    <TextBlock Name="TextBlockLastHPVDate"  Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="2,2,2,2" Text="{Binding Path=DateOfLastHPV, StringFormat=MM/dd/yyyy}" IsEnabled="False"></TextBlock>
 
 					<TextBlock Grid.Column="0" Grid.Row="4" Margin="2,2,2,2" FontWeight="Bold">Order HPV:</TextBlock>
 					<CheckBox Grid.Column="1" Grid.Row="4" IsChecked="{Binding Path=WomensHealthProfileTestOrder.OrderHPV}" Margin="2,2,2,2"></CheckBox>
@@ -159,14 +159,14 @@
 									SelectedValue="{Binding Path=WomensHealthProfileTestOrder.HPVReflexOrderCode}" SelectionChanged="ComboBoxHPVReflexOrderCode_SelectionChanged" />
 
 					<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10" FontWeight="Bold" Margin="2,5,2,2">HPV Standing Order</TextBlock>
-					<TextBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="11" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=HPVStandingOrderDescription}" TextWrapping="Wrap" IsEnabled="False"></TextBox>                              
+					<TextBox Name="TextBlockStandingOrderDescription" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="11" Margin="2,2,2,2" HorizontalAlignment="Stretch" Text="{Binding Path=HPVStandingOrderDescription}" TextWrapping="Wrap" IsEnabled="False"></TextBox>                              
                 
 					<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="12" Margin="2,2,2,2" FontWeight="Bold">HPV 16/18 Reflex Order:</TextBlock>
 					<ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="13" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=HPV1618ReflexOrderCollection}" SelectedValuePath="ReflexOrderCode" DisplayMemberPath="Description"
 						SelectedValue="{Binding Path=WomensHealthProfileTestOrder.HPV1618ReflexOrderCode}" SelectionChanged="ComboBoxHPV1618ReflexOrderCode_SelectionChanged"/>
 
 					<TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="14" Margin="2,2,2,2" FontWeight="Bold">HPV 16/18 Standing Order:</TextBlock>
-					<ComboBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="15" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=HPV1618StandingOrderCollection}" SelectedValuePath="StandingOrderCode" DisplayMemberPath="Description"
+					<ComboBox Name="ComboBoxStandingOrderDescription" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="15" Margin="2,2,2,2" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=HPV1618StandingOrderCollection}" SelectedValuePath="StandingOrderCode" DisplayMemberPath="Description"
 									SelectedValue="{Binding Path=WomensHealthProfileTestOrder.HPV1618StandingOrderCode}" IsEnabled="False"/>
 
 					<TextBlock Grid.Column="0" Grid.Row="16" Margin="2,2,2,2" FontWeight="Bold">Distribute:</TextBlock>
@@ -191,22 +191,22 @@
 						</Grid.RowDefinitions>
 
 						<TextBlock Grid.Column="0" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Accepted:</TextBlock>
-						<CheckBox Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" IsChecked="{Binding Path=WomensHealthProfileTestOrder.Accepted}" IsEnabled="False"></CheckBox>
+						<CheckBox Name="CheckBoxAccepted" Grid.Column="1" Grid.Row="0" Margin="2,2,2,2" IsChecked="{Binding Path=WomensHealthProfileTestOrder.Accepted}" IsEnabled="False"></CheckBox>
 
 						<TextBlock Grid.Column="0" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Date Accepted:</TextBlock>
-						<TextBox Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=WomensHealthProfileTestOrder.AcceptedTime}" IsEnabled="False"></TextBox>
+						<TextBox Name="TextBoxAcceptedTime" Grid.Column="1" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=WomensHealthProfileTestOrder.AcceptedTime}" IsEnabled="False"></TextBox>
 
 						<TextBlock Grid.Column="0" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Accepted By:</TextBlock>
-						<TextBox Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=WomensHealthProfileTestOrder.AcceptedBy, Mode=OneWay}" IsEnabled="False"></TextBox>
+						<TextBox Name="TextBoxAcceptedBy" Grid.Column="1" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=WomensHealthProfileTestOrder.AcceptedBy, Mode=OneWay}" IsEnabled="False"></TextBox>
 
 						<TextBlock Grid.Column="2" Grid.Row="0" Margin="2,2,2,2" FontWeight="Bold">Final:</TextBlock>
-						<CheckBox Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" IsChecked="{Binding Path=WomensHealthProfileTestOrder.Final}" IsEnabled="False"></CheckBox>
+						<CheckBox Name="CheckBoxFinal" Grid.Column="3" Grid.Row="0" Margin="2,2,2,2" IsChecked="{Binding Path=WomensHealthProfileTestOrder.Final}" IsEnabled="False"></CheckBox>
 
 						<TextBlock Grid.Column="2" Grid.Row="1" Margin="2,2,2,2" FontWeight="Bold">Date Finaled:</TextBlock>
-						<TextBox Grid.Column="3" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=WomensHealthProfileTestOrder.FinalTime}" IsEnabled="False"></TextBox>
+						<TextBox Name="TextBoxFinalTime" Grid.Column="3" Grid.Row="1" Margin="2,2,2,2" Text="{Binding Path=WomensHealthProfileTestOrder.FinalTime}" IsEnabled="False"></TextBox>
 
 						<TextBlock Grid.Column="2" Grid.Row="2" Margin="2,2,2,2" FontWeight="Bold">Finaled By:</TextBlock>
-						<TextBox Grid.Column="3" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=WomensHealthProfileTestOrder.Signature}" IsEnabled="False"></TextBox>
+						<TextBox Name="TextBoxSignaure" Grid.Column="3" Grid.Row="2" Margin="2,2,2,2" Text="{Binding Path=WomensHealthProfileTestOrder.Signature}" IsEnabled="False"></TextBox>
 
 					</Grid>
 

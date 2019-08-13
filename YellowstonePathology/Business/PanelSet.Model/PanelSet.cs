@@ -3,6 +3,11 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using YellowstonePathology.Business.Persistence;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Linq;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace YellowstonePathology.Business.PanelSet.Model
 {
@@ -678,5 +683,46 @@ namespace YellowstonePathology.Business.PanelSet.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
-	}
+
+        public string ToJSON()
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.Formatting = Formatting.Indented;
+            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            settings.TypeNameHandling = TypeNameHandling.All;
+            string result = JsonConvert.SerializeObject(this, settings);
+            string psType = this.GetType().Name;
+
+            if (psType != "PanelSet")
+            {
+                JObject jPanelSet = JsonConvert.DeserializeObject<JObject>(result, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All,
+                    ObjectCreationHandling = ObjectCreationHandling.Replace,
+                });
+
+                string baseType = this.GetType().BaseType.ToString() + ", UserInterface";
+                jPanelSet["$type"] = baseType;
+                result = JsonConvert.SerializeObject(jPanelSet, settings);
+            }
+
+            return result;
+        }
+
+        public void Save()
+        {
+            string jString = this.ToJSON();
+            MySqlCommand cmd = new MySqlCommand("Insert tblPanelSet (PanelSetId, JSONValue) values (@PanelSetId, @JSONValue) ON DUPLICATE KEY UPDATE PanelSetId = @PanelSetId, JSONValue = @JSONValue;");
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.AddWithValue("@PanelSetId", this.m_PanelSetId);
+            cmd.Parameters.AddWithValue("@JSONValue", jString);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                cmd.ExecuteNonQuery();
+            }
+        }
+    }
 }
