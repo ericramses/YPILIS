@@ -92,7 +92,7 @@
 				<ColumnDefinition Width="*"></ColumnDefinition>
 			</Grid.ColumnDefinitions>
 
-			<TreeView Name="TreeViewSpecimenOrder" Grid.Column="0"  Grid.Row="0" Margin="2,2,2,2" Width="370" ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
+			<TreeView Name="TreeViewSpecimenOrder" Grid.Column="0"  Grid.Row="0" Margin="2,2,2,2" Width="280" ItemsSource="{Binding Path=AccessionOrder.SpecimenOrderCollection}"
 								ItemTemplate="{StaticResource DataTemplateSpecimenOrder}" BorderThickness="1">
 			</TreeView>
 
@@ -124,7 +124,8 @@
                                     <GridViewColumn Header="Action" DisplayMemberBinding="{Binding Path=Action}" Width="150" />
                                     <GridViewColumn Header="Label" DisplayMemberBinding="{Binding Path=MaterialLabel}" Width="150" />
                                     <GridViewColumn Header="Facility" DisplayMemberBinding="{Binding Path=FacilityId}" Width="80" />
-                                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Path=Location}" Width="225" />
+                                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Path=Location}" Width="150" />
+                                    <GridViewColumn Header="By" DisplayMemberBinding="{Binding Path=LoggedBy}" Width="150" />
                                 </GridView>
                             </ListView.View>
                         </ListView>
