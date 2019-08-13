@@ -31,22 +31,25 @@ namespace YellowstonePathology.Business.Client.Model
 
                         if (dateOfLastHPV.HasValue == true)
                         {
-                            if (dateOfLastHPV < DateTime.Today.AddDays(-330))
+                            if (dateOfLastHPV >= DateTime.Today.AddDays(-330))
+                            {
+                                List<string> priorResults = patientHistory.GetPriorHPVResult(accessionOrder.MasterAccessionNo, DateTime.Today.AddDays(-330));
+                                foreach (string hpvResult in priorResults)
+                                {
+                                    if (hpvResult == YellowstonePathology.Business.Test.HPV.HPVResult.OveralResultCodePositive)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            else
                             {
                                 result = true;
                             }
                         }
                         else
                         {
-                            List<string> priorResults = patientHistory.GetPriorHPVResult(accessionOrder.MasterAccessionNo, DateTime.Today.AddDays(-330));
-                            foreach(string papResult in priorResults)
-                            {
-                                if(YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisThreeOrBetter(papResult) == true)
-                                {
-                                    result = true;
-                                    break;
-                                }
-                            }
+                            result = true;
                         }
                     }
                 }
