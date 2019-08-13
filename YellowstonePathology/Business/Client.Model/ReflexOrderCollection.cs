@@ -87,7 +87,6 @@ namespace YellowstonePathology.Business.Client.Model
             ReflexOrderCollection result = new ReflexOrderCollection();
             result.Add(new ReflexOrderNone());            
             result.Add(new HPVReflexOrderRule2());
-            result.Add(new HPVReflexOrderRule14());
             result.Add(new HPVReflexOrderRule17());
             return result;
         }
