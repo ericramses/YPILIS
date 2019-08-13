@@ -1263,8 +1263,8 @@ namespace YellowstonePathology.Business.Gateway
             "PBirthdate datetime, " +
             "PhysicianName varchar(100), " +
             "ClientName varchar(100), " +
-            "AliquotCount int " +
             "ClientAccessionNo varchar(100), " +
+            "AliquotCount int " +          
             ") " +
             "as " +
             "SELECT Distinct a.AccessionTime, pso.ReportNo, a.AccessioningFacilityId, a.PFirstName, a.PLastName,  " +
