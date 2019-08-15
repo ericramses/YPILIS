@@ -26,6 +26,7 @@ namespace YellowstonePathology.Business.Client.Model
                 {
                     if (YellowstonePathology.Business.Cytology.Model.CytologyResultCode.IsDiagnosisAscusLsil(panelSetOrderCytology.ResultCode) == true)
                     {
+                        result = true;
                         YellowstonePathology.Business.Domain.PatientHistory patientHistory = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetPatientHistory(accessionOrder.PatientId);
                         Nullable<DateTime> dateOfLastHPV = patientHistory.GetDateOfPreviousHpv(accessionOrder.AccessionDate.Value);
 
@@ -33,7 +34,6 @@ namespace YellowstonePathology.Business.Client.Model
                         {
                             if (dateOfLastHPV >= DateTime.Today.AddDays(-330))
                             {
-                                result = true;
                                 List<string> priorResults = patientHistory.GetPriorHPVResult(accessionOrder.MasterAccessionNo, DateTime.Today.AddDays(-330));
                                 foreach (string hpvResult in priorResults)
                                 {
@@ -44,14 +44,6 @@ namespace YellowstonePathology.Business.Client.Model
                                     }
                                 }
                             }
-                            else
-                            {
-                                result = true;
-                            }
-                        }
-                        else
-                        {
-                            result = true;
                         }
                     }
                 }
