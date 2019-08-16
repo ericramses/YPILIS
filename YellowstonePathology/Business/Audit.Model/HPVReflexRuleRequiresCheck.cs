@@ -31,12 +31,8 @@ namespace YellowstonePathology.Business.Audit.Model
                     {
                         YellowstonePathology.Business.Client.Model.HPVReflexOrderRule14 oldReflexOrder = new Client.Model.HPVReflexOrderRule14();
                         if (oldReflexOrder.IsRequired(this.m_AccessionOrder) == true)
-                        {
-                            YellowstonePathology.Business.Client.Model.HPVReflexOrderRule17 reflexOrder = new Client.Model.HPVReflexOrderRule17();
-                            if (reflexOrder.IsRequired(this.m_AccessionOrder) == false)
-                            {
-                                this.ActionRequired = true;
-                            }
+                        {                            
+                            this.ActionRequired = true;                            
                         }
                     }
                 }
