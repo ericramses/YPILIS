@@ -175,37 +175,9 @@ namespace YellowstonePathology.UI.Stain
         {
             this.idx = 0;
             this.m_SlideOrderIds = new List<string>();
-            this.m_SlideOrderIds.Add("19-7917.1A1");
-            this.m_SlideOrderIds.Add("19-9342.P");
-            this.m_SlideOrderIds.Add("19-9329.P");
-            this.m_SlideOrderIds.Add("19-412.1A1");
-            this.m_SlideOrderIds.Add("19-412.2A1");
-            this.m_SlideOrderIds.Add("19-412.3A1");
-            this.m_SlideOrderIds.Add("19-412.4A1");
-            this.m_SlideOrderIds.Add("19-412.5A1");
-            this.m_SlideOrderIds.Add("19-412.6A1");
-            this.m_SlideOrderIds.Add("19-412.7A1");
-            this.m_SlideOrderIds.Add("19-412.8A1");
-            this.m_SlideOrderIds.Add("19-412.9A1");
-            this.m_SlideOrderIds.Add("19-4120.1A1");
-            this.m_SlideOrderIds.Add("19-4121.1A1");
-            this.m_SlideOrderIds.Add("19-4122.1A1");
-            this.m_SlideOrderIds.Add("19-4122.1B1");
-            this.m_SlideOrderIds.Add("19-4123.1A1");
-            this.m_SlideOrderIds.Add("19-4124.1A1");
-            this.m_SlideOrderIds.Add("19-4124.1B1");
-            this.m_SlideOrderIds.Add("19-4125.1A1");
-            this.m_SlideOrderIds.Add("19-4126.1A1");
-            this.m_SlideOrderIds.Add("19-4127.1A1");
-            this.m_SlideOrderIds.Add("19-4128.1A1");
-            this.m_SlideOrderIds.Add("19-4128.1B1");
-            this.m_SlideOrderIds.Add("19-4128.1C1");
-            this.m_SlideOrderIds.Add("19-4128.1D1");
-            this.m_SlideOrderIds.Add("19-4129.1A1");
-            this.m_SlideOrderIds.Add("19-4129.1B1");
-            this.m_SlideOrderIds.Add("19-4129.2A1");
-            this.m_SlideOrderIds.Add("19-4129.2B1");
-            this.m_SlideOrderIds.Add("19-4129.3A1");
+            this.m_SlideOrderIds.Add("19-21080.1A1");
+            this.m_SlideOrderIds.Add("19-21080.2A1");
+            this.m_SlideOrderIds.Add("19-22362.1A1");
         }
     }
 }
