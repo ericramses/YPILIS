@@ -294,6 +294,9 @@ namespace YellowstonePathology.Business.HL7View.EPIC
                 case 204:
                     view = new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHEPICOBXView(accessionOrder, reportNo, obxCount);
                     break;
+                case 205:
+                    view = new YellowstonePathology.Business.Test.AndrogenReceptor.AndrogenReceptorEPICOBXView(accessionOrder, reportNo, obxCount);
+                    break;
                 case 214:
                     view = new YellowstonePathology.Business.Test.TechInitiatedPeripheralSmear.TechInitiatedPeripheralSmearEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
