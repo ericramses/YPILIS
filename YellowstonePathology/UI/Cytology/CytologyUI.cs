@@ -195,31 +195,23 @@ namespace YellowstonePathology.UI.Cytology
                 if (this.m_AccessionOrder.PanelSetOrderCollection.WomensHealthProfileExists() == true)
                 {
                     this.m_AccessionOrder.PanelSetOrderCollection.GetWomensHealthProfile().SetExptectedFinalTime(this.m_AccessionOrder);
-                    this.SetHPVNotProcessedCommentRequired();
+                    this.SetHPVComment();
                 }                
                 
 				this.StartWomensHealthProfilePath();
             }						
         }
 
-        private void SetHPVNotProcessedCommentRequired()
+        private void SetHPVComment()
         {
-            Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetWomensHealthProfile();
-            if (womensHealthProfileTestOrder.HPVReflexOrderCode == "RFLXHPVRL17")
+            YellowstonePathology.Business.Audit.Model.HPVReflexRuleRequiresCheck checkAudit = new Business.Audit.Model.HPVReflexRuleRequiresCheck(this.m_AccessionOrder);
+            checkAudit.Run();
+            if (checkAudit.ActionRequired == true)
             {
-                YellowstonePathology.Business.Client.Model.StandingOrder standingOrder = YellowstonePathology.Business.Client.Model.StandingOrderCollection.GetByStandingOrderCode(womensHealthProfileTestOrder.HPVStandingOrderCode);
-                if (standingOrder.IsRequired(this.m_AccessionOrder) == true)
-                {
-                    YellowstonePathology.Business.Client.Model.ReflexOrder reflexOrder = YellowstonePathology.Business.Client.Model.ReflexOrderCollection.GetByReflexByOrderCode(womensHealthProfileTestOrder.HPVReflexOrderCode);
-                    if (reflexOrder.IsRequired(this.m_AccessionOrder) == false)
-                    {
-                        if (string.IsNullOrEmpty(this.m_PanelSetOrderCytology.ReportComment) == false) this.m_PanelSetOrderCytology.ReportComment += Environment.NewLine + Environment.NewLine;
-                        this.m_PanelSetOrderCytology.ReportComment += "Repeat HPV testing is not indicated, as the patient has a known prior positive HPV test within the last year. Please call YPI if you have further questions.";
-                    }
-                }
+                if (string.IsNullOrEmpty(this.m_PanelSetOrderCytology.ReportComment) == false) this.m_PanelSetOrderCytology.ReportComment += Environment.NewLine + Environment.NewLine;
+                this.m_PanelSetOrderCytology.ReportComment += "Repeat HPV testing is not indicated, as the patient has a known prior positive HPV test within the last year. Please call YPI if you have further questions.";
             }
         }
-
 
         public void SetResultToAgree(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderToSet, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
         {
