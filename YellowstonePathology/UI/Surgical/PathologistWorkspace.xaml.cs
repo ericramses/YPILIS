@@ -927,7 +927,7 @@ namespace YellowstonePathology.UI.Surgical
         private void ButtonNewScan_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
-            barcode.ID = "19-3021.1A1";
+            barcode.ID = "19-22362.1A1";
             barcode.IsValidated = true;
             this.HistologySlideScanReceived(barcode);
         }        

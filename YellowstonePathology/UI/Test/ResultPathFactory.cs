@@ -246,7 +246,13 @@ namespace YellowstonePathology.UI.Test
                 case 204:
                     result = new ROS1ResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
+                case 205:
+                    result = new AndrogenReceptorResultPath(reportNo, accessionOrder, pageNavigator, window);
+                    break;
                 case 211:
+                case 359:
+                case 360:
+                case 361:
                     result = new HoldForFlowResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 212:

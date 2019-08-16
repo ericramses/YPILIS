@@ -200,10 +200,13 @@ namespace YellowstonePathology.UI.Flow
 
         public void MenuItemAddIcd9Code_Click(object sender, RoutedEventArgs args)
         {
-            if (this.ListViewICDCodes.SelectedItem != null)
+            if (this.m_FlowUI.AccessionOrder != null && this.m_FlowUI.PanelSetOrderLeukemiaLymphoma != null)
             {
-                YellowstonePathology.Business.Billing.Model.ICDCode item = (YellowstonePathology.Business.Billing.Model.ICDCode)ListViewICDCodes.SelectedItem;                
-                this.m_FlowUI.AddICD10Code(item.Code);
+                if (this.ListViewICDCodes.SelectedItem != null)
+                {
+                    YellowstonePathology.Business.Billing.Model.ICDCode item = (YellowstonePathology.Business.Billing.Model.ICDCode)ListViewICDCodes.SelectedItem;
+                    this.m_FlowUI.AddICD10Code(item.Code);
+                }
             }
         }
 
