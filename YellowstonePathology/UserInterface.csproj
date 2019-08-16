@@ -240,6 +240,7 @@
     <Compile Include="Business\Audit.Model\HPV1618ForSiteAudit.cs" />
     <Compile Include="Business\Audit.Model\HPV1618IsRequiredAudit.cs" />
     <Compile Include="Business\Audit.Model\HPVIsRequiredAudit.cs" />
+    <Compile Include="Business\Audit.Model\HPVReflexRuleRequiresCheck.cs" />
     <Compile Include="Business\Audit.Model\IntraoperativeConsultationCorrelationAudit.cs" />
     <Compile Include="Business\Audit.Model\IntraoperativeConsultationFinalAudit.cs" />
     <Compile Include="Business\Audit.Model\IsOkToAddToDistributionAudit.cs" />
