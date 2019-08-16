@@ -26,6 +26,9 @@ namespace YellowstonePathology.UI.Test
         public delegate void NextEventHandler(object sender, EventArgs e);
         public event NextEventHandler Next;
 
+        public delegate void ShowPublishedDocumentEventHandler(object sender, EventArgs e);
+        public event ShowPublishedDocumentEventHandler ShowPublishedDocument;
+
         private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
         private YellowstonePathology.Business.Test.AndrogenReceptor.AndrogenReceptorTestOrder m_PanelSetOrder;
@@ -82,9 +85,16 @@ namespace YellowstonePathology.UI.Test
 
         private void HyperLinkShowDocument_Click(object sender, RoutedEventArgs e)
         {
-            YellowstonePathology.Business.Test.AndrogenReceptor.AndrogenReceptorWordDocument report = new YellowstonePathology.Business.Test.AndrogenReceptor.AndrogenReceptorWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
-            report.Render();
-            YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
+            if (this.m_PanelSetOrder.ResultedOnSurgical == false)
+            {
+                YellowstonePathology.Business.Test.AndrogenReceptor.AndrogenReceptorWordDocument report = new YellowstonePathology.Business.Test.AndrogenReceptor.AndrogenReceptorWordDocument(this.m_AccessionOrder, this.m_PanelSetOrder, Business.Document.ReportSaveModeEnum.Draft);
+                report.Render();
+                YellowstonePathology.Business.Document.CaseDocument.OpenWordDocumentWithWord(report.SaveFileName);
+            }
+            else
+            {
+                this.ShowPublishedDocument(this, new EventArgs());
+            }
         }
 
         private void HyperLinkFinalizeResults_Click(object sender, RoutedEventArgs e)

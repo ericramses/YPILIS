@@ -16,6 +16,11 @@ namespace YellowstonePathology.Business.Test.AndrogenReceptor
         {
             AndrogenReceptorTestOrder testOrder = (AndrogenReceptorTestOrder)this.m_PanelSetOrder;
 
+            if(testOrder.ResultedOnSurgical == true)
+            {
+                return;
+            }
+
             this.m_TemplateName = @"\\CFileServer\Documents\ReportTemplates\XmlTemplates\AndrogenReceptor.xml";
             base.OpenTemplate();
 
@@ -37,7 +42,16 @@ namespace YellowstonePathology.Business.Test.AndrogenReceptor
 
         public override void Publish()
         {
-            base.Publish();
+            AndrogenReceptorTestOrder testOrder = (AndrogenReceptorTestOrder)this.m_PanelSetOrder;
+            if (testOrder.ResultedOnSurgical == false)
+            {
+                base.Publish();
+            }
+            else
+            {
+                Business.OrderIdParser orderIdParser = new OrderIdParser(this.m_PanelSetOrder.ReportNo);
+                YellowstonePathology.Business.Helper.FileConversionHelper.ConvertDocumentTo(orderIdParser, Document.CaseDocumentTypeEnum.CaseReport, Document.CaseDocumentFileTypeEnum.xps, Document.CaseDocumentFileTypeEnum.tif);
+            }
         }
     }
 }
