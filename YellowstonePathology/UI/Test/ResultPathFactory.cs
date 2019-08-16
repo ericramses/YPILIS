@@ -250,6 +250,9 @@ namespace YellowstonePathology.UI.Test
                     result = new AndrogenReceptorResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 211:
+                case 359:
+                case 360:
+                case 361:
                     result = new HoldForFlowResultPath(reportNo, accessionOrder, pageNavigator, window);
                     break;
                 case 212:
