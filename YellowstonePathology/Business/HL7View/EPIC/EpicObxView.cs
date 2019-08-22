@@ -119,7 +119,7 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 
         protected void AddNextObxElementBeaker(string fieldName,string fieldValue, XElement document, string observationResultStatus)
         {
-            string escapedString = this.ReplaceNewLine(fieldValue);
+            string escapedString = this.ReplaceSpecialCharacters(fieldValue);
 
             XElement obxElement = new XElement("OBX");
             document.Add(obxElement);
@@ -177,12 +177,15 @@ namespace YellowstonePathology.Business.HL7View.EPIC
             }
         }
 
-        protected string ReplaceNewLine(string fieldValue)
+        protected string ReplaceSpecialCharacters(string fieldValue)
         {
             string result = fieldValue;
             if (string.IsNullOrEmpty(fieldValue) == false)
             {
-                result = fieldValue.Replace(System.Environment.NewLine, @"\.br\");                
+                result = fieldValue.Replace(System.Environment.NewLine, @"\.br\");
+                result = result.Replace("&", @"\T\");
+                result = result.Replace("~", @"\R\");
+                result = result.Replace("^", @"\S\");
             }
             return result;
         }

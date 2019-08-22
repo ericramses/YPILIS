@@ -504,49 +504,47 @@ namespace YellowstonePathology.UI.ReportDistribution
         private YellowstonePathology.Business.ReportDistribution.Model.DistributionResult Distribute(YellowstonePathology.Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution, Business.Test.AccessionOrder accessionOrder, Business.Test.PanelSetOrder panelSetOrder)
         {
             YellowstonePathology.Business.ReportDistribution.Model.DistributionResult result = null;                        
-
-            //try
-            //{
-                switch (testOrderReportDistribution.DistributionType)
-                {
-                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX:
-                        result = this.HandleFaxDistribution(testOrderReportDistribution);
-                        break;
-                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC:
-                        result = this.HandleEPICDistribution(testOrderReportDistribution, accessionOrder, panelSetOrder);
-                        break;
-                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW:
-                        result = this.HandleECWDistribution(testOrderReportDistribution, accessionOrder);
-                        break;
-                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA:
-                        result = this.HandleATHENADistribution(testOrderReportDistribution.ReportNo, accessionOrder);
-                        break;
-                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH:
-                        result = this.HandleMeditechDistribution(testOrderReportDistribution.ReportNo, accessionOrder);
-                        break;
-                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WEBSERVICE:
-                        result = this.HandleWebServiceDistribution(testOrderReportDistribution);
-                        break;
-                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.PRINT:
-                        result = this.HandlePrintDistribution(testOrderReportDistribution);
-                        break;
-                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MTDOH:
-                        result = this.HandleMTDOHDistribution(testOrderReportDistribution.ReportNo, accessionOrder);
-                        break;
-                    case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WYDOH:
-                        result = this.HandleWYDOHDistribution(testOrderReportDistribution.ReportNo, accessionOrder);
-                        break;
-                    default:
-                        result = this.HandleNoImplemented(testOrderReportDistribution);
-                        break;
-                }
-            //}
-            //catch(Exception e)
-            //{
-            //    Business.Logging.EmailExceptionHandler.HandleException(panelSetOrder, e.Message);
-            //    App.Current.Shutdown();
-            //}
             
+            switch (testOrderReportDistribution.DistributionType)
+            {
+                case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.FAX:
+                    result = this.HandleFaxDistribution(testOrderReportDistribution);
+                    break;
+                case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.EPIC:
+                    result = this.HandleEPICDistribution(testOrderReportDistribution, accessionOrder, panelSetOrder);
+                    break;
+                case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ECW:
+                    result = this.HandleECWDistribution(testOrderReportDistribution, accessionOrder);
+                    break;
+                case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.ATHENA:
+                    result = this.HandleATHENADistribution(testOrderReportDistribution.ReportNo, accessionOrder);
+                    break;
+                case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MEDITECH:
+                    result = this.HandleMeditechDistribution(testOrderReportDistribution.ReportNo, accessionOrder);
+                    break;
+                case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WEBSERVICE:
+                    result = this.HandleWebServiceDistribution(testOrderReportDistribution);
+                    break;
+                case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.PRINT:
+                    result = this.HandlePrintDistribution(testOrderReportDistribution);
+                    break;
+                case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.MTDOH:
+                    result = this.HandleMTDOHDistribution(testOrderReportDistribution.ReportNo, accessionOrder);
+                    break;
+                case YellowstonePathology.Business.ReportDistribution.Model.DistributionType.WYDOH:
+                    result = this.HandleWYDOHDistribution(testOrderReportDistribution.ReportNo, accessionOrder);
+                    break;
+                default:
+                    result = this.HandleNoImplemented(testOrderReportDistribution);
+                    break;
+            }            
+            
+            if(result != null && result.IsComplete == false)
+            {
+                Business.Logging.EmailExceptionHandler.HandleException(result.Message);
+                throw new Exception(result.Message);
+            }
+
             return result;
         }
 

@@ -606,6 +606,20 @@ namespace YellowstonePathology.Business.Specimen.Model
             return result;
         }
 
+        public bool HasCellBlocks()
+        {
+            bool result = false;
+            foreach (SpecimenOrder specimenOrder in this)
+            {
+                if (specimenOrder.AliquotOrderCollection.HasCellBlock() == true)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public bool HasThinPrepFluidSpecimen()
         {
             bool result = false;

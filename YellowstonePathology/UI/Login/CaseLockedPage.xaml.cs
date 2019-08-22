@@ -28,20 +28,18 @@ namespace YellowstonePathology.UI.Login
         public delegate void AskForLockEventHandler(object sender, YellowstonePathology.UI.CustomEventArgs.AccessionOrderReturnEventArgs e);
         public event AskForLockEventHandler AskForLock;
 
-        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;
+        private YellowstonePathology.Business.Test.AccessionOrder m_AccessionOrder;        
 		private string m_PageHeaderText = "Case Lock Page";        
         private string m_PageMessage;
         
 
         public CaseLockedPage(YellowstonePathology.Business.Test.AccessionOrder accessionOrder)
 		{            
-            this.m_AccessionOrder = accessionOrder;
+            this.m_AccessionOrder = accessionOrder;            
             this.m_PageMessage = "This case is locked by: " + this.m_AccessionOrder.AccessionLock.Address;
-
 			InitializeComponent();
-
 			DataContext = this;            
-		}
+		}        
 
         public string PageMessage
         {

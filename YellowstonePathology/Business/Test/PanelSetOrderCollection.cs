@@ -159,9 +159,11 @@ namespace YellowstonePathology.Business.Test
         {
             if (string.IsNullOrEmpty(accessionOrder.SpecialInstructions) == false)
             {                
-                string reflexInstruction11 = "Test->Pap Test with High Risk HPV with reflex to HPV 16/18 Genotyping (only if PAP neg/HPV Pos)";
+                string reflexInstruction11A = "Test->Pap Test with High Risk HPV with reflex to HPV 16/18 Genotyping (only if PAP neg/HPV Pos)";
+                string reflexInstruction11B = "Test->HPV Screen with Reflex to 16/18 if HPV positive";
                 string reflexInstruction12 = "Test->Pap Test with High Risk HPV with reflex to HPV Genotyping (only if PAP neg/HPV Pos)";
-                if (accessionOrder.SpecialInstructions.Contains(reflexInstruction11) == true || 
+                if (accessionOrder.SpecialInstructions.Contains(reflexInstruction11A) == true ||
+                    accessionOrder.SpecialInstructions.Contains(reflexInstruction11B) == true ||
                     accessionOrder.SpecialInstructions.Contains(reflexInstruction12) == true)
                 {
                     YellowstonePathology.Business.Test.WomensHealthProfile.WomensHealthProfileTestOrder womensHealthProfileTestOrder = null;
@@ -193,7 +195,16 @@ namespace YellowstonePathology.Business.Test
                         YellowstonePathology.Business.Visitor.OrderTestOrderVisitor orderTestOrderVisitor = new Visitor.OrderTestOrderVisitor(testOrderInfo);
                         accessionOrder.TakeATrip(orderTestOrderVisitor);
                     }
-                }
+
+                    if (string.IsNullOrEmpty(accessionOrder.SpecialInstructions) == false)
+                    {
+                        if (accessionOrder.SpecialInstructions.Contains(reflexInstruction11A) == true || 
+                            accessionOrder.SpecialInstructions.Contains(reflexInstruction11B) == true)
+                        {
+                            womensHealthProfileTestOrder.HPV1618ReflexOrderCode = "RFLXHPV1618HPVPOS";
+                        }
+                    }
+                }                
 
                 string reflexInstruction21 = "Test->Pap Test with High Risk HPV DNA reflex testing if diagnosis is ASCUS";
                 string reflexInstruction22 = "Test->Pap Test with High Risk HPV  reflex testing if diagnosis is ASCUS";
@@ -1164,9 +1175,12 @@ namespace YellowstonePathology.Business.Test
             result.Add(190);
             result.Add(212);
 
-            result.Add(136);  // MPN Standard Reflex
-            //result.Add(137);  // MPN Extended Reflex
-            result.Add(300);  //Extract and Hold for Preauthorization
+            result.Add(136);  // MPN Standard Reflex            
+            result.Add(300);  //Extract and Hold for Preauthorization    
+            result.Add(359);
+            result.Add(360);
+            result.Add(361);
+
             return result;
         }
 

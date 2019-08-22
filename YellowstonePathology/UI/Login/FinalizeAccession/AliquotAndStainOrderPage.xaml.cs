@@ -737,7 +737,13 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
             {
                 MessageBox.Show("You must select the Cassette Color before printing.");
                 return;
-            }            
+            }
+
+            if (this.m_AccessionOrder.SpecimenOrderCollection.HasCellBlocks() == true && string.IsNullOrEmpty(this.m_AccessionOrder.CassetteColor))
+            {
+                MessageBox.Show("You must select the Cassette Color before printing.");
+                return;
+            }
 
             aliquotOrderPrinter.Print();            
             this.m_AliquotAndStainOrderView.SetAliquotChecks(false);

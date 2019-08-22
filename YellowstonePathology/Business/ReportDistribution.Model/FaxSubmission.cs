@@ -9,7 +9,14 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
     {        
         public static DistributionResult Submit(string faxNumber, string subject, string fileName)
         {
-            DistributionResult result = new DistributionResult();            
+            DistributionResult result = new DistributionResult();
+
+            if (System.IO.File.Exists(fileName) == false)
+            {
+                result.Message = "Not able to send fax because the file does not exist: " + fileName;
+                result.IsComplete = false;
+                return result;
+            }            
 
             FAXCOMEXLib.FaxServer faxServer = new FAXCOMEXLib.FaxServer();
             faxServer.Connect("ypiifax");

@@ -73,8 +73,9 @@ namespace YellowstonePathology.UI.Cutting
 
         private void CaseLockedPage_AskForLock(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {            
+
             UI.AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
-            UI.AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased;
+            UI.AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased_AfterBlockScan;
             UI.AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
             UI.AppMessaging.MessagingPath.Instance.Nevermind += MessageQueuePath_Nevermind;
         }
@@ -89,10 +90,10 @@ namespace YellowstonePathology.UI.Cutting
             this.ShowScanAliquotPage(null);
         }
 
-        private void MessageQueuePath_LockWasReleased(object sender, EventArgs e)
+        private void MessageQueuePath_LockWasReleased_AfterBlockScan(object sender, EventArgs e)
         {
             Business.Persistence.DocumentGateway.Instance.PullAccessionOrder(this.m_AccessionOrder.MasterAccessionNo, this.m_CuttingWorkspaceWindow);
-            this.HandleLockAquiredByMe();
+            this.HandleLockAquiredByMeWhenBlockScanned();
         }
 
         private void CaseLockedPage_Next(object sender, UI.CustomEventArgs.AccessionOrderReturnEventArgs e)
@@ -202,7 +203,7 @@ namespace YellowstonePathology.UI.Cutting
                 {
                     if (this.m_AccessionOrder.AccessionLock.IsLockAquiredByMe == true)
                     {
-                        this.HandleLockAquiredByMe();     
+                        this.HandleLockAquiredByMeWhenBlockScanned();     
                     }
                     else
                     {
@@ -220,7 +221,7 @@ namespace YellowstonePathology.UI.Cutting
             }
         }
 
-        private void HandleLockAquiredByMe()
+        private void HandleLockAquiredByMeWhenBlockScanned()
         {
             Business.Test.AliquotOrder aliquotOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetAliquotOrder(this.m_AliquotOrderId);
             YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);

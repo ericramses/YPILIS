@@ -282,6 +282,13 @@ namespace YellowstonePathology.UI.Login
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
-        
+
+        private void HyperlinkEditProcessor_Click(object sender, RoutedEventArgs e)
+        {
+            this.TextBoxProcessorFixationTime.IsEnabled = true;
+            this.TextBoxProcessorStart.IsEnabled = true;
+            this.TextBoxFixationEndTime.IsEnabled = true;
+            this.TextBoxFixationDuration.IsEnabled = true;
+        }
     }
 }

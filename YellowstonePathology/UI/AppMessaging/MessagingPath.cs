@@ -151,7 +151,7 @@ namespace YellowstonePathology.UI.AppMessaging
 
             UI.AppMessaging.AccessionLockMessage message = new AccessionLockMessage(e.Message.MasterAccessionNo, AccessionLockMessage.GetMyAddress(), e.Message.From, AccessionLockMessageIdEnum.GIVE);
             YellowstonePathology.Store.RedisServerProd1.Instance.Subscriber.Publish(message.MasterAccessionNo, JsonConvert.SerializeObject(message));
-        }
+        }        
 
         public void StartSendRequest(YellowstonePathology.Business.Test.AccessionOrder accessionOrder, Navigation.PageNavigator pageNavigator)
         {
