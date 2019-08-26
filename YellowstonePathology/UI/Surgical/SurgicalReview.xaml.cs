@@ -312,7 +312,10 @@ namespace YellowstonePathology.UI.Surgical
                 MessageBox.Show("Warning!!! Big Sky Dermatology has a problem with their system.  When amendments are sent across the interface the providers are not notified of the new report.  We are working with E-Clinical Works to resolve this issue.  If the changes in this amendment will affect how a patient is going to be treated, it is best that you contact the provider and communicate the changes directly with them.");                
                 Business.Test.PanelSetOrder psoSurgical = this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.GetSurgical();
                 Business.ReportDistribution.Model.TestOrderReportDistribution testOrderReportDistribution = psoSurgical.TestOrderReportDistributionCollection.GetFirstEclinical();
-                testOrderReportDistribution.DistributionType = "Fax";                
+                if (testOrderReportDistribution != null)
+                {
+                    testOrderReportDistribution.DistributionType = "Fax";
+                }
             }
         }
 

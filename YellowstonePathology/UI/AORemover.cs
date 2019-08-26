@@ -48,6 +48,7 @@ namespace YellowstonePathology.UI
                     }
 
                     accessionOrder.PanelSetOrderCollection.Remove(panelSetOrder);
+                    accessionOrder.TaskOrderCollection.RemoveTaskOrdersForDeletedTestOrder(reportNo);
                     YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Push(accessionOrder, writer);
                 }
                 else

@@ -250,5 +250,21 @@ namespace YellowstonePathology.Business.Task.Model
                 }
             }
         }
+
+        public void SetNewReportNoForCancelledTest(string existingReportNo, string cancelledTestOrderReportNo)
+        {
+            foreach (TaskOrder taskOrder in this)
+            {
+                if (taskOrder.ReportNo == existingReportNo) taskOrder.ReportNo = cancelledTestOrderReportNo;
+            }
+        }
+
+        public void RemoveTaskOrdersForDeletedTestOrder(string reportNo)
+        {
+            for (int idx = this.Count - 1; idx > -1; idx--)
+            {
+                if(this[idx].ReportNo == reportNo) this.RemoveItem(idx);
+            }
+        }
     }
 }
