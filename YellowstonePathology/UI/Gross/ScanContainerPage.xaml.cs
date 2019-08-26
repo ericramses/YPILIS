@@ -37,15 +37,20 @@ namespace YellowstonePathology.UI.Gross
         public delegate void ScanAliquotEventHandler(object sender, EventArgs e);
         public event ScanAliquotEventHandler ScanAliquot;
 
+        public delegate void ShowEQCLabelPageEventHandler(object sender, EventArgs e);
+        public event ShowEQCLabelPageEventHandler ShowEQCLabelPage;
+
         private YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort m_BarcodeScanPort;
 		private System.Windows.Threading.DispatcherTimer m_PageTimeOutTimer;
 		private YellowstonePathology.Business.User.SystemIdentity m_SystemIdentity;
         private string m_Message;
+        private bool m_ShowEQCOption;
 
-		public ScanContainerPage(YellowstonePathology.Business.User.SystemIdentity systemIdentity, string message)
+		public ScanContainerPage(YellowstonePathology.Business.User.SystemIdentity systemIdentity, string message, bool showEQCOption)
         {
             this.m_SystemIdentity = systemIdentity;
             this.m_Message = message;
+            this.m_ShowEQCOption = showEQCOption;
 			this.m_BarcodeScanPort = YellowstonePathology.Business.BarcodeScanning.BarcodeScanPort.Instance;
 
 			this.m_PageTimeOutTimer = new System.Windows.Threading.DispatcherTimer();
@@ -57,6 +62,7 @@ namespace YellowstonePathology.UI.Gross
 			DataContext = this;
 			Loaded += new RoutedEventHandler(ScanContainerPage_Loaded);
 			Unloaded += new RoutedEventHandler(ScanContainerPage_Unloaded);
+            if (this.m_ShowEQCOption == true) this.ButtonEQCLabels.Visibility = Visibility.Visible;
 		}
 
 		private void ScanContainerPage_Loaded(object sender, RoutedEventArgs e)
@@ -129,6 +135,14 @@ namespace YellowstonePathology.UI.Gross
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+
+        private void ButtonEQCLabels_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.ShowEQCLabelPage != null)
+            {
+                this.ShowEQCLabelPage(this, new EventArgs());
             }
         }
     }

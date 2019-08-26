@@ -31,6 +31,7 @@
             <Button Margin="5" Height="60" Width="200"  Content="Sign Out" Click="ButtonSignOut_Click" />
             <Button Margin="5" Height="60" Width="200"  Content="Scan Aliquot" Click="ButtonScanAliquot_Click" />
             <Button Margin="5" Height="60" Width="200"  Content="Barcode will not scan" Click="ButtonBarcodeDidNotScan_Click" />
+            <Button Name="ButtonEQCLabels" Margin="5" Height="60" Width="200"  Content="EQC Labels" Click="ButtonEQCLabels_Click" Visibility="Collapsed"/>
         </StackPanel>
 		
 	</Grid>

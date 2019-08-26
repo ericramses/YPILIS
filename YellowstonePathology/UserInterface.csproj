@@ -43,7 +43,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>152</ApplicationRevision>
+    <ApplicationRevision>161</ApplicationRevision>
     <ApplicationVersion>10.1.15.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -3143,6 +3143,9 @@
     <Compile Include="UI\Common\UserPreferencesList.xaml.cs">
       <DependentUpon>UserPreferencesList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Cytology\EQCLabelPage.xaml.cs">
+      <DependentUpon>EQCLabelPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\DailyDOHDistributionDialog.xaml.cs">
       <DependentUpon>DailyDOHDistributionDialog.xaml</DependentUpon>
     </Compile>
@@ -5195,6 +5198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Cytology\ScanAliquotPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Cytology\EQCLabelPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

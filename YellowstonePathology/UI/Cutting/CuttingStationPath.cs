@@ -75,6 +75,7 @@ namespace YellowstonePathology.UI.Cutting
         {            
 
             UI.AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
+            UI.AppMessaging.MessagingPath.Instance.LockWasReleased -= MessageQueuePath_LockWasReleasedManualMA;
             UI.AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleased_AfterBlockScan;
             UI.AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
             UI.AppMessaging.MessagingPath.Instance.Nevermind += MessageQueuePath_Nevermind;
@@ -161,6 +162,7 @@ namespace YellowstonePathology.UI.Cutting
         private void CaseLockedPage_AskForLockManualMA(object sender, CustomEventArgs.AccessionOrderReturnEventArgs e)
         {            
             UI.AppMessaging.MessagingPath.Instance.StartSendRequest(e.AccessionOrder, this.m_CuttingWorkspaceWindow.PageNavigator);
+            AppMessaging.MessagingPath.Instance.LockWasReleased -= MessageQueuePath_LockWasReleased_AfterBlockScan;
             AppMessaging.MessagingPath.Instance.LockWasReleased += MessageQueuePath_LockWasReleasedManualMA;
             AppMessaging.MessagingPath.Instance.HoldYourHorses += Instance_HoldYourHorses;
             UI.AppMessaging.MessagingPath.Instance.Nevermind += MessageQueuePath_Nevermind;

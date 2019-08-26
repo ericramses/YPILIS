@@ -63,10 +63,15 @@ namespace YellowstonePathology.UI.Gross
             YellowstonePathology.Business.Test.PanelSetOrder panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection.GetSurgical();
             if (panelSetOrder == null) panelSetOrder = this.m_AccessionOrder.PanelSetOrderCollection[0];
 
+            //YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
+            //YellowstonePathology.Business.Label.Model.AliquotOrderPrinter aliquotOrderPrinter = new Business.Label.Model.AliquotOrderPrinter(blocksToPrintCollection, this.m_AccessionOrder);
+            //aliquotOrderPrinter.Print();
+
             this.m_AliquotOrder.Printed = false;
             YellowstonePathology.Business.Test.AliquotOrderCollection blocksToPrintCollection = this.m_SpecimenOrder.AliquotOrderCollection.GetUnPrintedBlocks();
-            YellowstonePathology.Business.Label.Model.AliquotOrderPrinter aliquotOrderPrinter = new Business.Label.Model.AliquotOrderPrinter(blocksToPrintCollection, this.m_AccessionOrder);
-            aliquotOrderPrinter.Print();
+            Business.Label.Model.CassettePrinterCollection printers = new Business.Label.Model.CassettePrinterCollection();            
+            Business.Label.Model.CassettePrinter printer = printers.GetPrinter(Business.User.UserPreferenceInstance.Instance.UserPreference.CassettePrinter);
+            printer.Print(blocksToPrintCollection, this.m_AccessionOrder);
         }
 
 		private void ButtonChangeFSToIC_Click(object sender, RoutedEventArgs e)
