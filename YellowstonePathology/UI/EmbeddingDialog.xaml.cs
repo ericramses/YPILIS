@@ -35,6 +35,8 @@ namespace YellowstonePathology.UI
         private string m_StatusMessage;
         private string m_ScanCount;
 
+        private List<string> m_AliquotsNotFoundList;
+
         private Nullable<DateTime> m_ProcessorStartTime;
         private TimeSpan m_ProcessorFixationDuration;
 
@@ -49,6 +51,8 @@ namespace YellowstonePathology.UI
             
             this.m_StatusMessage = "Status: OK";
             this.m_ScanCount = "Block Count: " + this.m_EmbeddingScanCollection.Count.ToString();
+
+            this.m_AliquotsNotFoundList = new List<string>();
 
             InitializeComponent();
             
@@ -338,38 +342,57 @@ namespace YellowstonePathology.UI
 
                 if (embeddingScan.Updated == false)
                 {
-                    YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(embeddingScan.AliquotOrderId, this);
-                    aliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
-                    
-                    YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
-                    string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HostName;
-
-                    this.AddMaterialTrackingLog(aliquotOrder, thisFacility, thisLocation);
-                    aliquotOrder.SetLocation(thisFacility, thisLocation);
-
-                    Business.ParseSpecimenOrderIdResult parseSpecimenOrderIdResult = aliquotOrder.ParseSpecimenOrderIdFromBlock();
-                    if (parseSpecimenOrderIdResult.ParsedSuccessfully == true)
+                    bool aliquotExists = YellowstonePathology.Business.Gateway.AccessionOrderGateway.DoesAliquotExist(embeddingScan.AliquotOrderId);
+                    if (aliquotExists == true)
                     {
-                        YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(parseSpecimenOrderIdResult.SpecimenOrderId, this);
-                        if (specimenOrder.OkToSetProcessorTimes(embeddingScan.ProcessorStartTime) == true)
+                        YellowstonePathology.Business.Test.AliquotOrder aliquotOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullAliquotOrder(embeddingScan.AliquotOrderId, this);
+                        aliquotOrder.EmbeddingVerify(YellowstonePathology.Business.User.SystemIdentity.Instance.User);
+
+                        YellowstonePathology.Business.Facility.Model.Facility thisFacility = Business.Facility.Model.FacilityCollection.Instance.GetByFacilityId(YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.FacilityId);
+                        string thisLocation = YellowstonePathology.Business.User.UserPreferenceInstance.Instance.UserPreference.HostName;
+
+                        this.AddMaterialTrackingLog(aliquotOrder, thisFacility, thisLocation);
+                        aliquotOrder.SetLocation(thisFacility, thisLocation);
+
+                        Business.ParseSpecimenOrderIdResult parseSpecimenOrderIdResult = aliquotOrder.ParseSpecimenOrderIdFromBlock();
+                        if (parseSpecimenOrderIdResult.ParsedSuccessfully == true)
                         {
-                            specimenOrder.ProcessorStartTime = embeddingScan.ProcessorStartTime;
-                            specimenOrder.ProcessorFixationTime = Convert.ToInt32(embeddingScan.ProcessorFixationDuration.Value.TotalMinutes);
-                            specimenOrder.SetFixationEndTime();
-                            specimenOrder.SetFixationDuration();
+                            YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.PullSpecimenOrder(parseSpecimenOrderIdResult.SpecimenOrderId, this);
+                            if (specimenOrder.OkToSetProcessorTimes(embeddingScan.ProcessorStartTime) == true)
+                            {
+                                specimenOrder.ProcessorStartTime = embeddingScan.ProcessorStartTime;
+                                specimenOrder.ProcessorFixationTime = Convert.ToInt32(embeddingScan.ProcessorFixationDuration.Value.TotalMinutes);
+                                specimenOrder.SetFixationEndTime();
+                                specimenOrder.SetFixationDuration();
+                            }
                         }
+                        else
+                        {
+                            MessageBox.Show("Unable to parse the Block Id. Please tell Sid.");
+                        }
+
+                        YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
+                        this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();
+                        embeddingScan.Updated = true;
+                        this.m_EmbeddingScanCollection.UpdateStatus(embeddingScan);
                     }
                     else
                     {
-                        MessageBox.Show("Unable to parse the Block Id. Please tell Sid.");
+                        this.m_AliquotsNotFoundList.Add(embeddingScan.AliquotOrderId);
                     }
-
-                    YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
-                    this.m_AliquotOrderHoldCollection = YellowstonePathology.Business.Gateway.AccessionOrderGateway.GetAliquotOrderHoldCollection();
-                    embeddingScan.Updated = true;
-                    this.m_EmbeddingScanCollection.UpdateStatus(embeddingScan);
                 }
-            }            
+            }
+
+            if(this.m_AliquotsNotFoundList.Count > 0)
+            {
+                StringBuilder msg = new StringBuilder();
+                foreach(string id in this.m_AliquotsNotFoundList)
+                {
+                    msg.AppendLine(id);
+                }
+                MessageBox.Show("The following Blocks were not found." + Environment.NewLine + msg.ToString());
+                this.m_AliquotsNotFoundList.Clear();
+            }
         }
 
         private void AddMaterialTrackingLog(YellowstonePathology.Business.Test.AliquotOrder aliquotOrder, YellowstonePathology.Business.Facility.Model.Facility thisFacility, string thisLocation)
@@ -432,7 +455,9 @@ namespace YellowstonePathology.UI
         private void ButtonScanId_Click(object sender, RoutedEventArgs e)
         {
             Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
-            barcode.ID = "19-20106.1B";
+            //barcode.ID = "19-20106.1A";
+            //barcode.ID = "19-20106.1B";
+            barcode.ID = "19-23403.1A";
             this.HistologyBlockScanReceived(barcode);
         }
     }
