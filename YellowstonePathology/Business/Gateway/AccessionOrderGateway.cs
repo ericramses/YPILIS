@@ -3543,5 +3543,30 @@ namespace YellowstonePathology.Business.Gateway
 
             return result;
         }
+
+        public static bool DoesAliquotExist(string aliquotOrderId)
+        {
+            bool result = false;
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select AliquotOrderId from tblAliquotOrder where AliquotOrderId = @AliquotOrderId;";
+            cmd.Parameters.AddWithValue("@AliquotOrderId", aliquotOrderId);
+
+            using (MySqlConnection cn = new MySqlConnection(YellowstonePathology.Properties.Settings.Default.CurrentConnectionString))
+            {
+                cn.Open();
+                cmd.Connection = cn;
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        result = String.IsNullOrEmpty(dr[0].ToString()) == true ? false : true;
+                    }
+                }
+            }
+
+            return result;
+
+        }
     }
 }
