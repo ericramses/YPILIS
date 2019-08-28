@@ -18,24 +18,44 @@ namespace YellowstonePathology.Business.Test.HPV
         public override void ToXml(XElement document)
         {
             HPVTestOrder panelSetOrder = (HPVTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            this.AddHeader(document, panelSetOrder, "HPV Report");
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.m_ReportNo);
 
-            this.AddNextObxElementBeaker("RESULT", "Result: " + panelSetOrder.Result, document, "F");
+            this.AddNextObxElementBeaker("Report No: ", this.m_ReportNo, document, "F");
 
-            this.AddNextObxElementBeaker("RESULTREFERENCE", "Reference: Negative", document, "F");
+            this.AddNextObxElementBeaker("Result: ", panelSetOrder.Result, document, "F");
 
-            this.AddAmendments(document);
+            this.AddNextObxElementBeaker("Reference: ", "Negative", document, "F");
 
-            this.AddNextObxElementBeaker("SPECIMENDESCRIPTION", "Specimen: ThinPrep fluid", document, "F");
+            if (amendmentCollection.Count != 0)
+            {
+                StringBuilder amendments = new StringBuilder();
+                foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
+                {
+                    if (amendment.Final == true)
+                    {
+                        amendments.AppendLine(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"));
+                        amendments.AppendLine(amendment.Text);
+                        if (amendment.RequirePathologistSignature == true)
+                        {
+                            amendments.AppendLine("Signature: " + amendment.PathologistSignature);
+                            amendments.AppendLine("E-signed " + amendment.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"));
+                        }
+                    }
+                }
+                amendments.AppendLine();
+                this.AddNextObxElementBeaker("Amendments", amendments.ToString(), document, "F");
+            }
 
-            this.AddNextObxElementBeaker("TESTINFORMATION", "Test Information: " + panelSetOrder.TestInformation, document, "F");
+            this.AddNextObxElementBeaker("Specimen: ", "ThinPrep fluid", document, "F");
 
-            this.AddNextObxElementBeaker("REFERENCES", "References: " + panelSetOrder.ReportReferences, document, "F");
+            this.AddNextObxElementBeaker("Test Information: ", panelSetOrder.TestInformation, document, "F");
 
-            this.AddNextObxElementBeaker("ASR", "ASR: " + panelSetOrder.ASRComment, document, "F");
+            this.AddNextObxElementBeaker("References: ", panelSetOrder.ReportReferences, document, "F");
+
+            this.AddNextObxElementBeaker("ASR: ", panelSetOrder.ASRComment, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
-            this.AddNextObxElementBeaker("LOCATIONPERFORMED", "Location Performed: " + locationPerformed, document, "F");
+            this.AddNextObxElementBeaker("Location Performed: ", locationPerformed, document, "F");
         }
     }
 }
