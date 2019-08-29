@@ -80,7 +80,7 @@
 				<TextBox.Text>
 					<Binding Path="AccessionOrder.PBirthdate" UpdateSourceTrigger="Explicit">
 						<Binding.Converter>
-							<converter:ShortDateConverter />
+							<converter:DateTimeToDateOnlyConverter />
 						</Binding.Converter>
 						<Binding.ValidationRules>
 							<validationRules:BirthDateValidation />

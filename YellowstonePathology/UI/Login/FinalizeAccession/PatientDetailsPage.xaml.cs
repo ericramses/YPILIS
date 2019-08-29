@@ -113,6 +113,14 @@ namespace YellowstonePathology.UI.Login.FinalizeAccession
                 MessageBox.Show("Please enter a valid Birthdate.");
                 result = false;
             }
+            else
+            {
+                if(checkDate.ToShortTimeString() != "12:00 AM")
+                {
+                    MessageBox.Show("The time part of the Birthdate will be removed so only the date is saved.");
+                    this.m_AccessionOrder.PBirthdate = DateTime.Parse(checkDate.ToShortDateString());
+                }
+            }
 
             if (string.IsNullOrEmpty(this.m_AccessionOrder.PSex) == true)
             {
