@@ -1303,7 +1303,7 @@ namespace YellowstonePathology.Business.Test
 			this.PhysicianName = clientOrder.ProviderName;
             this.CollectionDate = DateTime.Parse(clientOrder.CollectionDate.Value.ToString("MM/dd/yyyy"));
 			this.CollectionTime = clientOrder.CollectionDate;
-			this.PBirthdate = clientOrder.PBirthdate;
+			this.PBirthdate = Helper.DateTimeExtensions.DateFromNullableDateTime(clientOrder.PBirthdate);
 			this.PFirstName = clientOrder.PFirstName;
 			this.PLastName = clientOrder.PLastName;
 			this.PMiddleInitial = clientOrder.PMiddleInitial;

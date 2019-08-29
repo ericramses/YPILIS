@@ -3143,7 +3143,6 @@
     <Compile Include="UI\Common\UserPreferencesList.xaml.cs">
       <DependentUpon>UserPreferencesList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\Converter\DateTimeToDateOnlyConverter.cs" />
     <Compile Include="UI\Cytology\EQCLabelPage.xaml.cs">
       <DependentUpon>EQCLabelPage.xaml</DependentUpon>
     </Compile>
