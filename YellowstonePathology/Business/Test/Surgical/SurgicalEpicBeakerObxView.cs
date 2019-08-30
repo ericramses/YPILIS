@@ -18,7 +18,7 @@ namespace YellowstonePathology.Business.Test.Surgical
 		{
 			SurgicalTestOrder panelSetOrderSurgical = (SurgicalTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
 
-            this.AddNextObxElementBeaker("Report No:", this.m_ReportNo, document, "F");            
+            this.AddNextObxElementBeaker("Report No", this.m_ReportNo, document, "F");            
 
             YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(panelSetOrderSurgical.ReportNo);
             this.InformRevisedDiagnosis(document, amendmentCollection);

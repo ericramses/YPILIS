@@ -342,12 +342,7 @@ namespace YellowstonePathology.Business.Billing.Model
                     if (this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.HasMRNStartingWithA() == true)
                     {
                         result = false;
-                    }
-                    
-                    if(this.m_PanelSetOrder.PanelSetOrderCPTCodeBillCollection.IsHRHClientClinic() == true)
-                    {
-                        result = false;
-                    }                    
+                    }                                                         
                 }                
             }            
             return result;
