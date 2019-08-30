@@ -196,8 +196,8 @@ namespace YellowstonePathology.Business.Monitor.Model
 
         public void SetState()
         {
-            TimeSpan singleScreenLookback = new TimeSpan(24, 0, 0);
-            TimeSpan multipleScreenLookback = new TimeSpan(30, 0, 0);
+            TimeSpan singleScreenLookback = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest().ExpectedDuration; //new TimeSpan(24, 0, 0);
+            TimeSpan multipleScreenLookback = new TimeSpan((int)singleScreenLookback.TotalHours + 24, 0, 0); //new TimeSpan(30, 0, 0);
 
             this.m_HoursSinceAccessioned = YellowstonePathology.Business.Helper.DateTimeExtensions.GetHoursBetweenExcludingWeekends(this.m_AccessionTime, DateTime.Now);                    
 
