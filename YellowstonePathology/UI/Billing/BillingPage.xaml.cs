@@ -411,5 +411,14 @@ namespace YellowstonePathology.UI.Billing
             }
             return result;
         }
+
+        private void MenuItemClearPostDate_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.ListViewPanelSetOrderCPTCode.SelectedItems.Count != 0)
+            {
+                YellowstonePathology.Business.Test.PanelSetOrderCPTCode panelSetOrderCPTCode = (YellowstonePathology.Business.Test.PanelSetOrderCPTCode)this.ListViewPanelSetOrderCPTCode.SelectedItem;
+                panelSetOrderCPTCode.PostDate = null;
+            }
+        }
     }
 }
