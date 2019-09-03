@@ -11,7 +11,7 @@ namespace YellowstonePathology.Business.Client.Model
         {
             this.m_RuleNumber = 14;
             this.m_ReflexOrderCode = "RFLXHPVRL14";
-            this.m_Description = "Perform reflex HPV testing on patients who are reported with ASCUS or LSIL and have not had an HPV in the last year.";
+            this.m_Description = "Perform reflex HPV testing on patients who are reported with an aSIL and have not had an HPV in the last year.";
 			this.m_PanelSet = new YellowstonePathology.Business.Test.HPV.HPVTest();
         }
 
