@@ -37,6 +37,7 @@ namespace YellowstonePathology.Business.Rules.Cytology
             YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytology = new YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology(this.m_PanelSetOrderCytology.ReportNo, panelOrderId, panelOrderId, thinPrepPapScreeningPanel, systemIdentity.User.UserId, systemIdentity.User.Initials);
             panelOrderCytology.FromExistingPanelOrder(this.m_InitiatingPanelOrder, this.m_ScreeningType, false, systemIdentity.User.UserId, systemIdentity.User.Initials);
             this.m_PanelSetOrderCytology.PanelOrderCollection.Add(panelOrderCytology);
+            this.m_PanelSetOrderCytology.CalculateExpectedFinalTimeWhenAddingPanel();
         }
 
         private void SetResultsFromOrderingPanelOrder()

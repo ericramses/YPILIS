@@ -51,7 +51,7 @@ namespace YellowstonePathology.Business.Monitor.Model
                 double totalMinutes = 0;
                 foreach (CytologyScreening cytologyScreening in this)
                 {
-                    totalMinutes += cytologyScreening.HoursSinceAccessioned.TotalHours;
+                    totalMinutes += cytologyScreening.RunningTime.TotalHours;
                 }
                 return totalMinutes / this.Count;
             }           
