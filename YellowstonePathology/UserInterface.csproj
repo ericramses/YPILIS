@@ -1153,6 +1153,7 @@
     <Compile Include="Business\Test\INI1\INI1Test.cs" />
     <Compile Include="Business\Test\InvasiveBreastPanel\InvasiveBreastPanelEPICOBXView.cs" />
     <Compile Include="Business\Test\InvasiveBreastPanel\InvasiveBreastPanelWPHOBXView.cs" />
+    <Compile Include="Business\Test\LLP\LLPEPICBeakerObxView.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColonBRAFMeth.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEColonSendOut.cs" />
     <Compile Include="Business\Test\LynchSyndrome\LSEGeneralSendOut.cs" />

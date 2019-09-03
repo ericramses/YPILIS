@@ -66,7 +66,14 @@ namespace YellowstonePathology.Business.HL7View.EPIC
 					view = new YellowstonePathology.Business.Test.PNH.PNHEPICObxView(accessionOrder, reportNo, obxCount);
                     break;
                 case 20:
-					view = new YellowstonePathology.Business.Test.LLP.LLPEPICObxView(accessionOrder, reportNo, obxCount);
+                    if (beakerTesting)
+                    {
+                        view = new YellowstonePathology.Business.Test.LLP.LLPEPICBeakerObxView(accessionOrder, reportNo, obxCount);
+                    }
+                    else
+                    {
+                        view = new YellowstonePathology.Business.Test.LLP.LLPEPICObxView(accessionOrder, reportNo, obxCount);
+                    }
                     break;
                 case 21:
 					view = new YellowstonePathology.Business.Test.ThrombocytopeniaProfile.ThrombocytopeniaProfileEPICObxView(accessionOrder, reportNo, obxCount);
