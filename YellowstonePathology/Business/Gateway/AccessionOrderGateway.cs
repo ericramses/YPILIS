@@ -2568,9 +2568,9 @@ namespace YellowstonePathology.Business.Gateway
         {
             YellowstonePathology.Business.Monitor.Model.CytologyScreeningCollection result = new YellowstonePathology.Business.Monitor.Model.CytologyScreeningCollection();
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandText = "Select pso.ReportNo, ao.AccessionTime, cpo.ScreeningType, cpo.ScreenedByName, " +
-                "su1.DisplayName AssignedToName, po.AcceptedTime ScreeningFinalTime, pso.FinalTime CaseFinalTime, " +
-                "ao.ClientName, ao.PhysicianName ProviderName, pso.Final,  " +
+            cmd.CommandText = "Select pso.ReportNo, ao.AccessionTime, pso.ExpectedFinalTime, pso.OrderTime, cpo.ScreeningType, cpo.ScreenedByName, " +
+                "su1.DisplayName AssignedToName, po.AcceptedTime ScreeningFinalTime, " +
+                "ao.ClientName, ao.PhysicianName ProviderName, pso.IsDelayed, " +
                 "(Select count(*) from tblPanelOrder where ReportNo = pso.ReportNo) as ScreeningCount " +
                 "from tblAccessionOrder ao join tblPanelSetOrder pso on ao.MasterAccessionNo = pso.MasterAccessionNo " +
                 "join tblPanelOrder po on pso.ReportNo = po.ReportNo " +

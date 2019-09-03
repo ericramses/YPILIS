@@ -10,17 +10,21 @@ namespace YellowstonePathology.Business.Monitor.Model
 
         private DateTime m_AccessionTime;        
         private string m_ReportNo;
-        private bool m_Final;
         private string m_ScreeningType;
         private string m_ScreenedByName;
         private string m_AssignedToName;
-        private Nullable<DateTime> m_ScreeningFinalTime;
-        private Nullable<DateTime> m_CaseFinalTime;
+        private Nullable<DateTime> m_ExpectedFinalTime;
         private string m_ClientName;
         private string m_ProviderName;
         private MonitorStateEnum m_State;
-        private TimeSpan m_HoursSinceAccessioned;
+        private TimeSpan m_RunningTime;
+        private string m_RunningTimeString;
+        private TimeSpan m_GoalTime;
+        private string m_GoalTimeString;
+        private TimeSpan m_Difference;
+        private string m_DifferenceString;
         private int m_ScreeningCount;
+        private bool m_IsDelayed;
 
         public CytologyScreening()
         {
@@ -51,20 +55,6 @@ namespace YellowstonePathology.Business.Monitor.Model
                 {
                     this.m_ReportNo = value;
                     this.NotifyPropertyChanged("ReportNo");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public bool Final
-        {
-            get { return this.m_Final; }
-            set
-            {
-                if (this.m_Final != value)
-                {
-                    this.m_Final = value;
-                    this.NotifyPropertyChanged("Final");
                 }
             }
         }
@@ -112,29 +102,15 @@ namespace YellowstonePathology.Business.Monitor.Model
         }
 
         [PersistentProperty()]
-        public Nullable<DateTime> ScreeningFinalTime
+        public Nullable<DateTime> ExpectedFinalTime
         {
-            get { return this.m_ScreeningFinalTime; }
+            get { return this.m_ExpectedFinalTime; }
             set
             {
-                if (this.m_ScreeningFinalTime != value)
+                if (this.m_ExpectedFinalTime != value)
                 {
-                    this.m_ScreeningFinalTime = value;
-                    this.NotifyPropertyChanged("ScreeningFinalTime");
-                }
-            }
-        }
-
-        [PersistentProperty()]
-        public Nullable<DateTime> CaseFinalTime
-        {
-            get { return this.m_CaseFinalTime; }
-            set
-            {
-                if (this.m_CaseFinalTime != value)
-                {
-                    this.m_CaseFinalTime = value;
-                    this.NotifyPropertyChanged("CaseFinalTime");
+                    this.m_ExpectedFinalTime = value;
+                    this.NotifyPropertyChanged("ExpectedFinalTime");
                 }
             }
         }
@@ -181,6 +157,20 @@ namespace YellowstonePathology.Business.Monitor.Model
             }
         }
 
+        [PersistentProperty()]
+        public bool IsDelayed
+        {
+            get { return this.m_IsDelayed; }
+            set
+            {
+                if (this.m_IsDelayed != value)
+                {
+                    this.m_IsDelayed = value;
+                    this.NotifyPropertyChanged("IsDelayed");
+                }
+            }
+        }
+
         public MonitorStateEnum State
         {
             get { return this.m_State; }
@@ -196,42 +186,17 @@ namespace YellowstonePathology.Business.Monitor.Model
 
         public void SetState()
         {
-            TimeSpan singleScreenLookback = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest().ExpectedDuration; //new TimeSpan(24, 0, 0);
-            TimeSpan multipleScreenLookback = new TimeSpan((int)singleScreenLookback.TotalHours + 24, 0, 0); //new TimeSpan(30, 0, 0);
+            this.SetRunningTime();
+            this.SetGoalTime();
+            this.SetDifference();
 
-            this.m_HoursSinceAccessioned = YellowstonePathology.Business.Helper.DateTimeExtensions.GetHoursBetweenExcludingWeekends(this.m_AccessionTime, DateTime.Now);                    
-
-            if (this.Final == false)
+            if (this.m_Difference.TotalMinutes < 0)
             {
-                if (this.m_AccessionTime.Day == DateTime.Today.Day)
-                {
-                    this.m_State = MonitorStateEnum.Normal;                 
-                }
-                else if (this.m_AccessionTime.Day != DateTime.Today.Day)
-                {                    
-                    if (this.m_ScreeningCount == 1)
-                    {
-                        if (this.m_HoursSinceAccessioned.TotalHours > singleScreenLookback.TotalHours)
-                        {
-                            this.m_State = MonitorStateEnum.Critical;
-                        }
-                        else
-                        {
-                            this.m_State = MonitorStateEnum.Warning;
-                        }
-                    }
-                    else
-                    {
-                        if (this.m_HoursSinceAccessioned.TotalHours > multipleScreenLookback.TotalHours)
-                        {
-                            this.m_State = MonitorStateEnum.Critical;
-                        }
-                        else
-                        {
-                            this.m_State = MonitorStateEnum.Warning;
-                        }
-                    }                    
-                }
+                this.m_State = MonitorStateEnum.Critical;
+            }
+            else if (this.m_IsDelayed == true)
+            {
+                this.m_State = MonitorStateEnum.Warning;
             }
             else
             {
@@ -239,9 +204,76 @@ namespace YellowstonePathology.Business.Monitor.Model
             }
         }
 
-        public TimeSpan HoursSinceAccessioned
+        private void SetDifference()
         {
-            get { return this.m_HoursSinceAccessioned; }
+            this.m_Difference = this.m_GoalTime - this.m_RunningTime;
+            if (this.m_Difference.TotalHours >= -48 && this.m_Difference.TotalHours <= 48)
+            {
+                this.m_DifferenceString = Math.Round(this.m_Difference.TotalHours, 0).ToString() + " hrs";
+            }
+            else
+            {
+                this.m_DifferenceString = Math.Round(this.m_Difference.TotalDays, 0).ToString() + " days";
+            }
+        }
+
+        private void SetGoalTime()
+        {
+            this.m_GoalTime = YellowstonePathology.Business.Helper.DateTimeExtensions.GetHoursBetweenExcludingWeekends(this.m_AccessionTime, this.m_ExpectedFinalTime.Value);
+
+            if (this.m_GoalTime.TotalHours <= 48)
+            {
+                this.m_GoalTimeString = Math.Round(this.m_GoalTime.TotalHours, 0).ToString() + " hrs";
+
+            }
+            else
+            {
+                this.m_GoalTimeString = Math.Round(this.m_GoalTime.TotalDays, 0).ToString() + " days";
+            }
+        }
+
+        private void SetRunningTime()
+        {
+            this.m_RunningTime = YellowstonePathology.Business.Helper.DateTimeExtensions.GetHoursBetweenExcludingWeekends(this.m_AccessionTime, DateTime.Now);
+            if (this.m_RunningTime.TotalHours <= 48)
+            {
+                this.m_RunningTimeString = Math.Round(this.m_RunningTime.TotalHours, 0).ToString() + " hrs";
+
+            }
+            else
+            {
+                this.m_RunningTimeString = Math.Round(this.m_RunningTime.TotalDays, 0).ToString() + " days";
+            }
+        }
+
+        public TimeSpan RunningTime
+        {
+            get { return this.m_RunningTime; }
+        }
+
+        public string RunningTimeString
+        {
+            get { return this.m_RunningTimeString; }
+        }
+
+        public TimeSpan GoalTime
+        {
+            get { return this.m_GoalTime; }
+        }
+
+        public string GoalTimeString
+        {
+            get { return this.m_GoalTimeString; }
+        }
+
+        public TimeSpan Difference
+        {
+            get { return this.m_Difference; }
+        }
+
+        public string DifferenceString
+        {
+            get { return this.m_DifferenceString; }
         }
 
         public void NotifyPropertyChanged(String info)
