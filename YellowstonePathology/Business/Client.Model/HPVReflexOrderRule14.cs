@@ -7,6 +7,7 @@ namespace YellowstonePathology.Business.Client.Model
 {
     public class HPVReflexOrderRule14 : ReflexOrder
     {
+
         public HPVReflexOrderRule14()
         {
             this.m_RuleNumber = 14;
