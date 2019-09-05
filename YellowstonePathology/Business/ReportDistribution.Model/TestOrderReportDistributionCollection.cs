@@ -94,6 +94,20 @@ namespace YellowstonePathology.Business.ReportDistribution.Model
             return result;
         }
 
+        public TestOrderReportDistribution GetFirstEclinical()
+        {
+            TestOrderReportDistribution result = null;
+            foreach (TestOrderReportDistribution testOrderReportDistribution in this)
+            {
+                if (testOrderReportDistribution.DistributionType == "Eclinical Works")
+                {
+                    result = testOrderReportDistribution;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public bool DistributionTypeExists(string distributionType)
         {
             bool result = false;

@@ -768,6 +768,8 @@ namespace YellowstonePathology.UI.Login
                             testCancelledTestOrder.CancelledTestId = panelSetId;
                             testCancelledTestOrder.CancelledTestName = testName;
 
+                            this.m_LoginUI.AccessionOrder.TaskOrderCollection.SetNewReportNoForCancelledTest(reportNo, testCancelledTestOrder.ReportNo);
+
                             YellowstonePathology.Business.Persistence.DocumentGateway.Instance.Save();
 
                             this.m_LoginUI.GetReportSearchListByReportNo(panelSetOrder.ReportNo);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Xml.Linq;
 
 namespace YellowstonePathology.Business.Test.WomensHealthProfile
@@ -15,32 +16,33 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
         {
             WomensHealthProfileTestOrder womensHealthProfileTestOrder = (WomensHealthProfileTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
             WomensHealthProfileResult womensHealthProfileResult = new WomensHealthProfileResult(this.m_AccessionOrder);
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.m_ReportNo);
 
             ThinPrepPap.ThinPrepPapTest thinPrepPapTest = new ThinPrepPap.ThinPrepPapTest();
             bool hasPap = this.m_AccessionOrder.PanelSetOrderCollection.Exists(thinPrepPapTest.PanelSetId);
 
-            this.AddHeader(document, womensHealthProfileTestOrder, "Women's Health Profile");
+            this.AddNextObxElementBeaker("Report No: ", this.m_ReportNo, document, "F");
 
             if (hasPap == true)
             {
-                this.AddNextObxElementBeaker("PAPTESTRESULT", "PAP TEST RESULT: ", document, "F");
+                StringBuilder papTest = new StringBuilder();
 
                 YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(15);
                 if (string.IsNullOrEmpty(panelSetOrderCytology.ScreeningImpression) == false)
                 {
-                    this.AddNextObxElementBeaker("EPITHELIALCELLDESCRIPTION", "Epithelial Cell Description: " + panelSetOrderCytology.ScreeningImpression, document, "F");
+                    papTest.AppendLine("Epithelial Cell Description: " + panelSetOrderCytology.ScreeningImpression);
                 }
 
-                this.AddNextObxElementBeaker("SPECIMENADEQUACY", "Specimen Adequacy: " + panelSetOrderCytology.SpecimenAdequacy, document, "F");
+                papTest.AppendLine("Specimen Adequacy: " + panelSetOrderCytology.SpecimenAdequacy);
 
                 if (string.IsNullOrEmpty(panelSetOrderCytology.OtherConditions) == false)
                 {
-                    this.AddNextObxElementBeaker("OTHERCONDITIONS", "Other Conditions: " + panelSetOrderCytology.OtherConditions, document, "F");
+                    papTest.AppendLine("Other Conditions: " + panelSetOrderCytology.OtherConditions);
                 }
 
                 if (string.IsNullOrEmpty(panelSetOrderCytology.ReportComment) == false)
                 {
-                    this.AddNextObxElementBeaker("COMMENT", "Comment: " + panelSetOrderCytology.ReportComment, document, "F");
+                    papTest.AppendLine("Comment: " + panelSetOrderCytology.ReportComment);
                 }
 
                 YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology screeningPanelOrder = null;
@@ -76,11 +78,11 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                 YellowstonePathology.Business.User.SystemUser systemUser = YellowstonePathology.Business.User.SystemUserCollectionInstance.Instance.SystemUserCollection.GetSystemUserById(screeningPanelOrder.ScreenedById);
                 if (string.IsNullOrEmpty(systemUser.Signature) == false)
                 {
-                    this.AddNextObxElementBeaker("SCREENEDBY", "Screened By: " + systemUser.Signature, document, "F");
+                    papTest.AppendLine("Screened By: " + systemUser.Signature);
                 }
 
                 string cytoTechFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(screeningPanelOrder.AcceptedDate);
-                this.AddNextObxElementBeaker("FINALDATE", "E-Signed " + cytoTechFinal, document, "F");
+                papTest.AppendLine("E-Signed " + cytoTechFinal);
 
                 if (reviewPanelOrder != null)
                 {
@@ -89,19 +91,37 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
                     if (reviewedBy.IndexOf("MD") >= 0)
                     {
-                        this.AddNextObxElementBeaker("INTERPRETEDBY", "Interpreted By: " + reviewedBy + " " + reviewedByFinal, document, "F");
+                        papTest.AppendLine("Interpreted By: " + reviewedBy + " " + reviewedByFinal);
                     }
                     else
                     {
-                        this.AddNextObxElementBeaker("REVIEWEDBY", "Reviewed By: " + reviewedBy + " " + reviewedByFinal, document, "F");
+                        papTest.AppendLine("Reviewed By: " + reviewedBy + " " + reviewedByFinal);
                     }
                 }
+                this.AddNextObxElementBeaker("PAP TEST RESULT: ", papTest.ToString(), document, "F");
             }
 
-            this.AddAmendments(document);
+            if (amendmentCollection.Count != 0)
+            {
+                StringBuilder amendments = new StringBuilder();
+                foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
+                {
+                    if (amendment.Final == true)
+                    {
+                        amendments.AppendLine(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"));
+                        amendments.AppendLine(amendment.Text);
+                        if (amendment.RequirePathologistSignature == true)
+                        {
+                            amendments.AppendLine("Signature: " + amendment.PathologistSignature);
+                            amendments.AppendLine("E-signed " + amendment.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"));
+                        }
+                    }
+                }
+                amendments.AppendLine();
+                this.AddNextObxElementBeaker("Amendments", amendments.ToString(), document, "F");
+            }
 
-            this.AddNextObxElementBeaker("CURRENTMOLECULARTESTSUMMARY", "CURRENT MOLECULAR TEST SUMMARY", document, "F");
-
+            StringBuilder testsPerformed = new StringBuilder();
             YellowstonePathology.Business.Test.HPV.HPVTest panelSetHPV = new YellowstonePathology.Business.Test.HPV.HPVTest();
             YellowstonePathology.Business.Test.HPV1618.HPV1618Test panelSetHPV1618 = new YellowstonePathology.Business.Test.HPV1618.HPV1618Test();
             YellowstonePathology.Business.Test.NGCT.NGCTTest panelSetNGCT = new YellowstonePathology.Business.Test.NGCT.NGCTTest();
@@ -112,73 +132,72 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                 this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetNGCT.PanelSetId) == false &&
                 this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetTrichomonas.PanelSetId) == false)
             {
-                this.AddNextObxElementBeaker("NOTESTSPERFORMED", "No tests performed ", document, "F");
+                testsPerformed.AppendLine("No tests performed");
             }
             else
             {
                 if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPV.PanelSetId) == true)
                 {
                     YellowstonePathology.Business.Test.HPV.HPVTestOrder hpvTestOrder = (YellowstonePathology.Business.Test.HPV.HPVTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV.PanelSetId);
-                    this.AddNextObxElementBeaker("HPVRESULT", "High Risk HPV: " + hpvTestOrder.Result, document, "F");
-                    this.AddNextObxElementBeaker("HPVRESULTREFERENCE", "Reference: Negative", document, "F");
+                    testsPerformed.AppendLine("High Risk HPV: " + hpvTestOrder.Result);
+                    testsPerformed.AppendLine("Reference: Negative");
                     string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(hpvTestOrder.FinalDate);
-                    this.AddNextObxElementBeaker("HPVFINALDATE", "Date Finalized: " + hpvFinal, document, "F");
+                    testsPerformed.AppendLine("Date Finalized: " + hpvFinal);
                 }
 
                 if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetHPV1618.PanelSetId) == true)
                 {
                     YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618 panelSetOrderHPV1618 = (YellowstonePathology.Business.Test.HPV1618.PanelSetOrderHPV1618)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetHPV1618.PanelSetId);
-                    this.AddNextObxElementBeaker("HPV16RESULT", "HPV type 16: " + panelSetOrderHPV1618.HPV16Result, document, "F");
-                    this.AddNextObxElementBeaker("HPV16RESULTREFERENCE", "Reference: Negative", document, "F");
+                    testsPerformed.AppendLine("HPV type 16: " + panelSetOrderHPV1618.HPV16Result);
+                    testsPerformed.AppendLine("Reference: Negative");
 
-                    this.AddNextObxElementBeaker("HPV18RESULT", "HPV type 18: " + panelSetOrderHPV1618.HPV18Result, document, "F");
-                    this.AddNextObxElementBeaker("HPV18RESULTREFERENCE", "Reference: Negative", document, "F");
+                    testsPerformed.AppendLine("HPV type 18: " + panelSetOrderHPV1618.HPV18Result);
+                    testsPerformed.AppendLine("Reference: Negative");
                     string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(panelSetOrderHPV1618.FinalDate);
-                    this.AddNextObxElementBeaker("HPV1618FINALDATE", "Date Finalized: " + hpvFinal, document, "F");
+                    testsPerformed.AppendLine("Date Finalized: " + hpvFinal);
                 }
 
                 if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetNGCT.PanelSetId) == true)
                 {
-                    //this.AddNextObxElementBeaker("Chlamydia Gonorrhea Screening ", document, "F");
+                    //testsPerformed.AppendLine("Chlamydia Gonorrhea Screening");
                     YellowstonePathology.Business.Test.NGCT.NGCTTestOrder panelSetOrderNGCT = (YellowstonePathology.Business.Test.NGCT.NGCTTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetNGCT.PanelSetId);
-                    this.AddNextObxElementBeaker("CHLAMYDIATRACHOMATISRESULT", "Chlamydia trachomatis: " + panelSetOrderNGCT.ChlamydiaTrachomatisResult, document, "F");
-                    this.AddNextObxElementBeaker("CHLAMYDIATRACHOMATISRESULTREFERENCE", "Reference: Negative", document, "F");
+                    testsPerformed.AppendLine("Chlamydia trachomatis: " + panelSetOrderNGCT.ChlamydiaTrachomatisResult);
+                    testsPerformed.AppendLine("Reference: Negative");
 
-                    this.AddNextObxElementBeaker("NEISSERIAGONORROEAERESULT", "Neisseria gonorrhoeae: " + panelSetOrderNGCT.NeisseriaGonorrhoeaeResult, document, "F");
-                    this.AddNextObxElementBeaker("NEISSERIAGONORROEARESULTREFERENCE", "Reference: Negative", document, "F");
+                    testsPerformed.AppendLine("Neisseria gonorrhoeae: " + panelSetOrderNGCT.NeisseriaGonorrhoeaeResult);
+                    testsPerformed.AppendLine("Reference: Negative");
                     string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(panelSetOrderNGCT.FinalDate);
-                    this.AddNextObxElementBeaker("NGCTFINALDATE", "Date Finalized: " + hpvFinal, document, "F");
+                    testsPerformed.AppendLine("Date Finalized: " + hpvFinal);
                 }
 
                 if (this.m_AccessionOrder.PanelSetOrderCollection.Exists(panelSetTrichomonas.PanelSetId) == true)
                 {
-                    //this.AddNextObxElementBeaker("Trichomonas Screening ", document, "F");
+                    //testsPerformed.AppendLine("Trichomonas Screening");
                     YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder reportOrderTrichomonas = (YellowstonePathology.Business.Test.Trichomonas.TrichomonasTestOrder)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(panelSetTrichomonas.PanelSetId);
-                    this.AddNextObxElementBeaker("TRICHOMONASVAGINALISRESULT", "Trichomonas vaginalis: " + reportOrderTrichomonas.Result, document, "F");
-                    this.AddNextObxElementBeaker("TRICHOMONASVAGINALISRESULTReference", "Reference: Negative", document, "F");
+                    testsPerformed.AppendLine("Trichomonas vaginalis: " + reportOrderTrichomonas.Result);
+                    testsPerformed.AppendLine("Reference: Negative");
                     string hpvFinal = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(reportOrderTrichomonas.FinalDate);
-                    this.AddNextObxElementBeaker("TRICHOMONASVAGINALISFINALDATE", "Date Finalized: " + hpvFinal, document, "F");
+                    testsPerformed.AppendLine("Date Finalized: " + hpvFinal);
                 }
             }
+            this.AddNextObxElementBeaker("CURRENT MOLECULAR TEST SUMMARY", testsPerformed.ToString(), document, "F");
 
-            this.AddNextObxElementBeaker("SPECIMENDESCRIPTION", "Specimen Description: Thin Prep Fluid", document, "F");
-            this.AddNextObxElementBeaker("SPECIMENSOURCE", "Specimen Source: " + this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenSource, document, "F");
+            this.AddNextObxElementBeaker("Specimen Description: ", "Thin Prep Fluid", document, "F");
+            this.AddNextObxElementBeaker("Specimen Source: ", this.m_AccessionOrder.SpecimenOrderCollection[0].SpecimenSource, document, "F");
             string collectionDateTimeString = this.m_AccessionOrder.SpecimenOrderCollection[0].GetCollectionDateTimeString();
-            this.AddNextObxElementBeaker("COLLECTIONDATETIME", "Collection Date/Time: " + collectionDateTimeString, document, "F");
+            this.AddNextObxElementBeaker("Collection Date/Time: ", collectionDateTimeString, document, "F");
 
-            this.AddNextObxElementBeaker("CLINICALHISTORY", "Clinical History: ", document, "F");
-            this.HandleLongString(this.m_AccessionOrder.ClinicalHistory, document, "F");
+            this.AddNextObxElementBeaker("Clinical History: ", this.m_AccessionOrder.ClinicalHistory, document, "F");
 
-            this.AddNextObxElementBeaker("METHOD", "Method: ", document, "F");
-            this.HandleLongString(womensHealthProfileResult.Method, document, "F");
+            this.AddNextObxElementBeaker("Method: ", womensHealthProfileResult.Method, document, "F");
 
-            this.AddNextObxElementBeaker("REFERENCES", "References: ", document, "F");
-            this.HandleLongString(womensHealthProfileResult.References, document, "F");
+            this.AddNextObxElementBeaker("References: ", womensHealthProfileResult.References, document, "F");
 
             string locationPerformed = womensHealthProfileTestOrder.GetLocationPerformedComment();
-            this.AddNextObxElementBeaker("LOCATIONPERFORMED", "Location Performed: " + locationPerformed, document, "F");
+            this.AddNextObxElementBeaker("Location Performed: ", locationPerformed, document, "F");
 
-            this.AddNextObxElementBeaker("PRIORPAPANDMOLECULARTESTS", "PRIOR PAP AND GYN MOLECULAR TESTS", document, "F");
+            StringBuilder priorTests = new StringBuilder();
+
             YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest panelSetThinPrepPap = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapTest();
             DateTime cutoffDate = this.m_AccessionOrder.AccessionDate.Value.AddYears(-5);
 
@@ -187,11 +206,10 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
 
             if (priorPapRelatedHistory.Count == 0)
             {
-                this.AddNextObxElementBeaker("NOPRIORPAPANDMOLECULARTESTSPERFORMED", "No prior tests performed ", document, "F");
+                priorTests.AppendLine("No prior tests performed");
             }
             else
             {
-                int testCount = 0;
                 foreach (YellowstonePathology.Business.Domain.PatientHistoryResult patientHistoryResult in priorPapRelatedHistory)
                 {
                     YellowstonePathology.Business.Test.AccessionOrder accessionOrder = YellowstonePathology.Business.Persistence.DocumentGateway.Instance.GetAccessionOrderByMasterAccessionNo(patientHistoryResult.MasterAccessionNo);
@@ -206,15 +224,15 @@ namespace YellowstonePathology.Business.Test.WomensHealthProfile
                             panelSetOrder.PanelSetId == panelSetNGCT.PanelSetId ||
                             panelSetOrder.PanelSetId == panelSetTrichomonas.PanelSetId)
                         {
-                            testCount++;
                             reportNo = panelSetOrder.ReportNo;
                             string finaldate = YellowstonePathology.Business.Helper.DateTimeExtensions.DateStringFromNullable(panelSetOrder.FinalDate);
                             result = panelSetOrder.GetResultWithTestName();
-                            this.AddNextObxElementBeaker("PRIORTEST" + testCount, "Test: " + panelSetOrder.PanelSetName + " Report No: " + reportNo + " Result: " + result + " Final Date: " + finaldate, document, "F");
+                            priorTests.AppendLine("Test: " + panelSetOrder.PanelSetName + " Report No: " + reportNo + " Result: " + result + " Final Date: " + finaldate);
                         }
                     }
                 }
             }
+            this.AddNextObxElementBeaker("PRIOR PAP AND GYN MOLECULAR TESTS", priorTests.ToString(), document, "F");
         }
     }
 }

@@ -168,7 +168,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid Width="300">
-                                    <TextBlock Text="{Binding Path=HoursSinceAccessioned.TotalHours}" HorizontalAlignment="Stretch"/>
+                                    <TextBlock Text="{Binding Path=RunningTime.TotalHours}" HorizontalAlignment="Stretch"/>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

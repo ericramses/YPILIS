@@ -110,7 +110,7 @@ namespace YellowstonePathology.Business.PanelSet.Model
             panelSetCollection.Add(new YellowstonePathology.Business.PanelSet.Model.HighRiskHPVByISHTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.FISH820Q20Test());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.ROS1ByFISH.ROS1ByFISHTest());
-            panelSetCollection.Add(new YellowstonePathology.Business.Test.AndrogenRecepter.AndrogenReceptorTest());
+            panelSetCollection.Add(new YellowstonePathology.Business.Test.AndrogenReceptor.AndrogenReceptorTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.MDSCMMLProfile.MDSCMMLProfileTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.AMLExtendedByFish.AMLExtendedByFishTest());
             panelSetCollection.Add(new YellowstonePathology.Business.Test.CBFBinv16.CBFBinv16Test());

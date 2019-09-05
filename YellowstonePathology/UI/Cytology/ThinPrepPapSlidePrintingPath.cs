@@ -44,14 +44,27 @@ namespace YellowstonePathology.UI.Cytology
 
 		private void ShowScanContainerPage()
         {
-            YellowstonePathology.UI.Gross.ScanContainerPage scanContainerPage = new YellowstonePathology.UI.Gross.ScanContainerPage(this.m_SystemIdentity, "Please Scan Container");
+            YellowstonePathology.UI.Gross.ScanContainerPage scanContainerPage = new YellowstonePathology.UI.Gross.ScanContainerPage(this.m_SystemIdentity, "Please Scan Container", true);
             scanContainerPage.UseThisContainer += new YellowstonePathology.UI.Gross.ScanContainerPage.UseThisContainerEventHandler(ScanContainerPage_UseThisContainer);
             scanContainerPage.PageTimedOut += new YellowstonePathology.UI.Gross.ScanContainerPage.PageTimedOutEventHandler(ScanContainerPage_PageTimedOut);
             scanContainerPage.BarcodeWontScan += new YellowstonePathology.UI.Gross.ScanContainerPage.BarcodeWontScanEventHandler(ScanContainerPage_BarcodeWontScan);
             scanContainerPage.SignOut += new YellowstonePathology.UI.Gross.ScanContainerPage.SignOutEventHandler(ScanContainerPage_SignOut);
             scanContainerPage.ScanAliquot += ScanContainerPage_ScanAliquot;
+            scanContainerPage.ShowEQCLabelPage += ScanContainerPage_ShowEQCLabelPage;
 
             this.m_PrintSlideDialog.PageNavigator.Navigate(scanContainerPage);
+        }
+
+        private void ScanContainerPage_ShowEQCLabelPage(object sender, EventArgs e)
+        {
+            EQCLabelPage eqcLabelPage = new EQCLabelPage();
+            eqcLabelPage.Finished += EqcLabelPage_Finished;
+            this.m_PrintSlideDialog.PageNavigator.Navigate(eqcLabelPage);
+        }
+
+        private void EqcLabelPage_Finished(object sender, EventArgs e)
+        {
+            this.ShowScanContainerPage();
         }
 
         private void ScanContainerPage_ScanAliquot(object sender, EventArgs e)

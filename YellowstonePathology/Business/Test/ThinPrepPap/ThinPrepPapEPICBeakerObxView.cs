@@ -18,47 +18,64 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
         public override void ToXml(XElement document)
         {
             YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology panelSetOrderCytology = (YellowstonePathology.Business.Test.ThinPrepPap.PanelSetOrderCytology)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.m_ReportNo);
 
-            this.AddHeader(document, panelSetOrderCytology, "Thin Prep Pap Report");
-            this.AddNextObxElement("", document, "F");
+            this.AddNextObxElementBeaker("Report No", this.m_ReportNo, document, "F");
 
-            this.AddNextObxElementBeaker("EPITHELIALCELLDESCRIPTION", "Epithelial Cell Description:", document, "F");
-            this.AddNextObxElementBeaker("SCREENINGIMPRESSION", panelSetOrderCytology.ScreeningImpression.ToUpper(), document, "F");
+            this.AddNextObxElementBeaker("Epithelial Cell Description", panelSetOrderCytology.ScreeningImpression.ToUpper(), document, "F");
 
             string otherConditions = panelSetOrderCytology.OtherConditions;
             if (string.IsNullOrEmpty(otherConditions) == true)
             {
                 otherConditions = "None.";
             }
-            this.AddNextObxElementBeaker("OTHERCONDITIONS", "Other Conditions: "  + otherConditions, document, "F");
+            this.AddNextObxElementBeaker("Other Conditions", otherConditions, document, "F");
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrder(panelSetOrderCytology.OrderedOn, panelSetOrderCytology.OrderedOnId);
-            this.AddNextObxElementBeaker("SPECIMENDESCRIPTION", "Specimen Description: " + specimenOrder.Description, document, "F");
+            this.AddNextObxElementBeaker("Specimen Description", specimenOrder.Description, document, "F");
 
-            this.AddNextObxElementBeaker("SPECIMENADEQUACY", "Specimen Adequacy: " + panelSetOrderCytology.SpecimenAdequacy, document, "F");
+            this.AddNextObxElementBeaker("Specimen Adequacy", panelSetOrderCytology.SpecimenAdequacy, document, "F");
 
             if (string.IsNullOrEmpty(panelSetOrderCytology.ReportComment) == false)
             {
-                this.AddNextObxElementBeaker("COMMENT", "Comment: " + panelSetOrderCytology.ReportComment, document, "F");
+                this.AddNextObxElementBeaker("Comment", panelSetOrderCytology.ReportComment, document, "F");
             }
 
-            this.AddNextObxElementBeaker("SIGNATURE", "Finaled By: " + panelSetOrderCytology.Signature, document, "F");
+            this.AddNextObxElementBeaker("Finaled By", panelSetOrderCytology.Signature, document, "F");
             if (panelSetOrderCytology.FinalTime.HasValue == true)
             {
-                this.AddNextObxElementBeaker("FINALDATE", "E-signed " + panelSetOrderCytology.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
+                this.AddNextObxElementBeaker("E-signed ", panelSetOrderCytology.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"), document, "F");
             }
 
-            this.AddAmendments(document);
+            if (amendmentCollection.Count != 0)
+            {
+                StringBuilder amendments = new StringBuilder();
+                foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
+                {
+                    if (amendment.Final == true)
+                    {
+                        amendments.AppendLine(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"));
+                        amendments.AppendLine(amendment.Text);
+                        if (amendment.RequirePathologistSignature == true)
+                        {
+                            amendments.AppendLine("Signature: " + amendment.PathologistSignature);
+                            amendments.AppendLine("E-signed " + amendment.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"));
+                        }
+                    }
+                }
+                amendments.AppendLine();
+                this.AddNextObxElementBeaker("Amendments", amendments.ToString(), document, "F");
+            }
 
-            this.AddNextObxElementBeaker("SCREENINGMETHOD", "Screening Method: " + panelSetOrderCytology.Method, document, "F");
+            this.AddNextObxElementBeaker("Screening Method", panelSetOrderCytology.Method, document, "F");
 
-            this.AddNextObxElementBeaker("REFERENCES", "References: " + panelSetOrderCytology.ReportReferences, document, "F");
+            this.AddNextObxElementBeaker("References", panelSetOrderCytology.ReportReferences, document, "F");
 
             string disclaimer = "This Pap test is only a screening test. A negative result does not definitively rule out the presence of disease. Women should, therefore, in consultation with their physician, have this test performed at mutually agreed intervals.";
-            this.AddNextObxElementBeaker("ASR", "ASR: " + disclaimer, document, "F");
+            this.AddNextObxElementBeaker("ASR", disclaimer, document, "F");
 
             string locationPerformed = panelSetOrderCytology.GetLocationPerformedComment();
-            this.AddNextObxElementBeaker("LOCATIONPERFORMED", "Location Performed: " + locationPerformed, document, "F");
+            this.AddNextObxElementBeaker("Location Performed", locationPerformed, document, "F");
         }
     }
 }

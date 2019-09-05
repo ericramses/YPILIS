@@ -195,13 +195,27 @@ namespace YellowstonePathology.UI.Cytology
                 if (this.m_AccessionOrder.PanelSetOrderCollection.WomensHealthProfileExists() == true)
                 {
                     this.m_AccessionOrder.PanelSetOrderCollection.GetWomensHealthProfile().SetExptectedFinalTime(this.m_AccessionOrder);
+                    this.SetHPVComment();
                 }                
                 
 				this.StartWomensHealthProfilePath();
             }						
-        }        
+        }
 
-		public void SetResultToAgree(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderToSet, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
+        private void SetHPVComment()
+        {
+            /*
+            YellowstonePathology.Business.Audit.Model.HPVReflexRuleRequiresCheck checkAudit = new Business.Audit.Model.HPVReflexRuleRequiresCheck(this.m_AccessionOrder);
+            checkAudit.Run();
+            if (checkAudit.ActionRequired == true)
+            {
+                if (string.IsNullOrEmpty(this.m_PanelSetOrderCytology.ReportComment) == false) this.m_PanelSetOrderCytology.ReportComment += Environment.NewLine + Environment.NewLine;
+                this.m_PanelSetOrderCytology.ReportComment += "Repeat HPV testing is not indicated, as the patient has a known prior positive HPV test within the last year. Please call YPI if you have further questions.";
+            }
+            */
+        }
+
+        public void SetResultToAgree(YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderToSet, YellowstonePathology.Business.Rules.ExecutionStatus executionStatus)
         {
             YellowstonePathology.Business.Rules.Cytology.SetResultToAgree setResultToAgree = new YellowstonePathology.Business.Rules.Cytology.SetResultToAgree();
 			setResultToAgree.Execute(panelOrderToSet, this.m_AccessionOrder, executionStatus);
@@ -363,6 +377,7 @@ namespace YellowstonePathology.UI.Cytology
             YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel thinPrepPapAcidWashPanel = new YellowstonePathology.Business.Test.ThinPrepPap.ThinPrepPapAcidWashPanel();
             YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash panelOrderCytologyAcidWash = new YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderAcidWash(this.m_PanelSetOrderCytology.ReportNo, panelOrderId, panelOrderId, thinPrepPapAcidWashPanel, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.Initials);
             this.m_PanelSetOrderCytology.PanelOrderCollection.Add(panelOrderCytologyAcidWash);
+            this.m_PanelSetOrderCytology.CalculateExpectedFinalTimeWhenAddingPanel();
             orderingPanelOrder.AppendReportComment(thinPrepPapAcidWashPanel.ReportComment);
 		}
 
@@ -373,8 +388,9 @@ namespace YellowstonePathology.UI.Cytology
             YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology panelOrderCytologyDotReview = new YellowstonePathology.Business.Test.ThinPrepPap.PanelOrderCytology(this.m_PanelSetOrderCytology.ReportNo, panelOrderId, panelOrderId, thinPrepPapDotReviewPanel, this.m_SystemIdentity.User.UserId, this.m_SystemIdentity.User.Initials);
 			panelOrderCytologyDotReview.OrderComment = comment;            
             panelOrderCytologyDotReview.OrderedById = orderingPanelOrder.OrderedById;
-            this.m_PanelSetOrderCytology.PanelOrderCollection.Add(panelOrderCytologyDotReview);                            
-		}
+            this.m_PanelSetOrderCytology.PanelOrderCollection.Add(panelOrderCytologyDotReview);
+            this.m_PanelSetOrderCytology.CalculateExpectedFinalTimeWhenAddingPanel();
+        }
 
         public void NotifyPropertyChanged(String info)
         {

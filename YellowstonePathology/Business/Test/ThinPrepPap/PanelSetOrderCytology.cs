@@ -609,5 +609,15 @@ namespace YellowstonePathology.Business.Test.ThinPrepPap
             }
             return result;
         }
+
+        public void CalculateExpectedFinalTimeWhenAddingPanel()
+        {
+            ThinPrepPapTest test = new ThinPrepPap.ThinPrepPapTest();
+            DateTime originalExpectedFinalTime = YellowstonePathology.Business.Helper.DateTimeExtensions.GetExpectedFinalTime(this.m_OrderTime.Value, test.ExpectedDuration);
+            if(this.m_ExpectedFinalTime <= originalExpectedFinalTime)
+            {
+                this.m_ExpectedFinalTime = YellowstonePathology.Business.Helper.DateTimeExtensions.GetExpectedFinalTime(this.m_ExpectedFinalTime.Value, new TimeSpan(24, 0, 0));
+            }
+        }
     }
 }

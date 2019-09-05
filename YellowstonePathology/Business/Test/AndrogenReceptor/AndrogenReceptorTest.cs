@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace YellowstonePathology.Business.Test.AndrogenRecepter
+namespace YellowstonePathology.Business.Test.AndrogenReceptor
 {
 	public class AndrogenReceptorTest : YellowstonePathology.Business.PanelSet.Model.PanelSet
 	{
         public AndrogenReceptorTest()
 		{
 			this.m_PanelSetId = 205;
-			this.m_PanelSetName = "Androgen Recepter By IHC";
-            this.m_Abbreviation = "Androgen Recepter";
+			this.m_PanelSetName = "Androgen Receptor By IHC";
+            this.m_Abbreviation = "Androgen Receptor";
 			this.m_CaseType = YellowstonePathology.Business.CaseType.IHC;
 			this.m_HasTechnicalComponent = true;			
             this.m_HasProfessionalComponent = false;
-			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.PublishedDocument;
+			this.m_ResultDocumentSource = YellowstonePathology.Business.PanelSet.Model.ResultDocumentSourceEnum.YPIDatabase;
             this.m_ReportNoLetter = new YellowstonePathology.Business.ReportNoLetterR();
             this.m_Active = true;
             
-			this.m_AllowMultiplePerAccession = true;            
-            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Document.ReferenceLabReport).AssemblyQualifiedName;
+			this.m_AllowMultiplePerAccession = true;
+            this.m_PanelSetOrderClassName = typeof(YellowstonePathology.Business.Test.AndrogenReceptor.AndrogenReceptorTestOrder).AssemblyQualifiedName;
+            this.m_WordDocumentClassName = typeof(YellowstonePathology.Business.Test.AndrogenReceptor.AndrogenReceptorWordDocument).AssemblyQualifiedName;
 
             string taskDescription = "Collect paraffin block from Histology and send to Neo.";
 

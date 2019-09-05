@@ -45,6 +45,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,3,0,0" FontWeight="Bold" FontSize="14">Received</TextBlock>
@@ -82,6 +83,9 @@
                 </TextBlock>
                 <TextBlock Grid.Column="0" Grid.Row="10" Margin="5,3,0,0">
                     <Hyperlink Click="HyperlinkHoldSpecimen_Click">Hold</Hyperlink>
+                </TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="11" Margin="5,3,0,0">
+                    <Hyperlink Click="HyperlinkEditProcessor_Click">Edit Processor</Hyperlink>
                 </TextBlock>
 
             </Grid>
@@ -171,16 +175,16 @@
                 <TextBox Grid.Column="1" Grid.Row="13" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.FixationComment}" TextWrapping="Wrap" FontSize="14" AcceptsReturn="True"></TextBox>
 
                 <TextBlock Grid.Column="0" Grid.Row="15" Margin="2,2,2,2" HorizontalAlignment="Right">Processor Start Time:</TextBlock>
-                <TextBox Grid.Column="1" Grid.Row="15" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.ProcessorStartTime, TargetNullValue='', StringFormat='MM/dd/yyyy HH:mm'}" FontSize="14" IsEnabled="False"></TextBox>
+                <TextBox Name="TextBoxProcessorStart" Grid.Column="1" Grid.Row="15" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.ProcessorStartTime, TargetNullValue='', StringFormat='MM/dd/yyyy HH:mm'}" FontSize="14" IsEnabled="False"></TextBox>
 
                 <TextBlock Grid.Column="0" Grid.Row="16" Margin="2,2,2,2" HorizontalAlignment="Right">Processor Fixation Time:</TextBlock>
-                <TextBox Grid.Column="1" Grid.Row="16" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.ProcessorFixationTimeString, Mode=OneWay}" FontSize="14" IsEnabled="False"></TextBox>
+                <TextBox Name="TextBoxProcessorFixationTime" Grid.Column="1" Grid.Row="16" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.ProcessorFixationTimeString, Mode=OneWay}" FontSize="14" IsEnabled="False"></TextBox>
 
                 <TextBlock Grid.Column="0" Grid.Row="17" Margin="2,2,2,2" HorizontalAlignment="Right">Fixation End Time:</TextBlock>
-                <TextBox Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.FixationEndTime, TargetNullValue='', StringFormat='MM/dd/yyyy HH:mm'}" FontSize="14" IsEnabled="False"></TextBox>
+                <TextBox Name="TextBoxFixationEndTime" Grid.Column="1" Grid.Row="17" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.FixationEndTime, TargetNullValue='', StringFormat='MM/dd/yyyy HH:mm'}" FontSize="14" IsEnabled="False"></TextBox>
 
                 <TextBlock Grid.Column="0" Grid.Row="18" Margin="2,2,2,2" HorizontalAlignment="Right">Fixation Duration:</TextBlock>
-                <TextBox Grid.Column="1" Grid.Row="18" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.FixationDurationString, Mode=OneWay}" FontSize="14" IsEnabled="False"></TextBox>
+                <TextBox Name="TextBoxFixationDuration" Grid.Column="1" Grid.Row="18" Margin="2,2,2,2" Text="{Binding Path=SpecimenOrder.FixationDurationString, Mode=OneWay}" FontSize="14" IsEnabled="False"></TextBox>
 
                 <TextBlock Grid.Column="0" Grid.Row="19" Margin="2,2,2,2" HorizontalAlignment="Right">Specimen Adequacy:</TextBlock>
                 <ComboBox Grid.Column="1" Grid.Row="19" Margin="2,2,2,2" HorizontalAlignment="Stretch"

@@ -72,7 +72,7 @@ namespace YellowstonePathology.UI.Login.Receiving
 
 		private void ShowScanContainerPage()
 		{
-			Gross.ScanContainerPage scanContainerPage = new Gross.ScanContainerPage(this.m_SystemIdentity, "Please Scan Replacement Barcode");
+			Gross.ScanContainerPage scanContainerPage = new Gross.ScanContainerPage(this.m_SystemIdentity, "Please Scan Replacement Barcode", false);
             scanContainerPage.UseThisContainer += new Gross.ScanContainerPage.UseThisContainerEventHandler(ScanContainerPage_UseThisContainer);
             scanContainerPage.BarcodeWontScan += new Gross.ScanContainerPage.BarcodeWontScanEventHandler(ScanContainerPage_BarcodeWontScan);
 			this.m_LoginPageWindow.PageNavigator.Navigate(scanContainerPage);

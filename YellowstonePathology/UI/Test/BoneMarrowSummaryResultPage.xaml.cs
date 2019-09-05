@@ -34,7 +34,6 @@ namespace YellowstonePathology.UI.Test
         private YellowstonePathology.Business.Test.BoneMarrowSummary.OtherReportViewCollection m_OtherReportViewCollection;
         private string m_PageHeaderText;
 
-
         public BoneMarrowSummaryResultPage(YellowstonePathology.Business.Test.PanelSetOrder testOrder,
             YellowstonePathology.Business.Test.AccessionOrder accessionOrder,
             YellowstonePathology.Business.User.SystemIdentity systemIdentity,

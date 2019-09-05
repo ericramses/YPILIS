@@ -66,7 +66,7 @@ namespace YellowstonePathology.UI.Gross
 
 		public void ShowScanContainerPage()
 		{
-			ScanContainerPage scanContainerPage = new ScanContainerPage(this.m_SystemIdentity, "Please Scan Container");
+			ScanContainerPage scanContainerPage = new ScanContainerPage(this.m_SystemIdentity, "Please Scan Container", false);
             scanContainerPage.UseThisContainer += new ScanContainerPage.UseThisContainerEventHandler(ScanContainerPage_UseThisContainer);
             scanContainerPage.PageTimedOut += new ScanContainerPage.PageTimedOutEventHandler(ScanContainerPage_PageTimedOut);
             scanContainerPage.BarcodeWontScan += new ScanContainerPage.BarcodeWontScanEventHandler(ScanContainerPage_BarcodeWontScan);

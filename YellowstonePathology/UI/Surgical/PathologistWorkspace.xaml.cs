@@ -250,26 +250,9 @@ namespace YellowstonePathology.UI.Surgical
 		}
 
 		private void ShowStainOrderForm()
-		{
-            //YellowstonePathology.UI.Common.OrderDialog window = new YellowstonePathology.UI.Common.OrderDialog(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
-            //window.ShowDialog();
-
-            //this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList.Build(this.m_PathologistUI.AccessionOrder);
-            //this.m_PathologistUI.NotifyPropertyChanged("AccessionOrder.PanelSetOrderCollection.PathologistTestOrderItemList");
-
-            
-            YellowstonePathology.UI.Surgical.StainOrder window = new StainOrder(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.AccessionOrder.PanelSetOrderCollection.GetSurgical());
-            window.ShowDialog();
-
-            //var screen = ScreenHandler.GetOtherScreen();            
-            //window.WindowState = WindowState.Normal;
-            //window.Left = screen.WorkingArea.Left;
-            //window.Top = screen.WorkingArea.Top;
-            //window.Width = screen.WorkingArea.Width;
-            //window.Height = screen.WorkingArea.Height;            
-            //window.Loaded += OrderDiaglog_Loaded;            
-            //window.ShowDialog();
-            
+		{            
+            YellowstonePathology.UI.Surgical.StainOrder window = new StainOrder(this.m_PathologistUI.AccessionOrder, this.m_PathologistUI.PanelSetOrder);
+            window.ShowDialog();            
         }
 
         private void OrderDiaglog_Loaded(object sender, RoutedEventArgs e)
@@ -927,7 +910,7 @@ namespace YellowstonePathology.UI.Surgical
         private void ButtonNewScan_Click(object sender, RoutedEventArgs e)
         {
             YellowstonePathology.Business.BarcodeScanning.Barcode barcode = new Business.BarcodeScanning.Barcode();
-            barcode.ID = "19-3021.1A1";
+            barcode.ID = "19-22362.1A1";
             barcode.IsValidated = true;
             this.HistologySlideScanReceived(barcode);
         }        

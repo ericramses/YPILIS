@@ -18,30 +18,46 @@ namespace YellowstonePathology.Business.Test.HPV1618
         public override void ToXml(XElement document)
         {
             PanelSetOrderHPV1618 panelSetOrder = (PanelSetOrderHPV1618)this.m_AccessionOrder.PanelSetOrderCollection.GetPanelSetOrder(this.m_ReportNo);
-            this.AddHeader(document, panelSetOrder, "HPV-16/18 Genotyping");
+            YellowstonePathology.Business.Amendment.Model.AmendmentCollection amendmentCollection = this.m_AccessionOrder.AmendmentCollection.GetAmendmentsForReport(this.m_ReportNo);
 
-            this.AddNextObxElementBeaker("HPV16RESULT", "HPV-16 Result: " + panelSetOrder.HPV16Result, document, "F");
-            this.AddNextObxElementBeaker("HPV16RESULTREFERENCE", "HPV-16 Reference: Negative", document, "F");
-
-            this.AddNextObxElementBeaker("HPV1845RESULT", "HPV-18/45 Result: " + panelSetOrder.HPV18Result, document, "F");
-            this.AddNextObxElementBeaker("HPV1845RESULTREFERENCE", "HPV-18/45 Reference: Negative", document, "F");
+            this.AddNextObxElementBeaker("Report No", this.m_ReportNo, document, "F");
+            this.AddNextObxElementBeaker("HPV-16 Result", panelSetOrder.HPV16Result, document, "F", "Negative");            
+            this.AddNextObxElementBeaker("HPV-18/45 Result", panelSetOrder.HPV18Result, document, "F", "Negative");            
 
             if (string.IsNullOrEmpty(panelSetOrder.Comment) == false)
             {
-                this.AddNextObxElementBeaker("COMMENT", "Comment: " + panelSetOrder.Comment, document, "F");
+                this.AddNextObxElementBeaker("Comment", "Comment" + panelSetOrder.Comment, document, "F");
             }
 
-            this.AddAmendments(document);
+            if (amendmentCollection.Count != 0)
+            {
+                StringBuilder amendments = new StringBuilder();
+                foreach (YellowstonePathology.Business.Amendment.Model.Amendment amendment in amendmentCollection)
+                {
+                    if (amendment.Final == true)
+                    {
+                        amendments.AppendLine(amendment.AmendmentType + ": " + amendment.AmendmentDate.Value.ToString("MM/dd/yyyy"));
+                        amendments.AppendLine(amendment.Text);
+                        if (amendment.RequirePathologistSignature == true)
+                        {
+                            amendments.AppendLine("Signature: " + amendment.PathologistSignature);
+                            amendments.AppendLine("E-signed " + amendment.FinalTime.Value.ToString("MM/dd/yyyy HH:mm"));
+                        }
+                    }
+                }
+                amendments.AppendLine();
+                this.AddNextObxElementBeaker("Amendments", amendments.ToString(), document, "F");
+            }
 
             YellowstonePathology.Business.Specimen.Model.SpecimenOrder specimenOrder = this.m_AccessionOrder.SpecimenOrderCollection.GetSpecimenOrderByOrderTarget(panelSetOrder.OrderedOnId);
-            this.AddNextObxElementBeaker("SPECIMENDESCRIPTION", "Specimen: " + specimenOrder.GetDescription(), document, "F");
+            this.AddNextObxElementBeaker("Specimen", specimenOrder.GetDescription(), document, "F");
 
-            this.AddNextObxElementBeaker("METHOD", "Method: " + panelSetOrder.Method, document, "F");
+            this.AddNextObxElementBeaker("Method", panelSetOrder.Method, document, "F");
 
-            this.AddNextObxElementBeaker("REFERENCES", "References: " + panelSetOrder.ReportReferences, document, "F");
+            this.AddNextObxElementBeaker("References", panelSetOrder.ReportReferences, document, "F");
 
             string locationPerformed = panelSetOrder.GetLocationPerformedComment();
-            this.AddNextObxElementBeaker("LOCATIONPERFORMED", "Location Performed: " + locationPerformed, document, "F");
+            this.AddNextObxElementBeaker("Location Performed", locationPerformed, document, "F");
         }
     }
 }

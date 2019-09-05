@@ -211,8 +211,7 @@ namespace YellowstonePathology.Business.Test
             {
                 Business.Client.Model.HRHClinics hrhClinics = new Client.Model.HRHClinics();
                 if(hrhClinics.Exists(panelSetOrderCPTCodeBill.ClientId) && panelSetOrderCPTCodeBill.BillTo == "Client")
-                {
-                    panelSetOrderCPTCodeBill.MedicalRecord = "*" + panelSetOrderCPTCodeBill.MedicalRecord;
+                {                    
                     result = true;
                     break;
                 }
